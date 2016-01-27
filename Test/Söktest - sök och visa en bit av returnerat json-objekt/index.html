@@ -5,28 +5,37 @@
 		<button id="search"> Search </button>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script>
+		//Här ligger en "eventlistener" som är kopplad till sök-knappen med id:t "search".
+		//När knappen trycks in kör funktionen som heter "getSearchString".
+		document.getElementById("search").addEventListener("click", getSearchString);
 
-		document.getElementById("search").addEventListener("click", function(event)
-		{
-			var query1 = "/w/api.php?action=query&list=search&format=json&srsearch=";
-			var query2 = "&srprop=snippet&titles=Main%20Page";
+		//Funktionen hämtar texten från textrutan, kollar att det inte är tomt, byter ut mellanslag
+		//mot "%20" (för att wikipedia vill det) och lägger sedan in den i en hårdkodad query.
+		//Till sist skickas den färdiga query:n till funktionen "searchWiki".
+		function getSearchString() {
 			var usertext = document.getElementById("searchtext").value;
-			usertext = usertext.replace(" ", "%20");
-			console.log(query1 + usertext + query2);
-		    searchWiki(query1 + usertext + query2);
-		});
+			if(usertext) {
+				usertext = usertext.replace(" ", "%20");
+				var query1 = "/w/api.php?action=query&list=search&format=json&srsearch=";
+				var query2 = "&srprop=snippet&titles=Main%20Page";
+			    searchWiki(query1 + usertext + query2);
+			}
+		}
+
+		//Exempel på queries:
 		//var query = "/w/api.php?action=parse&format=json&prop=text&section=0&page=Jimi_Hendrix";
 		//var query = "/w/api.php?action=query&list=search&format=json&srsearch=mamma%20mia&srprop=snippet&titles=Main%20Page";
 		
 		
-		
+		//Funktionen tar en färdig query som input, kör en GET vad nu det innebär, får ett json-objekt som svar, lagrad i variabeln
+		//"data". Om försöket till att kontakta wikipedia lyckas körs funktionen "print()".
 		function searchWiki(query){
-			var urlvar = "http://en.wikipedia.org" + query + "&callback=?";
+			query = "http://en.wikipedia.org" + query + "&callback=?";
 			$(document).ready(function(){
 		 
 			    $.ajax({
 			        type: "GET",
-			        url: urlvar,
+			        url: query,
 			        contentType: "application/json; charset=utf-8",
 			        async: false,
 			        dataType: "json",
@@ -40,6 +49,7 @@
 			});
 		}
 
+		//Skriver ut en viss bit av json-objektet i text-delen "hejsan".
 		function print(data) {
 			for(var indx = 0; indx < data.query.search.length; indx++) {
 				document.getElementById("hejsan").innerHTML += data.query.search[indx].snippet;
