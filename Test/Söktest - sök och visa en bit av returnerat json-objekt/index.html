@@ -16,9 +16,10 @@
 			var usertext = document.getElementById("searchtext").value;
 			if(usertext) {
 				usertext = usertext.replace(" ", "%20");
-				var query1 = "/w/api.php?action=query&list=search&format=json&srsearch=";
-				var query2 = "&srprop=snippet&titles=Main%20Page";
-			    searchWiki(query1 + usertext + query2);
+				var query1 = "/w/api.php?action=query&list=backlinks&format=json&bltitle=";
+				var query2 = "&bllimit=100";
+				var finalQuery = "http://en.wikipedia.org" + query1 + usertext + query2 + "&callback=?";
+			    searchWiki(finalQuery);
 			}
 		}
 
@@ -26,13 +27,10 @@
 		//var query = "/w/api.php?action=parse&format=json&prop=text&section=0&page=Jimi_Hendrix";
 		//var query = "/w/api.php?action=query&list=search&format=json&srsearch=mamma%20mia&srprop=snippet&titles=Main%20Page";
 		
-		
 		//Funktionen tar en färdig query som input, kör en GET vad nu det innebär, får ett json-objekt som svar, lagrad i variabeln
 		//"data". Om försöket till att kontakta wikipedia lyckas körs funktionen "print()".
 		function searchWiki(query){
-			query = "http://en.wikipedia.org" + query + "&callback=?";
 			$(document).ready(function(){
-		 
 			    $.ajax({
 			        type: "GET",
 			        url: query,
@@ -43,7 +41,7 @@
 			            print(data);
 			        },
 			        error: function (errorMessage) {
-			        	console.log("det blev fel");
+			        	console.log("Något gick fel.");
 			        }
 			    });
 			});
@@ -51,11 +49,14 @@
 
 		//Skriver ut en viss bit av json-objektet i text-delen "hejsan".
 		function print(data) {
-			for(var indx = 0; indx < data.query.search.length; indx++) {
-				document.getElementById("hejsan").innerHTML += data.query.search[indx].snippet;
-				document.getElementById("hejsan").innerHTML += "<br><br>";
+			console.log(data);
+			document.getElementById("resultat").innerHTML = "";
+			for(var indx = 0; indx < data.query.backlinks.length; indx++) {
+				document.getElementById("resultat").innerHTML += data.query.backlinks[indx].title;
+				document.getElementById("resultat").innerHTML += "<br><br>";
 			}
 		}
+
 
 
 
@@ -63,7 +64,7 @@
 	</head>
 	<body>
 
-	<p id="hejsan"></p>
+	<p id="resultat"></p>
 
 	</body>
 </html>
