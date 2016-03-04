@@ -9,6 +9,7 @@
 		//Här ligger en "eventlistener" som är kopplad till sök-knappen med id:t "search".
 		//När knappen trycks in kör funktionen som heter "runProgram".
 		document.getElementById("search").addEventListener("click", runProgram);
+		document.getElementById("search").addEventListener("click", runProgram);
 
 		var article = {
 			title: "",
@@ -90,18 +91,19 @@
 				document.getElementById("resultat").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position + "<br><br>";
 			}
 
-			document.getElementById("resultat").innerHTML +=  "<b>Länkar i artikeln:</b><br>";
+			document.getElementById("resultat").innerHTML +=  "<b>Länkar i artikeln:</b> ("
+			+ article.links.length + " st)<br>";
 			for(var indx = 0; indx < article.links.length; indx++) {
 				document.getElementById("resultat").innerHTML += article.links[indx];
 				document.getElementById("resultat").innerHTML += ", ";
 			}
 
-			document.getElementById("resultat").innerHTML +=  "<br><br><b>Artiklar som länkar till denna artikel:</b><br>";
+			document.getElementById("resultat").innerHTML +=  "<br><br><b>Artiklar som länkar till denna artikel:</b> ("
+			+ article.backlinks.length + " st)<br>";
 			for(var indx = 0; indx < article.backlinks.length; indx++) {
 				document.getElementById("resultat").innerHTML += article.backlinks[indx];
 				document.getElementById("resultat").innerHTML += ", ";
 			}
-			console.log(article);
 		}
 
 		function load(data) {
