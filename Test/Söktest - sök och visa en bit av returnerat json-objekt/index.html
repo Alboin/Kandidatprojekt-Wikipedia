@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8">
 		<input type="text", id="searchtext"></input>
 		<button id="search"> Search </button>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -80,26 +81,22 @@
 		}
 
 
-		//Skriver ut en viss bit av json-objektet i text-delen "hejsan".
-		function print(data) {
-			console.log(data);
-			//console.log(data.query.pages[data.query.pageids[0]]);
-			//console.log(data.query.pages.hej.extract);
-			document.getElementById("resultat").innerHTML = "";
-			for(var indx = 0; indx < data.query.backlinks.length; indx++) {
-				document.getElementById("resultat").innerHTML += data.query.backlinks[indx].title;
-				document.getElementById("resultat").innerHTML += ", ";
-			}
-		}
-
 		function printArticle(article) {
-			document.getElementById("resultat").innerHTML = article.title + " Id:" + article.id;
-			document.getElementById("resultat").innerHTML += "<br><br>" + article.first_paragraph + "<br><br>";
+			document.getElementById("resultat").innerHTML = "<b>Artikeltitel:</b> " + article.title
+			+ "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
+			
+			//Kolla om det finns en position förknippad med artikeln eller inte.
+			if(article.position[0]) {
+				document.getElementById("resultat").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position + "<br><br>";
+			}
+
+			document.getElementById("resultat").innerHTML +=  "<b>Länkar i artikeln:</b><br>";
 			for(var indx = 0; indx < article.links.length; indx++) {
 				document.getElementById("resultat").innerHTML += article.links[indx];
 				document.getElementById("resultat").innerHTML += ", ";
 			}
-			document.getElementById("resultat").innerHTML += "<br><br>";
+
+			document.getElementById("resultat").innerHTML +=  "<br><br><b>Artiklar som länkar till denna artikel:</b><br>";
 			for(var indx = 0; indx < article.backlinks.length; indx++) {
 				document.getElementById("resultat").innerHTML += article.backlinks[indx];
 				document.getElementById("resultat").innerHTML += ", ";
@@ -107,9 +104,8 @@
 			console.log(article);
 		}
 
-
-
 		function load(data) {
+
 			for(var indx = 0; indx < data.query.backlinks.length; indx++) {
 				article.backlinks.push(data.query.backlinks[indx].title);
 			}
@@ -121,6 +117,14 @@
 				article.links.push(data.query.pages[article.id].links[indx].title);
 			}
 			all_articles.push(article);
+
+			if(data.query.pages[article.id].coordinates) {
+				article.position =
+					[data.query.pages[article.id].coordinates[0].lat,
+					 data.query.pages[article.id].coordinates[0].lon]
+			} else {
+				article.position = [null,null];
+			}
 			return article;
 		}
 
