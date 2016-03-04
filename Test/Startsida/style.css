@@ -2,6 +2,25 @@ body{
 	font-family: 'Open Sans', sans-serif;
 }
 
+.categories{
+	position: absolute;
+	position: center;
+    border-radius: 25px; 
+    border: 2px solid #FFFFFF;
+    padding: 20px; 
+    width:400px;
+    height: 180px;" 
+}
+
+.row{
+	border: 1px solid black;
+	align-content: center;
+	bottom: 0;
+}
+
+
+
+
 .header-connect{
 	padding-top: 10px;
 }
