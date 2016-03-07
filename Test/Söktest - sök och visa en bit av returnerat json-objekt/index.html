@@ -27,8 +27,8 @@
 		//Funktionen kollar att söksträngen inte är tom, byter ut mellanslag
 		//mot "%20" (för att wikipedia vill det) och lägger sedan in den i en hårdkodad query.
 		//Till sist skickas den färdiga query:n till funktionen "searchWiki".
+
 		function getSearchString(input_title) {
-			
 			if(input_title) {
 				input_title = input_title.replace(" ", "%20");
 
