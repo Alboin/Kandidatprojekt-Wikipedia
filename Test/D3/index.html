@@ -1,0 +1,63 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+	<title>D3 test</title>
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+<body>
+
+	<style>
+		h1.pos_left {
+		    position: relative;
+		    left: 200px;
+		}
+
+	</style>
+
+	<h1>Hejsan svejsan!</h1>
+	
+	<svg id="svg" width="100%" height="100px">
+    	<circle cx="25" cy="25" r="22" fill="blue" stroke="gray" stroke-width="2"/>
+     	<circle cx="100" cy="50" r="25" fill="rgba(0, 255, 0, 0.5)" />
+	</svg>
+
+	<script>
+	d3.select("body").append("p").text("New paragraph!");
+
+	var body = d3.select("body");
+	var div = body.append("div");
+	var svg = d3.selectAll("svg");
+	
+	div.html("Hello, world!");
+
+	svg.transition().duration(1000).attr("x",300);
+
+	d3.selectAll("p").style("color", "white");
+
+	d3.selectAll("p").transition().delay(750).duration(5000).style("color", "rgb(255,0,0)");
+
+	d3.selectAll('circle')
+	  .on('mouseover', function() {
+	    this.style.fill = 'yellow';
+	  })
+	  .on('mouseleave', function() {
+	    this.style.fill = 'rgba(0, 255, 0, 0.5)';
+	  });
+
+	 d3.select('circle').transition().duration(3000).attr("cx", 1000).transition().attr("cy", 10);
+	 svg.append("circle").attr("cx", 1000).attr("cy", 55).attr("r", 10);
+
+	 //d3.select("divven").transition().
+	
+
+	d3.selectAll("p").style("color", function() {
+  return "hsl(" + Math.random() * 360 + ",100%,50%)";
+});
+
+
+
+	</script>
+	<p> En till paragraf. </p>
+
+</body>
+</html>
