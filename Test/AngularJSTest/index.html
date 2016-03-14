@@ -81,7 +81,6 @@
 //>>>>Ej omskrivet till Angular
       $scope.searchWiki = function(query){
       
-
         $(document).ready(function(){
           $.ajax({
               type: "GET",
@@ -89,7 +88,7 @@
               contentType: "application/json; charset=utf-8",
               async: true,
               dataType: "json",
-              success: function (data, textStatus, jqXHR) {
+              success: $scope.function (data, textStatus, jqXHR) {
                 console.log(data);
                 //Här bestäms vad som ska göras med resultatet.
                 printArticle(load(data));
