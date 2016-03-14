@@ -1,0 +1,89 @@
+<!--Källa https://docs.angularjs.org/guide/forms -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wikipedia</title>
+  
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    
+</head>
+
+<body ng-app="formSearch">
+  <div ng-controller="ExampleController">
+    <form novalidate class="simple-form">
+      Sök <input type="text" ng-model="searchtext" required/>
+          <input type="submit" ng-click="runProgram(searchtext)" value="Search" />
+    </form>
+
+    <!--Visar texten direkt, kan tas bort senare-->
+    <pre>Söktext = {{searchtext | json}}</pre>
+    <pre>master = {{master | json}}</pre>
+
+</div>
+
+<script>
+  //Oklart om man skriver variablerna såhär 
+  var all_articles = [];
+  var save;
+
+
+  angular.module('formSearch', [])
+    .controller('ExampleController', ['$scope', function($scope) {
+     
+      $scope.master = {};
+
+      $scope.runProgram = function(searchtext) {
+        $scope.master = angular.copy(searchtext);
+
+      };
+
+/*
+      //Skriver man så?
+      $scope.function getSearchString(input_title) {
+
+
+      };
+
+      $scope.function searchWiki(query){
+
+
+      };
+
+      function printArticle(article) {
+
+      };
+
+      function load(data) {
+
+      };
+
+      function getTime(text) {
+
+      };
+
+      function getMonth(word) {
+
+      };
+
+      function getPosition(revision) {
+
+      };
+
+*/
+      $scope.reset = function() {
+        $scope.searchtext = angular.copy($scope.master);
+      };
+
+      $scope.reset();
+
+    }]);
+</script>
+
+<p id="resultat"></p>
+
+</body>
+</html>
+
