@@ -1,4 +1,3 @@
-
 //Allt det här låg i head i index.html förut
 		
 		var all_articles = [];
@@ -66,30 +65,30 @@
 
 		function printArticle(article) {
 
-			document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
+			document.getElementById("resultat").innerHTML = "<b>Artikeltitel:</b> " + article.title
 			+ "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
 			
 			//Kolla om det finns en position förknippad med artikeln eller inte.
 			if(article.position[0]) {
-				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position + "<br><br>";
+				document.getElementById("resultat").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position + "<br><br>";
 			}
 
 			if(article.time[0]) {
-				document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
+				document.getElementById('resultat').innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
 			}
 
-			document.getElementById("länkar").innerHTML +=  "<b>Länkar i artikeln:</b> ("
+			document.getElementById("resultat").innerHTML +=  "<b>Länkar i artikeln:</b> ("
 			+ article.links.length + " st)<br>";
 			for(var indx = 0; indx < article.links.length; indx++) {
-				document.getElementById("länkar").innerHTML += article.links[indx];
-				document.getElementById("länkar").innerHTML += ", ";
+				document.getElementById("resultat").innerHTML += article.links[indx];
+				document.getElementById("resultat").innerHTML += ", ";
 			}
 
-			document.getElementById("länkar").innerHTML +=  "<br><br><b>Artiklar som länkar till denna artikel:</b> ("
+			document.getElementById("resultat").innerHTML +=  "<br><br><b>Artiklar som länkar till denna artikel:</b> ("
 			+ article.backlinks.length + " st)<br>";
 			for(var indx = 0; indx < article.backlinks.length; indx++) {
-				document.getElementById("länkar").innerHTML += article.backlinks[indx];
-				document.getElementById("länkar").innerHTML += ", ";
+				document.getElementById("resultat").innerHTML += article.backlinks[indx];
+				document.getElementById("resultat").innerHTML += ", ";
 			}
 		}
 
@@ -248,4 +247,3 @@
 
 			return birthplace;
 		}
-

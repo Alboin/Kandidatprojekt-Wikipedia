@@ -1,33 +1,70 @@
+
+<!-- Den här koden är skriven med angular.js -->
+
 <!DOCTYPE html>
-<html>
+<html ng-app="wikiSearch">
 	<head>
 		<meta charset="UTF-8">
 		<input type="text", id="searchtext"></input>
 		<button id="search"> Search </button>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script src="js/article.js"></script>
+	<script type="text/javascript" src="js/article.js"></script>
 	<script>
 
 		//Här ligger en "eventlistener" som är kopplad till sök-knappen med id:t "search".
 		//När knappen trycks in kör funktionen som heter "runProgram".
 		document.getElementById("search").addEventListener("click", runProgram);
-
-	<!--
-		/*
-		Translations...
-		\u00f6 = ö
-		\u00d6 = Ö
-		\u00e5 = å
-		\u00c5 = Å
-		\u00e4 = ä
-		\u00c4 = Ä
-		*/ -->
 	
 	</script>
 	</head>
-	<body>
+	<body ng-controller="ArticleController as articleCtrl">
 
-		<p id="resultat"></p>
+		<!-- Den här diven visas endast om 'product is found', dvs om artikeln finns -->
+		<!-- ng-hide kan användas på liknande sätt -->
+	<!-- 	<div ng-show="articleCtrl.product.found"> -->	
+			<!-- <div ng-repeat="product in articleCtrl.products" > -->
+	<!-- 		<h3> {{articleCtrl.product.title}} </h3>
+				<p> {{articleCtrl.product.coord}} </p>
+		</div> 
+	-->
 
+	<!--
+		<p id="artikelinfo"></p>
+		<p id="koordinater"></p>	
+		<p id="länkar"></p>  
+	-->
+
+
+		<section ng-init="page = 1" class="page" ng-controller="PageController as pageCtrl">
+			<div class="pageButtons">
+				<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
+				<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)"> Plats </button>
+				<button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>
+			</div>
+
+			<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
+				<h4> Tidsinformation </h4>
+				<blockquote id="artikelinfo"> </blockquote>
+				<blockquote id="tidsinfo"></blockquote>
+			</div>
+			<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
+				<h4> Platsinformation </h4>
+				<blockquote id="koordinater"> </blockquote>
+			</div>
+			<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
+				<h4> Övrigt </h4>
+				<blockquote id="länkar"> </blockquote>
+			</div>
+			<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
+				<h4> skriv sökord </h4>
+			</div>
+
+
+		</section>
 	</body>
 </html>
