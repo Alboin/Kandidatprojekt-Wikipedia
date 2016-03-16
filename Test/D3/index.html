@@ -1,10 +1,10 @@
 <!DOCTYPE <!DOCTYPE html>
-<html>
+<html style="width:100%;height:100%;">
 <head>
 	<title>D3 test</title>
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
-<body>
+<body style="width:100%;height:100%;margin:0;">
 
 	<style>
 		h1.pos_left {
@@ -14,11 +14,10 @@
 
 	</style>
 
-	<h1>Hejsan svejsan!</h1>
 	
 	<svg id="svg" width="100%" height="100px">
-    	<circle cx="25" cy="25" r="22" fill="blue" stroke="gray" stroke-width="2"/>
-     	<circle cx="100" cy="50" r="25" fill="rgba(0, 255, 0, 0.5)" />
+    	<circle cx="25" cy="25" r="22" fill="blue" stroke="gray" stroke-width="2" id="blue"/>
+     	<circle cx="100" cy="50" r="25" fill="rgba(0, 255, 0, 0.5)" id="green" />
 	</svg>
 
 	<script>
@@ -44,15 +43,74 @@
 	    this.style.fill = 'rgba(0, 255, 0, 0.5)';
 	  });
 
-	 d3.select('circle').transition().duration(3000).attr("cx", 1000).transition().attr("cy", 10);
-	 svg.append("circle").attr("cx", 1000).attr("cy", 55).attr("r", 10);
+
+	d3.select('circle').transition().duration(3000).attr("cx", 1000).transition().attr("cy", 10);
+	
+	svg.append("circle").attr("cx", 1000).attr("cy", 55).attr("r", 10).attr("id", "svart");
+
+	//Skapa ett nytt svg-objekt, inklusive ytan den ritas ut på.
+	d3.select("body").append("svg").attr("width", 50).attr("height", 50).append("circle").attr("cx", 25).attr("cy", 25).attr("r", 25).style("fill", "purple");
+
+	d3.selectAll('circle').on('click', function(){
+		this.style.fill = 'rgba(0,0,255,0.5)';
+		console.log("hejs");
+		console.log(this.cx); //Returnerar prickens slutgiltiga värde.
+		console.log(this.cy);
+	});
+
+	d3.select("#green").on('click', function(){
+		d3.select("#blue").transition().duration(2000).attr("cx","25").attr("cy","25").attr("r", "50");
+	})
+
+	//Logga mousemove
+	var x = 0;
+	svg.on('mousemove', function () {
+	   x = d3.mouse(this)[0];         
+	});
+	console.log(x);
+
+	d3.select("#svart").on('click', function() {
+		var x = d3.mouse(this)[0];
+		var y = d3.mouse(this)[1];
+		d3.select("#pratbubbla").remove();
+		d3.select("body").append("div")
+			.attr("min-width", "200")
+			.attr("min-height", "300")
+			.attr("id", "pratbubbla")
+			.style("background-color", "blue")
+			.style("left",String(x) + "px")
+			.style("top", String(y) + "px")
+			.style("z-index", "1")
+			.style("position", "fixed")
+			.style("margin", "0px 0px 0px 0px")
+			.style("padding", "0px 0px 0px 0px")
+			.style("border-style", "solid");
+		d3.select("#pratbubbla").append('p').text("Hej");
+		console.log(d3.mouse(this));
+	});
+
+	var x = 0, y = 0;
+
+	var zoom = d3.behavior.zoom()
+    .x(x)
+    .y(y)
+    .scaleExtent([1, 10])
+    .on("zoom", zoomed);
+
+    function zoomed() {
+    	console.log("testa123")
+	  //svg.select("#svart").attr("r", String(x));
+	}
+
+
+
 
 	 //d3.select("divven").transition().
 	
 
 	d3.selectAll("p").style("color", function() {
-  return "hsl(" + Math.random() * 360 + ",100%,50%)";
-});
+  		return "hsl(" + Math.random() * 360 + ",100%,50%)";
+	});
 
 
 
