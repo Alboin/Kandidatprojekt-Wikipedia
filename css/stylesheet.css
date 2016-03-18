@@ -5,10 +5,9 @@ p {
 }
 
 
-
-#footer {
-
+#status_API
+{
 	text-align: center;
 	font-size: 100%;
-	font-family: 'Tahoma';
+	text-align: 'Tahoma';
 }

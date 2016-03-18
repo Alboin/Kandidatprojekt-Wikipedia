@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<input type="text", id="searchtext"></input>
-		<button id="search"> Search </button>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script>
+
 		//Här ligger en "eventlistener" som är kopplad till sök-knappen med id:t "search".
 		//När knappen trycks in kör funktionen som heter "getSearchString".
 		document.getElementById("search").addEventListener("click", getSearchString);
@@ -18,7 +12,7 @@
 				usertext = usertext.replace(" ", "%20");
 				var query1 = "/w/api.php?action=query&list=backlinks&format=json&bltitle=";
 				var query2 = "&bllimit=100000";
-				var finalQuery = "http://sv.wikipedia.org" + query1 + usertext + query2 + "&callback=?";
+				var finalQuery = "http://en.wikipedia.org" + query1 + usertext + query2 + "&callback=?";
 			    searchWiki(finalQuery);
 			}
 		}
@@ -42,7 +36,6 @@
 			        },
 			        error: function (errorMessage) {
 			        	console.log("Något gick fel.");
-			        	
 			        }
 			    });
 			});
@@ -57,15 +50,3 @@
 				document.getElementById("resultat").innerHTML += "<br><br>";
 			}
 		}
-
-
-
-
-	</script>
-	</head>
-	<body>
-
-	<p id="resultat"></p>
-
-	</body>
-</html>
