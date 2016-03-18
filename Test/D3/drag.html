@@ -1,0 +1,46 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+	<title>Drag</title>
+	<meta charset="utf-8">
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+<body style="width:100%;height:100%;margin:0;">
+<script>
+	var svg = d3.select("body")
+		.append("svg")
+		.attr("width", "100%")
+	  	.attr("height", "100%");
+
+	var drag = d3.behavior.drag()
+		.on('dragstart', function() {
+			circle.transition().attr("r", 40).style("fill", "red");
+		})
+		.on('drag', function() {
+			circle.attr("cx", d3.event.x)
+				.attr("cy", d3.event.y);
+
+				console.log(d3.mouse(this));
+				updatePositionParagraph(d3.mouse(this));
+		})
+		.on('dragend', function() {
+			circle.transition().attr("r", 20).style("fill", "green");
+
+		});
+
+	var circle = svg.append("circle")
+					.call(drag)
+					.attr("r", 20)
+					.attr("cx", 50)
+					.attr("cy", 50)
+					.style("fill", "green");
+
+	var posText = svg.append("text").attr("x", "50%").attr("y", "20");
+
+	function updatePositionParagraph(pos) {
+		posText.text(String(pos));
+	}
+
+</script>
+</body>
+</html>
