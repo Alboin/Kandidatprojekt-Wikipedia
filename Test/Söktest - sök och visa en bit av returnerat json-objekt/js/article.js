@@ -91,6 +91,8 @@
 				document.getElementById("länkar").innerHTML += article.backlinks[indx];
 				document.getElementById("länkar").innerHTML += ", ";
 			}
+
+			document.getElementById("sökgenomförd").innerHTML += "Klicka på de olika tabbarna för mer information om artikeln.";
 		}
 
 
