@@ -21,6 +21,7 @@
 		document.getElementById("search").addEventListener("click", runProgram);
 	
 	</script>
+<<<<<<< HEAD
 
 
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
@@ -28,6 +29,8 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
 
 
+=======
+>>>>>>> parent of 931202d... Karta
 	</head>
 	<body ng-controller="ArticleController as articleCtrl">
 
@@ -60,16 +63,17 @@
 				<h4> Tidsinformation </h4>
 				<blockquote id="tidsinfo"></blockquote>
 			</div>
-
 			<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
 				<h4> Platsinformation </h4>
 				<blockquote id="koordinater"> </blockquote>
+
 
 				<div id='map'></div>
 				<script>
 				mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWh5ZWFoaCIsImEiOiJjaWx4dGw5M2gwMGc0dW9tNGk1M3JnbWI1In0.Zo28bpcbm5VxdSkJ0qXC8A';
 				</script>
 		
+
 			</div>
 
 			<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
