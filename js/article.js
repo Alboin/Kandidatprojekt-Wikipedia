@@ -5,6 +5,7 @@
 
 		var all_articles = [];
 		var save;
+		var first_time;
 
 		//Funktionen som körs när man trycker på "search"
 		function runProgram() {		
@@ -12,7 +13,8 @@
 			var usertext = document.getElementById("searchtext").value;
 			var query = getSearchString(usertext);
 			//Denna funktion körs asynkront.
-			searchWiki(query);
+			first_time = true;
+			searchWiki(query, first_time);
 			//Det betyder att HÄR, efter funktionen skulle man kunna ha någon slags loadingscreen, som visas medans vi väntar på ett svar från funktionen.
 		}
 
@@ -44,7 +46,7 @@
 
 		//Funktionen tar en färdig query som input, kör en GET vad nu det innebär, får ett json-objekt som svar, lagrad i variabeln
 		//"data".
-		function searchWiki(query){
+		function searchWiki(query, first){
 			$(document).ready(function(){
 			    $.ajax({
 			        type: "GET",
@@ -54,14 +56,49 @@
 			        dataType: "json",
 			        success: function (data, textStatus, jqXHR) {
 			        	console.log(data);
+
+			        	if(first){
+			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
+			        	}
+			        	else{
+			        		printArticle(load(data));
+			        	}
+
+
 			        	//Här bestäms vad som ska göras med resultatet.
-			        	printArticle(load(data));
+			        	//printArticle(load(data));
 			        },
 			        error: function (errorMessage) {
 			        	console.log("Inget sökord ifyllt.");
 			        }
 			    });
 			});
+		}
+
+
+		//Här testar vi att hantera länkar, skapa nya sökningar av länkarna
+		//Skicka en sökning av 50 länkar åt gången
+		function handleLinks(links){
+			first_time = false;
+
+			for(var indx = 0; indx < links.length; indx++){
+				var query = getSearchString(links[indx]);
+				searchWiki(query, first_time);
+			}
+
+			//ska sättas till true igen, ifall användaren klickar på en av länkarna?
+			//first_time = true;
+		} 
+
+		//Checkar om varje länk har en position, dvs. om den är en plats
+		//Om länken/artikeln är en plats, spara den.
+		function linksPosition(links){
+
+			for(var indx = 0; indx < links.length; indx++){
+				if(article.position != ""){
+					document.getElementById("platser").innerHTML += article.title;
+				}
+			}
 		}
 
 		
@@ -253,3 +290,7 @@
 			return birthplace;
 		}
 
+
+
+
+	
