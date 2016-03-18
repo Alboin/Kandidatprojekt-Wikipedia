@@ -1,7 +1,7 @@
 <!DOCTYPE <!DOCTYPE html>
 <html>
 <head>
-	<title>Hej</title>
+	<title>Zoom</title>
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 <body>
@@ -11,11 +11,13 @@
 	  .attr("width", "100%")
 	  .attr("height", "100%")
 	  .call(d3.behavior.zoom().scaleExtent([0.5, 10]).on("zoom", function () {
-	    svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+	    svg.transition().attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
 	  }))
 	  .append("g");
 
 	d3.select("g").append("circle").attr("r", "50").attr("cx", "700").attr("cy", "300").style("fill","rgba(0, 255, 0, 0.5)");
+
+
 
 </script>
 </body>
