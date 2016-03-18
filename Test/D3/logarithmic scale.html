@@ -6,78 +6,104 @@
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 <body style="width:100%;height:100%;margin:0;">
+
 	<script>
 		var svg = d3.select('body').append('svg').attr('width', '100%').attr('height', '100%');	
 
-		var handle_width = 20, handle_height = 40;
+		//Declare size constants for handles and timeline.
+		var handle_width = 15, handle_height = 30;
+		var edge_radius = 3;
+		var timeline_start = 0.05*window.innerWidth,
+			timeline_width = window.innerWidth - 2*timeline_start,
+			timeline_height = 20,
+			timeline_ypos = 0.9*window.innerHeight;
 
-		var drag1 = d3.behavior.drag()
+		//Drag-functionality for left handle.
+		var drag_handle_left = d3.behavior.drag()
 			.on('dragstart', function() {
 				console.log("Start drag");
 			})
 			.on('drag', function() {
-				left_handle.attr('x', (d3.event.x - 10));
-				if(d3.event.x < 0.2 * window.innerWidth)
-					left_handle.attr('x', (0.2 * window.innerWidth - 10));
-				if(d3.event.x > parseInt(right_handle.attr('x')) - parseInt(right_handle.attr('width')) / 2)
-					left_handle.attr('x', parseInt(right_handle.attr('x')) - parseInt(right_handle.attr('width')));
-
+				handle_left.attr('x', (d3.event.x - handle_width/2));
+				if(d3.event.x < timeline_start)
+					handle_left.attr('x', (timeline_start - handle_width/2));
+				if(d3.event.x > parseInt(handle_right.attr('x')) - handle_width/2)
+					handle_left.attr('x', parseInt(handle_right.attr('x')) - handle_width);
+				marked_time
+					.attr('x', parseInt(handle_left.attr('x')) + handle_width/2)
+					.attr('width', parseInt(handle_right.attr('x')) - parseInt(handle_left.attr('x')));
 			})
 			.on('dragend', function() {
 				console.log("End drag");
 		});
 
-		var drag2 = d3.behavior.drag()
+		//Drag-functionality for right handle.
+		var drag_handle_right = d3.behavior.drag()
 			.on('dragstart', function() {
 				console.log("Start drag");
 			})
 			.on('drag', function() {
-				right_handle.attr('x', (d3.event.x - 10));
-				if(d3.event.x > 0.8 * window.innerWidth)
-					right_handle.attr('x', (0.8 * window.innerWidth - 10));
-				if(d3.event.x < parseInt(left_handle.attr('x')) + 1.5 * parseInt(left_handle.attr('width')))
-					right_handle.attr('x', parseInt(left_handle.attr('x')) + parseInt(left_handle.attr('width')));
+				handle_right.attr('x', (d3.event.x - handle_width/2));
+				if(d3.event.x > timeline_width + timeline_start)
+					handle_right.attr('x', (timeline_width + timeline_start - handle_width/2));
+				if(d3.event.x < parseInt(handle_left.attr('x')) + 1.5 * handle_width)
+					handle_right.attr('x', parseInt(handle_left.attr('x')) + handle_width);
+				marked_time.attr('width', parseInt(handle_right.attr('x')) - parseInt(marked_time.attr('x')));
 			})
 			.on('dragend', function() {
 				console.log("End drag");
 		});
 
 
-
+		//Create timeline.
 		var time_line = svg.append('rect')
-			.attr('x', window.innerWidth * 0.2)
-			.attr('width', '60%')
-			.attr('y', '100px')
-			.attr('height', '20px')
-			.attr('rx', '4')
-			.style('fill', 'grey');
+			.attr('x', timeline_start)
+			.attr('width', timeline_width)
+			.attr('y', timeline_ypos)
+			.attr('height', timeline_height)
+			.attr('rx', edge_radius)
+			.style('fill', 'rgb(100,100,100)');
 
+		//Create marked section of timeline.
 		var marked_time = svg.append('rect')
-			.attr('x', time_line.attr('x'))
-			.attr('width', time_line.attr('width'))
-			.attr('y', time_line.attr('y'))
-			.attr('height', time_line.attr('height'))
-			.style('fill', 'yellow');
+			.attr('x', timeline_start)
+			.attr('width', timeline_width)
+			.attr('y', timeline_ypos)
+			.attr('height', timeline_height)
+			.style('fill', 'rgb(150,150,150)');
 
-		var left_handle = svg.append('rect')
-			.attr('x', time_line.attr('x'))
-			.attr('width', '20px')
-			.attr('y', '90px')
-			.attr('height', '40px')
-			.attr('rx', 4)
-			.style('fill', 'red')
-			.call(drag1);
+		//Create left handle.
+		var handle_left = svg.append('rect')
+			.attr('x', timeline_start - handle_width/2)
+			.attr('width', handle_width)
+			.attr('y', timeline_ypos + timeline_height/2 - handle_height/2)
+			.attr('height', handle_height)
+			.attr('rx', edge_radius)
+			.style('fill', 'rgb(200,200,200)')
+			.call(drag_handle_left);
 
-		var right_handle = svg.append('rect')
-			.attr('x', time_line.attr('width'))
-			.attr('width', '20px')
-			.attr('y', '90px')
-			.attr('height', '40px')
-			.attr('rx', 4)
-			.style('fill', 'green')
-			.call(drag2);
+		//Create right handle.
+		var handle_right = svg.append('rect')
+			.attr('x', timeline_start + timeline_width - handle_width/2)
+			.attr('width', handle_width)
+			.attr('y', timeline_ypos + timeline_height/2 - handle_height/2)
+			.attr('height', handle_height)
+			.attr('rx', edge_radius)
+			.style('fill', 'rgb(200,200,200)')
+			.call(drag_handle_right);
 
+		//Function to animate handle movement.
+		function moveHandles(left_pos, right_pos) {
+			if(left_pos > right_pos) {
+				console.log("Left pos was bigger than right pos.");
+				return;
+			}
+			handle_left.transition().duration(2000).attr('x', left_pos);
+			handle_right.transition().duration(2000).attr('x', right_pos);
+			marked_time.transition().duration(2000).attr('x', left_pos).attr('width', right_pos-left_pos);
+		}
 
+		moveHandles(300, 400);
 
 
 	</script>
