@@ -1,10 +1,30 @@
 
 #footer {
-
 	text-align: center;
 	font-size: 100%;
 	font-family: 'Tahoma';
+}
 
+#fit {
+    display: block;
+    position: relative;
+    margin: 0px auto;
+    width: 50%;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    background: #ee8a65;
+}
+
+#map { 
+	position:absolute; 
+	top:0; 
+	bottom:0; 
+	width:100%; 
 }
 
 p {
@@ -38,3 +58,10 @@ button.active {
 	border-radius: 8px;
 }
 
+body { 
+ 	margin:0; 
+ 	padding:0; 
+}
+        
+
+        
