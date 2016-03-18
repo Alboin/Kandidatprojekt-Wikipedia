@@ -1,0 +1,10 @@
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+
+.ng-invalid.ng-dirty { 
+	border-color: red;
+}
+
+.ng-valid.ng-dirty { 
+	border-color: green;
+}
+

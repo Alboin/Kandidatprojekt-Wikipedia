@@ -1,0 +1,320 @@
+<!--Källa https://docs.angularjs.org/guide/forms -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wikipedia</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!--link rel="stylesheet" type="text/css" href="css/style.css"-->
+    
+</head>
+
+<body ng-app="formSearch">
+  <div ng-controller="ExampleController">
+    <form novalidate class="simple-form">
+      Sök <input type="text" ng-model="searchtext"/>
+          <input type="submit" ng-click="runProgram(searchtext)" value="Search" />
+    </form>
+
+    <!--Visar texten direkt, kan tas bort senare-->
+    <pre>Söktext = {{searchtext | json}}</pre>
+    <pre>master = {{master | json}}</pre>
+
+</div>
+
+<script>
+
+  //Oklart om man skriver variablerna såhär i Angular
+  var all_articles = [];
+  var save;
+
+  var formSearch = angular.module('formSearch', []);
+  formSearch.controller('ExampleController', ['$scope', function($scope) {
+     
+      $scope.master = {};
+
+      $scope.runProgram = function(searchtext) {
+        $scope.master = angular.copy(searchtext);
+
+        //var usertext = document.getElementById("searchtext").value;
+        var usertext = angular.element("searchtext");
+
+        //var query = getSearchString(usertext);
+        var query = $scope.getSearchString(usertext);
+       
+        //Denna funktion körs asynkront.
+        $scope.searchWiki(query);
+        //Det betyder att HÄR, efter funktionen skulle man kunna ha någon slags loadingscreen, som visas medans vi väntar på ett svar från funktionen.
+        
+        console.log(usertext);
+        console.log(query);
+        console.log(searchtext);
+      };
+
+
+      //Skriver man så?
+      $scope.getSearchString = function(input_title){
+
+//>>>>>>Ej omskrivet till Angular
+        if(input_title) {
+        
+        //input_title = input_title.replace(" ", "%20");
+        input_title = input_title.replace(" ",'%20');
+
+        //The beginning of the query, tells us to do a query and return the result on json format.
+        var start = "/w/api.php?action=query&format=json";
+        //The what to search for
+        var title = "&titles=" + input_title;
+        //Wich properties to get. (coordinates, links, revisions, extracts, pageid)
+        var properties = "&prop=coordinates%7Clinks%7Crevisions%7Cextracts" + "&indexpageids=1" + "&pllimit=max"; 
+        var revisions = "&rvprop=content" + "&exintro=1" + "&explaintext=1";
+        //Wich lists to get.
+        var lists = "&list=backlinks"
+        var list_parameters = "&bllimit=max" + "&bltitle=" + input_title;
+        //Create final query
+        var finalQuery = "http://sv.wikipedia.org" + start + title + properties + revisions + lists + list_parameters + "&callback=?";
+          return finalQuery;
+        }
+
+
+      };
+
+//>>>>Ej omskrivet till Angular
+      $scope.searchWiki = function(query){
+      
+        $(document).ready(function(){
+          $.ajax({
+              type: "GET",
+              url: query,
+              contentType: "application/json; charset=utf-8",
+              async: true,
+              dataType: "json",
+              success: function (data, textStatus, jqXHR) {
+                console.log(data);
+                //Här bestäms vad som ska göras med resultatet.
+                printArticle(load(data));
+              },
+              error: function (errorMessage) {
+                console.log("Något gick fel.");
+              }
+          });
+        });
+
+      };
+
+
+//>>>>>Ej omskrivet till Angular
+        $scope.printArticle = function(article){
+    
+
+        document.getElementById("resultat").innerHTML = "<b>Artikeltitel:</b> " + article.title
+        + "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
+        
+        //Kolla om det finns en position förknippad med artikeln eller inte.
+        if(article.position[0]) {
+          document.getElementById("resultat").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position + "<br><br>";
+        }
+
+        if(article.time[0]) {
+          document.getElementById('resultat').innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
+        }
+
+        document.getElementById("resultat").innerHTML +=  "<b>Länkar i artikeln:</b> ("
+        + article.links.length + " st)<br>";
+        for(var indx = 0; indx < article.links.length; indx++) {
+          document.getElementById("resultat").innerHTML += article.links[indx];
+          document.getElementById("resultat").innerHTML += ", ";
+        }
+
+        document.getElementById("resultat").innerHTML +=  "<br><br><b>Artiklar som länkar till denna artikel:</b> ("
+        + article.backlinks.length + " st)<br>";
+        for(var indx = 0; indx < article.backlinks.length; indx++) {
+          document.getElementById("resultat").innerHTML += article.backlinks[indx];
+          document.getElementById("resultat").innerHTML += ", ";
+        }
+
+      };
+
+
+//>>>>>Ej omskrivet till Angular
+      $scope.load = function(data){
+
+        var temp_article = {
+        title: "",
+        id: -1,
+        links: [],
+        backlinks: [],
+        first_paragraph: "",
+        position: [null,null],
+        birthplace: "",
+        time: [null, null]
+      }
+
+      for(var indx = 0; indx < data.query.backlinks.length; indx++) {
+        temp_article.backlinks.push(data.query.backlinks[indx].title);
+      }
+      temp_article.id = data.query.pageids[0];
+      temp_article.title = data.query.pages[temp_article.id].title;
+      temp_article.first_paragraph = data.query.pages[temp_article.id].extract;
+
+      for(var indx = 0; indx < data.query.pages[temp_article.id].links.length; indx++) {
+        temp_article.links.push(data.query.pages[temp_article.id].links[indx].title);
+      }
+      all_articles.push(temp_article);
+
+      if(data.query.pages[temp_article.id].coordinates) {
+        temp_article.position =
+          [data.query.pages[temp_article.id].coordinates[0].lat,
+           data.query.pages[temp_article.id].coordinates[0].lon]
+      } else {
+        temp_article.position = [null,null];
+      }
+      
+      temp_article.time = getTime(temp_article.first_paragraph);
+      temp_article.birthplace = getPosition(data.query.pages[temp_article.id].revisions[0]["*"]);
+
+      console.log(temp_article);
+      return temp_article;
+
+      };
+
+//>>>>>Ej omskrivet till Angular
+      $scope.getTime = function(text){
+      
+        //Temporary variables
+        var month = null;
+        var year = null;
+        var temp_time = [null,null,null]; // [date, month, year]
+        var word = "";
+        var previous_word_was_month = false;
+
+        //Variable to return
+        var time = [];
+
+        //Prepare text.
+        text = text.replace(/[-–&\/\\#,+()$~%.'":*?<>{}]/g, ' ');
+        text = text.toLowerCase();
+
+        for(var indx = 0; indx < text.length; indx++) {
+          //If current char is " ", we have a word.
+          if(text[indx] == " ") {
+            
+            //Check if word is a number, if it is, convert it to an integer and save in "date".
+            if(!isNaN(word) && !(word == "")) {
+              //If the number is less than 3 digits it is probably a date.
+              if(word.length < 3) {
+                temp_time[0] = parseInt(word);
+                //all_dates.push(parseInt(word));
+
+              //If it is longer than 2 digits and the previous word was a month it is probably a year.
+              } else if (temp_time[0] != null && previous_word_was_month) {
+                temp_time[2] = parseInt(word);
+              } 
+            //If the word is not a number, check if it is a date.
+            } else {
+              month = getMonth(word);
+              if(month > -1) {
+                temp_time[1] = month;
+                previous_word_was_month = true;
+              } else {
+                previous_word_was_month = false;
+              }
+            }
+
+            //If all slots in "temp_time" is filled, save the point of time and clear the variable.
+            if(temp_time[2] != null) {
+              time.push(temp_time);
+              if(time.length > 1)
+                return time;
+              temp_time = [null,null,null];
+            }
+
+            //Clear word
+            word = "";
+
+          } else {
+            //Append current char to word.
+            word += text[indx];
+          
+          }
+        }
+        return time;
+      };
+
+//>>>>>Ej omskrivet till Angular
+      $scope.getMonth = function(word){
+
+        var result = -1;
+
+        result = word.localeCompare("januari");
+        if(result == 0)
+          return 1; 
+        result = word.localeCompare("februari");
+        if(result == 0)
+          return 2; 
+        result = word.localeCompare("mars");
+        if(result == 0)
+          return 3; 
+        result = word.localeCompare("april");
+        if(result == 0)
+          return 4; 
+        result = word.localeCompare("maj");
+        if(result == 0)
+          return 5; 
+        result = word.localeCompare("juni");
+        if(result == 0)
+          return 6; 
+        result = word.localeCompare("juli");
+        if(result == 0)
+          return 7; 
+        result = word.localeCompare("augusti");
+        if(result == 0)
+          return 8; 
+        result = word.localeCompare("september");
+        if(result == 0)
+          return 9; 
+        result = word.localeCompare("oktober");
+        if(result == 0)
+          return 10; 
+        result = word.localeCompare("november");
+        if(result == 0)
+          return 11; 
+        result = word.localeCompare("december");
+        if(result == 0)
+          return 12;
+        //Return -1 if it is not a month.
+        return -1;
+
+
+      };
+
+//>>>>>Ej omskrivet till Angular
+      $scope.getPosition = function(revision){
+      
+        var birthplace = "";
+        var indx = revision.indexOf("f\u00f6delseplats");
+
+        indx = revision.indexOf("[[", indx) + 2;
+        birthplace = revision.substring(indx, revision.indexOf("]]",indx));
+
+        return birthplace;
+      };
+
+     $scope.reset = function() {
+        $scope.searchtext = angular.copy($scope.master);
+      };
+
+      $scope.reset();
+
+    }]);
+</script>
+
+<p id="resultat"></p>
+
+</body>
+</html>
+

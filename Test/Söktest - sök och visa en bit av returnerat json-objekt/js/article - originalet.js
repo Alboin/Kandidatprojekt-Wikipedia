@@ -1,28 +1,7 @@
-
-<!-- Den här koden är skriven med angular.js -->
-
-<!DOCTYPE html>
-<html ng-app="wikiSearch">
-	<head>
-		<meta charset="UTF-8">
-		<input type="text", id="searchtext"></input>
-		<button id="search"> Search </button>
-
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
-	<script type="text/javascript" src="js/angular.min.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script type="text/javascript" src="js/article.js"></script>
-	<script>
-
-		//Här ligger en "eventlistener" som är kopplad till sök-knappen med id:t "search".
-		//När knappen trycks in kör funktionen som heter "runProgram".
-		document.getElementById("search").addEventListener("click", runProgram);
-
+//Allt det här låg i head i index.html förut
+		
 		var all_articles = [];
 		var save;
-
 
 		//Funktionen som körs när man trycker på "search"
 		function runProgram() {		
@@ -34,10 +13,10 @@
 			//Det betyder att HÄR, efter funktionen skulle man kunna ha någon slags loadingscreen, som visas medans vi väntar på ett svar från funktionen.
 		}
 
+		
 		//Funktionen kollar att söksträngen inte är tom, byter ut mellanslag
 		//mot "%20" (för att wikipedia vill det) och lägger sedan in den i en hårdkodad query.
 		//Till sist skickas den färdiga query:n till funktionen "searchWiki".
-
 
 		function getSearchString(input_title) {
 			if(input_title) {
@@ -56,10 +35,10 @@
 				//Create final query
 				var finalQuery = "http://sv.wikipedia.org" + start + title + properties + revisions + lists + list_parameters + "&callback=?";
 			    return finalQuery;
-
 			}
 		}
-		
+
+
 		//Funktionen tar en färdig query som input, kör en GET vad nu det innebär, får ett json-objekt som svar, lagrad i variabeln
 		//"data".
 		function searchWiki(query){
@@ -76,13 +55,13 @@
 			        	printArticle(load(data));
 			        },
 			        error: function (errorMessage) {
-			        	console.log("Något gick fel.");
-			        	
+			        	console.log("Inget sökord ifyllt.");
 			        }
 			    });
 			});
 		}
 
+		
 
 		function printArticle(article) {
 
@@ -112,6 +91,7 @@
 				document.getElementById("resultat").innerHTML += ", ";
 			}
 		}
+
 
 		function load(data) {
 
@@ -152,7 +132,8 @@
 			console.log(temp_article);
 			return temp_article;
 		}
-		
+
+
 		function getTime(text) {
 			//Temporary variables
 			var month = null;
@@ -168,8 +149,6 @@
 			text = text.replace(/[-–&\/\\#,+()$~%.'":*?<>{}]/g, ' ');
 			text = text.toLowerCase();
 
-
-			//Loops through the text and searches for time.
 			for(var indx = 0; indx < text.length; indx++) {
 				//If current char is " ", we have a word.
 				if(text[indx] == " ") {
@@ -213,25 +192,6 @@
 				
 				}
 			}
-
-			//Search for a century associated with the article.
-			var indx = text.indexOf(" talet"); //since "-" is replaced with " " at the beginning of the function.
-			console.log(indx);
-			if(indx > -1) {
-				console.log(text.substring(indx-4,indx))
-				//Extract the 4 characters in front of "-talet" and parse to int.
-				var year = parseInt(text.substring(indx-4,indx));
-				if(!isNaN(year)) {
-					if(year % 100 == 0) {
-						time.push([year,year+99]);
-						return time;
-					} else if(year % 10 == 0) {
-						time.push([year,year+9]);
-						return time;
-					}
-				}
-			}
-
 			return time;
 		}
 
@@ -281,74 +241,9 @@
 			
 			var birthplace = "";
 			var indx = revision.indexOf("f\u00f6delseplats");
-			if(indx > -1) {
-				indx = revision.indexOf("[[", indx) + 2;
-				birthplace = revision.substring(indx, revision.indexOf("]]",indx));
-			}
+
+			indx = revision.indexOf("[[", indx) + 2;
+			birthplace = revision.substring(indx, revision.indexOf("]]",indx));
+
 			return birthplace;
 		}
-
-
-
-		/*
-		Translations...
-		\u00f6 = ö
-		\u00d6 = Ö
-		\u00e5 = å
-		\u00c5 = Å
-		\u00e4 = ä
-		\u00c4 = Ä
-		*/
-
-
-
->>>>>>> 2fbf0255ee4ffa2edf8ace9a78d4ea5116c64414
-	</script>
-	</head>
-	<body ng-controller="ArticleController as articleCtrl">
-
-		<!-- Den här diven visas endast om 'product is found', dvs om artikeln finns -->
-		<!-- ng-hide kan användas på liknande sätt -->
-	<!-- 	<div ng-show="articleCtrl.product.found"> -->	
-			<!-- <div ng-repeat="product in articleCtrl.products" > -->
-	<!-- 		<h3> {{articleCtrl.product.title}} </h3>
-				<p> {{articleCtrl.product.coord}} </p>
-		</div> 
-	-->
-
-	<!--
-		<p id="artikelinfo"></p>
-		<p id="koordinater"></p>	
-		<p id="länkar"></p>  
-	-->
-
-
-		<section ng-init="page = 1" class="page" ng-controller="PageController as pageCtrl">
-			<div class="pageButtons">
-				<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
-				<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)"> Plats </button>
-				<button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>
-			</div>
-
-			<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
-				<h4> Tidsinformation </h4>
-				<blockquote id="tidsinfo"></blockquote>
-			</div>
-			<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
-				<h4> Platsinformation </h4>
-				<blockquote id="koordinater"> </blockquote>
-			</div>
-			<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
-				<h4> Övrigt </h4>
-				<blockquote id="länkar"> </blockquote>
-			</div>
-			<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
-				<h4> skriv sökord </h4>
-				<p id="sökgenomförd"></p>
-				<blockquote id="artikelinfo"></blockquote>		
-			</div>
-
-
-		</section>
-	</body>
-</html>
