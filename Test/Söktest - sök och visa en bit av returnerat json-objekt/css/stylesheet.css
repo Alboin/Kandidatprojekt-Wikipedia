@@ -1,0 +1,41 @@
+p {
+	text-align: center;
+}
+
+
+
+#footer {
+
+	text-align: center;
+	font-size: 100%;
+	font-family: 'Tahoma';
+
+}
+
+h4 {
+	text-align: center;
+	color: red;
+}
+
+button:hover{
+	color: black;
+}
+
+button {
+    background-color: gray; 
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+
+}
+
+button.active {
+	background-color: red;
+	border-radius: 8px;
+}
+
