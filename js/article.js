@@ -250,28 +250,3 @@
 
 			return birthplace;
 		}
-
-
-
-	//Kod för att få access till datan
-	 var mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWh5ZWFoaCIsImEiOiJjaWx4dGw5M2gwMGc0dW9tNGk1M3JnbWI1In0.Zo28bpcbm5VxdSkJ0qXC8A';
-			
-			//Börjar i följande koordinat
-			var map = new mapboxgl.Map({
-			    container: 'map', // container id
-			    style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-			    center: [16, 63], // startposition [Ö, N] (opposite order for coordinates)
-			    zoom: 9 // starting zoom
-			});
-
-			function fly() {
-	  			// Fly to a random location by offsetting the point 16, 63
-	    		// by up to 5 degrees.
-	    		map.flyTo({
-		        	center: [16 + (Math.random() - 0.5) * 10, 63 + (Math.random() - 0.5) * 10]
-	   			 });
-
-			}
-
-			//Zoom osv
-			map.addControl(new mapboxgl.Navigation());
