@@ -41,7 +41,7 @@
         $scope.master = angular.copy(searchtext);
 
         //var usertext = document.getElementById("searchtext").value;
-        var usertext = angular.element("searchtext").value;
+        var usertext = angular.element("searchtext");
 
         //var query = getSearchString(usertext);
         var query = $scope.getSearchString(usertext);
@@ -49,7 +49,10 @@
         //Denna funktion körs asynkront.
         $scope.searchWiki(query);
         //Det betyder att HÄR, efter funktionen skulle man kunna ha någon slags loadingscreen, som visas medans vi väntar på ett svar från funktionen.
-    
+        
+        console.log(usertext);
+        console.log(query);
+        console.log(searchtext);
       };
 
 
@@ -58,7 +61,9 @@
 
 //>>>>>>Ej omskrivet till Angular
         if(input_title) {
-        input_title = input_title.replace(" ", "%20");
+        
+        //input_title = input_title.replace(" ", "%20");
+        input_title = input_title.replace(" ",'%20');
 
         //The beginning of the query, tells us to do a query and return the result on json format.
         var start = "/w/api.php?action=query&format=json";
@@ -88,7 +93,7 @@
               contentType: "application/json; charset=utf-8",
               async: true,
               dataType: "json",
-              success: $scope.function (data, textStatus, jqXHR) {
+              success: function (data, textStatus, jqXHR) {
                 console.log(data);
                 //Här bestäms vad som ska göras med resultatet.
                 printArticle(load(data));

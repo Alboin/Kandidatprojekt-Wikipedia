@@ -1,0 +1,67 @@
+<!DOCTYPE HTML> 
+<html>
+<head>
+	<meta charset = "utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Designtest</title>
+
+	<!--  connect to css	-->
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
+
+    <script src = "js/angular.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	
+</head>
+
+<body>
+
+	<header id = "top" class = "header">
+		<div class = "text-vertical-center"> 
+		   <h1><i class="fa fa-wikipedia-w fa-x"></i>ikinspire</h1> 
+	    </div>
+	</header>
+
+<div class="container text-center">
+
+	<div ng-app="myApp" ng-controller = "myCtrl">
+			 <input type="text" id ="searchtext" ng-model="name">
+			<button id="search" type="button" class="btn btn-default btn-md"> Search </button>
+	</div> <!-- end ng-app --> 
+
+
+  <button type="button" class="btn" data-toggle="collapse" data-target="#demo"><i class="fa fa-folder-o"></i> Categories</button>
+  <div id="demo" class="collapse">
+  	<div class="row">
+     <div class="col-lg-12 text-center">
+    	<div class="col-sm-2 col-sm-offset-3" style="border: 1px solid; padding:5px"><i class="fa fa-globe fa-2x"></i><br>Geography</div>
+    	<div class="col-sm-2" style="border: 1px solid; padding:5px"><i class="fa  fa-paint-brush fa-2x"></i><br>Arts</div>
+    	<div class="col-sm-2" style="border: 1px solid; padding:5px"><i class="fa fa-user fa-2x"></i><br>Biography</div>
+     </div>
+     <br>
+     <div class="col-lg-12 text-center">
+    	<div class="col-sm-2 col-sm-offset-3" style="border: 1px solid; padding:5px"><i class="fa fa-globe fa-2x"></i><br>Geography</div>
+    	<div class="col-sm-2" style="border: 1px solid; padding:5px"><i class="fa  fa-paint-brush fa-2x"></i><br>Arts</div>
+    	<div class="col-sm-2" style="border: 1px solid; padding:5px"><i class="fa fa-user fa-2x"></i><br>Biography</div>
+     </div>
+    </div>
+
+  </div>
+</div>
+
+	<script src="js/getData.js"></script>
+
+<script src="js/d3.min.js"></script>
+
+
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src = "js/myApp.js"></script>
+    <script src = "js/myCtrl.js"></script>
+</body>
+
+</html>
