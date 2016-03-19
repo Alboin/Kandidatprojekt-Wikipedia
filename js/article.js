@@ -72,6 +72,7 @@
 			//Kolla om det finns en position förknippad med artikeln eller inte.
 			if(article.position[0]) {
 				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position + "<br><br>";
+			
 			}
 
 			if(article.time[0]) {
@@ -250,3 +251,4 @@
 
 			return birthplace;
 		}
+

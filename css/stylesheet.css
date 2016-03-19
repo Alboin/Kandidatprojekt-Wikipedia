@@ -2,7 +2,7 @@
 #footer {
 	text-align: center;
 	font-size: 100%;
-	font-family: 'Tahoma';
+	font-family: 'Roboto';
 }
 
 
@@ -11,8 +11,11 @@ p {
 }
 
 h4 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+	font-size: 36px;
 	text-align: center;
-	color: red;
+	color: gray;
 }
 
 button:hover{
@@ -33,25 +36,40 @@ button {
 }
 
 button.active {
-	background-color: red;
+	background-color: #cccccc;
 	border-radius: 8px;
 }
 
+body { 
+	margin:0; 
+	padding:0; 
+}  
 
+#map { 
+	position:absolute; 
+	top:0; 
+	bottom:0; 
+	width:100%; 
+}
         
-body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
-         #fit {
-	        display: block;
-	        position: relative;
-	        margin: 0px auto;
-	        width: 50%;
-	        height: 40px;
-	        padding: 10px;
-	        border: none;
-	        border-radius: 3px;
-	        font-size: 12px;
-	        text-align: center;
-	        color: #fff;
-	        background: #ee8a65;
-    	}
+#random {
+    display: block;
+    position: relative;
+    margin: 0px auto;
+    width: 50%;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: #fff;
+    background: #ee8a65;
+}
+
+#back {
+	position: absolute;
+	left: 10px;
+	top: 5px;
+}
