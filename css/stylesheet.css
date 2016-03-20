@@ -71,5 +71,14 @@ body {
 #back {
 	position: absolute;
 	left: 10px;
-	top: 5px;
+	top: 60px;
+}
+
+.mapboxgl-popup {
+        max-width: 400px;
+        font: 12px/20px 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.marker-title {
+        font-weight: 700;
 }

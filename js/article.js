@@ -64,6 +64,9 @@
 
 		
 
+					
+				
+
 		function printArticle(article) {
 
 			document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
@@ -71,8 +74,7 @@
 			
 			//Kolla om det finns en position förknippad med artikeln eller inte.
 			if(article.position[0]) {
-				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position + "<br><br>";
-			
+				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + console.log(article.position);
 			}
 
 			if(article.time[0]) {

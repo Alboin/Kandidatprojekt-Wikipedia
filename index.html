@@ -4,33 +4,42 @@
 <!DOCTYPE html>
 <html ng-app="wikiSearch">
 	<head>
+
 		<meta charset="UTF-8">
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 		<input type="text", id="searchtext"></input>
 		<button id="search"> Search </button>
 
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="js/angular.min.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script type="text/javascript" src="js/article.js"></script>
-	<script>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
+		
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script type="text/javascript" src="js/article.js"></script>
+		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js'></script>
 
+
+		<!--För GeoCoder-->
+		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.0.0/mapbox-gl-geocoder.js'></script>
+		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.0.0/mapbox-gl-geocoder.css' type='text/css' />
+	
+		<script>
 		//Här ligger en "eventlistener" som är kopplad till sök-knappen med id:t "search".
 		//När knappen trycks in kör funktionen som heter "runProgram".
 		document.getElementById("search").addEventListener("click", runProgram);
-	
-	</script>
 
-	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
-   
+		//Kod för att få access till datan
+		mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWh5ZWFoaCIsImEiOiJjaWx4dGw5M2gwMGc0dW9tNGk1M3JnbWI1In0.Zo28bpcbm5VxdSkJ0qXC8A';
 
+
+		</script>
 
 	</head>
+
 	<body ng-controller="ArticleController as articleCtrl">
 
 		<!-- Den här diven visas endast om 'product is found', dvs om artikeln finns -->
@@ -47,7 +56,6 @@
 		<p id="koordinater"></p>	
 		<p id="länkar"></p>  
 	-->
-
 
 		<section ng-init="page = 1" class="page" ng-controller="PageController as pageCtrl">
 			<div class="pageButtons">
@@ -70,8 +78,7 @@
 				<button ng-click="pageCtrl.setPage(1)" id='back'><i class="fa fa-arrow-left" id=back""></i></button>
 				
 				<script>
-					//Kod för att få access till datan
-					mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWh5ZWFoaCIsImEiOiJjaWx4dGw5M2gwMGc0dW9tNGk1M3JnbWI1In0.Zo28bpcbm5VxdSkJ0qXC8A';
+					
 					
 					//Börjar i följande koordinat
 					var map = new mapboxgl.Map({
@@ -81,6 +88,97 @@
 					    zoom: 9 // starting zoom
 					});
 
+					var markers = {
+					    "type": "FeatureCollection",
+					    "features": [{
+					        "type": "Feature",
+					        "properties": {
+					            "description": "<div class=\"marker-title\">Make it Mount Pleasant</div><p><a href=\"http://www.mtpleasantdc.com/makeitmtpleasant\" target=\"_blank\" title=\"Opens in a new window\">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>",
+					            "marker-symbol": "marker" //Finns massa att välja på https://www.mapbox.com/maki/
+					        },
+					        "geometry": {
+					            "type": "Point",
+					            "coordinates": [16, 63] //Sveriges koordinater
+					        }
+					    }, {
+						        "type": "Feature",
+						        "properties": {
+						            "description": "<div class=\"marker-title\">Truckeroo</div><p><a href=\"http://www.truckeroodc.com/www/\" target=\"_blank\">Truckeroo</a> brings dozens of food trucks, live music, and games to half and M Street SE (across from Navy Yard Metro Station) today from 11:00 a.m. to 11:00 p.m.</p>",
+						            "marker-symbol": "marker"
+						        },
+						        "geometry": {
+						            "type": "Point",
+						            "coordinates": [18.068611, 59.329444] //Stockholm
+						        }
+						    }]
+						};
+
+
+					map.on('style.load', function () {
+					    // Add marker data as a new GeoJSON source.
+					    map.addSource("markers", {
+					        "type": "geojson",
+					        "data": markers
+					    });
+
+					    // Add a layer showing the markers.
+					    map.addLayer({
+					        "id": "markers",
+					        "interactive": true,
+					        "type": "symbol",
+					        "source": "markers",
+					        "layout": {
+					            "icon-image": "{marker-symbol}-15",
+					            "icon-allow-overlap": true
+					        }
+					    });
+					});
+
+					var popup = new mapboxgl.Popup();
+
+					// When a click event occurs near a marker icon, open a popup at the location of
+					// the feature, with description HTML from its properties.
+					map.on('click', function (e) {
+					    map.featuresAt(e.point, {
+					        radius: 7.5, // Half the marker size (15px).
+					        includeGeometry: true,
+					        layer: 'markers'
+					    }, function (err, features) {
+
+					        if (err || !features.length) {
+					            popup.remove();
+					            return;
+					        }
+
+					        var feature = features[0];
+
+					        // Populate the popup and set its coordinates
+					        // based on the feature found.
+					        popup.setLngLat(feature.geometry.coordinates)
+					            .setHTML(feature.properties.description)
+					            .addTo(map);
+
+					        if (err) throw err;
+					        // if there are features within the given radius of the click event,
+					        // fly to the location of the click event
+					        if (features.length) {
+					            // Get coordinates from the symbol and center the map on those coordinates
+					            map.flyTo({center: features[0].geometry.coordinates});
+					        }
+					    });
+					});
+
+					// Use the same approach as above to indicate that the symbols are clickable
+					// by changing the cursor style to 'pointer'.
+					map.on('mousemove', function (e) {
+					    map.featuresAt(e.point, {
+					        radius: 7.5, // Half the marker size (15px).
+					        layer: 'markers'
+					    }, function (err, features) {
+					        map.getCanvas().style.cursor = (!err && features.length) ? 'pointer' : '';
+					    });
+					});
+
 					function fly() {
 			  			// Fly to a random location by offsetting the point 16, 63
 			    		// by up to 5 degrees.
@@ -88,11 +186,14 @@
 				        	center: [16 + (Math.random() - 0.5) * 10, 63 + (Math.random() - 0.5) * 10]
 			   			});
 					}
-					
+				
 					//Zoom osv
 					map.addControl(new mapboxgl.Navigation());
-			
-					console.log(map);
+					//Funkar för touch (onödig kanske hehe)
+					map.touchZoomRotate.enable();
+					//Sökruta för platser
+					map.addControl(new mapboxgl.Geocoder());
+						
 
 				</script>
 
