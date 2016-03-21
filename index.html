@@ -67,20 +67,24 @@
 			<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 				<h4> Tidsinformation </h4>
 				<blockquote id="tidsinfo"></blockquote>
+				<!--div class="pageCtrl" ng-show="load"><p> {{article.position}} </p></div-->
 			</div>
 
 			<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
 				<h4> Platsinformation </h4>
 				<blockquote id="koordinater"> </blockquote>
 
+				<!--Code for the map-->
 				<div id='map'></div>
-				<button onclick='fly();' id='random'>Gå till nästa plats (random än så länge)</button>
+				<!--Change place on the map-->
+				<button onclick=fly(); id='random'>Gå till nästa plats (random än så länge)</button>
+				<!--Back to start page-->
 				<button ng-click="pageCtrl.setPage(1)" id='back'><i class="fa fa-arrow-left" id=back""></i></button>
 				
 				<script>
 					
 					
-					//Börjar i följande koordinat
+					//The map starts in this position
 					var map = new mapboxgl.Map({
 					    container: 'map', // container id
 					    style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
@@ -88,6 +92,7 @@
 					    zoom: 9 // starting zoom
 					});
 
+					//Places where there are markers
 					var markers = {
 					    "type": "FeatureCollection",
 					    "features": [{
@@ -134,6 +139,7 @@
 					    });
 					});
 
+					//Popup when clicking on a marker.
 					var popup = new mapboxgl.Popup();
 
 					// When a click event occurs near a marker icon, open a popup at the location of
@@ -159,6 +165,7 @@
 					            .addTo(map);
 
 					        if (err) throw err;
+					        
 					        // if there are features within the given radius of the click event,
 					        // fly to the location of the click event
 					        if (features.length) {
@@ -179,6 +186,7 @@
 					    });
 					});
 
+					//When the user want to fly from one place to another. 
 					function fly() {
 			  			// Fly to a random location by offsetting the point 16, 63
 			    		// by up to 5 degrees.
@@ -187,13 +195,11 @@
 			   			});
 					}
 				
-					//Zoom osv
+					//Zoom buttons etc.
 					map.addControl(new mapboxgl.Navigation());
-					//Funkar för touch (onödig kanske hehe)
-					map.touchZoomRotate.enable();
-					//Sökruta för platser
+					//Searchfield within the map.
 					map.addControl(new mapboxgl.Geocoder());
-						
+
 
 				</script>
 
