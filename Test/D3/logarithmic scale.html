@@ -11,11 +11,11 @@
 		var svg = d3.select('body').append('svg').attr('width', '100%').attr('height', '100%');	
 
 		//Declare size constants for handles and timeline.
-		var handle_width = 15, handle_height = 30;
+		var handle_width = 0.01*window.innerWidth, handle_height = 0.045*window.innerHeight;
 		var edge_radius = 3;
 		var timeline_start = 0.05*window.innerWidth,
 			timeline_width = window.innerWidth - 2*timeline_start,
-			timeline_height = 20,
+			timeline_height = 0.03*window.innerHeight,
 			timeline_ypos = 0.9*window.innerHeight;
 
 		//Drag-functionality for left handle.
