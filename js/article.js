@@ -62,10 +62,6 @@
 			});
 		}
 
-		
-
-					
-				
 
 		function printArticle(article) {
 
