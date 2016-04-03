@@ -5,7 +5,6 @@
 	font-family: 'Roboto';
 }
 
-
 p {
 	text-align: center;
 }
@@ -50,7 +49,10 @@ body {
 	top:0; 
 	bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
 	width:100%; 
+    height:400px; /* Eller ändra den här...*/
 }
+
+
         
 #random {
     display: block;
@@ -70,7 +72,7 @@ body {
 
 #back {
 	position: absolute;
-	left: 10px;
+	left: 25px;
 	top: 60px;
 }
 
@@ -85,3 +87,12 @@ body {
         font-family: 'Playfair Display', serif; 
         text-transform: uppercase;
 }
+
+hr {
+    color: #cccccc;
+    background-color: #cccccc;
+    height: 5px;
+}
+
+
+
