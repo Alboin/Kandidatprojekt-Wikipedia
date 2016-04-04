@@ -11,6 +11,7 @@
 		function runProgram() {		
 
 			var usertext = document.getElementById("searchtext").value;
+
 			var query = getSearchString(usertext);
 			//Denna funktion körs asynkront.
 			first_time = true;
@@ -75,7 +76,6 @@
 			});
 		}
 
-
 		//Här testar vi att hantera länkar, skapa nya sökningar av länkarna
 		//Skicka en sökning av 50 länkar åt gången
 		function handleLinks(links){
@@ -101,8 +101,6 @@
 			}
 		}
 
-		
-
 		function printArticle(article) {
 
 			document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
@@ -110,7 +108,7 @@
 			
 			//Kolla om det finns en position förknippad med artikeln eller inte.
 			if(article.position[0]) {
-				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position + "<br><br>";
+				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + console.log(article.position);
 			}
 
 			if(article.time[0]) {
@@ -156,6 +154,7 @@
 			temp_article.first_paragraph = data.query.pages[temp_article.id].extract;
 
 			for(var indx = 0; indx < data.query.pages[temp_article.id].links.length; indx++) {
+
 				temp_article.links.push(data.query.pages[temp_article.id].links[indx].title);
 			}
 			all_articles.push(temp_article);
@@ -172,6 +171,7 @@
 			temp_article.birthplace = getPosition(data.query.pages[temp_article.id].revisions[0]["*"]);
 
 			console.log(temp_article);
+
 			return temp_article;
 		}
 
