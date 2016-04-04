@@ -81,6 +81,7 @@
 			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
 			        	}
 			        	else{
+			        		//printArticle(load(data));
 			        		printLinks(loadLinks(data));
 			        	}
 
