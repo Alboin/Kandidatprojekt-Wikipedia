@@ -59,10 +59,15 @@
 			        	console.log(data);
 
 			        	if(first){
-			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
+			        		//handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
+			        		all_articles = [];
+			        		printArticle(load(data));
+
+			        		console.log(all_articles[0]);
+			        		generateMap(all_articles[0].position);
 			        	}
 			        	else{
-			        		printArticle(load(data));
+			        		//printArticle(load(data));
 			        	}
 
 
@@ -129,7 +134,7 @@
 				document.getElementById("länkar").innerHTML += ", ";
 			}
 
-			document.getElementById("sökgenomförd").innerHTML += "Klicka på de olika tabbarna för mer information om artikeln.";
+			document.getElementById("sökgenomförd").innerHTML = "Klicka på de olika tabbarna för mer information om artikeln.";
 		}
 
 
@@ -157,7 +162,6 @@
 
 				temp_article.links.push(data.query.pages[temp_article.id].links[indx].title);
 			}
-			all_articles.push(temp_article);
 
 			if(data.query.pages[temp_article.id].coordinates) {
 				temp_article.position =
@@ -172,6 +176,7 @@
 
 			console.log(temp_article);
 
+			all_articles.push(temp_article);
 			return temp_article;
 		}
 
