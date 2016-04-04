@@ -4,6 +4,7 @@
 		
 
 		var all_articles = [];
+		var coord_articles = [];
 		var save;
 		var first_time;
 
@@ -11,6 +12,7 @@
 		function runProgram() {		
 
 			var usertext = document.getElementById("searchtext").value;
+
 			var query = getSearchString(usertext);
 			//Denna funktion körs asynkront.
 			first_time = true;
@@ -31,15 +33,33 @@
 				var start = "/w/api.php?action=query&format=json";
 				//The what to search for
 				var title = "&titles=" + input_title;
-				//Wich properties to get. (coordinates, links, revisions, extracts, pageid)
+				//Which properties to get. (coordinates, links, revisions, extracts, pageid)
 				var properties = "&prop=coordinates%7Clinks%7Crevisions%7Cextracts" + "&indexpageids=1" + "&pllimit=max"; 
 				var revisions = "&rvprop=content" + "&exintro=1" + "&explaintext=1";
-				//Wich lists to get.
+				//Which lists to get.
 				var lists = "&list=backlinks"
 				var list_parameters = "&bllimit=max" + "&bltitle=" + input_title;
 				//Create final query
 				var finalQuery = "http://sv.wikipedia.org" + start + title + properties + revisions + lists + list_parameters + "&callback=?";
 			    return finalQuery;
+			}
+		}
+
+		//ANVÄNDS FÖR LÄNKARNA, typ en kopia av getSearchString
+		//Modifierad version. Denna används för de relaterade länkarna i den första sökningen.
+		function getLinkSearch(input_title) {
+			if(input_title) {
+				input_title = input_title.replace(" ", "%20");
+
+				//The beginning of the query, tells us to do a query and return the result on json format.
+				var start = "/w/api.php?action=query&format=json";
+				//The what to search for
+				var title = "&titles=" + input_title;
+				//Which properties to get. (coordinates, links, revisions, extracts, pageid)
+				var properties = "&prop=coordinates" + "&indexpageids=1"; 			
+				//Create final query
+				var linkQuery = "http://sv.wikipedia.org" + start + title + properties + "&callback=?";
+			    return linkQuery;
 			}
 		}
 
@@ -61,7 +81,7 @@
 			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
 			        	}
 			        	else{
-			        		printArticle(load(data));
+			        		printLinks(loadLinks(data));
 			        	}
 
 
@@ -75,14 +95,13 @@
 			});
 		}
 
-
 		//Här testar vi att hantera länkar, skapa nya sökningar av länkarna
 		//Skicka en sökning av 50 länkar åt gången
 		function handleLinks(links){
 			first_time = false;
 
 			for(var indx = 0; indx < links.length; indx++){
-				var query = getSearchString(links[indx]);
+				var query = getLinkSearch(links[indx]);
 				searchWiki(query, first_time);
 			}
 
@@ -101,8 +120,6 @@
 			}
 		}
 
-		
-
 		function printArticle(article) {
 
 			document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
@@ -110,7 +127,7 @@
 			
 			//Kolla om det finns en position förknippad med artikeln eller inte.
 			if(article.position[0]) {
-				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position + "<br><br>";
+				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + console.log(article.position);
 			}
 
 			if(article.time[0]) {
@@ -135,6 +152,19 @@
 		}
 
 
+
+		//ANVÄNDS FÖR LÄNKARNA, typ en kopia av printArticle
+		function printLinks(linksarray) {
+
+			//Loopa igenom arrayen för att skriva ut titlarna på alla länkar som har koordinater/platsangivelser
+			for(var indx = 0; indx < linksarray.length; indx++){
+				document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + linksarray[indx].title + "<br><br>";
+			}
+
+			document.getElementById("artikelinfo").innerHTML += "Antal länkar med koordinater:</b> " + linksarray.length;
+		}
+
+
 		function load(data) {
 
 			var temp_article = {
@@ -156,6 +186,7 @@
 			temp_article.first_paragraph = data.query.pages[temp_article.id].extract;
 
 			for(var indx = 0; indx < data.query.pages[temp_article.id].links.length; indx++) {
+
 				temp_article.links.push(data.query.pages[temp_article.id].links[indx].title);
 			}
 			all_articles.push(temp_article);
@@ -172,8 +203,45 @@
 			temp_article.birthplace = getPosition(data.query.pages[temp_article.id].revisions[0]["*"]);
 
 			console.log(temp_article);
+
 			return temp_article;
 		}
+
+
+		//ANVÄNDS FÖR LÄNKARNA, typ en kopia av 'load'
+		function loadLinks(data) {
+
+			var temp_article = {
+				title: "",
+				id: -1,
+				//first_paragraph: "",
+				position: [null,null],
+				birthplace: "",
+				time: [null, null]
+			}
+
+			temp_article.id = data.query.pageids[0];
+			temp_article.title = data.query.pages[temp_article.id].title;
+			//temp_article.first_paragraph = data.query.pages[temp_article.id].extract;
+
+			all_articles.push(temp_article);
+
+			if(data.query.pages[temp_article.id].coordinates) {
+				temp_article.position =
+					[data.query.pages[temp_article.id].coordinates[0].lat,
+					 data.query.pages[temp_article.id].coordinates[0].lon]
+
+				coord_articles.push(temp_article);
+			} 
+			else {
+				temp_article.position = [null,null];
+			}
+
+			console.log(temp_article);
+
+			return coord_articles;
+		}
+
 
 
 		function getTime(text) {
