@@ -33,6 +33,10 @@
  		<script type="text/javascript" src="js/article.js"></script>
  		<script type="text/javascript" src="js/map.js"></script>
 
+		<!--Modal popup-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 	</head>
 
 	<body ng-controller="ArticleController as articleCtrl">
@@ -95,7 +99,36 @@
 							<div class="pageButtons">
 								<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
 								<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)"> Plats </button>
-								<button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>		
+								<button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>	
+
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+								  Launch demo modal
+								</button>
+
+								<!-- Modal -->
+								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  	<div class="modal-dialog" role="document">
+									    <div class="modal-content">
+									    	<div class="modal-header">
+
+									        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+									        	<h4 class="modal-title" id="myModalLabel"><p id="artikel_titel"></p></h4>
+									        	<p id="artikel_bild"></p>
+									      	</div>
+
+											    <div class="modal-body">
+											        <p id="artikel_text"></p>
+											    </div>
+
+									      	<div class="modal-footer">
+									        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>				
+									      	</div>
+									    </div>
+								  	</div>
+								</div>
+
 							</div>
 							<script>
 								document.getElementById("search").addEventListener("click", runProgram);
@@ -138,12 +171,14 @@
 
 								<!--Code for the map-->
 								<div id='map'></div>
-								<div id='brush' class='ui-brush'></div>
+								<div id='info' class='info'></div>
+								
 								<!--Change place on the map by clicking this button-->
 								<!--<button onclick=fly(); id='random'>Gå till nästa plats (random än så länge)</button>-->
+								
 								<!--Back to start page-->
 								<button ng-click="pageCtrl.setPage(4)" id='back'><i class="fa fa-arrow-left" id=back""></i></button>
-	
+								
 							</div>
 
 							<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
@@ -153,6 +188,7 @@
 							<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
 								<p id="sökgenomförd"></p>
 								<blockquote id="artikelinfo"></blockquote>		
+								<p id="artikel_kategori"></p>
 							</div>
 						</div>
 			   		</div>
