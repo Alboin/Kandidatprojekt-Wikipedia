@@ -72,8 +72,6 @@ var first_time;
 			       
 			        		//Get first sentence in a paragraph. 
 			        		getFirstRow(all_articles[0].first_paragraph);
-			        		//Add the articles position to the map
-			        		addArticleToMap(all_articles[0].position, all_articles[0].title);
 
 			        	}
 			        	else{
