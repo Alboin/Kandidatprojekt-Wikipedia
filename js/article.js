@@ -332,9 +332,6 @@
     		var n = paragraph.indexOf(". ");
     		//Split the string where the position is set. 
     		var res = paragraph.slice(0, n);
-    		
-    		//Print the sentence. 
-    		document.getElementById("first_sentence").innerHTML = res;
 
 			//If you want to use the sentence in a javascript-file it's called this:
     		var first_sentence = res; 
