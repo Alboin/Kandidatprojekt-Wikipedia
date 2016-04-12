@@ -1,37 +1,50 @@
-function generateMap(coordinate, title) {
+//Global variables
+var map;
+var myLayer;
+
+
+//This function will be run once the page has loaded.
+function generateMap() {
+
+	//Set map width and height so that it fills the screen.
+	document.getElementById("map").style.width = window.innerWidth + "px";
+	document.getElementById("map").style.height = window.innerHeight + "px";
+
+	//Needed to get access to mapbox.
 	L.mapbox.accessToken ='pk.eyJ1Ijoic2FyYWh5ZWFoaCIsImEiOiJjaWx4dGw5M2gwMGc0dW9tNGk1M3JnbWI1In0.Zo28bpcbm5VxdSkJ0qXC8A';
 
-	var map = L.mapbox.map('map', 'mapbox.light')
-    .setView([coordinate[0], coordinate[1]], 9);
+	//Create map, light version and disable attributes. Set start-position and zoom-level.
+	map = L.mapbox.map('map', 'mapbox.light', {attributionControl: false})
+    .setView([0,0], 2);
+
+    //Create D3 overlay
+    //var svg = d3.select(map.getPanes().overlayPane).append("svg");
+    //var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+    //Create circle in D3 and display on map.
+    //var circle = svg.append("circle").attr("cx", 25).attr("cy", 25).attr("r", 20).attr("id", "svart").style("fill", "green");
+
 
 	//Lagren för kartan med en popup. 
-	var myLayer = L.mapbox.featureLayer().addTo(map);
+	myLayer = L.mapbox.featureLayer().addTo(map);
 
+}
+
+function addArticleToMap(coordinate, title) {
+
+	//Add marker at article coordinates
 	myLayer.setGeoJSON([{
 	        type: 'Feature',
 	        geometry: {
 	            type: 'Point',
-	            coordinates: [coordinate[1]+0.2, coordinate[0]]
+	            coordinates: [coordinate[1], coordinate[0]]
 	        },
 	        properties: {
 	            title: title,
-	            description: 'This marker has a description',
+	            description: '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button>',
 	            'marker-id': 'marker-1',
 	           // 'marker-color': '#f86767'
 
-	        }
-	    },
-	    {
-	        type: 'Feature',
-	        geometry: {
-	            type: 'Point',
-	            coordinates: [coordinate[1], coordinate[0]+0.2]
-	        },
-	        properties: {
-	            title: 'En artikel bredvid ' + title,
-	            description: 'So does this one!',
-	            'marker-id': 'marker-2',
-	            'marker-color': '#f86767'
 	        }
 	    }
 	]);
@@ -39,14 +52,14 @@ function generateMap(coordinate, title) {
 
 	//Den med rätt popup...
 	var marker = L.marker([coordinate[0], coordinate[1]], {
-      icon: L.mapbox.marker.icon({
-        'marker-color': '#9c89cc',
-         'description': 'This marker has a description'
+    	  icon: L.mapbox.marker.icon({
+        	 'marker-color': '#000000'
       })
     })
-    //.bindPopup('<button class="trigger">Say hi</button>')
-    .bindPopup('<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button>')
+    .bindPopup('<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button><p> Hej svejs</p>')
     .addTo(map);
+
+    console.log(marker);
 
 
 	//Infobox to the right on the map
@@ -86,7 +99,4 @@ function generateMap(coordinate, title) {
 		    return false;
 		  };
 	});
-
-
 }
-

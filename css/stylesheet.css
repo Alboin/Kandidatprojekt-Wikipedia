@@ -5,11 +5,7 @@
 	font-family: 'Roboto';
 }
 
-#map {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-}
+
 
 p {
 	text-align: center;
@@ -58,10 +54,11 @@ body {
 	position:absolute; 
 	top:0; 
 	bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
-	width:100%; 
-    height:400px; /* Eller ändra den här...*/
+	width:0px; 
+    height:0px; /* Eller ändra den här...*/
+    padding: 0px;
+    margin: 0px;
 }
-
 
         
 #random {
@@ -102,6 +99,8 @@ hr {
     color: #cccccc;
     background-color: #cccccc;
     height: 5px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .info {
@@ -109,7 +108,7 @@ hr {
     position:absolute;
     width:260px;
     top:10px;
-    right:10px;
+    right:30px;
     border-radius:2px;
 }
 
@@ -169,5 +168,6 @@ hr {
      border-bottom-left-radius: 5px;
      border-bottom-right-radius: 5px;
 }
+
 
 

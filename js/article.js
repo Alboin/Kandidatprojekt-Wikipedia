@@ -65,13 +65,12 @@
 			        		printArticle(load(data));
 
 			        		console.log(all_articles[0]);
-
-			        		//Call on map-function 
-			        		generateMap(all_articles[0].position, all_articles[0].title, getFirstRow(all_articles[0].first_paragraph));
-			        		//Call on genereatGeoJSON-function that creates a new JSON-file
-			        		generateGeoJSON(all_articles[0].position, all_articles[0].title);
+			       
 			        		//Get first sentence in a paragraph. 
 			        		getFirstRow(all_articles[0].first_paragraph);
+
+			        		addArticleToMap(all_articles[0].position, all_articles[0].title);
+
 			        	}
 			        	else{
 			        		//printArticle(load(data));
@@ -132,11 +131,6 @@
 
 			document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
 			+ "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
-			
-			//Kolla om det finns en position förknippad med artikeln eller inte.
-			if(article.position[0]) {
-				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + console.log(article.position);
-			}
 
 			if(article.time[0]) {
 				document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
