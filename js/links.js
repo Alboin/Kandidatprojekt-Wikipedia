@@ -54,14 +54,18 @@
 		function printLinks(linksarray) {
 			
 			var titles = [];
+			//var linksCoord = [];
 			
 			//Loopa igenom arrayen för att skriva ut titlarna på alla länkar som har koordinater/platsangivelser
 			for(var indx = 0; indx < linksarray.length; indx++){
 				//document.getElementById("länkar").innerHTML = "<b>Artikeltitel:</b> " + linksarray[indx].title + "<br><br>";
 				titles.push(" " + linksarray[indx].title );
+				linksCoord.push(" " + linksarray[indx].position);
 			}
 
 			document.getElementById("länkar").innerHTML = titles;
+
+			//document.getElementById("länkar").innerHTML += "<br><br>" + linksCoord;
 
 			document.getElementById("länkar").innerHTML += "<br><br>" + "Antal länkar med koordinater:</b> " + linksarray.length;
 		}
