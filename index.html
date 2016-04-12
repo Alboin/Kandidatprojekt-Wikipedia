@@ -35,131 +35,155 @@
  		<script type="text/javascript" src="js/article.js"></script>
  		<script type="text/javascript" src="js/map.js"></script>
 
+		<!--Modal popup-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 	</head>
 
-	<body ng-controller="ArticleController as articleCtrl">
+	<body style="overflow: hidden">
 
 		<!--Titles-->
 		<section ng-init="page = 1" class="page" ng-controller="PageController as pageCtrl">
-			<div class="section">
+			
+	        <div class="row">
 
-			    <div class="container">
+		        <div class="col-lg-4"><!--Kan vara tom--></div>
 
-			        <div class="row">
+		        <div class="col-lg-4">     
 
-				        <div class="col-lg-4 col-md-12">
-							<!--Kan vara tom-->
-				        </div>
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
+						<h4> Tidsinformation </h4>
+					</div>
 
-				        <div class="col-lg-4 col-md-12">     
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
+						<h4> Platsinformation </h4>			
+					</div>
 
-							<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
-								<h4> Tidsinformation </h4>
-							</div>
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
+						<h4> Övrigt </h4>
+					</div>
 
-							<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
-								<h4> Platsinformation </h4>			
-							</div>
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
+						<h4> Wikinspire </h4>
+						<p id="sökgenomförd"></p>
+					</div>
 
-							<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
-								<h4> Övrigt </h4>
-							</div>
+			        <div class="col-lg-4"><!--Kan vara tom--></div>
 
-							<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
-								<h4> Wikinspire </h4>
-								<p id="sökgenomförd"></p>
-							</div>
+	        	</div>
+	    	</div>
 
-				        <div class="col-lg-4 col-md-12">
-				        	<!--Kan vara tom-->				   
-				        </div>
-
-			        </div>
-			    </div>
-		   	</div>
 
 
 			<!--Buttons and search field-->
-		   	<div class="section">
 
-			    <div class="container">
+	        <div class="row">
 
-			        <div class="row">
+		        <div class="col-lg-4"><!--Kan vara tom--></div>
 
-				        <div class="col-lg-4">
-							<!--Kan vara tom-->
-				        </div>
+		        <div class="col-lg-4">
 
-				        <div class="col-lg-4">
+					<input type="text", id="searchtext"></input>
+		 			<button id="search"> Search </button>
+					<div class="pageButtons">
 
-							<input type="text", id="searchtext"></input>
-				 			<button id="search"> Search </button>
-							<div class="pageButtons">
-								<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
-								<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)"> Plats </button>
-								<button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>		
-							</div>
-							<script>
-								document.getElementById("search").addEventListener("click", runProgram);
+						<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
+						<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)"> Plats </button>
+						<button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>	
 
-								//Trigger searchbutton by clicking the enter key
-								$("#searchtext").keyup(function(event){
-			    					if(event.keyCode == 13){
-			        					$("#search").click();
-		    						}
-								});
+						<!-- Button trigger modal -->
+						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+						  Launch demo modal
+						</button>
 
-							</script>
-				        </div>
+						<!-- Modal -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						  	<div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							    	<div class="modal-header">
 
-				         <div class="col-lg-4">
-							<!--Kan vara tom-->
-				        </div>
-				    </div>
-				</div>
+							        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+							        	<h4 class="modal-title" id="myModalLabel"><p id="artikel_titel"></p></h4>
+							        	<p id="artikel_bild"></p>
+							      	</div>
+
+								    <div class="modal-body">
+								        <p id="artikel_text"></p>
+								    </div>
+
+							      	<div class="modal-footer">
+							        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>				
+							      	</div>
+							    </div>
+						  	</div>
+						</div>
+
+					</div>
+
+					<script>
+						document.getElementById("search").addEventListener("click", runProgram);
+
+						//Trigger searchbutton by clicking the enter key
+						$("#searchtext").keyup(function(event){
+	    					if(event.keyCode == 13){
+	        					$("#search").click();
+    						}
+						});
+
+					</script>
+
+		        </div>
+
+		        <div class="col-lg-4"><!--Kan vara tom--></div>
+
+		    </div>
 
 			<!--The line under the searchbuttons-->
 			<hr>
 			
 			<!--The view-field-->
-		   	<div class="section">
-
-		   		<div class="container">
 		   			
-		   			<div class="row">
-		   			
-		   				<div class="col-lg-12">
+   			<div class="row nomargin">
+   			
+   				<div class="col-lg-12">
 
-					    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
-								<blockquote id="tidsinfo"></blockquote>
-							</div>
+			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
+						<blockquote id="tidsinfo"></blockquote>
+					</div>
 
-							<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
-							
-								<blockquote id="koordinater"> </blockquote>
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
 
-								<!--Code for the map-->
-								<div id='map'></div>
-								<div id='brush' class='ui-brush'></div>
-								<!--Change place on the map by clicking this button-->
-								<!--<button onclick=fly(); id='random'>Gå till nästa plats (random än så länge)</button>-->
-								<!--Back to start page-->
-								<button ng-click="pageCtrl.setPage(4)" id='back'><i class="fa fa-arrow-left" id=back""></i></button>
-	
-							</div>
+						<!--Code for the map-->
+						<div id='map'></div>
+						<div id='info' class='info'></div>
+						
+						<!--Back to start page-->
+						<button ng-click="pageCtrl.setPage(4)" id='back'><i class="fa fa-arrow-left" id=back""></i></button>
+						
+					</div>
 
-							<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
-								<blockquote id="länkar"> </blockquote>
-							</div>
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
+						<blockquote id="länkar"> </blockquote>
+					</div>
 
-							<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
-								<p id="sökgenomförd"></p>
-								<blockquote id="artikelinfo"></blockquote>		
-							</div>
-						</div>
-			   		</div>
-			   	</div>
-			</div>
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
+						<p id="sökgenomförd"></p>
+						<blockquote id="artikelinfo"></blockquote>		
+						<p id="artikel_kategori"></p>
+					</div>
+
+				</div>
+
+	   		</div>
+
 		</section>
+
+		<script>
+			//Generate the map when the page has loaded.
+			$(document).ready(generateMap());
+		</script>
+		
 	</body>
 </html>

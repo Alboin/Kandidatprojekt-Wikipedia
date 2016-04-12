@@ -4,7 +4,7 @@ angular.module('PopupDemo', ['ui.bootstrap']);
             $scope.open = function () {
                 console.log('opening pop up');
                 var modalInstance = $modal.open({
-                    templateUrl: 'Popup.html',
+                    templateUrl: 'index.html',
                     // added controller statement
                     controller: 'PopupInstanceController',
 
