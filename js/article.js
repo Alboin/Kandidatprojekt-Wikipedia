@@ -61,14 +61,11 @@
 			        async: true,
 			        dataType: "json",
 			        success: function (data, textStatus, jqXHR) {
-			        	console.log(data);
 
 			        	if(first){
 			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
 			        		all_articles = [];
 			        		printArticle(load(data));
-
-			        		console.log(all_articles[0]);
 			       
 			        		//Get first sentence in a paragraph. 
 			        		getFirstRow(all_articles[0].first_paragraph);
@@ -137,8 +134,6 @@
 			temp_article.birthplace = getPosition(data.query.pages[temp_article.id].revisions[0]["*"]);
 			//To get the first row in a paragraph. 
 			temp_article.first_sentence=getFirstRow(temp_article.first_paragraph);
-
-			console.log(temp_article);
 
 			all_articles.push(temp_article);
 
