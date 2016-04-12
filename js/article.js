@@ -171,7 +171,9 @@
 			//Kolla om det finns en position förknippad med artikeln eller inte.
 			if(article.position[0]) {
 
-				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
+				//document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
+				addArticleToMap(article.position, article.title);
+
 			}
 
 			if(article.time[0]) {
