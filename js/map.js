@@ -1,3 +1,11 @@
+/*******************************************************************************************************
+ 
+	Filen innehåller funktioner som hanterar kartan. 
+	Det är främst Albin och Sarah som har koll på denna fil :)
+
+********************************************************************************************************/
+
+
 //Global variables
 var map;
 var myLayer;
@@ -58,8 +66,6 @@ function addArticleToMap(coordinate, title) {
     })
     .bindPopup('<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button><p>' + title +  '</p>')
     .addTo(map);
-
-    console.log(marker);
 
 
 	//Infobox to the right on the map
