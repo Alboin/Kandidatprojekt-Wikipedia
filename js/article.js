@@ -1,6 +1,9 @@
 
-//Allt det här låg i head i index.html förut, det var Albin som ursprungligen skrev denna kod.
-//Funktionen 'printArticle' har modifierats något.
+/*******************************************************************************************************
+ 	Allt det här låg i head i index.html förut, det var Albin som ursprungligen skrev denna kod.
+	Funktionen 'printArticle' har modifierats något.
+
+********************************************************************************************************/
 		
 
 		var all_articles = [];

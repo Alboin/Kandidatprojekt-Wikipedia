@@ -1,14 +1,19 @@
+/*******************************************************************************************************
+ 	Allt det här låg i article.js förut, Hanna och Johanna har använt Albins kod och modifierat den.
+	Datum när filen skapades: 2016-04-05
 
-//Allt det här låg i article.js förut, Hanna och Johanna har använt Albins kod och modifierat den.
-// 2016-04-05
+	Filen innehåller funktioner som hanterar länkarna i en artikel (links). 
+	Den ska helst hantera 'backlinks' sen också.
 
-		
+********************************************************************************************************/
+
+	
 		//Funktionen kollar att söksträngen inte är tom, byter ut mellanslag
 		//mot "%20" (för att wikipedia vill det) och lägger sedan in den i en hårdkodad query.
 		//Till sist skickas den färdiga query:n till funktionen "searchWiki".
 
-		//ANVÄNDS FÖR LÄNKARNA, typ en kopia av getSearchString
-		//Modifierad version. Denna används för de relaterade länkarna i den första sökningen.
+		//Typ en kopia av getSearchString. Används för de relaterade länkarna i den första sökningen.
+		//Här väljer man vilka 'properties' som hämtas från en viss artikel.
 		function getLinkSearch(input_title) {
 			if(input_title) {
 				input_title = input_title.replace(" ", "%20");
@@ -25,7 +30,7 @@
 			}
 		}
 
-		//Här testar vi att hantera länkar, skapa nya sökningar av länkarna
+		//Skapar nya sökningar av länkarna.
 		//Skicka en sökning av 50 länkar åt gången
 		function handleLinks(links){
 			first_time = false;
@@ -40,7 +45,7 @@
 		} 
 
 		//Checkar om varje länk har en position, dvs. om den är en plats
-		//Om länken/artikeln är en plats, spara den.
+		//Om länken/artikeln är en plats, spara titeln under id "platser".
 		function linksPosition(links){
 
 			for(var indx = 0; indx < links.length; indx++){
@@ -50,28 +55,31 @@
 			}
 		}
 
-		//ANVÄNDS FÖR LÄNKARNA, typ en kopia av printArticle
+		//Typ en kopia av printArticle
+		//Skriver ut information om länkarna.
 		function printLinks(linksarray) {
 			
 			var titles = [];
-			//var linksCoord = [];
+			var linksCoord = [];
 			
 			//Loopa igenom arrayen för att skriva ut titlarna på alla länkar som har koordinater/platsangivelser
 			for(var indx = 0; indx < linksarray.length; indx++){
 				//document.getElementById("länkar").innerHTML = "<b>Artikeltitel:</b> " + linksarray[indx].title + "<br><br>";
 				titles.push(" " + linksarray[indx].title );
-				//linksCoord.push(" " + linksarray[indx].position);
+				linksCoord.push(" " + linksarray[indx].position);
 			}
 
 			document.getElementById("länkar").innerHTML = titles;
 
+			//Om man vill skriva ut de relaterade länkarnas koordinater använd nedanstående rad.
 			//document.getElementById("länkar").innerHTML += "<br><br>" + linksCoord;
 
 			document.getElementById("länkar").innerHTML += "<br><br>" + "Antal länkar med koordinater:</b> " + linksarray.length;
 		}
 
 
-		//ANVÄNDS FÖR LÄNKARNA, typ en kopia av 'load'
+		//Typ en kopia av 'load'.
+		//Hämtar data för varje artikel/länk. Om artikeln är en plats/har koordinater sparas den i 'coord_articles'.
 		function loadLinks(data) {
 
 			var temp_article = {

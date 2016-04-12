@@ -1,4 +1,7 @@
-// Hanna och Johanna har skrivit den här filen från början. Den är skriven med angular.js.
+/*******************************************************************************************************
+ 	Hanna och Johanna har skrivit den här filen från början. Den är skriven med angular.js.
+
+********************************************************************************************************/
 
 
 (function(){
