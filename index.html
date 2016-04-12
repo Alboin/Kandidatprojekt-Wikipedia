@@ -42,13 +42,20 @@
 
 	<body style="overflow: hidden">
 
-		<!--Titles-->
+		<!-- Section är en container för hela sidan. -->
 		<section ng-init="page = 1" class="page" ng-controller="PageController as pageCtrl">
+
+		<!-- Sidan består av tre rader som är placerade ovanpå varandra. "header_row", "upper_row" och "lower_row". -->
 			
-	        <div class="row">
+			<!-- 1:a raden, allra längst upp. -->
+	        <div class="row" id="header_row">
 
-		        <div class="col-lg-4"><!--Kan vara tom--></div>
+	        	<!-- Raden är uppdelad i 3 lika stora kolumner, som är tomma för att få den med information i centrerad i mitten av sidan. -->
+		        
+		        <!-- Tom kolumn -->
+		        <div class="col-lg-4"></div>
 
+		        <!-- Kolumn som innehåller rubriker för de olika sidorna. Rubriken ändras beroende på vilken sida som är aktuell. -->
 		        <div class="col-lg-4">     
 
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
@@ -68,27 +75,31 @@
 						<p id="sökgenomförd"></p>
 					</div>
 
-			        <div class="col-lg-4"><!--Kan vara tom--></div>
+	        	</div>	
 
-	        	</div>
+	        	<!-- Tom kolumn -->
+			    <div class="col-lg-4"></div>
+	    	
 	    	</div>
 
 
 
-			<!--Buttons and search field-->
+			<!-- 2:a raden, näst längst upp. -->
+	        <div class="row" id="upper_row">
 
-	        <div class="row">
+	        	<!-- Tom kolumn -->
+		        <div class="col-lg-4"></div>
 
-		        <div class="col-lg-4"><!--Kan vara tom--></div>
-
+		        <!-- Kolumn som innehåller knappar och sökfält -->
 		        <div class="col-lg-4">
 
 					<input type="text", id="searchtext"></input>
 		 			<button id="search"> Search </button>
 					<div class="pageButtons">
 
+						<!-- Knappar som leder till de olika sidorna. -->
 						<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
-						<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)"> Plats </button>
+						<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="hideStartpage()"> Plats </button>
 						<button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>	
 
 						<!-- Button trigger modal -->
@@ -96,32 +107,11 @@
 						  Launch demo modal
 						</button>
 
-						<!-- Modal -->
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						  	<div class="modal-dialog" role="document">
-							    <div class="modal-content">
-							    	<div class="modal-header">
-
-							        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-							        	<h4 class="modal-title" id="myModalLabel"><p id="artikel_titel"></p></h4>
-							        	<p id="artikel_bild"></p>
-							      	</div>
-
-								    <div class="modal-body">
-								        <p id="artikel_text"></p>
-								    </div>
-
-							      	<div class="modal-footer">
-							        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>				
-							      	</div>
-							    </div>
-						  	</div>
-						</div>
-
 					</div>
 
 					<script>
+
+						//Här aktiveras sökningen vid tryck på knappen "search".
 						document.getElementById("search").addEventListener("click", runProgram);
 
 						//Trigger searchbutton by clicking the enter key
@@ -135,38 +125,67 @@
 
 		        </div>
 
-		        <div class="col-lg-4"><!--Kan vara tom--></div>
+		        <!-- Tom kolumn -->
+		        <div class="col-lg-4"></div>
 
 		    </div>
+
+		    <!-- Modal, dvs informationsrutan som dyker upp längst fram vid tryck på en knapp. -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  	<div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				    	<div class="modal-header">
+
+				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+				        	<h4 class="modal-title" id="myModalLabel"><p id="artikel_titel"></p></h4>
+				        	<p id="artikel_bild"></p>
+				      	</div>
+
+					    <div class="modal-body">
+					        <p id="artikel_text"></p>
+					    </div>
+
+				      	<div class="modal-footer">
+				        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>				
+				      	</div>
+				    </div>
+			  	</div>
+			</div>
 
 			<!--The line under the searchbuttons-->
 			<hr>
 			
-			<!--The view-field-->
-		   			
-   			<div class="row nomargin">
+
+			<!--3:e raden, raden längst ned.-->		
+   			<div class="row nomargin" id="lower_row">
    			
+   				<!-- Raden innehåller endast en kolumn som fyller ut hela skärmens bredd. -->
    				<div class="col-lg-12">
 
+   					<!-- En container som innehåller det som visas i tids-vyn. -->
 			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 						<blockquote id="tidsinfo"></blockquote>
 					</div>
 
+					<!-- En container som innehåller det som visas i kart-vyn. -->
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
 
-						<!--Code for the map-->
+						<!--Map container-->
 						<div id='map'></div>
 						<div id='info' class='info'></div>
 						
-						<!--Back to start page-->
-						<button ng-click="pageCtrl.setPage(4)" id='back'><i class="fa fa-arrow-left" id=back""></i></button>
+						<!--Button to go back to start page-->
+						<button ng-click="pageCtrl.setPage(4)" id='back' onclick="hideStartpage()"><i class="fa fa-arrow-left" id=back""></i></button>
 						
 					</div>
 
+					<!-- En container som innehåller det som visas i övrigt-vyn. -->
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
 						<blockquote id="länkar"> </blockquote>
 					</div>
 
+					<!-- En container som innehåller det som visas när en sökning precis har gjorts. -->
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
 						<p id="sökgenomförd"></p>
 						<blockquote id="artikelinfo"></blockquote>		

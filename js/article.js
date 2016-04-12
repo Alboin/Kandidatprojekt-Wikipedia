@@ -168,7 +168,6 @@
 				image_source: "",
 				categories: "", 
 				first_sentence:""
-				//image_large: ""
 
 			}
 
