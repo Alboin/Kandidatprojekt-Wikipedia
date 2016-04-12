@@ -18,11 +18,11 @@ function generateMap() {
     .setView([0,0], 2);
 
     //Create D3 overlay
-    var svg = d3.select(map.getPanes().overlayPane).append("svg");
-    var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+    //var svg = d3.select(map.getPanes().overlayPane).append("svg");
+    //var g = svg.append("g").attr("class", "leaflet-zoom-hide");
 
     //Create circle in D3 and display on map.
-    var circle = svg.append("circle").attr("cx", 25).attr("cy", 25).attr("r", 20).attr("id", "svart").style("fill", "green");
+    //var circle = svg.append("circle").attr("cx", 25).attr("cy", 25).attr("r", 20).attr("id", "svart").style("fill", "green");
 
 
 	//Lagren för kartan med en popup. 
