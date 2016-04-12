@@ -45,25 +45,6 @@
 			}
 		}
 
-		//ANVÄNDS FÖR LÄNKARNA, typ en kopia av getSearchString
-		//Modifierad version. Denna används för de relaterade länkarna i den första sökningen.
-		function getLinkSearch(input_title) {
-			if(input_title) {
-				input_title = input_title.replace(" ", "%20");
-
-				//The beginning of the query, tells us to do a query and return the result on json format.
-				var start = "/w/api.php?action=query&format=json";
-				//The what to search for
-				var title = "&titles=" + input_title;
-				//Which properties to get. (coordinates, links, revisions, extracts, pageid)
-				var properties = "&prop=coordinates" + "&indexpageids=1"; 			
-				//Create final query
-				var linkQuery = "http://sv.wikipedia.org" + start + title + properties + "&callback=?";
-			    return linkQuery;
-			}
-		}
-
-
 		//Funktionen tar en färdig query som input, kör en GET vad nu det innebär, får ett json-objekt som svar, lagrad i variabeln
 		//"data".
 		function searchWiki(query, first){
@@ -77,14 +58,13 @@
 			        success: function (data, textStatus, jqXHR) {
 			        	console.log(data);
 
-			        	if(first){
-			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
+			        	if(first){	        		
+			        		handleLinks(load(data).links); //motsvarar typ article.links (som är en array?)
+			        		printArticle(load(data));
 			        	}
 			        	else{
-			        		//printArticle(load(data));
 			        		printLinks(loadLinks(data));
 			        	}
-
 
 			        	//Här bestäms vad som ska göras med resultatet.
 			        	//printArticle(load(data));
@@ -96,30 +76,6 @@
 			});
 		}
 
-		//Här testar vi att hantera länkar, skapa nya sökningar av länkarna
-		//Skicka en sökning av 50 länkar åt gången
-		function handleLinks(links){
-			first_time = false;
-
-			for(var indx = 0; indx < links.length; indx++){
-				var query = getLinkSearch(links[indx]);
-				searchWiki(query, first_time);
-			}
-
-			//ska sättas till true igen, ifall användaren klickar på en av länkarna?
-			//first_time = true;
-		} 
-
-		//Checkar om varje länk har en position, dvs. om den är en plats
-		//Om länken/artikeln är en plats, spara den.
-		function linksPosition(links){
-
-			for(var indx = 0; indx < links.length; indx++){
-				if(article.position != ""){
-					document.getElementById("platser").innerHTML += article.title;
-				}
-			}
-		}
 
 		function printArticle(article) {
 
@@ -128,13 +84,14 @@
 			
 			//Kolla om det finns en position förknippad med artikeln eller inte.
 			if(article.position[0]) {
-				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + console.log(article.position);
+				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
 			}
 
 			if(article.time[0]) {
 				document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
 			}
 
+			
 			document.getElementById("länkar").innerHTML +=  "<b>Länkar i artikeln:</b> ("
 			+ article.links.length + " st)<br>";
 			for(var indx = 0; indx < article.links.length; indx++) {
@@ -150,19 +107,6 @@
 			}
 
 			document.getElementById("sökgenomförd").innerHTML += "Klicka på de olika tabbarna för mer information om artikeln.";
-		}
-
-
-
-		//ANVÄNDS FÖR LÄNKARNA, typ en kopia av printArticle
-		function printLinks(linksarray) {
-
-			//Loopa igenom arrayen för att skriva ut titlarna på alla länkar som har koordinater/platsangivelser
-			for(var indx = 0; indx < linksarray.length; indx++){
-				document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + linksarray[indx].title + "<br><br>";
-			}
-
-			document.getElementById("artikelinfo").innerHTML += "Antal länkar med koordinater:</b> " + linksarray.length;
 		}
 
 
@@ -207,42 +151,6 @@
 
 			return temp_article;
 		}
-
-
-		//ANVÄNDS FÖR LÄNKARNA, typ en kopia av 'load'
-		function loadLinks(data) {
-
-			var temp_article = {
-				title: "",
-				id: -1,
-				//first_paragraph: "",
-				position: [null,null],
-				birthplace: "",
-				time: [null, null]
-			}
-
-			temp_article.id = data.query.pageids[0];
-			temp_article.title = data.query.pages[temp_article.id].title;
-			//temp_article.first_paragraph = data.query.pages[temp_article.id].extract;
-
-			all_articles.push(temp_article);
-
-			if(data.query.pages[temp_article.id].coordinates) {
-				temp_article.position =
-					[data.query.pages[temp_article.id].coordinates[0].lat,
-					 data.query.pages[temp_article.id].coordinates[0].lon]
-
-				coord_articles.push(temp_article);
-			} 
-			else {
-				temp_article.position = [null,null];
-			}
-
-			console.log(temp_article);
-
-			return coord_articles;
-		}
-
 
 
 		function getTime(text) {
