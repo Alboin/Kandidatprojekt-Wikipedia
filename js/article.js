@@ -33,9 +33,11 @@
 				var start = "/w/api.php?action=query&format=json";
 				//The what to search for
 				var title = "&titles=" + input_title;
-				//Which properties to get. (coordinates, links, revisions, extracts, pageid)
-				var properties = "&prop=coordinates%7Clinks%7Crevisions%7Cextracts" + "&indexpageids=1" + "&pllimit=max"; 
+
+				//Which properties to get. (coordinates, links, revisions, extracts, pageid, pageimages, images(används inte än), categories)
+				var properties = "&prop=coordinates%7Clinks%7Crevisions%7Cextracts%7Cpageimages%7Cimages%7Ccategories" + "&indexpageids=1" + "&pllimit=max"; 
 				var revisions = "&rvprop=content" + "&exintro=1" + "&explaintext=1";
+
 				//Which lists to get.
 				var lists = "&list=backlinks"
 				var list_parameters = "&bllimit=max" + "&bltitle=" + input_title;
@@ -58,12 +60,18 @@
 			        success: function (data, textStatus, jqXHR) {
 			        	console.log(data);
 
-			        	if(first){	        		
-			        		handleLinks(load(data).links); //motsvarar typ article.links (som är en array?)
+			        	if(first){
+			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
+			        		all_articles = [];
 			        		printArticle(load(data));
+
+			        		console.log(all_articles[0]);
+			        		generateMap(all_articles[0].position, all_articles[0].title);
 			        	}
 			        	else{
+			        		//printArticle(load(data));
 			        		printLinks(loadLinks(data));
+
 			        	}
 
 			        	//Här bestäms vad som ska göras med resultatet.
@@ -78,12 +86,27 @@
 
 
 		function printArticle(article) {
+			
+			//For the modal popup 
+
+			//Title
+			document.getElementById("artikel_titel").innerHTML = article.title;
+			//Article
+			document.getElementById("artikel_text").innerHTML = article.first_paragraph;
+			//Thumbnailmage
+			document.getElementById("artikel_bild").innerHTML = "<img src='" + article.image_source + "'>";
+			//Categories
+			//document.getElementById("artikel_kategori").innerHTML = article.categories;
+
+			//console.log(article.categories);
+		
 
 			document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
 			+ "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
 			
 			//Kolla om det finns en position förknippad med artikeln eller inte.
 			if(article.position[0]) {
+
 				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
 			}
 
@@ -106,7 +129,7 @@
 				document.getElementById("länkar").innerHTML += ", ";
 			}
 
-			document.getElementById("sökgenomförd").innerHTML += "Klicka på de olika tabbarna för mer information om artikeln.";
+			document.getElementById("sökgenomförd").innerHTML = "Klicka på de olika tabbarna för mer information om artikeln.";
 		}
 
 
@@ -120,7 +143,11 @@
 				first_paragraph: "",
 				position: [null,null],
 				birthplace: "",
-				time: [null, null]
+				time: [null, null],
+				image_source: "",
+				categories: ""
+				//image_large: ""
+
 			}
 
 			for(var indx = 0; indx < data.query.backlinks.length; indx++) {
@@ -129,12 +156,14 @@
 			temp_article.id = data.query.pageids[0];
 			temp_article.title = data.query.pages[temp_article.id].title;
 			temp_article.first_paragraph = data.query.pages[temp_article.id].extract;
+			temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;
+			//temp_article.image_large = data.query.pages[temp_article.id].thumbnail.source;
+			//temp_article.categories = data.query.pages[temp_article.id].categories;//.title;
 
 			for(var indx = 0; indx < data.query.pages[temp_article.id].links.length; indx++) {
 
 				temp_article.links.push(data.query.pages[temp_article.id].links[indx].title);
 			}
-			all_articles.push(temp_article);
 
 			if(data.query.pages[temp_article.id].coordinates) {
 				temp_article.position =
@@ -148,6 +177,8 @@
 			temp_article.birthplace = getPosition(data.query.pages[temp_article.id].revisions[0]["*"]);
 
 			console.log(temp_article);
+
+			all_articles.push(temp_article);
 
 			return temp_article;
 		}
