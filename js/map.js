@@ -41,7 +41,7 @@ function generateMap() {
 function addArticleToMap(coordinate, title) {
 
 	//Add marker at article coordinates
-	myLayer.setGeoJSON([{
+	/*myLayer.setGeoJSON([{
 	        type: 'Feature',
 	        geometry: {
 	            type: 'Point',
@@ -55,7 +55,7 @@ function addArticleToMap(coordinate, title) {
 
 	        }
 	    }
-	]);
+	]);*/
 
 
 	//Den med rätt popup...
@@ -107,4 +107,8 @@ function addArticleToMap(coordinate, title) {
 		    return false;
 		  };
 	});
+}
+
+function hideStartpage() {
+	$("#upper_row").slideToggle("slow");
 }

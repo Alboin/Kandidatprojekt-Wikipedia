@@ -108,7 +108,6 @@ var first_time;
 				image_source: "",
 				categories: "", 
 				first_sentence:""
-				//image_large: ""
 
 			}
 
@@ -197,10 +196,13 @@ var first_time;
 			+ "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
 			
 			//Kolla om det finns en position förknippad med artikeln eller inte.
-			/*if(article.position[0]) {
+			if(article.position[0]) {
 
-				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
-			}*/
+				//document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
+				addArticleToMap(article.position, article.title);
+
+			}
+
 
 			if(article.time[0]) {
 				document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
