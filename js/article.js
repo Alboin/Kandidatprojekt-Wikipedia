@@ -6,10 +6,15 @@
 ********************************************************************************************************/
 		
 
-		var all_articles = [];
-		var coord_articles = [];
-		var save;
-		var first_time;
+
+/*-----------------------------------------------
+		Declare global variables
+-----------------------------------------------*/
+var all_articles = [];
+var coord_articles = [];
+var save;
+var first_time;
+
 
 		//Funktionen som körs när man trycker på "search"
 		function runProgram() {		
@@ -27,7 +32,6 @@
 		//Funktionen kollar att söksträngen inte är tom, byter ut mellanslag
 		//mot "%20" (för att wikipedia vill det) och lägger sedan in den i en hårdkodad query.
 		//Till sist skickas den färdiga query:n till funktionen "searchWiki".
-
 		function getSearchString(input_title) {
 			if(input_title) {
 				input_title = input_title.replace(" ", "%20");
@@ -50,8 +54,8 @@
 			}
 		}
 
-		//Funktionen tar en färdig query som input, kör en GET vad nu det innebär, får ett json-objekt som svar, lagrad i variabeln
-		//"data".
+		//Funktionen tar en färdig query som input, kör en GET vad nu det innebär, får ett json-objekt som svar, 
+		//lagrad i variabeln "data".
 		function searchWiki(query, first){
 			$(document).ready(function(){
 			    $.ajax({
@@ -65,26 +69,24 @@
 
 			        	if(first){
 			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
-			        		all_articles = [];
 			        		printArticle(load(data));
 
-			        		console.log(all_articles[0]);
+			        		console.log(all_articles[0]); 	//Log all articles in console
 			       
 			        		//Get first sentence in a paragraph. 
 			        		getFirstRow(all_articles[0].first_paragraph);
-
+			        		//Add the articles position to the map
 			        		addArticleToMap(all_articles[0].position, all_articles[0].title);
 
 			        	}
 			        	else{
-			        		//printArticle(load(data));
+
+			        		//Hantera de relaterade länkarna, gör en ny sökning för varje relaterad länk.
 			        		printLinks(loadLinks(data));
-
 			        	}
-
-			        	//Här bestäms vad som ska göras med resultatet.
-			        	//printArticle(load(data));
 			        },
+
+			        //Error message in console, om ingen sökning gjorts.
 			        error: function (errorMessage) {
 			        	console.log("Inget sökord ifyllt.");
 			        }
@@ -92,8 +94,8 @@
 			});
 		}
 
+		//Hämtar datainformation om en artikel och sparar i 'temp_article'
 		function load(data) {
-
 			var temp_article = {
 				title: "",
 				id: -1,
@@ -110,50 +112,72 @@
 
 			}
 
+			//Loop through array of backlinks
 			for(var indx = 0; indx < data.query.backlinks.length; indx++) {
 				temp_article.backlinks.push(data.query.backlinks[indx].title);
 			}
-			temp_article.id = data.query.pageids[0];
-			temp_article.title = data.query.pages[temp_article.id].title;
-			temp_article.first_paragraph = data.query.pages[temp_article.id].extract;
-			temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;
+			
+			temp_article.id = data.query.pageids[0];						//Save article id
+			temp_article.title = data.query.pages[temp_article.id].title;	//Save the title of the article
+			temp_article.first_paragraph = data.query.pages[temp_article.id].extract;			//Save first paragraph of the article
+			temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
 			//temp_article.image_large = data.query.pages[temp_article.id].thumbnail.source;
 			//temp_article.categories = data.query.pages[temp_article.id].categories;//.title;
 
+			//Loop through array of links
 			for(var indx = 0; indx < data.query.pages[temp_article.id].links.length; indx++) {
-
+				//Save titles of the links
 				temp_article.links.push(data.query.pages[temp_article.id].links[indx].title);
 			}
 
+			//Check if the article has coordinates
 			if(data.query.pages[temp_article.id].coordinates) {
+				//Save coordinates in 'temp_article.position'
 				temp_article.position =
-					[data.query.pages[temp_article.id].coordinates[0].lat,
-					 data.query.pages[temp_article.id].coordinates[0].lon]
+					[data.query.pages[temp_article.id].coordinates[0].lat,	//latitud
+					 data.query.pages[temp_article.id].coordinates[0].lon]	//longitud
 			} else {
 				temp_article.position = [null,null];
 			}
 			
-
+			//Get time mentioned in first paragraph of the article
 			temp_article.time = getTime(temp_article.first_paragraph);
+			//Get position of birthplace
 			temp_article.birthplace = getPosition(data.query.pages[temp_article.id].revisions[0]["*"]);
 			//To get the first row in a paragraph. 
 			temp_article.first_sentence=getFirstRow(temp_article.first_paragraph);
 
 			console.log(temp_article);
 
+			//Store article in array
 			all_articles.push(temp_article);
 
 			return temp_article;
 		}
 
 
+		//Get position of birthplace
+		function getPosition(revision) {
+			
+			var birthplace = "";
+			var indx = revision.indexOf("f\u00f6delseplats");
+
+			indx = revision.indexOf("[[", indx) + 2;
+			birthplace = revision.substring(indx, revision.indexOf("]]",indx));
+
+			return birthplace;
+		}
+
+
+
 /*-----------------------------------------------
 			Printa ut massa info! :) 
 -----------------------------------------------*/
 		function printArticle(article) {
-			
-			//For the modal popup 
 
+			/*-----------------------------------------------
+					For the modal popup 
+			-----------------------------------------------*/
 			//Title
 			document.getElementById("artikel_titel").innerHTML = article.title;
 			//Article
@@ -166,14 +190,17 @@
 			//console.log(article.categories);
 		
 
+			/*-----------------------------------------------
+					Tar ut information om artikeln 
+			-----------------------------------------------*/
 			document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
 			+ "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
 			
 			//Kolla om det finns en position förknippad med artikeln eller inte.
-			if(article.position[0]) {
+			/*if(article.position[0]) {
 
 				document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
-			}
+			}*/
 
 			if(article.time[0]) {
 				document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";

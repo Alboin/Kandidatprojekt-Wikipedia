@@ -1,3 +1,11 @@
+/*******************************************************************************************************
+ 
+	Filen innehåller funktioner som hanterar kartan. 
+	Det är främst Albin och Sarah som har koll på denna fil :)
+
+********************************************************************************************************/
+
+
 //Global variables
 var map;
 var myLayer;
