@@ -60,7 +60,7 @@
 			for(var indx = 0; indx < linksarray.length; indx++){
 				//document.getElementById("länkar").innerHTML = "<b>Artikeltitel:</b> " + linksarray[indx].title + "<br><br>";
 				titles.push(" " + linksarray[indx].title );
-				linksCoord.push(" " + linksarray[indx].position);
+				//linksCoord.push(" " + linksarray[indx].position);
 			}
 
 			document.getElementById("länkar").innerHTML = titles;
