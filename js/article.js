@@ -65,7 +65,13 @@
 			        		printArticle(load(data));
 
 			        		console.log(all_articles[0]);
-			        		generateMap(all_articles[0].position, all_articles[0].title);
+
+			        		//Call on map-function 
+			        		generateMap(all_articles[0].position, all_articles[0].title, getFirstRow(all_articles[0].first_paragraph));
+			        		//Call on genereatGeoJSON-function that creates a new JSON-file
+			        		generateGeoJSON(all_articles[0].position, all_articles[0].title);
+			        		//Get first sentence in a paragraph. 
+			        		getFirstRow(all_articles[0].first_paragraph);
 			        	}
 			        	else{
 			        		//printArticle(load(data));
@@ -166,7 +172,8 @@
 				birthplace: "",
 				time: [null, null],
 				image_source: "",
-				categories: ""
+				categories: "", 
+				first_sentence:""
 				//image_large: ""
 
 			}
@@ -194,8 +201,11 @@
 				temp_article.position = [null,null];
 			}
 			
+
 			temp_article.time = getTime(temp_article.first_paragraph);
 			temp_article.birthplace = getPosition(data.query.pages[temp_article.id].revisions[0]["*"]);
+			//To get the first row in a paragraph. 
+			temp_article.first_sentence=getFirstRow(temp_article.first_paragraph);
 
 			console.log(temp_article);
 			//console.log(temp_article.categories);
@@ -319,6 +329,24 @@
 			return birthplace;
 		}
 
+
+
+		//Print the first sentence in an article.  
+		function getFirstRow(paragraph){
+			
+			//Find the position where a dot followed by space is in a string. 
+    		var n = paragraph.indexOf(". ");
+    		//Split the string where the position is set. 
+    		var res = paragraph.slice(0, n);
+    		
+    		//Print the sentence. 
+    		document.getElementById("first_sentence").innerHTML = res;
+
+			//If you want to use the sentence in a javascript-file it's called this:
+    		var first_sentence = res; 
+
+			return first_sentence;
+		}
 
 
 
