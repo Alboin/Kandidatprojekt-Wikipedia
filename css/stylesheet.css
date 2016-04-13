@@ -105,22 +105,31 @@ hr {
 
 #article_list_container {
     position: fixed;
-    right: 10px;
+    right: 0px;
     width: 220px;
     padding: 6px;
+    margin: 10px;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(100, 100, 100, 0.4);
     z-index: 999;
 }
 
 #article_list {
-    height: 400px;
+    max-height: 450px;
     border-radius: 6px;
     overflow: auto;
     padding: 6px;
+    color: black;
+    background: #fff;
+    opacity: 0.7;
+}
+
+#article_list li:hover {
+    background:#bbb;
+}
+
+#article_list_header {
     color: white;
-    background: #505050;
-    opacity: 0.9;
 }
 
 

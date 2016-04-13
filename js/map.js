@@ -8,7 +8,8 @@
 
 //Global variables
 var map;
-var markerLayer
+var markerLayer;
+var all_markers = [];
 
 
 //This function will be run once the page has loaded.
@@ -43,12 +44,15 @@ function addArticleToMap(coordinate, title) {
 	//Create marker
 	//The marker gets a button that when clicked calls the function "changeModalContent with the article title as argument."
 	var marker = L.marker([coordinate[0], coordinate[1]], {
-    	  icon: L.mapbox.marker.icon({
-        	 'marker-color': '#000000'
-      })
+    	icon: L.mapbox.marker.icon({
+        	'marker-color': '#000000'
+      	}),
+    	title: title
     })
     .bindPopup('<p>' + title + '</p><button onclick="changeModalContent(' + "'" + title + "'" +')" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Mer info...</button><p>')
     .addTo(markerLayer); //Add marker to "markerLayer", a layer wich is cleared with every new search.
+
+    all_markers.push(marker);
 
 }
 
@@ -76,4 +80,32 @@ function changeModalContent(title) {
 	//Change Modal thumbnail
 	document.getElementById("artikel_bild").innerHTML = "<img src='" + temp_article.image_source + "'>";
 
+}
+
+function chooseMarker(title) {
+
+	//Loop through all markers on the map and if one with the same title exist, open that one's popup.
+	for(var i = 0; i < all_markers.length; i++) {
+
+		//Find the starting and ending index of the article title
+		var start_of_title = (all_markers[i]._popup._content).indexOf('>');
+		var end_of_title = (all_markers[i]._popup._content).indexOf('<', start_of_title);
+
+		//Extract the title from the marker and compare it to 'title'.
+		if(all_markers[i]._popup._content.substring(start_of_title+1, end_of_title) == title) {
+			all_markers[i].openPopup();
+		}
+	}
+}
+
+//Creates a new entry on the list with displayed articles.
+function createListObject(title) {
+
+	var ul = document.getElementById("article_list");
+	//Create new list entry.
+  	var li = document.createElement("li");
+  	li.appendChild(document.createTextNode(title));
+  	li.setAttribute("id", title);
+  	li.setAttribute("onclick", "chooseMarker(" + "'" + title + "'" + ")");
+  	ul.appendChild(li);
 }

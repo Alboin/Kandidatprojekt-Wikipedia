@@ -105,6 +105,7 @@
 
 				coord_articles.push(temp_article);
 				addArticleToMap(temp_article.position, temp_article.title);
+				createListObject(temp_article.title);
 			}
 
 			//Return array of articles which have coordinates

@@ -75,8 +75,12 @@ var main_search;
 			        	if(main_search){
 
 			        		//Remove all old markers from map.
+			        		all_markers = [];
 			        		map.removeLayer(markerLayer);
 			        		markerLayer = L.mapbox.featureLayer().addTo(map);
+
+			        		//Clears the list with articles that are displayed on the map.
+			        		$('#article_list').empty();
 
 			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
 			        		printArticle(load(data));
@@ -204,6 +208,7 @@ var main_search;
 
 				//document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
 				addArticleToMap(article.position, article.title);
+				createListObject(article.title);
 
 			}
 
