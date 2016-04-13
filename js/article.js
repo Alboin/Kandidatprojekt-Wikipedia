@@ -1,7 +1,8 @@
 
 /*******************************************************************************************************
- 	Allt det här låg i head i index.html förut, det var Albin som ursprungligen skrev denna kod.
-	Funktionen 'printArticle' har modifierats något.
+ 	Hämtar information från Wikipedia och deklarerar olika variabler för varje data som hämtats från APIt.
+ 	Datan kan användas i index och de olika js-filerna. 
+ 	Det var Albin som ursprungligen skrev denna kod.
 
 ********************************************************************************************************/
 		
