@@ -36,7 +36,7 @@ function generateMap() {
 
 	//Layer containing all the markers. 
 	markerLayer = L.mapbox.featureLayer().addTo(map);
-
+	
 }
 
 function addArticleToMap(coordinate, title, sentence) {
