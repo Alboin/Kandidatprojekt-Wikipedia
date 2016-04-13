@@ -103,26 +103,35 @@ hr {
     padding: 0px;
 }
 
-.info {
-    background:#fff;
-    position:absolute;
-    width:260px;
-    top:10px;
-    right:30px;
-    border-radius:2px;
+#article_list_container {
+    position: fixed;
+    right: 0px;
+    width: 220px;
+    padding: 6px;
+    margin: 10px;
+    border-radius: 6px;
+    background: rgba(100, 100, 100, 0.4);
+    z-index: 999;
 }
 
-.info .item {
-  display:block;
-  border-bottom:1px solid #eee;
-  padding:10px;
-  text-decoration:none;
+#article_list {
+    max-height: 450px;
+    border-radius: 6px;
+    overflow: auto;
+    padding: 6px;
+    color: black;
+    background: #fff;
+    opacity: 0.7;
 }
 
-.info .item small { color:#888; }
-.info .item:hover,
-.info .item.active { background:#f8f8f8; }
-.info .item:last-child { border-bottom:none; }
+#article_list li:hover {
+    background:#bbb;
+}
+
+#article_list_header {
+    color: white;
+}
+
 
 #popup{
     position: fixed;

@@ -11,21 +11,25 @@
 /*-----------------------------------------------
 		Declare global variables
 -----------------------------------------------*/
-var all_articles = [];
+var main_article;
 var coord_articles = [];
+var time_articles = [];
 var save;
-var first_time;
+var main_search;
 
 
 		//Funktionen som körs när man trycker på "search"
-		function runProgram() {		
+		function runSearch() {		
 
+			//Save user input.
 			var usertext = document.getElementById("searchtext").value;
 
+			//Create query from user input.
 			var query = getSearchString(usertext);
+
 			//Denna funktion körs asynkront.
-			first_time = true;
-			searchWiki(query, first_time);
+			main_search = true;
+			searchWiki(query, main_search);
 			//Det betyder att HÄR, efter funktionen skulle man kunna ha någon slags loadingscreen, som visas medans vi väntar på ett svar från funktionen.
 		}
 
@@ -67,12 +71,22 @@ var first_time;
 			        dataType: "json",
 			        success: function (data, textStatus, jqXHR) {
 
-			        	if(first){
+			        	//HERE IS WHAT TO DO IF THE SEARCH WAS SUCCESSFUL
+			        	if(main_search){
+
+			        		//Remove all old markers from map.
+			        		all_markers = [];
+			        		map.removeLayer(markerLayer);
+			        		markerLayer = L.mapbox.featureLayer().addTo(map);
+
+			        		//Clears the list with articles that are displayed on the map.
+			        		$('#article_list').empty();
+
 			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
 			        		printArticle(load(data));
 			       
 			        		//Get first sentence in a paragraph. 
-			        		getFirstRow(all_articles[0].first_paragraph);
+			        		getFirstRow(main_article.first_paragraph);
 
 			        		generateTimeCircle(all_articles[0].title, all_articles[0].first_sentence);
 
@@ -94,6 +108,7 @@ var first_time;
 
 		//Hämtar datainformation om en artikel och sparar i 'temp_article'
 		function load(data) {
+
 			var temp_article = {
 				title: "",
 				id: -1,
@@ -108,11 +123,6 @@ var first_time;
 				first_sentence:""
 
 			}
-
-			//Loop through array of backlinks
-			for(var indx = 0; indx < data.query.backlinks.length; indx++) {
-				temp_article.backlinks.push(data.query.backlinks[indx].title);
-			}
 			
 			temp_article.id = data.query.pageids[0];						//Save article id
 			temp_article.title = data.query.pages[temp_article.id].title;	//Save the title of the article
@@ -121,7 +131,13 @@ var first_time;
 			//temp_article.image_large = data.query.pages[temp_article.id].thumbnail.source;
 			//temp_article.categories = data.query.pages[temp_article.id].categories;//.title;
 
-			//Loop through array of links
+			//Loop through array of backlinks and add to temp_article.
+			for(var indx = 0; indx < data.query.backlinks.length; indx++) {
+				//Save titles of the backlinks
+				temp_article.backlinks.push(data.query.backlinks[indx].title);
+			}
+
+			//Loop through array of links and add to temp_article.
 			for(var indx = 0; indx < data.query.pages[temp_article.id].links.length; indx++) {
 				//Save titles of the links
 				temp_article.links.push(data.query.pages[temp_article.id].links[indx].title);
@@ -133,8 +149,6 @@ var first_time;
 				temp_article.position =
 					[data.query.pages[temp_article.id].coordinates[0].lat,	//latitud
 					 data.query.pages[temp_article.id].coordinates[0].lon]	//longitud
-			} else {
-				temp_article.position = [null,null];
 			}
 			
 			//Get time mentioned in first paragraph of the article
@@ -142,9 +156,10 @@ var first_time;
 			//Get position of birthplace
 			temp_article.birthplace = getPosition(data.query.pages[temp_article.id].revisions[0]["*"]);
 			//To get the first row in a paragraph. 
-			temp_article.first_sentence=getFirstRow(temp_article.first_paragraph);
+			temp_article.first_sentence = getFirstRow(temp_article.first_paragraph);
 
-			all_articles.push(temp_article);
+			//Add article to the array with articles
+			main_article = temp_article;
 
 			return temp_article;
 		}
@@ -195,6 +210,7 @@ var first_time;
 
 				//document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
 				addArticleToMap(article.position, article.title);
+				createListObject(article.title);
 
 			}
 

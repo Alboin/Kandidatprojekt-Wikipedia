@@ -23,25 +23,26 @@
 				//The what to search for
 				var title = "&titles=" + input_title;
 				//Which properties to get. (coordinates, links, revisions, extracts, pageid)
-				var properties = "&prop=coordinates" + "&indexpageids=1"; 			
+				var properties = "&prop=coordinates" + "%7Cextracts" + "%7Cpageimages" + "&indexpageids=1" + "&exintro=1" + "&explaintext=1"; 			
 				//Create final query
 				var linkQuery = "http://sv.wikipedia.org" + start + title + properties + "&callback=?";
 			    return linkQuery;
 			}
+			///w/api.php?action=query&format=json&prop=extracts%7Ccoordinates&titles=Banana&exintro=1&explaintext=1
 		}
 
 		//Skapar nya sökningar av länkarna.
 		//Skicka en sökning av 50 länkar åt gången
 		function handleLinks(links){
-			first_time = false;
+			main_search = false;
 
 			for(var indx = 0; indx < links.length; indx++){
 				var query = getLinkSearch(links[indx]);
-				searchWiki(query, first_time);
+				searchWiki(query, main_search);
 			}
 
 			//ska sättas till true igen, ifall användaren klickar på en av länkarna?
-			//first_time = true;
+			//main_search = true;
 		} 
 
 		//Checkar om varje länk har en position, dvs. om den är en plats
@@ -85,16 +86,16 @@
 			var temp_article = {
 				title: "",
 				id: -1,
-				//first_paragraph: "",
+				first_paragraph: "",
+				image_source: "",
 				position: [null,null],
 				birthplace: "",
 			}
 
-			temp_article.id = data.query.pageids[0];
-			temp_article.title = data.query.pages[temp_article.id].title;
-			//temp_article.first_paragraph = data.query.pages[temp_article.id].extract;
-
-			all_articles.push(temp_article);
+			temp_article.id = data.query.pageids[0]; //Save article id
+			temp_article.title = data.query.pages[temp_article.id].title; //Save article title
+			temp_article.first_paragraph = data.query.pages[temp_article.id].extract; //Save first paragraph
+			temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
 
 			//If the article has coordinates, save coordinates in 'position'
 			if(data.query.pages[temp_article.id].coordinates) {
@@ -103,10 +104,11 @@
 					 data.query.pages[temp_article.id].coordinates[0].lon]
 
 				coord_articles.push(temp_article);
-				addArticleToMap(temp_article.position, temp_article.title);
-			} 
-			else {
-				temp_article.position = [null,null];
+				//Take the first sentence from the related article. 
+				temp_article.sentence=getFirstRow(temp_article.first_paragraph);
+				//Send information about the article to the map. 
+				addArticleToMap(temp_article.position, temp_article.title, temp_article.sentence);
+				createListObject(temp_article.title);
 			}
 
 			//Return array of articles which have coordinates

@@ -116,7 +116,7 @@
 					<script>
 
 						//Här aktiveras sökningen vid tryck på knappen "search".
-						document.getElementById("search").addEventListener("click", runProgram);
+						document.getElementById("search").addEventListener("click", runSearch);
 
 						//Trigger searchbutton by clicking the enter key
 						$("#searchtext").keyup(function(event){
@@ -177,11 +177,19 @@
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
 
 						<!--Map container-->
-						<div id='map'></div>
-						<div id='info' class='info'></div>
-						
+						<div id='map'>
+						</div>
+
+						<div id='article_list_container'>
+						<h3 id='article_list_header'>Displayed articles</h3>
+							<ul id='article_list'>
+							</ul>
+						</div>
+
 						<!--Button to go back to start page-->
 						<button ng-click="pageCtrl.setPage(4)" id='back' onclick="hideStartpage()"><i class="fa fa-arrow-left" id=back""></i></button>
+
+
 						
 					</div>
 
