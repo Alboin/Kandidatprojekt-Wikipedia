@@ -243,7 +243,7 @@ var main_search;
 			//Find the position where a dot followed by space is in a string. 
     		var n = paragraph.indexOf(". ");
     		//Split the string where the position is set. 
-    		var res = paragraph.slice(0, n);
+    		var res = paragraph.slice(0, n+1);
 
 			//If you want to use the sentence in a javascript-file it's called this:
     		var first_sentence = res; 

@@ -39,7 +39,7 @@ function generateMap() {
 
 }
 
-function addArticleToMap(coordinate, title) {
+function addArticleToMap(coordinate, title, sentence) {
 
 	//Create marker
 	//The marker gets a button that when clicked calls the function "changeModalContent with the article title as argument."
@@ -49,7 +49,7 @@ function addArticleToMap(coordinate, title) {
       	}),
     	title: title
     })
-    .bindPopup('<p>' + title + '</p><button onclick="changeModalContent(' + "'" + title + "'" +')" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Mer info...</button><p>')
+    .bindPopup('<div class="marker-title">' + title + '</div>' + sentence + '<a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>')
     .addTo(markerLayer); //Add marker to "markerLayer", a layer wich is cleared with every new search.
 
     all_markers.push(marker);

@@ -104,7 +104,10 @@
 					 data.query.pages[temp_article.id].coordinates[0].lon]
 
 				coord_articles.push(temp_article);
-				addArticleToMap(temp_article.position, temp_article.title);
+				//Take the first sentence from the related article. 
+				temp_article.sentence=getFirstRow(temp_article.first_paragraph);
+				//Send information about the article to the map. 
+				addArticleToMap(temp_article.position, temp_article.title, temp_article.sentence);
 				createListObject(temp_article.title);
 			}
 
