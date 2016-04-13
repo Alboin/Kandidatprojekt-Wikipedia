@@ -79,17 +79,32 @@
 				temp_article.position =
 					[data.query.pages[temp_article.id].coordinates[0].lat,
 					 data.query.pages[temp_article.id].coordinates[0].lon]
-
-				coord_articles.push(temp_article);
-
+				
+				//Boolean to check if an article already exists in the array 'coord_articles' or not
+				var article_exist = false;
+ 				
+ 				//Lopp through the array to see if the article is already in the array, if so --> break and set boolean to true
+ 				for( var i=0; i < coord_articles.length; i++){
+ 					if (coord_articles[i].title == temp_article.title){
+ 						article_exist = true;
+ 						break;
+ 					}						
+ 				}
+				
+				//If the article does not exist in the array, push it into the array
+				if(!article_exist){
+					coord_articles.push(temp_article);
+				}
+				
 				addArticleToMap(temp_article.position, temp_article.title);
 
 			} 
 			else {
+				//If the article doesn't have coordinates, set them to null
 				temp_article.position = [null,null];
 			}
 
-			//Return array of articles which have coordinates
+			//Return array of articles which have coordinates, no duplicates in the array.
 			return coord_articles;
 		}
 
