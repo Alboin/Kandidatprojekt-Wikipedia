@@ -64,10 +64,8 @@ function addArticleToMap(coordinate, title) {
         	 'marker-color': '#000000'
       })
     })
-    .bindPopup('<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button><p> Hej svejs</p>')
+    .bindPopup('<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button><p>' + title +  '</p>')
     .addTo(map);
-
-    console.log(marker);
 
 
 	//Infobox to the right on the map

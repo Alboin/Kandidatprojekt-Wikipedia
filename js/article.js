@@ -1,7 +1,8 @@
 
 /*******************************************************************************************************
- 	Allt det här låg i head i index.html förut, det var Albin som ursprungligen skrev denna kod.
-	Funktionen 'printArticle' har modifierats något.
+ 	Hämtar information från Wikipedia och deklarerar olika variabler för varje data som hämtats från APIt.
+ 	Datan kan användas i index och de olika js-filerna. 
+ 	Det var Albin som ursprungligen skrev denna kod.
 
 ********************************************************************************************************/
 		
@@ -65,9 +66,9 @@ var first_time;
 			        async: true,
 			        dataType: "json",
 			        success: function (data, textStatus, jqXHR) {
-			        	console.log(data);
 
 			        	if(first){
+
 			        		handleLinks(load(data).links);		//gör en sökning för länkarna 'links'
 			        		handleLinks(load(data).backlinks);	//gör en sökning för länkarna 'backlinks'
 			        		printArticle(load(data));			//gör en sökning för den sökta artikeln
@@ -76,8 +77,6 @@ var first_time;
 			       
 			        		//Get first sentence in a paragraph. 
 			        		getFirstRow(all_articles[0].first_paragraph);
-			        		//Add the articles position to the map
-			        		addArticleToMap(all_articles[0].position, all_articles[0].title);
 
 			        	}
 			        	else{
@@ -147,9 +146,6 @@ var first_time;
 			//To get the first row in a paragraph. 
 			temp_article.first_sentence=getFirstRow(temp_article.first_paragraph);
 
-			console.log(temp_article);
-
-			//Store article in array
 			all_articles.push(temp_article);
 
 			return temp_article;

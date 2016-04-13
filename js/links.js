@@ -82,6 +82,8 @@
 
 				coord_articles.push(temp_article);
 
+				addArticleToMap(temp_article.position, temp_article.title);
+
 			} 
 			else {
 				temp_article.position = [null,null];
