@@ -74,6 +74,8 @@ var first_time;
 			        		//Get first sentence in a paragraph. 
 			        		getFirstRow(all_articles[0].first_paragraph);
 
+			        		generateTimeCircle(all_articles[0].title);
+
 			        	}
 			        	else{
 
