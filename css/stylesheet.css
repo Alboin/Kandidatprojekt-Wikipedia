@@ -103,26 +103,26 @@ hr {
     padding: 0px;
 }
 
-.info {
-    background:#fff;
-    position:absolute;
-    width:260px;
-    top:10px;
-    right:30px;
-    border-radius:2px;
+#article_list_container {
+    position: fixed;
+    right: 10px;
+    width: 220px;
+    padding: 6px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+    z-index: 999;
 }
 
-.info .item {
-  display:block;
-  border-bottom:1px solid #eee;
-  padding:10px;
-  text-decoration:none;
+#article_list {
+    height: 400px;
+    border-radius: 6px;
+    overflow: auto;
+    padding: 6px;
+    color: white;
+    background: #505050;
+    opacity: 0.9;
 }
 
-.info .item small { color:#888; }
-.info .item:hover,
-.info .item.active { background:#f8f8f8; }
-.info .item:last-child { border-bottom:none; }
 
 #popup{
     position: fixed;
