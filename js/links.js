@@ -96,17 +96,20 @@
 
 			all_articles.push(temp_article);
 
+			//If the article has coordinates, save coordinates in 'position'
 			if(data.query.pages[temp_article.id].coordinates) {
 				temp_article.position =
 					[data.query.pages[temp_article.id].coordinates[0].lat,
 					 data.query.pages[temp_article.id].coordinates[0].lon]
 
 				coord_articles.push(temp_article);
+				addArticleToMap(temp_article.position, temp_article.title);
 			} 
 			else {
 				temp_article.position = [null,null];
 			}
 
+			//Return array of articles which have coordinates
 			return coord_articles;
 		}
 

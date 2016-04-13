@@ -2,10 +2,11 @@
  	Allt det här låg i article.js förut.
 	Datum när filen skapades: 2016-04-12
 
-	Filen innehåller funktioner som datum och tid.
+	Filen innehåller funktioner som hanterar datum och tid.
 
 ********************************************************************************************************/
 		
+
 
 
 		function getTime(text) {
@@ -69,6 +70,8 @@
 			return time;
 		}
 
+
+		//Översätt en månad från en sträng till en siffra
 		function getMonth(word) {
 			var result = -1;
 			result = word.localeCompare("januari");
@@ -111,13 +114,3 @@
 			return -1;
 		}
 
-		function getPosition(revision) {
-			
-			var birthplace = "";
-			var indx = revision.indexOf("f\u00f6delseplats");
-
-			indx = revision.indexOf("[[", indx) + 2;
-			birthplace = revision.substring(indx, revision.indexOf("]]",indx));
-
-			return birthplace;
-		}
