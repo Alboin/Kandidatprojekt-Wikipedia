@@ -82,7 +82,6 @@
 		//Typ en kopia av 'load'.
 		//Hämtar data för varje artikel/länk. Om artikeln är en plats/har koordinater sparas den i 'coord_articles'.
 		function loadLinks(data) {
-			console.log(data);
 
 			var temp_article = {
 				title: "",
