@@ -68,8 +68,9 @@ var first_time;
 			        	console.log(data);
 
 			        	if(first){
-			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
-			        		printArticle(load(data));
+			        		handleLinks(load(data).links);		//gör en sökning för länkarna 'links'
+			        		handleLinks(load(data).backlinks);	//gör en sökning för länkarna 'backlinks'
+			        		printArticle(load(data));			//gör en sökning för den sökta artikeln
 
 			        		console.log(all_articles[0]); 	//Log all articles in console
 			       
