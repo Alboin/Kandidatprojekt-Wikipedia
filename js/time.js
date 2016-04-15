@@ -1,7 +1,3 @@
-
-
-
-
 function generateTimeCircle(title) {
 
 	var body = d3.select("body");
@@ -34,7 +30,6 @@ function ShowHideTipsy(ele)
    // if the tipsy has the attribute rel = show, hide it! 
     if($(ele).attr("rel") == "show") 
     { 
-        
         $(ele).tipsy("hide"); 
        $(ele).attr('rel','hide');
        console.log($(ele).attr('rel'));
