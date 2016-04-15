@@ -17,7 +17,7 @@
 		function getLinkSearch(input_title) {
 			if(input_title) {
 
-				input_title = input_title.replace(" ", "%20");
+				input_title = input_title.replace(" ", "%20");				
 
 				//The beginning of the query, tells us to do a query and return the result on json format.
 				var start = "/w/api.php?action=query&format=json";
@@ -29,7 +29,6 @@
 				var linkQuery = "http://sv.wikipedia.org" + start + title + properties + "&callback=?";
 			    return linkQuery;
 			}
-			///w/api.php?action=query&format=json&prop=extracts%7Ccoordinates&titles=Banana&exintro=1&explaintext=1
 		}
 
 		//Skapar nya sökningar av länkarna.

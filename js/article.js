@@ -39,14 +39,6 @@ var main_search;
 		//Till sist skickas den färdiga query:n till funktionen "searchWiki".
 		function getSearchString(input_title) {
 			if(input_title) {
-				
-				//Replaces the first letter of each word in the search-string with a capital letter, for a better search result.
-				//The very first letter in the string is given capital letter by wikipedia API, and is therefore skipped.
-				/*for(var i = 0; i < input_title.length; i++) {
-					if(input_title[i] == " ") {
-						input_title = input_title.slice(0, i+1) + input_title.charAt(i+1).toUpperCase() + input_title.slice(i+2, input_title.length);
-					}
-				}*/
 
 				input_title = input_title.replace(" ", "%20");
 
@@ -82,14 +74,15 @@ var main_search;
 
 			        	//HERE IS WHAT TO DO IF THE SEARCH WAS SUCCESSFUL
 			        	if(main_search){
+			        		console.log(data)
 
 			        		//If the result is not a valid article and no redirection proposal is given (see below).
 			        		if(data.query.pageids[0] == -1) {
 			        				window.alert("The entered search-text did not yield any results.")
-			        		}
+			        		
 			        		//If the result is not a valid article, the returned object often contains a redirection proposal
 			        		//from Wikipedia to a valid article. Use this proposal to do a new search.
-			        		else if(data.query.pages[data.query.pageids[0]].extract == "") {
+			        		} else if(data.query.pages[data.query.pageids[0]].extract == "") {
 
 		        				//Create a new query with the proposed redirection from Wikipedia.
 								var query = getSearchString(data.query.pages[data.query.pageids[0]].links[0].title);
@@ -115,8 +108,7 @@ var main_search;
 				        		getFirstRow(main_article.first_paragraph);
 				        	}
 
-			        	}
-			        	else{
+			        	} else {
 
 			        		//Hantera de relaterade länkarna, gör en ny sökning för varje relaterad länk.
 			        		printLinks(loadLinks(data));
