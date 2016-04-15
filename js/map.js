@@ -8,7 +8,8 @@
 
 //Global variables
 var map;
-var myLayer;
+var markerLayer;
+var all_markers = [];
 
 
 //This function will be run once the page has loaded.
@@ -33,80 +34,78 @@ function generateMap() {
     //var circle = svg.append("circle").attr("cx", 25).attr("cy", 25).attr("r", 20).attr("id", "svart").style("fill", "green");
 
 
-	//Lagren för kartan med en popup. 
-	myLayer = L.mapbox.featureLayer().addTo(map);
-
+	//Layer containing all the markers. 
+	markerLayer = L.mapbox.featureLayer().addTo(map);
+	
 }
 
-function addArticleToMap(coordinate, title) {
+function addArticleToMap(coordinate, title, sentence) {
 
-	//Add marker at article coordinates
-	/*myLayer.setGeoJSON([{
-	        type: 'Feature',
-	        geometry: {
-	            type: 'Point',
-	            coordinates: [coordinate[1], coordinate[0]]
-	        },
-	        properties: {
-	            title: title,
-	            description: '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button>',
-	            'marker-id': 'marker-1',
-	           // 'marker-color': '#f86767'
-
-	        }
-	    }
-	]);*/
-
-
-	//Den med rätt popup...
+	//Create marker
+	//The marker gets a button that when clicked calls the function "changeModalContent with the article title as argument."
 	var marker = L.marker([coordinate[0], coordinate[1]], {
-    	  icon: L.mapbox.marker.icon({
-        	 'marker-color': '#000000'
-      })
+    	icon: L.mapbox.marker.icon({
+        	'marker-color': '#000000'
+      	}),
+    	title: title
     })
-    .bindPopup('<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button><p>' + title +  '</p>')
-    .addTo(map);
+    .bindPopup('<div class="marker-title">' + title + '</div>' + sentence + '<a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>')
+    .addTo(markerLayer); //Add marker to "markerLayer", a layer wich is cleared with every new search.
 
+    all_markers.push(marker);
 
-	//Infobox to the right on the map
-	var info = document.getElementById('info');
-
-	// Iterate through each feature layer item, build a
-	// marker menu item and enable a click event that pans to + opens
-	// a marker that's associated to the marker item.
-	myLayer.eachLayer(function(marker) {
-		var link = info.appendChild(document.createElement('a'));
-		link.className = 'item';
-		link.href = '#';
-
-		// Populate content from each markers object.
-		link.innerHTML = marker.feature.properties.title + '<br /><small>' + marker.feature.properties.description + '</small>';
-		
-		link.onclick = function() {
-		
-			if (/active/.test(this.className)) {
-			    this.className = this.className.replace(/active/, '').replace(/\s\s*$/, '');
-			} 
-
-			else {
-			    var siblings = info.getElementsByTagName('a');
-			    
-			    for (var i = 0; i < siblings.length; i++) {
-			    	siblings[i].className = siblings[i].className.replace(/active/, '').replace(/\s\s*$/, '');
-			    };
-
-			    this.className += ' active';
-			    // When a menu item is clicked, animate the map to center
-			    // its associated marker and open its popup.
-			    map.panTo(marker.getLatLng());
-			    marker.openPopup();
-			    }
-		    
-		    return false;
-		  };
-	});
 }
 
 function hideStartpage() {
 	$("#upper_row").slideToggle("slow");
+}
+
+//A function that changes the content of Modal depending on wich article to display.
+function changeModalContent(title) {
+
+	var temp_article;
+
+	//Loop through all articles and search for a matching title.
+	for(var indx = 0; indx < coord_articles.length; indx++) {
+		if(coord_articles[indx].title == title) {
+			temp_article = coord_articles[indx];
+			break;
+		}
+	}
+
+	//Change Modal title
+	document.getElementById("artikel_titel").innerHTML = title;
+	//Change Modal text
+	document.getElementById("artikel_text").innerHTML = temp_article.first_paragraph;
+	//Change Modal thumbnail
+	document.getElementById("artikel_bild").innerHTML = "<img src='" + temp_article.image_source + "'>";
+
+}
+
+function chooseMarker(title) {
+
+	//Loop through all markers on the map and if one with the same title exist, open that one's popup.
+	for(var i = 0; i < all_markers.length; i++) {
+
+		//Find the starting and ending index of the article title
+		var start_of_title = (all_markers[i]._popup._content).indexOf('>');
+		var end_of_title = (all_markers[i]._popup._content).indexOf('<', start_of_title);
+
+		//Extract the title from the marker and compare it to 'title'.
+		if(all_markers[i]._popup._content.substring(start_of_title+1, end_of_title) == title) {
+			all_markers[i].openPopup();
+		}
+	}
+}
+
+//Creates a new entry on the list with displayed articles.
+function createListObject(title) {
+
+	var ul = document.getElementById("article_list");
+	//Create new list entry.
+  	var li = document.createElement("li");
+  	li.appendChild(document.createTextNode(title));
+  	li.setAttribute("id", title);
+  	li.setAttribute("onclick", "chooseMarker(" + "'" + title + "'" + ")");
+  	ul.appendChild(li);
 }
