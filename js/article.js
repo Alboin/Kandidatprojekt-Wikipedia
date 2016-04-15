@@ -236,22 +236,6 @@ var main_search;
 				document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
 			}
 
-			
-			document.getElementById("länkar").innerHTML +=  "<b>Länkar i artikeln:</b> ("
-			+ article.links.length + " st)<br>";
-			for(var indx = 0; indx < article.links.length; indx++) {
-				document.getElementById("länkar").innerHTML += article.links[indx];
-				document.getElementById("länkar").innerHTML += ", ";
-			}
-
-			document.getElementById("länkar").innerHTML +=  "<br><br><b>Artiklar som länkar till denna artikel:</b> ("
-			+ article.backlinks.length + " st)<br>";
-			for(var indx = 0; indx < article.backlinks.length; indx++) {
-				document.getElementById("länkar").innerHTML += article.backlinks[indx];
-				document.getElementById("länkar").innerHTML += ", ";
-			}
-
-			document.getElementById("sökgenomförd").innerHTML = "Klicka på de olika tabbarna för mer information om artikeln.";
 		}
 
 
