@@ -39,6 +39,15 @@ var main_search;
 		//Till sist skickas den färdiga query:n till funktionen "searchWiki".
 		function getSearchString(input_title) {
 			if(input_title) {
+				
+				//Replaces the first letter of each word in the search-string with a capital letter, for a better search result.
+				//The very first letter in the string is given capital letter by wikipedia API, and is therefore skipped.
+				/*for(var i = 0; i < input_title.length; i++) {
+					if(input_title[i] == " ") {
+						input_title = input_title.slice(0, i+1) + input_title.charAt(i+1).toUpperCase() + input_title.slice(i+2, input_title.length);
+					}
+				}*/
+
 				input_title = input_title.replace(" ", "%20");
 
 				//The beginning of the query, tells us to do a query and return the result on json format.
@@ -74,19 +83,37 @@ var main_search;
 			        	//HERE IS WHAT TO DO IF THE SEARCH WAS SUCCESSFUL
 			        	if(main_search){
 
-			        		//Remove all old markers from map.
-			        		all_markers = [];
-			        		map.removeLayer(markerLayer);
-			        		markerLayer = L.mapbox.featureLayer().addTo(map);
+			        		//If the result is not a valid article and no redirection proposal is given (see below).
+			        		if(data.query.pageids[0] == -1) {
+			        				window.alert("The entered search-text did not yield any results.")
+			        		}
+			        		//If the result is not a valid article, the returned object often contains a redirection proposal
+			        		//from Wikipedia to a valid article. Use this proposal to do a new search.
+			        		else if(data.query.pages[data.query.pageids[0]].extract == "") {
 
-			        		//Clears the list with articles that are displayed on the map.
-			        		$('#article_list').empty();
+		        				//Create a new query with the proposed redirection from Wikipedia.
+								var query = getSearchString(data.query.pages[data.query.pageids[0]].links[0].title);
 
-			        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
-			        		printArticle(load(data));
-			       
-			        		//Get first sentence in a paragraph. 
-			        		getFirstRow(main_article.first_paragraph);
+								//Run search on new title.
+								main_search = true;
+								searchWiki(query, main_search);
+
+			        		} else {
+
+				        		//Remove all old markers from map.
+				        		all_markers = [];
+				        		map.removeLayer(markerLayer);
+				        		markerLayer = L.mapbox.featureLayer().addTo(map);
+
+				        		//Clears the list with articles that are displayed on the map.
+				        		$('#article_list').empty();
+
+				        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
+				        		printArticle(load(data));
+				       
+				        		//Get first sentence in a paragraph. 
+				        		getFirstRow(main_article.first_paragraph);
+				        	}
 
 			        	}
 			        	else{

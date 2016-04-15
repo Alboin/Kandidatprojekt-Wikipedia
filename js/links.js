@@ -16,6 +16,7 @@
 		//Här väljer man vilka 'properties' som hämtas från en viss artikel.
 		function getLinkSearch(input_title) {
 			if(input_title) {
+
 				input_title = input_title.replace(" ", "%20");
 
 				//The beginning of the query, tells us to do a query and return the result on json format.
