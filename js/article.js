@@ -82,7 +82,6 @@ function searchWiki(query, first){
 
 	        	//HERE IS WHAT TO DO IF THE SEARCH WAS SUCCESSFUL
 	        	if(main_search){
-	        		console.log(data);
 
 	        		//If the result is not a valid article and no redirection proposal is given (see below).
 	        		if(data.query.pageids[0] == -1) {
@@ -228,7 +227,7 @@ function printArticle(article) {
 	if(article.position[0]) {
 
 		//document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
-		addArticleToMap(article.position, article.title);
+		addArticleToMap(article.position, article.title, article.first_sentence);
 		createListObject(article.title);
 
 	}
@@ -236,21 +235,6 @@ function printArticle(article) {
 
 	if(article.time[0]) {
 		document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
-	}
-
-	
-	document.getElementById("links").innerHTML +=  "<b>länkar i artikeln:</b> ("
-	+ article.links.length + " st)<br>";
-	for(var indx = 0; indx < article.links.length; indx++) {
-		document.getElementById("links").innerHTML += article.links[indx];
-		document.getElementById("links").innerHTML += ", ";
-	}
-
-	document.getElementById("links").innerHTML +=  "<br><br><b>Artiklar som länkar till denna artikel:</b> ("
-	+ article.backlinks.length + " st)<br>";
-	for(var indx = 0; indx < article.backlinks.length; indx++) {
-		document.getElementById("links").innerHTML += article.backlinks[indx];
-		document.getElementById("links").innerHTML += ", ";
 	}
 
 	document.getElementById("searchcompleted").innerHTML = "Klicka på de olika tabbarna för mer information om artikeln.";
