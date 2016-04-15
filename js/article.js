@@ -229,6 +229,7 @@ function printArticle(article) {
 
 		//document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
 		addArticleToMap(article.position, article.title);
+		createListObject(article.title);
 
 	}
 
