@@ -38,7 +38,7 @@ function generateMap() {
 
 }
 
-function addArticleToMap(coordinate, title) {
+function addArticleToMap(coordinate, title, sentence) {
 
 	//Add marker at article coordinates
 	/*myLayer.setGeoJSON([{
@@ -64,7 +64,7 @@ function addArticleToMap(coordinate, title) {
         	 'marker-color': '#000000'
       })
     })
-    .bindPopup('<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button><p>' + title +  '</p>')
+    .bindPopup('<div class="marker-title">' + title + '</div>' +'<a href data-toggle="modal" data-target="#myModal">Läs mer...</a>')
     .addTo(map);
 
 

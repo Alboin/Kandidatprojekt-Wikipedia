@@ -74,7 +74,7 @@ var first_time;
 			        		//Get first sentence in a paragraph. 
 			        		getFirstRow(all_articles[0].first_paragraph);
 
-			        		generateTimeCircle(all_articles[0].title);
+			        		generateTimeCircle(all_articles[0].title, all_articles[0].first_sentence);
 
 			        	}
 			        	else{
@@ -229,7 +229,7 @@ var first_time;
 			//Find the position where a dot followed by space is in a string. 
     		var n = paragraph.indexOf(". ");
     		//Split the string where the position is set. 
-    		var res = paragraph.slice(0, n);
+    		var res = paragraph.slice(0, n+1);
 
 			//If you want to use the sentence in a javascript-file it's called this:
     		var first_sentence = res; 
