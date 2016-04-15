@@ -88,6 +88,7 @@ var main_search;
 			        		//Get first sentence in a paragraph. 
 			        		getFirstRow(main_article.first_paragraph);
 
+			        		generateTimeCircle(main_article.title, main_article.first_sentence);
 
 			        	}
 			        	else{
