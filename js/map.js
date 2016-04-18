@@ -58,6 +58,11 @@ function addArticleToMap(coordinate, title, sentence) {
 
 function hideStartpage() {
 	$("#upper_row").slideToggle("slow");
+
+	//The following function is calling "chooseMarker()" with article title as argument.
+	//It has a minimal delay to prevent the popup window from getting a strange format.
+	var temp_string = "chooseMarker(" + "'" + main_article.title + "'" + ");";
+	setTimeout(temp, 1);
 }
 
 //A function that changes the content of Modal depending on wich article to display.

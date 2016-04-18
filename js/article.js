@@ -117,11 +117,10 @@ function searchWiki(query, first){
 		        		//Clears the list with articles that are displayed on the map.
 		        		$('#article_list').empty();
 
-		        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
-		        		printArticle(load(data));
-		       
-		        		//Get first sentence in a paragraph. 
-		        		getFirstRow(main_article.first_paragraph);
+		        		load(data); //This loads the data into variable "main_article".
+		        		handleLinks(main_article.links);
+		        		printArticle(main_article);
+
 		        	}
 
 	        	} else {
@@ -238,8 +237,8 @@ function printArticle(article) {
 	if(article.position[0]) {
 
 		//document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
-		addArticleToMap(article.position, article.title);
-		createListObject(article.title);
+		addArticleToMap(article.position, article.title, article.first_sentence);
+		createListObject(article.title);		
 
 	}
 
@@ -256,7 +255,7 @@ function printArticle(article) {
 function getFirstRow(paragraph){
 	
 	//Find the position where a dot followed by space is in a string. 
-	var n = paragraph.indexOf(". ");
+	var n = paragraph.indexOf(".");
 	//Split the string where the position is set. 
 	var res = paragraph.slice(0, n+1);
 
