@@ -1,6 +1,6 @@
 
 /*-----------------------------------------------
-			Skriver ut text till HTML-format
+			Prints text in HTML-format
 -----------------------------------------------*/
 function printArticle(article) {
 
@@ -20,12 +20,12 @@ function printArticle(article) {
 
 
 	/*-----------------------------------------------
-			Tar ut information om artikeln 
+			Gets information about the article
 	-----------------------------------------------*/
 	document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
 	+ "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
 	
-	//Kolla om det finns en position förknippad med artikeln eller inte.
+	//Check wether there is a position connected to the article
 	if(article.position[0]) {
 
 		//document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;

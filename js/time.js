@@ -4,7 +4,7 @@ function generateTimeCircle(title, sentence) {
 	var div = body.append("div");
 	var svg = d3.selectAll("svg");
 
-	svg.append("circle").attr("cx", 500).attr("cy", 100).attr("r", 10).attr("id", "svart");
+	svg.append("circle").attr("cx", 500).attr("cy", 300).attr("r", 10).attr("id", "svart");
 
 	// The black circle that's supposted to trigger the tipsy has the id "svart"
 	$('#svart').attr('rel', 'hide');	// svart starts with the tipsy hidden, therefore rel has the id "hide"
@@ -24,6 +24,18 @@ function generateTimeCircle(title, sentence) {
 	    	html: true
 	    });
 	});
+
+//Får inte den här att funka! 
+	// var svgContainer = d3.select("body").append("svg")
+	//                                     .attr("width", "100%")
+	//                                    	.attr("height", "100%");
+
+	// //Draw the line
+	// var line = svgContainer.append("line")
+	//                          .attr("x1", 0)
+	//                          .attr("y1", 300)
+	//                          .attr("x2", 1500)
+	//                          .attr("y2", 300);
 
 }
 

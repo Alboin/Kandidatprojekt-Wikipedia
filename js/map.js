@@ -40,23 +40,6 @@ function generateMap() {
 }
 
 function addArticleToMap(coordinate, title, sentence) {
-	//Add marker at article coordinates
-	/*myLayer.setGeoJSON([{
-	        type: 'Feature',
-	        geometry: {
-	            type: 'Point',
-	            coordinates: [coordinate[1], coordinate[0]]
-	        },
-	        properties: {
-	            title: title,
-	            description: '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button>',
-	            'marker-id': 'marker-1',
-	           // 'marker-color': '#f86767'
-
-	        }
-	    }
-	]);*/
-
 
 	//Create marker
 	//The marker gets a button that when clicked calls the function "changeModalContent with the article title as argument."
