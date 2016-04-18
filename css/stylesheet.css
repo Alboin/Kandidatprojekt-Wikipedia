@@ -126,6 +126,7 @@ hr {
 
 #article_list li:hover {
     background:#bbb;
+    cursor: pointer;
 }
 
 #article_list_header {
