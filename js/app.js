@@ -1,23 +1,25 @@
 /*******************************************************************************************************
- 	Hanna och Johanna har skrivit den här filen från början. Den är skriven med angular.js.
+ 	Authors: Hanna and Johanna 
+
+ 	The file is written with angular.js. 
 
 ********************************************************************************************************/
 
 
 (function(){
 	
-	//article är ett objekt som skulle kunna ha olika attribut, så som 'title' och 'coord'.	
-	//Just nu har den inga attribut, men eventuellt skulle vi kunna ha det framöver?
+	//'article' is an object that could have different attributes, such as 'title' and 'coord'.	
+	//At the moment the object does not have any attributes. 
 	var article = {}; 
 
 	var app = angular.module('wikiSearch', []);
 
-	//Den här controllern kontrollerar artiklarna.
+	//This controller controls the articles. 
 	app.controller('ArticleController', function(){
 		this.product = article;
 	});
 
-	//Den här controllern kontrollerar "sidorna" i webbapplikationen
+	//This controller controls the "pages" in the application 
 	app.controller('PageController', function(){
 		this.page = 4;
 
@@ -34,6 +36,10 @@
 
 
 
+/* ------------------------------------------------
+	An example of how an object could look like,
+	if every article would be "hard coded"
+------------------------------------------------- */
 /*
 (function(){
 
