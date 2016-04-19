@@ -118,16 +118,13 @@ function searchWiki(query, first){
 		        		//Clears the list with articles that are displayed on the map.
 		        		$('#article_list').empty();
 
-		        		var temp_data = load(data);
+		        		main_article = load(data);
 
 		        		//Run searches on the links and backlinks asynchronously.
-		        		handleLinks(temp_data.links, "gray");
-		        		handleLinks(temp_data.backlinks, "black");
+		        		handleLinks(main_article.links, "gray");
+		        		handleLinks(main_article.backlinks, "black");
 		        		
-		        		printArticle(temp_data);
-		       
-		        		//Get first sentence in a paragraph. 
-		        		getFirstRow(main_article.first_paragraph);
+		        		printArticle(main_article);
 
 		        		generateTimeCircle(main_article.title, main_article.first_sentence);
 		        		
@@ -160,7 +157,7 @@ function load(data) {
 		first_paragraph: "",
 		position: [null,null],
 		birthplace: "",
-		time: [null, null],
+		time: [[null, null, null], [null, null, null]],
 		image_source: "",
 		categories: "", 
 		first_sentence:""
@@ -223,7 +220,6 @@ function getPosition(revision) {
 
 //Print the first sentence in an article.  
 function getFirstRow(paragraph){
-	
 	//Find the position where a dot followed by space is in a string. 
 	var n = paragraph.indexOf(".");
 	//Split the string where the position is set. 

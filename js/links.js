@@ -64,12 +64,12 @@ function printLinks(linksarray) {
 
 	var titles = [];
 	var linksCoord = [];
-	
+
 	//Loop through the array to print all links that have coordinates
 	for(var indx = 0; indx < linksarray.length; indx++){
 		//document.getElementById("links").innerHTML = "<b>Artikeltitel:</b> " + linksarray[indx].title + "<br><br>";
-		titles.push(" " + linksarray[indx].title );
-		linksCoord.push(" " + linksarray[indx].position);
+		titles.push(" " + linksarray[0][indx].title );
+		linksCoord.push(" " + linksarray[0][indx].position);
 	}
 
 	document.getElementById("links").innerHTML = titles;
@@ -92,6 +92,7 @@ function loadLinks(data) {
 		first_sentence: "",
 		image_source: "",
 		position: [null,null],
+		time: [[null, null, null], [null, null, null]],
 		birthplace: "",
 	}
 
@@ -146,18 +147,16 @@ function loadLinks(data) {
  		Check if the article has a year
 -----------------------------------------------*/
 	//If the article has a year, save the article in time_articles
-	console.log(temp_article)
-	if(temp_article.time[0][2])
+	if(temp_article.time)
 	{
 		//If the article does not exist in the array, push it into the array
 		if(!article_exist){
 			time_articles.push(temp_article);
 		}
 
-		console.log(temp_article.title);
 	}
 
-	//Return array of articles which have coordinates
+	//Return array of articles which have coordinates or time
 	return [coord_articles, time_articles];
 }
 

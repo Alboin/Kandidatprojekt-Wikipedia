@@ -54,13 +54,13 @@ function addArticleToMap(coordinate, title, sentence) {
 	var temp_color;
 
 	if(marker_color == "red") {
-		console.log("1")
+		//console.log("1")
 		temp_color = '#ff0000';
 	} else if(marker_color == "gray") {
-		console.log("2")
+		//console.log("2")
 		temp_color = '#777777';
 	} else {
-		console.log("3")
+		//console.log("3")
 		temp_color = '#0000ff';
 	}
 
