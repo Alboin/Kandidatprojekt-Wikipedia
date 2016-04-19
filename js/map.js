@@ -9,6 +9,7 @@
 //Global variables
 var map;
 var markerLayer;
+var marker_color = "red";
 var all_markers = [];
 
 
@@ -41,11 +42,24 @@ function generateMap() {
 
 function addArticleToMap(coordinate, title, sentence) {
 
+	var temp_color;
+
+	if(marker_color == "red") {
+		console.log("1")
+		temp_color = '#ff0000';
+	} else if(marker_color == "gray") {
+		console.log("2")
+		temp_color = '#777777';
+	} else {
+		console.log("3")
+		temp_color = '#0000ff';
+	}
+
 	//Create marker
 	//The marker gets a button that when clicked calls the function "changeModalContent with the article title as argument."
 	var marker = L.marker([coordinate[0], coordinate[1]], {
     	icon: L.mapbox.marker.icon({
-        	'marker-color': '#000000'
+        	'marker-color': temp_color
       	}),
     	title: title
     }).bindPopup('<div class="marker-title">' + title + '</div>' + sentence + '<a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>')

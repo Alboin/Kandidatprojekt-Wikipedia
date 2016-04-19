@@ -90,6 +90,8 @@ function searchWiki(query, first){
 
 	        	//HERE IS WHAT TO DO IF THE SEARCH WAS SUCCESSFUL
 	        	if(main_search){
+
+	        		marker_color = "red";
 	        		console.log(data)
 
 	        		//If the result is not a valid article and no redirection proposal is given (see below).
@@ -117,21 +119,26 @@ function searchWiki(query, first){
 		        		//Clears the list with articles that are displayed on the map.
 		        		$('#article_list').empty();
 
-		        		handleLinks(load(data).links);	//motsvarar typ article.links (som är en array?)
-		        		printArticle(load(data));
+		        		var temp_data = load(data);
+
+		        		//Run searches on the links and backlinks asynchronously.
+		        		handleLinks(temp_data.links, "gray");
+		        		handleLinks(temp_data.backlinks, "black");
+		        		
+		        		printArticle(temp_data);
 		       
 		        		//Get first sentence in a paragraph. 
 		        		getFirstRow(main_article.first_paragraph);
 
 		        		generateTimeCircle(main_article.title, main_article.first_sentence);
-			        	
-			        	console.log("hej");
+		        		
 		        	}
 
 	        	} else {
 
 					//Handle the related articles, make a new search for each one of them.
 	        		printLinks(loadLinks(data));
+
 	        	}
 	        },
 

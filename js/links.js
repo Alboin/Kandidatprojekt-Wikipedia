@@ -34,8 +34,10 @@ function getLinkSearch(input_title) {
 
 //Creates a new search for the links. 
 //The function handles at most 50 links/articles at the time.	
-function handleLinks(links){
+function handleLinks(links, color){
 	main_search = false;
+
+	marker_color = color;
 
 	for(var indx = 0; indx < links.length; indx++){
 		var query = getLinkSearch(links[indx]);
@@ -115,11 +117,6 @@ function loadLinks(data) {
 				break;
 			}						
 		}
-		
-		//If the article does not exist in the array, push it into the array
-		if(!article_exist){
-			coord_articles.push(temp_article);
-		}
 
 		//Take the first sentence from the related article. 
 		temp_article.first_sentence = getFirstRow(temp_article.first_paragraph);
@@ -128,6 +125,11 @@ function loadLinks(data) {
 		addArticleToMap(temp_article.position, temp_article.title, temp_article.first_sentence);
 
 		createListObject(temp_article.title);
+
+		//If the article does not exist in the array, push it into the array
+		if(!article_exist){
+			coord_articles.push(temp_article);
+		}
 
 	}
 
