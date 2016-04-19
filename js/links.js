@@ -83,57 +83,65 @@ function printLinks(linksarray) {
 //If the article is a place/has coordinates it is saved in the variable'coord_articles'.
 function loadLinks(data) {
 
-	var temp_article = {
-		title: "",
-		id: -1,
-		first_paragraph: "",
-		first_sentence: "",
-		image_source: "",
-		position: [null,null],
-		birthplace: "",
-	}
+			var temp_article = {
+				title: "",
+				id: -1,
+				first_paragraph: "",
+				image_source: "",
+				position: [null,null],
+				birthplace: "",
+				time: [null, null],
+				first_sentence: "",
+			}
 
-	temp_article.id = data.query.pageids[0]; //Save article id
-	temp_article.title = data.query.pages[temp_article.id].title; //Save article title
-	temp_article.first_paragraph = data.query.pages[temp_article.id].extract; //Save first paragraph
+			temp_article.id = data.query.pageids[0]; 											//Save article id
+			temp_article.title = data.query.pages[temp_article.id].title; 						//Save article title
+			temp_article.first_paragraph = data.query.pages[temp_article.id].extract; 			//Save first paragraph
+			temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
 
-	if(data.query.pages[temp_article.id].thumbnail.source)
-		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
+			temp_article.time = getTime(temp_article.first_paragraph);										//Get time mentioned in first paragraph of the article
+			//temp_article.birthplace = getPosition(data.query.pages[temp_article.id].revisions[0]["*"]);		//Get position of birthplace
+			//temp_article.first_sentence = getFirstRow(temp_article.first_paragraph);						//To get the first row in a paragraph. 
 
-	//If the article has coordinates, save coordinates in 'position'
-	if(data.query.pages[temp_article.id].coordinates) {
-		temp_article.position =
-			[data.query.pages[temp_article.id].coordinates[0].lat,
-			 data.query.pages[temp_article.id].coordinates[0].lon]
-		
-		//Boolean to check if an article already exists in the array 'coord_articles' or not
-		var article_exist = false;	
-		//Lopp through the array to see if the article is already in the array, if so --> break and set boolean to true
-		for( var i=0; i < coord_articles.length; i++){
-			if (coord_articles[i].title == temp_article.title){
-				article_exist = true;
-				break;
-			}						
+
+			/*-----------------------------------------------
+				Check if the article has coordinates
+			-----------------------------------------------*/
+			//If the article has coordinates, save coordinates in 'position'
+			if(data.query.pages[temp_article.id].coordinates) {
+				temp_article.position =
+					[data.query.pages[temp_article.id].coordinates[0].lat,
+					 data.query.pages[temp_article.id].coordinates[0].lon]
+
+				//If the article has a position, save the article in coord_articles
+				coord_articles.push(temp_article);
+
+				//Take the first sentence from the related article. 
+				temp_article.sentence=getFirstRow(temp_article.first_paragraph);
+				//Send information about the article to the map. 
+				addArticleToMap(temp_article.position, temp_article.title, temp_article.sentence);
+				createListObject(temp_article.title);
+			}
+
+
+			/*-----------------------------------------------
+				Check if the article has a year
+			-----------------------------------------------*/
+
+			//console.log(temp_article.time[0][2]);
+
+			//If the article has a year, save the article in time_articles
+			if(temp_article.time[0][2])
+			{
+				time_articles.push(temp_article);
+				console.log(temp_article.title);
+			}
+
+			//console.log(time_articles);
+
+			//Return array of articles which have coordinates
+			return [coord_articles, time_articles];
 		}
-		
-		//If the article does not exist in the array, push it into the array
-		if(!article_exist){
-			coord_articles.push(temp_article);
-		}
-
-		//Take the first sentence from the related article. 
-		temp_article.first_sentence = getFirstRow(temp_article.first_paragraph);
-		
-		//Send information about the article to the map. 
-		addArticleToMap(temp_article.position, temp_article.title, temp_article.first_sentence);
-
-		createListObject(temp_article.title);
-
-	}
-
-	//Return array of articles which have coordinates, no duplicates in the array.
-	return coord_articles;
-}
 
 
 
