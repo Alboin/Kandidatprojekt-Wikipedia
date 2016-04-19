@@ -6,12 +6,11 @@
  	the Wikipedia API. The data can be used in the index-file and the different js-files.
 
  	The file includes the functions:
- 	- runProgram
+ 	- runSearch
  	- getSearchString
  	- searchWiki
  	- load
  	- getPosition
- 	- printArticle
  	- getFirstRows
 ********************************************************************************************************/
 

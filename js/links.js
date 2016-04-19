@@ -85,6 +85,7 @@ function printLinks(linksarray) {
 //If the article is a place/has coordinates it is saved in the variable'coord_articles'.
 function loadLinks(data) {
 
+
 	var temp_article = {
 		title: "",
 		id: -1,
