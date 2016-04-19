@@ -1,8 +1,17 @@
 /*******************************************************************************************************
- 
-	Filen innehåller funktioner som hanterar kartan. 
-	Det är främst Albin och Sarah som har koll på denna fil :)
+ 	Authors: Sarah and Albin
 
+ 	Gets information from Wikipedia and declares different variables for every data that is handled by 
+ 	the Wikipedia API. The data can be used in the index-file and the different js-files.
+
+ 	The file includes the functions:
+ 	- generateMap
+ 	- addArticleToMap
+ 	- hideStartpage
+ 	- changeModalContent
+ 	- chooseMarker
+ 	- createListObject
+ 	
 ********************************************************************************************************/
 
 
@@ -48,8 +57,7 @@ function addArticleToMap(coordinate, title, sentence) {
         	'marker-color': '#000000'
       	}),
     	title: title
-    })
-    .bindPopup('<div class="marker-title">' + title + '</div>' + sentence + '<a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>')
+    }).bindPopup('<div class="marker-title">' + title + '</div>' + sentence + '<a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>')
     .addTo(markerLayer); //Add marker to "markerLayer", a layer wich is cleared with every new search.
 
     all_markers.push(marker);

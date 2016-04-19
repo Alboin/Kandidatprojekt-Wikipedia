@@ -6,23 +6,22 @@
  	the Wikipedia API. The data can be used in the index-file and the different js-files.
 
  	The file includes the functions:
- 	- runProgram
+ 	- runSearch
  	- getSearchString
  	- searchWiki
  	- load
  	- getPosition
- 	- printArticle
  	- getFirstRows
 ********************************************************************************************************/
 
 /*-----------------------------------------------
 		Declare global variables
 -----------------------------------------------*/
-var main_article;
-var coord_articles = [];
-var time_articles = [];
+var main_article;  //Contains the main article
+var coord_articles = []; //Contains all articles with coordinates.
+var time_articles = []; //Contains all articles with a time.
 var save;
-var main_search;
+var main_search = false; //A boolean used to separate main search and link search.
 		
 //The function is run when the user press "search"
 function runSearch() {		
@@ -46,6 +45,15 @@ function runSearch() {
 	At last the final query is sent to the function 'searchWiki'. */
 function getSearchString(input_title) {
 	if(input_title) {
+
+		//Gives the searchstring a capital letter in the start of every word, for a better search-result.
+		for(var i = 1; i < input_title.length; i++) {
+			if(input_title[i-1] == " " && i < input_title.length-1) {
+				input_title = input_title.slice(0,i) + input_title[i].toUpperCase() + input_title.slice(i+1,input_title.length);
+			} else if(input_title[i-1] == " ") {
+				input_title = input_title.slice(0,i) + input_title[i].toUpperCase();
+			}
+		}
 
 		input_title = input_title.replace(" ", "%20");
 
@@ -113,6 +121,10 @@ function searchWiki(query, first){
 		       
 		        		//Get first sentence in a paragraph. 
 		        		getFirstRow(main_article.first_paragraph);
+
+		        		generateTimeCircle(main_article.title, main_article.first_sentence);
+			        	
+			        	console.log("hej");
 		        	}
 
 	        	} else {
@@ -200,47 +212,6 @@ function getPosition(revision) {
 
 	return birthplace;
 }
-
-
-
-/*-----------------------------------------------
-	Printa ut massa info! :) 
------------------------------------------------*/
-function printArticle(article) {
-
-	/*-----------------------------------------------
-			For the modal popup 
-	-----------------------------------------------*/
-	
-	document.getElementById("artikel_titel").innerHTML = article.title;								//Title
-	document.getElementById("artikel_text").innerHTML = article.first_paragraph;					//Article
-	document.getElementById("artikel_bild").innerHTML = "<img src='" + article.image_source + "'>";	//Thumbnailmage
-	
-	//Categories
-	//document.getElementById("artikel_kategori").innerHTML = article.categories;
-
-	/*-----------------------------------------------
-			Gets information about the article 
-	-----------------------------------------------*/
-	document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
-	+ "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
-	
-	//Check if the article has a position. 
-	if(article.position[0]) {
-
-		//document.getElementById("koordinater").innerHTML +=  "<b>Artikelns koordinater: </b>" + article.position;
-		addArticleToMap(article.position, article.title);
-		createListObject(article.title);
-
-	}
-
-
-	if(article.time[0]) {
-		document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
-	}
-
-}
-
 
 
 //Print the first sentence in an article.  

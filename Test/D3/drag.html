@@ -6,25 +6,37 @@
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 <body style="width:100%;height:100%;margin:0;">
+
+<!--path d="M1,5L20,20L40,10L60,40L80,5L100,60" stroke="blue" stroke-width="4" fill="none"></path-->
+
 <script>
 	var svg = d3.select("body")
 		.append("svg")
 		.attr("width", "100%")
-	  	.attr("height", "100%");
+	  	.attr("height", "100%")
+	  	.on('mousemove', function() {
+    var coordinates = d3.mouse(this)
+    draw_lines(coordinates)
+  });
 
 	var drag = d3.behavior.drag()
 		.on('dragstart', function() {
 			circle.transition().attr("r", 40).style("fill", "red");
+			circle.transition().style("fill", "white");
+
 		})
 		.on('drag', function() {
 			circle.attr("cx", d3.event.x)
 				.attr("cy", d3.event.y);
+
+			circle.attr("x1" , d3.event.x ).attr("x2", d3.event.x);
 
 				console.log(d3.mouse(this));
 				updatePositionParagraph(d3.mouse(this));
 		})
 		.on('dragend', function() {
 			circle.transition().attr("r", 20).style("fill", "green");
+			//circle.transition().style("fill", "gray");
 
 		});
 
@@ -35,7 +47,24 @@
 					.attr("cy", 50)
 					.style("fill", "green");
 
+ 
+ //Draw the line
+ var circle = svg.append("line")
+                        .attr("x1", 5)
+                        .attr("y1", 0)
+                        .attr("x2", 5)
+                        .attr("y2", 200)
+                        .attr("stroke-width", 5)
+                        .attr("stroke", "black");				 		
+
 	var posText = svg.append("text").attr("x", "50%").attr("y", "20");
+
+	//Mitt försök:
+	// https://www.dashingd3js.com/svg-paths-and-d3js 
+
+
+
+
 
 	function updatePositionParagraph(pos) {
 		posText.text(String(pos));
