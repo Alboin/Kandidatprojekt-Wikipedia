@@ -95,12 +95,33 @@ function loadLinks(data) {
 		birthplace: "",
 	}
 
-	temp_article.id = data.query.pageids[0]; //Save article id
-	temp_article.title = data.query.pages[temp_article.id].title; //Save article title
-	temp_article.first_paragraph = data.query.pages[temp_article.id].extract; //Save first paragraph
+	temp_article.id = data.query.pageids[0]; 									//Save article id
+	temp_article.title = data.query.pages[temp_article.id].title; 				//Save article title
+	temp_article.first_paragraph = data.query.pages[temp_article.id].extract; 	//Save first paragraph
+
+	temp_article.first_sentence = getFirstRow(temp_article.first_paragraph);	//Take the first sentence from the related article. 
+	temp_article.time = getTime(temp_article.first_paragraph);					//Get time mentioned in first paragraph of the article
 
 	if(data.query.pages[temp_article.id].thumbnail.source)
 		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
+
+
+	/*---------------------------------------------------
+			Bool to check if the article already exists
+	---------------------------------------------------*/	 	
+	//Boolean to check if an article already exists in the array 'coord_articles' or not
+	var article_exist = false;	
+	//Lopp through the array to see if the article is already in the array, if so --> break and set boolean to true
+	for( var i=0; i < coord_articles.length; i++){
+		if (coord_articles[i].title == temp_article.title){
+			article_exist = true;
+			break;
+		}						
+	}
+
+/*-----------------------------------------------
+ 	Check if the article has coordinates
+-----------------------------------------------*/
 
 	//If the article has coordinates, save coordinates in 'position'
 	if(data.query.pages[temp_article.id].coordinates) {
@@ -108,35 +129,31 @@ function loadLinks(data) {
 			[data.query.pages[temp_article.id].coordinates[0].lat,
 			 data.query.pages[temp_article.id].coordinates[0].lon]
 		
-		//Boolean to check if an article already exists in the array 'coord_articles' or not
-		var article_exist = false;	
-		//Lopp through the array to see if the article is already in the array, if so --> break and set boolean to true
-		for( var i=0; i < coord_articles.length; i++){
-			if (coord_articles[i].title == temp_article.title){
-				article_exist = true;
-				break;
-			}						
-		}
-
-		//Take the first sentence from the related article. 
-		temp_article.first_sentence = getFirstRow(temp_article.first_paragraph);
-		
-		//Send information about the article to the map. 
-		addArticleToMap(temp_article.position, temp_article.title, temp_article.first_sentence);
-
-		createListObject(temp_article.title);
-
 		//If the article does not exist in the array, push it into the array
 		if(!article_exist){
 			coord_articles.push(temp_article);
+
+			//Send information about the article to the map. 
+			addArticleToMap(temp_article.position, temp_article.title, temp_article.first_sentence);
+
+			//Create a title on the list
+			createListObject(temp_article.title);
 		}
 	}
 
+
+/*-----------------------------------------------
+ 		Check if the article has a year
+-----------------------------------------------*/
 	//If the article has a year, save the article in time_articles
 	console.log(temp_article)
 	if(temp_article.time[0][2])
 	{
-		time_articles.push(temp_article);
+		//If the article does not exist in the array, push it into the array
+		if(!article_exist){
+			time_articles.push(temp_article);
+		}
+
 		console.log(temp_article.title);
 	}
 
