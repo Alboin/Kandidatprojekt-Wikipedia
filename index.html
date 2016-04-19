@@ -1,5 +1,5 @@
 
-<!-- Den här koden är skriven med angular.js -->
+<!-- This code is written with angular.js -->
 
 <!DOCTYPE html svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <html ng-app="wikiSearch">
@@ -53,20 +53,20 @@
 
 	<body style="overflow: hidden">
 
-		<!-- Section är en container för hela sidan. -->
+		<!-- Section is a container for the whole page. -->
 		<section ng-init="page = 1" class="page" ng-controller="PageController as pageCtrl">
 
-		<!-- Sidan består av tre rader som är placerade ovanpå varandra. "header_row", "upper_row" och "lower_row". -->
+		<!-- The page The page consists of three rows that are placed above each other. "Header_row" "upper_row" and "lower_row". -->
 			
-			<!-- 1:a raden, allra längst upp. -->
+			<!-- 1st row, top of the page. -->
 	        <div class="row" id="header_row">
 
-	        	<!-- Raden är uppdelad i 3 lika stora kolumner, som är tomma för att få den med information i centrerad i mitten av sidan. -->
+	        	<!-- The row is divided in 3 columns with the same size, which are empty to get the inormation in teh center of the page. -->
 		        
-		        <!-- Tom kolumn -->
+		        <!-- Empty kolumn -->
 		        <div class="col-lg-4"></div>
 
-		        <!-- Kolumn som innehåller rubriker för de olika sidorna. Rubriken ändras beroende på vilken sida som är aktuell. -->
+		        <!-- A column that contains av headlines for the different pages. The headline changes depending on which page is the current search. -->
 		        <div class="col-lg-4">     
 
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
@@ -88,33 +88,33 @@
 
 	        	</div>	
 
-	        	<!-- Tom kolumn -->
+	        	<!-- Empty kolumn -->
 			    <div class="col-lg-4"></div>
 	    	
 	    	</div>
 
 
 
-			<!-- 2:a raden, näst längst upp. -->
+			<!-- 2nd row, second from the top. -->
 	        <div class="row" id="upper_row">
 
-	        	<!-- Tom kolumn -->
+	        	<!-- Empty kolumn -->
 		        <div class="col-lg-4"></div>
 
-		        <!-- Kolumn som innehåller knappar och sökfält -->
+		        <!-- Column that contains buttons and searchfield -->
 		        <div class="col-lg-4">
 
 					<input type="text", id="searchtext"></input>
 		 			<button id="search"> Search </button>
 					<div class="pageButtons">
 
-						<!-- Knappar som leder till de olika sidorna. -->
+						<!-- Buttons for the different pages -->
 						<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
 						<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="hideStartpage()"> Plats </button>
 						<button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>	
 
-						<!-- Button trigger modal --> 
-						<!--Kan vara najs att ha kvar om man vill jobba med popupen-->
+						<!-- Button triggs modal --> 
+						<!--Can be nice to use if we want to work on the popup window-->
 						<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 						  Launch demo modal
 						</button-->
@@ -123,7 +123,7 @@
 
 					<script>
 
-						//Här aktiveras sökningen vid tryck på knappen "search".
+						// If the button "search" is clicked, the search is activated.
 						document.getElementById("search").addEventListener("click", runSearch);
 
 						//Trigger searchbutton by clicking the enter key
@@ -137,12 +137,12 @@
 
 		        </div>
 
-		        <!-- Tom kolumn -->
+		        <!-- Empty kolumn -->
 		        <div class="col-lg-4"></div>
 
 		    </div>
 
-		    <!-- Modal, dvs informationsrutan som dyker upp längst fram vid tryck på en knapp. -->
+		    <!-- Modal, the informationbox that appears when a button is beeing clickes -->
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			  	<div class="modal-dialog" role="document">
 				    <div class="modal-content">
@@ -169,13 +169,13 @@
 			<hr>
 			
 
-			<!--3:e raden, raden längst ned.-->		
+			<!--3rd row, the row at the bottom.-->		
    			<div class="row nomargin" id="lower_row">
    			
-   				<!-- Raden innehåller endast en kolumn som fyller ut hela skärmens bredd. -->
+   				<!-- The row contains only one column that fills the entire screen width. -->
    				<div class="col-lg-12">
 
-   					<!-- En container som innehåller det som visas i tids-vyn. -->
+   					<!-- A container containing what is shown in the time view. -->
 			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 						<p id="tidsinfo"></p>
 							<svg id="svg" height="500" width="100%">
@@ -193,7 +193,7 @@
 					 
 					</div>
 
-					<!-- En container som innehåller det som visas i kart-vyn. -->
+					<!-- En container containing what is shown in the map-view. -->
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
 
 						<!--Map container-->
@@ -213,12 +213,12 @@
 						
 					</div>
 
-					<!-- En container som innehåller det som visas i övrigt-vyn. -->
+					<!-- A container containing what is shown in the "övrigt" view.. -->
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
 						<blockquote id="links"> </blockquote>
 					</div>
 
-					<!-- En container som innehåller det som visas när en sökning precis har gjorts. -->
+					<!-- A container containing what is shown right after the search is done. -->
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
 						<p id="sökgenomförd"></p>
 						<blockquote id="artikelinfo"></blockquote>		
