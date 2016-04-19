@@ -85,7 +85,6 @@ function printLinks(linksarray) {
 //If the article is a place/has coordinates it is saved in the variable'coord_articles'.
 function loadLinks(data) {
 
-
 	var temp_article = {
 		title: "",
 		id: -1,
@@ -131,13 +130,18 @@ function loadLinks(data) {
 		if(!article_exist){
 			coord_articles.push(temp_article);
 		}
-
 	}
 
-	//Return array of articles which have coordinates, no duplicates in the array.
-	return coord_articles;
-}
+	//If the article has a year, save the article in time_articles
+	if(temp_article.time[0][2])
+	{
+		time_articles.push(temp_article);
+		console.log(temp_article.title);
+	}
 
+	//Return array of articles which have coordinates
+	return [coord_articles, time_articles];
+}
 
 
 	
