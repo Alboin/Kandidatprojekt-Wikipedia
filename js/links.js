@@ -133,6 +133,7 @@ function loadLinks(data) {
 	}
 
 	//If the article has a year, save the article in time_articles
+	console.log(temp_article)
 	if(temp_article.time[0][2])
 	{
 		time_articles.push(temp_article);
