@@ -4,13 +4,13 @@
  	Displays a marker for the search placed on a time line. 
 
  	The file includes the functions:
- 	- generateTimeCircle
+ 	- generateTimeDot
  	- ShowHideTipsy
 
 
 ********************************************************************************************************/
 
-function generateTimeCircle(title, sentence) {
+function generateTimeDot(title, sentence) {
 
 	var body = d3.select("body");
 	var div = body.append("div");
@@ -20,8 +20,8 @@ function generateTimeCircle(title, sentence) {
 	svg.append("circle").attr("cx", 500).attr("cy", 300).attr("r", 10).attr("id", "dot");
 
 	// The black circle that's supposted to trigger the tipsy has the id "dot"
-	$('#dot').attr('rel', 'hide');	
-	// dot starts with the tipsy hidden, therefore rel has the id "hide"
+	$('#dot').attr('status', 'hide');	
+	// dot starts with the tipsy hidden, therefore status has the id "hide"
     $('#dot').attr('onclick', 'ShowHideTipsy($(this))'); 
     // When you click on dot the function ShowHideTipsy is called
 	$('#dot').attr({
@@ -40,7 +40,6 @@ function generateTimeCircle(title, sentence) {
 
     $(document).click(function(){
        	$("#dot").tipsy("hide");
-        console.log("hide tipsy");
     });
 
     $("#dot").click(function(e){
@@ -50,22 +49,23 @@ function generateTimeCircle(title, sentence) {
 }
 
 
-// This function is called when you click on the black circle with id "dot"
-function ShowHideTipsy(ele){
+// This function is called when you click on the black circle with id "dot".
+// Tipsy = the popup associated with the dot.
+function ShowHideTipsy(dot_id){
 	
-	// If the tipsy has the attribute rel = show, hide it! 
-    if($(ele).attr("rel") == "show") 
+	// If the tipsy has the attribute status = show, hide it! 
+    if($(dot_id).attr("status") == "show") 
     { 
-       $(ele).tipsy("hide"); 
-       $(ele).attr('rel','hide');  
+       $(dot_id).tipsy("hide"); 
+       $(dot_id).attr('status','hide');  
        console.log("hide tipsy"); 
     }
 
     // If the tipsy is hidden, show it!
     else
     { 
-        $(ele).tipsy("show");
-        $(ele).attr('rel','show');
+        $(dot_id).tipsy("show");
+        $(dot_id).attr('status','show');
         console.log("show tipsy");
     } 
     

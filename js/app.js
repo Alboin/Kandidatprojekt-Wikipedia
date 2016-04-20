@@ -1,6 +1,8 @@
 /*******************************************************************************************************
  	Authors: Hanna and Johanna 
 
+	This file controls the different pages and how to switch between them.
+	
  	The file is written with angular.js. 
 
 ********************************************************************************************************/

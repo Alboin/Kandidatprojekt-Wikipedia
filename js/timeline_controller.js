@@ -1,6 +1,6 @@
 
 	var svg = d3.selectAll("svg");
-//Declare size constants for handles and timeline.
+	//Declare size constants for handles and timeline.
 	var handle_width = 0.01*window.innerWidth, handle_height = 0.045*window.innerHeight;
 	var edge_radius = 3;
 	var timeline_start = 0.05*window.innerWidth,

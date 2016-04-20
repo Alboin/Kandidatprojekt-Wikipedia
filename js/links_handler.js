@@ -6,17 +6,16 @@
 	The file contains functions which handle the links and backlinks for an article.
 
 	This file includes the functions:
-	- getLinkSearch
-	- handleLinks
+	- getLinkSearchString
+	- startLinkSearch
 	- linksPosition
-	- loadLinks
-	- printLinks
+	- loadLinksArticles
 ********************************************************************************************************/
 
 
 //This function works similar to the function 'getSearchString'. Used for the related links in the 
 //first search of an article. The functions defines which properties to get from the article.	*/
-function getLinkSearch(input_title) {
+function getLinkSearchString(input_title) {
 	if(input_title) {
 		input_title = input_title.replace(" ", "%20");
 
@@ -34,56 +33,24 @@ function getLinkSearch(input_title) {
 
 //Creates a new search for the links. 
 //The function handles at most 50 links/articles at the time.	
-function handleLinks(links, color){
-	main_search = false;
+function startLinkSearch(links, color){
+	MAIN_SEARCH = false;
 
 	marker_color = color;
 
 	for(var indx = 0; indx < links.length; indx++){
-		var query = getLinkSearch(links[indx]);
-		searchWiki(query, main_search);
+		var query = getLinkSearchString(links[indx]);
+		getWikiData(query, MAIN_SEARCH);
 	}
 
 	//ska sättas till true igen, ifall användaren klickar på en av länkarna?
-	//main_search = true;
-} 
-
-//Checks if every link has a position, e.g. if it is a place.
-//If the link is a place, save the title under the id "places"
-function linksPosition(links){
-	for(var indx = 0; indx < links.length; indx++){
-		if(article.position != ""){
-			document.getElementById("places").innerHTML += article.title;
-		}
-	}
-}
-
-
-//Works similar to 'printArticle'. Prints out information about the links/articles.
-function printLinks(linksarray) {
-
-	var titles = [];
-	var linksCoord = [];
-
-	//Loop through the array to print all links that have coordinates
-	for(var indx = 0; indx < linksarray.length; indx++){
-		//document.getElementById("links").innerHTML = "<b>Artikeltitel:</b> " + linksarray[indx].title + "<br><br>";
-		titles.push(" " + linksarray[0][indx].title );
-		linksCoord.push(" " + linksarray[0][indx].position);
-	}
-
-	document.getElementById("links").innerHTML = titles;
-
-	//If the coordinates to the related articles should be printed, use this line.
-	//document.getElementById("links").innerHTML += "<br><br>" + linksCoord;
-
-	document.getElementById("links").innerHTML += "<br><br>" + "Antal länkar med koordinater:</b> " + linksarray.length;
+	//MAIN_SEARCH = true;
 }
 
 //Works similar as the function 'load'.
 //Gets data for every article/link. 
-//If the article is a place/has coordinates it is saved in the variable'coord_articles'.
-function loadLinks(data) {
+//If the article is a place/has coordinates it is saved in the variable'COORD_ARTICLES'.
+function loadLinksArticles(data) {
 
 	var temp_article = {
 		title: "",
@@ -100,21 +67,23 @@ function loadLinks(data) {
 	temp_article.title = data.query.pages[temp_article.id].title; 				//Save article title
 	temp_article.first_paragraph = data.query.pages[temp_article.id].extract; 	//Save first paragraph
 
-	temp_article.first_sentence = getFirstRow(temp_article.first_paragraph);	//Take the first sentence from the related article. 
-	temp_article.time = getTime(temp_article.first_paragraph);					//Get time mentioned in first paragraph of the article
+	if(temp_article.first_paragraph != "")
+		temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph);	//Take the first sentence from the related article. 
+	
+	temp_article.time = getArticleTime(temp_article.first_paragraph);					//Get time mentioned in first paragraph of the article
 
-	if(data.query.pages[temp_article.id].thumbnail.source)
+	if(data.query.pages[temp_article.id].thumbnail)
 		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
 
 
 	/*---------------------------------------------------
 			Bool to check if the article already exists
 	---------------------------------------------------*/	 	
-	//Boolean to check if an article already exists in the array 'coord_articles' or not
+	//Boolean to check if an article already exists in the array 'COORD_ARTICLES' or not
 	var article_exist = false;	
 	//Lopp through the array to see if the article is already in the array, if so --> break and set boolean to true
-	for( var i=0; i < coord_articles.length; i++){
-		if (coord_articles[i].title == temp_article.title){
+	for( var i=0; i < COORD_ARTICLES.length; i++){
+		if (COORD_ARTICLES[i].title == temp_article.title){
 			article_exist = true;
 			break;
 		}						
@@ -132,13 +101,13 @@ function loadLinks(data) {
 		
 		//If the article does not exist in the array, push it into the array
 		if(!article_exist){
-			coord_articles.push(temp_article);
+			COORD_ARTICLES.push(temp_article);
 
 			//Send information about the article to the map. 
 			addArticleToMap(temp_article.position, temp_article.title, temp_article.first_sentence);
 
 			//Create a title on the list
-			createListObject(temp_article.title);
+			createMapListObject(temp_article.title);
 		}
 	}
 
@@ -146,18 +115,18 @@ function loadLinks(data) {
 /*-----------------------------------------------
  		Check if the article has a year
 -----------------------------------------------*/
-	//If the article has a year, save the article in time_articles
+	//If the article has a year, save the article in TIME_ARTICLES
 	if(temp_article.time)
 	{
 		//If the article does not exist in the array, push it into the array
 		if(!article_exist){
-			time_articles.push(temp_article);
+			TIME_ARTICLES.push(temp_article);
 		}
 
 	}
 
 	//Return array of articles which have coordinates or time
-	return [coord_articles, time_articles];
+	return [COORD_ARTICLES, TIME_ARTICLES];
 }
 
 

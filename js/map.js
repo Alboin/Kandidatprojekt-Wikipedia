@@ -9,8 +9,8 @@
  	- addArticleToMap
  	- hideStartpage
  	- changeModalContent
- 	- chooseMarker
- 	- createListObject
+ 	- openMarkerPopup
+ 	- createMapListObject
  	
 ********************************************************************************************************/
 
@@ -49,6 +49,7 @@ function generateMap() {
 	
 }
 
+//Creates a marker on the map for one given article.
 function addArticleToMap(coordinate, title, sentence) {
 
 	var temp_color;
@@ -78,19 +79,21 @@ function addArticleToMap(coordinate, title, sentence) {
 
 }
 
+//TO BE REMOVED
 function hideStartpage() {
 	$("#upper_row").slideToggle("slow");
 }
 
 //A function that changes the content of Modal depending on wich article to display.
+//Is called to in "addArticleToMap()".
 function changeModalContent(title) {
 
 	var temp_article;
 
 	//Loop through all articles and search for a matching title.
-	for(var indx = 0; indx < coord_articles.length; indx++) {
-		if(coord_articles[indx].title == title) {
-			temp_article = coord_articles[indx];
+	for(var indx = 0; indx < COORD_ARTICLES.length; indx++) {
+		if(COORD_ARTICLES[indx].title == title) {
+			temp_article = COORD_ARTICLES[indx];
 			break;
 		}
 	}
@@ -104,7 +107,9 @@ function changeModalContent(title) {
 
 }
 
-function chooseMarker(title) {
+//Is run from the article list on the right side of the screen. When a list-item is clicked this 
+//function opens the popup for the marker associated with the same article as the list-item.
+function openMarkerPopup(title) {
 
 	//Loop through all markers on the map and if one with the same title exist, open that one's popup.
 	for(var i = 0; i < all_markers.length; i++) {
@@ -121,13 +126,13 @@ function chooseMarker(title) {
 }
 
 //Creates a new entry on the list with displayed articles.
-function createListObject(title) {
+function createMapListObject(title) {
 
 	var ul = document.getElementById("article_list");
 	//Create new list entry.
   	var li = document.createElement("li");
   	li.appendChild(document.createTextNode(title));
   	li.setAttribute("id", title);
-  	li.setAttribute("onclick", "chooseMarker(" + "'" + title + "'" + ")");
+  	li.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
   	ul.appendChild(li);
 }
