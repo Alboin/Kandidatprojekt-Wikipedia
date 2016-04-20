@@ -10,6 +10,7 @@
 	- startLinkSearch
 	- linksPosition
 	- loadLinksArticles
+	- sort (sorts TIME_ARTICLES by year, month, day)
 ********************************************************************************************************/
 
 
