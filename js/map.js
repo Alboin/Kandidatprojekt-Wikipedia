@@ -133,11 +133,21 @@ function openMarkerPopup(title) {
 //Creates a new entry on the list with displayed articles.
 function createMapListObject(title) {
 
+	//Function used internally to insert the new list element in alphabetic order.
+	function sortAlpha(a, b) {
+		return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;  
+	}
+
+	//Select the whole list.
 	var ul = document.getElementById("article_list");
+
 	//Create new list entry.
-  	var li = document.createElement("li");
-  	li.appendChild(document.createTextNode(title));
-  	li.setAttribute("id", title);
-  	li.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
-  	ul.appendChild(li);
+  	var newLi = document.createElement("li");
+  	newLi.appendChild(document.createTextNode(title));
+  	newLi.setAttribute("id", title);
+  	newLi.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
+
+  	//Insert new list entry with help of sorting fuction "sortAlpha".
+  	$('li', 'ul').add(newLi).sort(sortAlpha).appendTo('ul');
+
 }
