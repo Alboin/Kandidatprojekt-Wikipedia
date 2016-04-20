@@ -10,6 +10,7 @@
 	- startLinkSearch
 	- linksPosition
 	- loadLinksArticles
+	- sort (sorts TIME_ARTICLES by year, month, day)
 ********************************************************************************************************/
 
 
@@ -75,15 +76,25 @@ function loadLinksArticles(data) {
 		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
 
 
-	/*---------------------------------------------------
-			Bool to check if the article already exists
-	---------------------------------------------------*/	 	
-	//Boolean to check if an article already exists in the array 'COORD_ARTICLES' or not
-	var article_exist = false;	
+	/*--------------------------------------------------------------------
+		Bool to check if the article already exists in coord_articles
+		+ Bool to check if the article already exists in time_articles
+	----------------------------------------------------------------------*/	 	
+	//Boolean to check if an article already exists in the array 'coord_articles' or not
+	var coord_article_exist = false	
+	var time_article_exist = false;
+	
 	//Lopp through the array to see if the article is already in the array, if so --> break and set boolean to true
 	for( var i=0; i < COORD_ARTICLES.length; i++){
 		if (COORD_ARTICLES[i].title == temp_article.title){
-			article_exist = true;
+			coord_article_exist = true;
+			break;
+		}						
+	}
+
+	for( var i=0; i < TIME_ARTICLES.length; i++){
+		if (TIME_ARTICLES[i].title == temp_article.title){
+			time_article_exist = true;
 			break;
 		}						
 	}
@@ -99,7 +110,7 @@ function loadLinksArticles(data) {
 			 data.query.pages[temp_article.id].coordinates[0].lon]
 		
 		//If the article does not exist in the array, push it into the array
-		if(!article_exist){
+		if(!coord_article_exist){
 			COORD_ARTICLES.push(temp_article);
 
 			//Send information about the article to the map. 
@@ -115,17 +126,43 @@ function loadLinksArticles(data) {
  		Check if the article has a year
 -----------------------------------------------*/
 	//If the article has a year, save the article in TIME_ARTICLES
-	if(temp_article.time)
+	if(temp_article.time[0])
 	{
 		//If the article does not exist in the array, push it into the array
-		if(!article_exist){
+		if(!time_article_exist){
 			TIME_ARTICLES.push(temp_article);
 		}
 
+		//Sort the array time_articles
+		TIME_ARTICLES.sort(
+			function(a, b)
+			{
+				//If the two articles do not have the same year -> sort them by year
+				if(a.time[0][2] != b.time[0][2])
+					return (a.time[0][2]) - (b.time[0][2]);	
+
+				//Else if the articles have the same year, but different months -> sort by month
+				else if (a.time[0][2] == b.time[0][2] && a.time[0][1] != b.time[0][1])
+					return (a.time[0][1]) - (b.time[0][1]);
+
+				//Else (same year, same month, different day) -> sort by day
+				else
+					return (a.time[0][0]) - (b.time[0][0]);	
+			}
+		)
 	}
+
+
+	//CONSOLE LOG -> REMOVE LATER
+	for( var i=0; i < TIME_ARTICLES.length; i++){
+		console.log(TIME_ARTICLES[i].time[0]); 					
+	}
+	console.log("hej");
+
 
 	//Return array of articles which have coordinates or time
 	return [COORD_ARTICLES, TIME_ARTICLES];
+
 }
 
 
