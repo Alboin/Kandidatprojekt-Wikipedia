@@ -1,6 +1,6 @@
 function generateTimeCircle(title, sentence) {
 
-	var body = d3.select("body");
+	var body = d3.select("body").append('svg').attr('width', '100%').attr('height', '100%');
 	var div = body.append("div");
 	var svg = d3.selectAll("svg");
 
@@ -32,8 +32,6 @@ function generateTimeCircle(title, sentence) {
     });
 
 }
-
-
 
 // This function is called when you click on the black circle with id "dot"
 function ShowHideTipsy(ele){
