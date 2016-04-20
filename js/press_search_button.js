@@ -9,6 +9,6 @@ function pressSearchButton() {
 
 	//This function is run asynchronously.
 	MAIN_SEARCH = true;
-	getWikiData(query, MAIN_SEARCH);
+	getWikiData(query, "red");
 	//HERE you could have some type of loadMainArticleingscreen that is shown while waiting for a response from the function.
 }

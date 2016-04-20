@@ -18,7 +18,7 @@
 //Global variables
 var map;
 var markerLayer;
-var marker_color = "red";
+var MARKER_COLOR = "red";
 var all_markers = [];
 
 
@@ -54,15 +54,15 @@ function addArticleToMap(coordinate, title, sentence) {
 
 	var temp_color;
 
-	if(marker_color == "red") {
+	if(MARKER_COLOR == "red") {
 		//console.log("1")
 		temp_color = '#ff0000';
-	} else if(marker_color == "gray") {
+	} else if(MARKER_COLOR == "gray") {
 		//console.log("2")
 		temp_color = '#777777';
 	} else {
 		//console.log("3")
-		temp_color = '#0000ff';
+		temp_color = '#000000';
 	}
 
 	//Create marker
@@ -77,6 +77,11 @@ function addArticleToMap(coordinate, title, sentence) {
 
     all_markers.push(marker);
 
+}
+
+//Positions the marker associated with the main article on top of all markers.
+function placeMainMarkerOnTop() {
+	all_markers[0].setZIndexOffset(10000);
 }
 
 //TO BE REMOVED
