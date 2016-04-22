@@ -33,7 +33,7 @@ function getLinkSearchString(input_title) {
 }
 
 //Creates a new search for the links. 
-//The function handles at most 50 links/articles at the time.	
+//At the moment an individual search is preformed for each link, in the future, this should be done 50 links at a time.	
 function startLinkSearch(links, color){
 	
 	MAIN_SEARCH = false;
@@ -111,6 +111,7 @@ function loadLinksArticles(data) {
 		
 		//If the article does not exist in the array, push it into the array
 		if(!coord_article_exist){
+
 			COORD_ARTICLES.push(temp_article);
 
 			//Send information about the article to the map. 
@@ -154,11 +155,11 @@ function loadLinksArticles(data) {
 
 
 	//CONSOLE LOG -> REMOVE LATER
-	for( var i=0; i < TIME_ARTICLES.length; i++){
+	/*for( var i=0; i < TIME_ARTICLES.length; i++){
 		console.log(TIME_ARTICLES[i].time[0]); 					
 	}
 	console.log("hej");
-
+*/
 
 	//Return array of articles which have coordinates or time
 	return [COORD_ARTICLES, TIME_ARTICLES];

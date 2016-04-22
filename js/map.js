@@ -86,7 +86,7 @@ function placeMainMarkerOnTop() {
 
 //TO BE REMOVED
 function hideStartpage() {
-	$("#upper_row").slideToggle("slow");
+	//$("#upper_row").slideToggle("slow");
 }
 
 //A function that changes the content of Modal depending on wich article to display.

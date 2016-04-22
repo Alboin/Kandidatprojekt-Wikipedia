@@ -58,6 +58,10 @@ function getWikiData(query, article_color){
 
 		        		MAIN_ARTICLE = loadMainArticle(data);
 
+		        		//Empty old links from arrays:
+		        		COORD_ARTICLES = [];
+		        		TIME_ARTICLES = [];
+
 		        		//Run searches on the links and backlinks asynchronously.
 		        		startLinkSearch(MAIN_ARTICLE.links, "black");
 		        		startLinkSearch(MAIN_ARTICLE.backlinks, "gray");
@@ -74,7 +78,6 @@ function getWikiData(query, article_color){
 	        	else {
 
 	        		MARKER_COLOR = article_color;
-
 	        		//Loads all links and puts them in global arrays COORD_ARTICLES and TIME_ARTICLES.
 	        		loadLinksArticles(data);
 
