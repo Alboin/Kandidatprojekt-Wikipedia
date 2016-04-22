@@ -32,6 +32,7 @@
 				marked_time
 					.attr('x', parseInt(handle_left.attr('x')) + handle_width/2)
 					.attr('width', parseInt(handle_right.attr('x')) - parseInt(handle_left.attr('x')));
+				console.log("pos: " + handle_left.attr('x'));
 			})
 			.on('dragend', function() {
 				console.log("End drag");
@@ -94,6 +95,7 @@
 
 		//Function to animate handle movement.
 		function moveHandles(left_pos, right_pos) {
+
 			if(left_pos > right_pos) {
 				console.log("Left pos was bigger than right pos.");
 				return;

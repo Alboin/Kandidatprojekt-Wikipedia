@@ -1,6 +1,6 @@
 function generateTimeCircle(title, sentence) {
 
-	var body = d3.select("body");
+	var body = d3.select("body").append('svg').attr('width', '100%').attr('height', '100%');
 	var div = body.append("div");
 	var svg = d3.selectAll("svg");
 
@@ -25,18 +25,21 @@ function generateTimeCircle(title, sentence) {
 	    });
 	});
 
-    $(document).click(function(){
+    
+    // if the user clicks anywhere in the document (the webpage), close the tipsy
+    $(document).click(function(){   
         $("#dot").tipsy("hide");
         console.log("hide tipsy");
     });
 
-    $("#dot").click(function(e){
+    // the following function makes sure that the tipsy hides and shows when it should, basically...
+    $("#dot").click(function(e){   
         e.stopPropagation();
     });
 
 
-}
 
+}
 
 // This function is called when you click on the black circle with id "dot"
 function ShowHideTipsy(ele){
