@@ -188,35 +188,45 @@ function loadLinksArticles(data) {
 }
 
 
-
+/*-------------------------------------------------------------------------------
+ 		Handle the relations between an article and the links in it 
+--------------------------------------------------------------------------------*/
 //Get the sentence where the link is mentioned in the main article.
 function getRelationSentence(temp_article){
 	
 	//Find the position where the link's title is mentioned in the main article.
 	var linkIndex = MAIN_ARTICLE.entirearticle.indexOf(temp_article.title);
-	//console.log("linkIndex för " + temp_article.title + ": " + linkIndex);
 
 	//Find the index for the title "Se även" in the main article.
+	//Links after this title will be ignored, since these are only listed, not mentioned in sentences.
 	var endOfArticleIndex = MAIN_ARTICLE.entirearticle.indexOf("Se även");
 
-	//If the link's index is greater than 0 and smaller than the index for "Se även".
+	//If the link's index is greater than 0 and smaller than the index for "Se även" it means
+	//that the link is mentioned within the text and the related sentence can be used.
 	if(linkIndex > 0 && linkIndex < endOfArticleIndex)
 	{
-		//console.log("linkIndex för " + temp_article.title + ": " + linkIndex);
-
-		//Find the index for the first full stop (".") after the link's title.
+		//Find the index for the first full stop (".") AFTER the link's title.
 		var stopIndex = MAIN_ARTICLE.entirearticle.indexOf(".", linkIndex) + 1;
 
-		//Create a string for the last part of the sentence in which the link is mentioned.
-		var stopString = MAIN_ARTICLE.entirearticle.substring(linkIndex, stopIndex);
-		console.log(temp_article.title + ": " + stopString);
+		//Find the index for the full stop (".") BEFORE the link's title.
+		//Or, if the link is mentioned in the first sentence after a title, find the index for "="
+		var startIndexFullstop = indexOfBackwards(linkIndex, MAIN_ARTICLE.entirearticle, ".");
+		var startIndexEqualsign = indexOfBackwards(linkIndex, MAIN_ARTICLE.entirearticle, "=");
 
-		//Create a string for the complete sentence in which the link is mentioned.
-		var relation_sentence = MAIN_ARTICLE.entirearticle.substring(linkIndex-50, linkIndex + 50);
-	
-		//console.log(temp_article.title + ": " + relation_sentence);
+		//Check if the sign before the sentence is "." or "=".
+		if (startIndexFullstop > startIndexEqualsign)
+		{
+			//Create a string for the complete sentence in which the link is mentioned, from start to stop.
+			var relation_sentence = MAIN_ARTICLE.entirearticle.substring(startIndexFullstop, stopIndex);
+		}
+		else 
+		{
+			//Create a string for the complete sentence in which the link is mentioned, from start to stop.
+			var relation_sentence = MAIN_ARTICLE.entirearticle.substring(startIndexEqualsign, stopIndex);
+		}
+
+		console.log(temp_article.title + ": " + relation_sentence);
 	}
-	
 	
 	return relation_sentence;
 }
