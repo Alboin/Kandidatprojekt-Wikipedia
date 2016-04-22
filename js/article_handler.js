@@ -28,18 +28,17 @@ var MAIN_SEARCH = false; //A boolean used to separate main search and link searc
 	because this is how Wikipedia's API works. The function then adds the searchstring in a query.
 	At last the final query is sent to the function 'getWikiData'. */
 function getSearchString(input_title) {
+
 	if(input_title) {
 
-		//Gives the searchstring a capital letter in the start of every word, for a better search-result.
-		for(var i = 1; i < input_title.length; i++) {
-			if(input_title[i-1] == " " && i < input_title.length-1) {
-				input_title = input_title.slice(0,i) + input_title[i].toUpperCase() + input_title.slice(i+1,input_title.length);
-			} else if(input_title[i-1] == " ") {
-				input_title = input_title.slice(0,i) + input_title[i].toUpperCase();
-			}
+		//Replacement of characters that cannot be used in the actual query.		
+		while(input_title.indexOf("ä") != -1 || input_title.indexOf("å") != -1
+		|| input_title.indexOf("ö") != -1 || input_title.indexOf(" ") != -1) {
+			input_title = input_title.replace("ä", "%C3%A4");
+			input_title = input_title.replace("å", "%C3%A5");
+			input_title = input_title.replace("ö", "%C3%B6");
+			input_title = input_title.replace(" ", "%20");
 		}
-
-		input_title = input_title.replace(" ", "%20");
 
 		//The beginning of the query, tells us to do a query and return the result on json format.
 		var start = "/w/api.php?action=query&format=json";
@@ -119,7 +118,7 @@ function loadMainArticle(data) {
 		addArticleToMap(temp_article.position, temp_article.title, temp_article.first_sentence);
 		createMapListObject(temp_article.title);
 		placeMainMarkerOnTop();
-		
+
 	}
 
 	return temp_article;

@@ -18,7 +18,17 @@
 //first search of an article. The functions defines which properties to get from the article.	*/
 function getLinkSearchString(input_title) {
 	if(input_title) {
-		input_title = input_title.replace(" ", "%20");
+
+		input_title = input_title.toLowerCase();
+
+		//Replacement of characters that cannot be used in the actual query.		
+		while(input_title.indexOf("ä") != -1 || input_title.indexOf("å") != -1
+				|| input_title.indexOf("ö") != -1 || input_title.indexOf(" ") != -1) {
+			input_title = input_title.replace("ä", "%C3%A4");
+			input_title = input_title.replace("å", "%C3%A5");
+			input_title = input_title.replace("ö", "%C3%B6");
+			input_title = input_title.replace(" ", "%20");
+		}
 
 		//The beginning of the query, tells us to do a query and return the result on json format.
 		var start = "/w/api.php?action=query&format=json";
@@ -35,7 +45,7 @@ function getLinkSearchString(input_title) {
 //Creates a new search for the links. 
 //At the moment an individual search is preformed for each link, in the future, this should be done 50 links at a time.	
 function startLinkSearch(links, color){
-	
+
 	MAIN_SEARCH = false;
 
 	for(var indx = 0; indx < links.length; indx++){
