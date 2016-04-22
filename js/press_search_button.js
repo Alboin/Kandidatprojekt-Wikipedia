@@ -1,3 +1,14 @@
+
+/*******************************************************************************************************
+ 	Authors: Albin Bergström
+
+ 	This file contain the function which is run when the user press "search", or the Enter-button.
+ 	The function starts the searchprocess for the data for an article.
+
+ 	The file includes the function:
+ 	- pressSearchButton
+********************************************************************************************************/
+
 //The function is run when the user press "search"
 function pressSearchButton() {		
 
