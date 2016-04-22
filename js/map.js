@@ -126,6 +126,7 @@ function changeModalContent(title) {
 	document.getElementById("artikel_text").innerHTML = temp_article.first_paragraph;
 	//Change Modal thumbnail
 	document.getElementById("artikel_bild").innerHTML = "<img src='" + temp_article.image_source + "'>";
+	console.log(temp_article.image_source)
 
 }
 

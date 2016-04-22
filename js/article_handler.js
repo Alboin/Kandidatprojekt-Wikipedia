@@ -81,6 +81,8 @@ function loadMainArticle(data) {
 	temp_article.first_paragraph = data.query.pages[temp_article.id].extract;			//Save first paragraph of the article
 	temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph); 			//Save first sentence of the article
 	temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
+	//temp_article.image_source = temp_article.image_source.replace("/thumb", "");
+	
 	//temp_article.image_large = data.query.pages[temp_article.id].thumbnail.source;
 	//temp_article.categories = data.query.pages[temp_article.id].categories;//.title;
 
@@ -295,6 +297,15 @@ function printModalContent(article) {
 		document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
 	}
 
+}
+
+function indexOfBackwards(startIndx, string, character) {
+	for(var i = startIndx; i > 0; i--) {
+		if(string[i] == character) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 
