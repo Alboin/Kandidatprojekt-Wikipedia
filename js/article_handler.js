@@ -28,18 +28,17 @@ var MAIN_SEARCH = false; //A boolean used to separate main search and link searc
 	because this is how Wikipedia's API works. The function then adds the searchstring in a query.
 	At last the final query is sent to the function 'getWikiData'. */
 function getSearchString(input_title) {
+
 	if(input_title) {
 
-		//Gives the searchstring a capital letter in the start of every word, for a better search-result.
-		for(var i = 1; i < input_title.length; i++) {
-			if(input_title[i-1] == " " && i < input_title.length-1) {
-				input_title = input_title.slice(0,i) + input_title[i].toUpperCase() + input_title.slice(i+1,input_title.length);
-			} else if(input_title[i-1] == " ") {
-				input_title = input_title.slice(0,i) + input_title[i].toUpperCase();
-			}
+		//Replacement of characters that cannot be used in the actual query.		
+		while(input_title.indexOf("ä") != -1 || input_title.indexOf("å") != -1
+		|| input_title.indexOf("ö") != -1 || input_title.indexOf(" ") != -1) {
+			input_title = input_title.replace("ä", "%C3%A4");
+			input_title = input_title.replace("å", "%C3%A5");
+			input_title = input_title.replace("ö", "%C3%B6");
+			input_title = input_title.replace(" ", "%20");
 		}
-
-		input_title = input_title.replace(" ", "%20");
 
 		//The beginning of the query, tells us to do a query and return the result on json format.
 		var start = "/w/api.php?action=query&format=json";
@@ -75,13 +74,16 @@ function loadMainArticle(data) {
 		birthplace: "",
 		time: [[null, null, null], [null, null, null]],
 		image_source: "",
-		first_sentence:""
+		first_sentence:"",
+		year: null 
 	}
 	
 	temp_article.id = data.query.pageids[0];											//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title;						//Save the title of the article
 	temp_article.entirearticle = data.query.pages[temp_article.id].extract;				//Save first paragraph of the article
 	temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
+	//temp_article.image_source = temp_article.image_source.replace("/thumb", "");
+	
 	//temp_article.image_large = data.query.pages[temp_article.id].thumbnail.source;
 	//temp_article.categories = data.query.pages[temp_article.id].categories;//.title;
 
@@ -120,13 +122,16 @@ function loadMainArticle(data) {
 	//Add article to the array with articles
 	MAIN_ARTICLE = temp_article;
 
+	//Get the year. 
+	temp_article.year=getYear(temp_article.time);
+
 	//Check if the article has a position. 
 	if(temp_article.position[0]) {
 
 		addArticleToMap(temp_article.position, temp_article.title, temp_article.first_sentence);
 		createMapListObject(temp_article.title);
 		placeMainMarkerOnTop();
-		
+
 	}
 
 	return temp_article;
@@ -150,15 +155,19 @@ function getPositionBirthplace(revision) {
 
 //Print the first sentence in an article.  
 function getFirstSentence(paragraph){
-	//Find the position where a dot followed by space is in a string. 
-	var n = paragraph.indexOf(".");
-	//Split the string where the position is set. 
-	var res = paragraph.slice(0, n+1);
+	if(paragraph) { 
+		//Find the position where a dot followed by space is in a string. 
+		var n = paragraph.indexOf(".");
+		//Split the string where the position is set. 
+		var res = paragraph.slice(0, n+1);
 
-	//If you want to use the sentence in a javascript-file it's called this:
-	var first_sentence = res; 
+		//If you want to use the sentence in a javascript-file it's called this:
+		var first_sentence = res; 
 
-	return first_sentence;
+		return first_sentence;
+	} else {
+		return "";
+	}
 }
 
 //This function checks if any dates are mentioned in the article
@@ -175,51 +184,55 @@ function getArticleTime(text) {
 	//Variable to return
 	var time = [];
 
-	//Prepare text.
-	text = text.replace(/[-–&\/\\#,+()$~%.'":*?<>{}]/g, ' ');
-	text = text.toLowerCase();
+	if(text) {
+		//Prepare text.
+		text = text.replace(/[-–&\/\\#,+()$~%.'":*?<>{}]/g, ' ');
+		text = text.toLowerCase();
 
-	for(var indx = 0; indx < text.length; indx++) {
-		//If current char is " ", we have a word.
-		if(text[indx] == " ") {
-			
-			//Check if word is a number, if it is, convert it to an integer and save in "date".
-			if(!isNaN(word) && !(word == "")) {
-				//If the number is less than 3 digits it is probably a date.
-				if(word.length < 3) {
-					temp_time[0] = parseInt(word);
-					//all_dates.push(parseInt(word));
+		for(var indx = 0; indx < text.length; indx++) {
+			//If current char is " ", we have a word.
+			if(text[indx] == " ") {
+				
+				//Check if word is a number, if it is, convert it to an integer and save in "date".
+				if(!isNaN(word) && !(word == "")) {
+					//If the number is less than 3 digits it is probably a date.
+					if(word.length < 3) {
+						temp_time[0] = parseInt(word);
+						//all_dates.push(parseInt(word));
 
-				//If it is longer than 2 digits and the previous word was a month it is probably a year.
-				} else if (temp_time[0] != null && previous_word_was_month) {
-					temp_time[2] = parseInt(word);
-				} 
-			//If the word is not a number, check if it is a date.
-			} else {
-				month = getMonth(word);
-				if(month > -1) {
-					temp_time[1] = month;
-					previous_word_was_month = true;
+					//If it is longer than 2 digits and the previous word was a month it is probably a year.
+					} else if (temp_time[0] != null && previous_word_was_month) {
+						temp_time[2] = parseInt(word);
+
+						getYear(temp_time[2]);
+					} 
+				//If the word is not a number, check if it is a date.
 				} else {
-					previous_word_was_month = false;
+					month = getMonth(word);
+					if(month > -1) {
+						temp_time[1] = month;
+						previous_word_was_month = true;
+					} else {
+						previous_word_was_month = false;
+					}
 				}
+
+				//If all slots in "temp_time" is filled, save the point of time and clear the variable.
+				if(temp_time[2] != null) {
+					time.push(temp_time);
+					if(time.length > 1)
+						return time;
+					temp_time = [null,null,null];
+				}
+
+				//Clear word
+				word = "";
+
+			} else {
+				//Append current char to word.
+				word += text[indx];
+			
 			}
-
-			//If all slots in "temp_time" is filled, save the point of time and clear the variable.
-			if(temp_time[2] != null) {
-				time.push(temp_time);
-				if(time.length > 1)
-					return time;
-				temp_time = [null,null,null];
-			}
-
-			//Clear word
-			word = "";
-
-		} else {
-			//Append current char to word.
-			word += text[indx];
-		
 		}
 	}
 	return time;
@@ -269,6 +282,15 @@ function getMonth(word) {
 	return -1;
 }
 
+//Get the year in an article. 
+function getYear(date){
+
+	//console.log(date);
+	//Takes the first year in the article. 
+	year = date[0]; 
+	return year; 
+}
+
 function printModalContent(article) {
 
 	/*-----------------------------------------------
@@ -294,9 +316,19 @@ function printModalContent(article) {
 	//TO BE REMOVED
 	//Check if the article has time. 
 	if(article.time[0]) {
-		document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
+		document.getElementById("tidsinfo").innerHTML = "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
+		document.getElementById("tidsinfo").innerHTML = "<b>Artikelns start-år </b>" + article.year[2] + "<br><br>";
 	}
 
+}
+
+function indexOfBackwards(startIndx, string, character) {
+	for(var i = startIndx; i > 0; i--) {
+		if(string[i] == character) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 

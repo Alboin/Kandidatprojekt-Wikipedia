@@ -6,8 +6,10 @@
 
  	The file includes the function:
  	- getWikiData
+ 	- makeFirstLettersCapital
 ********************************************************************************************************/
-
+//Variable that controls how many extra search-attempts should be performed.
+var HAS_RUN_EXTRA_SEARCH = false;
 
 //The function takes a final query as input, uses GET (sends a query to the Wikipedia API) 
 //A json-object is returned, saved in the variable 'data'.
@@ -32,7 +34,33 @@ function getWikiData(query, article_color){
 
 	        		//If the result is not a valid article and no redirection proposal is given (see below).
 	        		if(data.query.pageids[0] == -1) {
+
+	        			//Test if the search was done with a search-word containing any upper case letters. If it was, performs
+	        			//a new search but with only lower case letters. If the the search was done with only lower case letters perform
+	        			//the search with upper case letters in the beginning of each new word.
+	        			var article_title = data.query.pages[data.query.pageids[0]].title;
+	        			if(article_title.indexOf(" ") != -1) {
+	        				//If searchstring is lowercase.
+	        				if(article_title[article_title.indexOf(" ") + 1] == article_title[article_title.indexOf(" ") + 1].toLowerCase()) {
+	        					//Run new search.
+	        					var query = getSearchString(makeFirstLettersCapital(article_title));
+	        					MAIN_SEARCH = true;
+	        					getWikiData(query, "red");
+	        				//If both lower- and uppercase has been tried.
+	        				} else if(HAS_RUN_EXTRA_SEARCH) {
+	        					window.alert("The entered search-text did not yield any results.");
+	        				//If searchstring is uppercase.
+	        				} else {
+	        					//Run new search.
+	        					var query = getSearchString(article_title.toLowerCase());
+	        					MAIN_SEARCH = true;
+	        					getWikiData(query, "red");
+	        				}
+	        				HAS_RUN_EXTRA_SEARCH = true;
+
+	        			} else {
 	        				window.alert("The entered search-text did not yield any results.");
+	        			}
 	        		
 	        		//If the result is not a valid article, the returned object often contains a redirection proposal
 	        		//from Wikipedia to a valid article. Use this proposal to do a new search.
@@ -43,7 +71,7 @@ function getWikiData(query, article_color){
 
 						//Run search on new title.
 						MAIN_SEARCH = true;
-						getWikiData(query, MAIN_SEARCH);
+						getWikiData(query, "red");
 
 					//If a valid article is recieved:	
 	        		} else {
@@ -90,4 +118,16 @@ function getWikiData(query, article_color){
 	        }
 	    });
 	});
+}
+
+//Gives the string a capital letter in the start of every word, for a better search-result.
+function makeFirstLettersCapital(text) {
+	for(var i = 1; i < text.length; i++) {
+		if(text[i-1] == " " && i < text.length-1) {
+			text = text.slice(0,i) + text[i].toUpperCase() + text.slice(i+1,text.length);
+		} else if(text[i-1] == " ") {
+			text = text.slice(0,i) + text[i].toUpperCase();
+		}
+	}
+	return text;
 }

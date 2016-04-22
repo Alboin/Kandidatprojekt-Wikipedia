@@ -65,6 +65,10 @@ function addArticleToMap(coordinate, title, sentence) {
 		temp_color = '#000000';
 	}
 
+	var popup_content = '<div class="marker-title">' + title + '</div>' + sentence +
+		'<a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br><br>' + 
+		'<a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + title + "'" +')"> Sök på "' + title + '" </a>';
+
 	//Create marker
 	//The marker gets a button that when clicked calls the function "changeModalContent with the article title as argument."
 	var marker = L.marker([coordinate[0], coordinate[1]], {
@@ -72,10 +76,23 @@ function addArticleToMap(coordinate, title, sentence) {
         	'marker-color': temp_color
       	}),
     	title: title
-    }).bindPopup('<div class="marker-title">' + title + '</div>' + sentence + '<a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>')
-    .addTo(markerLayer); //Add marker to "markerLayer", a layer wich is cleared with every new search.
+    }).bindPopup(popup_content).addTo(markerLayer); //Add marker to "markerLayer", a layer wich is cleared with every new search.
 
     all_markers.push(marker);
+
+}
+
+function chooseNewMainArticle(title) {
+
+	//Create query from user input.
+	var query = getSearchString(title);
+
+	document.getElementById("searchtext").value = title;
+
+	//This function is run asynchronously.
+	MAIN_SEARCH = true;
+	HAS_RUN_EXTRA_SEARCH = false;
+	getWikiData(query, "red");
 
 }
 
@@ -109,6 +126,7 @@ function changeModalContent(title) {
 	document.getElementById("artikel_text").innerHTML = temp_article.first_paragraph;
 	//Change Modal thumbnail
 	document.getElementById("artikel_bild").innerHTML = "<img src='" + temp_article.image_source + "'>";
+	console.log(temp_article.image_source)
 
 }
 
