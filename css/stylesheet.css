@@ -185,6 +185,11 @@ hr {
      border-bottom-right-radius: 5px;
 }
 
+#modalImage {
+    max-width: 300px;
+    max-height: 200px;
+}
+
 #newMainArticle {
     text-align: right;
 }

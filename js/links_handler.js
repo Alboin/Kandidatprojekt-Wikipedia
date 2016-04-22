@@ -82,8 +82,14 @@ function loadLinksArticles(data) {
 	
 	temp_article.time = getArticleTime(temp_article.first_paragraph);					//Get time mentioned in first paragraph of the article
 
-	if(data.query.pages[temp_article.id].thumbnail)
+	if(data.query.pages[temp_article.id].thumbnail) {
 		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
+
+		//Format the image source link so that it gives a full image and not a thumbnail.
+		temp_article.image_source = temp_article.image_source.replace("/thumb", "");
+		var indx = indexOfBackwards(temp_article.image_source.length, temp_article.image_source, "/");
+		temp_article.image_source = temp_article.image_source.substring(0, indx);
+	}
 
 
 	/*--------------------------------------------------------------------

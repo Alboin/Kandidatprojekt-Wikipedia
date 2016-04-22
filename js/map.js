@@ -55,13 +55,10 @@ function addArticleToMap(coordinate, title, sentence) {
 	var temp_color;
 
 	if(MARKER_COLOR == "red") {
-		//console.log("1")
 		temp_color = '#ff0000';
 	} else if(MARKER_COLOR == "gray") {
-		//console.log("2")
 		temp_color = '#777777';
 	} else {
-		//console.log("3")
 		temp_color = '#000000';
 	}
 
@@ -119,14 +116,22 @@ function changeModalContent(title) {
 			break;
 		}
 	}
+	if(!temp_article)
+		temp_article = MAIN_ARTICLE;
 
 	//Change Modal title
 	document.getElementById("artikel_titel").innerHTML = title;
 	//Change Modal text
 	document.getElementById("artikel_text").innerHTML = temp_article.first_paragraph;
+	
 	//Change Modal thumbnail
-	document.getElementById("artikel_bild").innerHTML = "<img src='" + temp_article.image_source + "'>";
-	console.log(temp_article.image_source)
+	//Check if an image exist
+	if(temp_article.image_source != "") {
+		document.getElementById("artikel_bild").innerHTML = "<img id='modalImage' src='" + temp_article.image_source + "'>";
+	//If there is no image, remove the 
+	 } else {
+	 	document.getElementById("artikel_bild").innerHTML = "";
+	 }
 
 }
 

@@ -12,6 +12,7 @@
  	- loadMainArticle
  	- getPositionBirthplace
  	- getFirstSentences
+ 	- indexOfBackwards
 ********************************************************************************************************/
 
 /*-----------------------------------------------
@@ -46,7 +47,7 @@ function getSearchString(input_title) {
 		var title = "&titles=" + input_title;
 
 		//Which properties to get. (coordinates, links, revisions, extracts, pageid, pageimages, images(används inte än), categories)
-		var properties = "&prop=coordinates%7Clinks%7Crevisions%7Cextracts%7Cpageimages%7Cimages%7Ccategories" + "&indexpageids=1" + "&pllimit=max"; 
+		var properties = "&prop=coordinates%7Clinks%7Crevisions%7Cextracts%7Cpageimages" + "&indexpageids=1" + "&pllimit=max"; 
 		var revisions = "&rvprop=content" + "&exintro=1" + "&explaintext=1";
 
 		//Which lists to get.
@@ -80,12 +81,16 @@ function loadMainArticle(data) {
 	temp_article.id = data.query.pageids[0];											//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title;						//Save the title of the article
 	temp_article.first_paragraph = data.query.pages[temp_article.id].extract;			//Save first paragraph of the article
-	temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph); 			//Save first sentence of the article
-	temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
-	//temp_article.image_source = temp_article.image_source.replace("/thumb", "");
+	temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph); 		//Save first sentence of the article
 	
-	//temp_article.image_large = data.query.pages[temp_article.id].thumbnail.source;
-	//temp_article.categories = data.query.pages[temp_article.id].categories;//.title;
+	if(data.query.pages[temp_article.id].thumbnail) {
+		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;	//Save small image, source
+	
+		//Format the image source link so that it gives a full image and not a thumbnail.
+		temp_article.image_source = temp_article.image_source.replace("/thumb", "");
+		var indx = indexOfBackwards(temp_article.image_source.length, temp_article.image_source, "/");
+		temp_article.image_source = temp_article.image_source.substring(0, indx);	
+	}
 
 	//Loop through array of backlinks and add to temp_article.
 	for(var indx = 0; indx < data.query.backlinks.length; indx++) {
@@ -292,7 +297,8 @@ function printModalContent(article) {
 	
 	document.getElementById("artikel_titel").innerHTML = article.title;								//Title
 	document.getElementById("artikel_text").innerHTML = article.first_paragraph;					//Article
-	document.getElementById("artikel_bild").innerHTML = "<img src='" + article.image_source + "'>";	//Thumbnailmage
+	if(article.image_source != "")
+		document.getElementById("artikel_bild").innerHTML = "<img id='modalImage' src='" + article.image_source + "'>";	//Thumbnailmage
 	
 	//TODO
 	//Categories
@@ -315,11 +321,12 @@ function printModalContent(article) {
 
 }
 
+//Function that returns index of "character" in "string", moving backwards from the given index "startIndx".
 function indexOfBackwards(startIndx, string, character) {
+	
 	for(var i = startIndx; i > 0; i--) {
-		if(string[i] == character) {
+		if(string[i] == character)
 			return i;
-		}
 	}
 	return -1;
 }
