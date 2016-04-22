@@ -225,7 +225,7 @@ function getRelationSentence(temp_article){
 			var relation_sentence = MAIN_ARTICLE.entirearticle.substring(startIndexEqualsign, stopIndex);
 		}
 
-		console.log(temp_article.title + ": " + relation_sentence);
+		//console.log(temp_article.title + ": " + relation_sentence);
 	}
 	
 	return relation_sentence;
