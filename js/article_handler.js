@@ -48,7 +48,7 @@ function getSearchString(input_title) {
 
 		//Which properties to get. (coordinates, links, revisions, extracts, pageid, pageimages, images(används inte än), categories)
 		var properties = "&prop=coordinates%7Clinks%7Crevisions%7Cextracts%7Cpageimages" + "&indexpageids=1" + "&pllimit=max"; 
-		var revisions = "&rvprop=content" + "&exintro=1" + "&explaintext=1";
+		var revisions = "&rvprop=content" /* +"&exintro=1"*/ + "&explaintext=1";
 
 		//Which lists to get.
 		var lists = "&list=backlinks"
@@ -69,6 +69,7 @@ function loadMainArticle(data) {
 		id: -1,
 		links: [],
 		backlinks: [],
+		entirearticle: "",
 		first_paragraph: "",
 		position: [null,null],
 		birthplace: "",
@@ -80,11 +81,11 @@ function loadMainArticle(data) {
 	
 	temp_article.id = data.query.pageids[0];											//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title;						//Save the title of the article
-	temp_article.first_paragraph = data.query.pages[temp_article.id].extract;			//Save first paragraph of the article
-	temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph); 		//Save first sentence of the article
+	temp_article.entirearticle = data.query.pages[temp_article.id].extract;				//Save first paragraph of the article
 	
+	//Save article image link, if it exist.
 	if(data.query.pages[temp_article.id].thumbnail) {
-		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;	//Save small image, source
+		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;
 	
 		//Format the image source link so that it gives a full image and not a thumbnail.
 		temp_article.image_source = temp_article.image_source.replace("/thumb", "");
@@ -92,6 +93,13 @@ function loadMainArticle(data) {
 		temp_article.image_source = temp_article.image_source.substring(0, indx);	
 	}
 
+	//Take out the first paragraph from the entire article
+	temp_article.first_paragraph = temp_article.entirearticle.substring(0, temp_article.entirearticle.indexOf("=="));
+	//console.log(temp_article.entirearticle);
+
+	//Save first sentence of the article
+	temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph); 			
+	
 	//Loop through array of backlinks and add to temp_article.
 	for(var indx = 0; indx < data.query.backlinks.length; indx++) {
 		//Save titles of the backlinks

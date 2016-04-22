@@ -43,6 +43,7 @@ function getLinkSearchString(input_title) {
 }
 
 //Creates a new search for the links. 
+//The links = links or backlinks.
 //At the moment an individual search is preformed for each link, in the future, this should be done 50 links at a time.	
 function startLinkSearch(links, color){
 
@@ -71,6 +72,7 @@ function loadLinksArticles(data) {
 		position: [null,null],
 		time: [[null, null, null], [null, null, null]],
 		birthplace: "",
+		relation_sentence: "",
 	}
 
 	temp_article.id = data.query.pageids[0]; 									//Save article id
@@ -82,8 +84,16 @@ function loadLinksArticles(data) {
 	
 	temp_article.time = getArticleTime(temp_article.first_paragraph);					//Get time mentioned in first paragraph of the article
 
+	//If temp_article is a link, but not a backlink, call the function "getRelationSentence"
+	if(MARKER_COLOR == "black")
+	{
+		//Get the sentence where the link is mentioned in the main article.
+		temp_article.relation_sentence = getRelationSentence(temp_article);	
+	}
+
+	//Save article image link, if it exist.
 	if(data.query.pages[temp_article.id].thumbnail) {
-		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
+		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		
 
 		//Format the image source link so that it gives a full image and not a thumbnail.
 		temp_article.image_source = temp_article.image_source.replace("/thumb", "");
@@ -173,13 +183,57 @@ function loadLinksArticles(data) {
 	//CONSOLE LOG -> REMOVE LATER
 	/*for( var i=0; i < TIME_ARTICLES.length; i++){
 		console.log(TIME_ARTICLES[i].time[0]); 					
-	}
-	console.log("hej");
-*/
+	}*/
+	//console.log("hej");
+
 
 	//Return array of articles which have coordinates or time
 	return [COORD_ARTICLES, TIME_ARTICLES];
 
+}
+
+
+/*-------------------------------------------------------------------------------
+ 		Handle the relations between an article and the links in it 
+--------------------------------------------------------------------------------*/
+//Get the sentence where the link is mentioned in the main article.
+function getRelationSentence(temp_article){
+	
+	//Find the position where the link's title is mentioned in the main article.
+	var linkIndex = MAIN_ARTICLE.entirearticle.indexOf(temp_article.title);
+
+	//Find the index for the title "Se även" in the main article.
+	//Links after this title will be ignored, since these are only listed, not mentioned in sentences.
+	var endOfArticleIndex = MAIN_ARTICLE.entirearticle.indexOf("Se även");
+
+	//If the link's index is greater than 0 and smaller than the index for "Se även" it means
+	//that the link is mentioned within the text and the related sentence can be used.
+	if(linkIndex > 0 && linkIndex < endOfArticleIndex)
+	{
+		//Find the index for the first full stop (".") AFTER the link's title.
+		var stopIndex = MAIN_ARTICLE.entirearticle.indexOf(".", linkIndex) + 1;
+
+		//Find the index for the full stop (".") BEFORE the link's title.
+		//Or, if the link is mentioned in the first sentence after a title, find the index for "="
+		var startIndexFullstop = indexOfBackwards(linkIndex, MAIN_ARTICLE.entirearticle, ".");
+		var startIndexEqualsign = indexOfBackwards(linkIndex, MAIN_ARTICLE.entirearticle, "=");
+
+		//Check if the sign before the sentence is "." or "=".
+		if (startIndexFullstop > startIndexEqualsign)
+		{
+			//Create a string for the complete sentence in which the link is mentioned, from start to stop.
+			var relation_sentence = MAIN_ARTICLE.entirearticle.substring(startIndexFullstop, stopIndex);
+		}
+		else 
+		{
+			//Create a string for the complete sentence in which the link is mentioned, from start to stop.
+			var relation_sentence = MAIN_ARTICLE.entirearticle.substring(startIndexEqualsign, stopIndex);
+		}
+
+		//console.log(temp_article.title + ": " + relation_sentence);
+	}
+	
+	return relation_sentence;
 }
 
 
