@@ -109,9 +109,6 @@ function generateTimeDot(title, sentence) {
                                     .attr("id", "dot" + position + i)
                                     .attr("fill", 'red' );
 
-
-
-
 	            // The black circle that's supposted to trigger the tipsy has the id "dot"
 	            $('#dot'+ position + i).attr('rel', 'hide');  // dot starts with the tipsy hidden, therefore rel has the id "hide"
 	            $('#dot'+ position + i).attr('onclick', 'ShowHideTipsy($(this))'); // When you click on dot the function ShowHideTipsy is called
@@ -136,6 +133,9 @@ function generateTimeDot(title, sentence) {
 	            $('#dot'+ position + i).click(function(e){
 	                e.stopPropagation();
 	            });
+
+
+
             }
             //Plot the dots to the right of the center.
             if(i>m){
@@ -206,25 +206,29 @@ function generateTimeDot(title, sentence) {
 // }
 
 
-// This function is called when you click on the black circle with id "dot".
 // Tipsy = the popup associated with the dot.
-function ShowHideTipsy(dot_id){
+// This function is called when you click on the black circle with id "dot"
+function ShowHideTipsy(ele){
 	
-	// If the tipsy has the attribute status = show, hide it! 
-    if($(dot_id).attr("status") == "show") 
+	// If the tipsy has the attribute rel = show, hide it! 
+    if($(ele).attr("rel") == "show") 
     { 
-       $(dot_id).tipsy("hide"); 
-       $(dot_id).attr('status','hide');  
+       $(ele).tipsy("hide"); 
+       $(ele).attr('rel','hide');  
        console.log("hide tipsy"); 
     }
 
     // If the tipsy is hidden, show it!
     else
     { 
-        $(dot_id).tipsy("show");
-        $(dot_id).attr('status','show');
+        $(ele).tipsy("show");
+        $(ele).attr('rel','show');
         console.log("show tipsy");
     } 
     
+   
     return false;
+
+
+
 }
