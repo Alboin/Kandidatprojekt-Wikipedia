@@ -118,7 +118,8 @@ function loadMainArticle(data) {
 
 		addArticleToMap(temp_article.position, temp_article.title, temp_article.first_sentence);
 		createMapListObject(temp_article.title);
-
+		placeMainMarkerOnTop();
+		
 	}
 
 	return temp_article;

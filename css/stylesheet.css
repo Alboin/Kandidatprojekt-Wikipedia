@@ -124,6 +124,12 @@ hr {
     opacity: 0.7;
 }
 
+#article_list li {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #eeeeee #ffffff;
+}
+
 #article_list li:hover {
     background:#bbb;
     cursor: pointer;

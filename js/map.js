@@ -18,7 +18,7 @@
 //Global variables
 var map;
 var markerLayer;
-var marker_color = "red";
+var MARKER_COLOR = "red";
 var all_markers = [];
 
 
@@ -54,15 +54,15 @@ function addArticleToMap(coordinate, title, sentence) {
 
 	var temp_color;
 
-	if(marker_color == "red") {
+	if(MARKER_COLOR == "red") {
 		//console.log("1")
 		temp_color = '#ff0000';
-	} else if(marker_color == "gray") {
+	} else if(MARKER_COLOR == "gray") {
 		//console.log("2")
 		temp_color = '#777777';
 	} else {
 		//console.log("3")
-		temp_color = '#0000ff';
+		temp_color = '#000000';
 	}
 
 	//Create marker
@@ -77,6 +77,11 @@ function addArticleToMap(coordinate, title, sentence) {
 
     all_markers.push(marker);
 
+}
+
+//Positions the marker associated with the main article on top of all markers.
+function placeMainMarkerOnTop() {
+	all_markers[0].setZIndexOffset(10000);
 }
 
 //TO BE REMOVED
@@ -128,11 +133,21 @@ function openMarkerPopup(title) {
 //Creates a new entry on the list with displayed articles.
 function createMapListObject(title) {
 
+	//Function used internally to insert the new list element in alphabetic order.
+	function sortAlpha(a, b) {
+		return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;  
+	}
+
+	//Select the whole list.
 	var ul = document.getElementById("article_list");
+
 	//Create new list entry.
-  	var li = document.createElement("li");
-  	li.appendChild(document.createTextNode(title));
-  	li.setAttribute("id", title);
-  	li.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
-  	ul.appendChild(li);
+  	var newLi = document.createElement("li");
+  	newLi.appendChild(document.createTextNode(title));
+  	newLi.setAttribute("id", title);
+  	newLi.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
+
+  	//Insert new list entry with help of sorting fuction "sortAlpha".
+  	$('li', 'ul').add(newLi).sort(sortAlpha).appendTo('ul');
+
 }

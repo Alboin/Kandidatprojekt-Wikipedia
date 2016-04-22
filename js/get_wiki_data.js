@@ -11,7 +11,7 @@
 
 //The function takes a final query as input, uses GET (sends a query to the Wikipedia API) 
 //A json-object is returned, saved in the variable 'data'.
-function getWikiData(query, first){
+function getWikiData(query, article_color){
 	$(document).ready(function(){
 	    $.ajax({
 	        type: "GET",
@@ -26,8 +26,9 @@ function getWikiData(query, first){
 	        	//If the search is to be performed for a main article, eg not links.
 	        	if(MAIN_SEARCH) { 
 
-	        		marker_color = "red";
 	        		console.log(data)
+
+	        		MARKER_COLOR = article_color;
 
 	        		//If the result is not a valid article and no redirection proposal is given (see below).
 	        		if(data.query.pageids[0] == -1) {
@@ -58,8 +59,8 @@ function getWikiData(query, first){
 		        		MAIN_ARTICLE = loadMainArticle(data);
 
 		        		//Run searches on the links and backlinks asynchronously.
-		        		startLinkSearch(MAIN_ARTICLE.links, "gray");
-		        		startLinkSearch(MAIN_ARTICLE.backlinks, "black");
+		        		startLinkSearch(MAIN_ARTICLE.links, "black");
+		        		startLinkSearch(MAIN_ARTICLE.backlinks, "gray");
 		        		
 		        		printModalContent(MAIN_ARTICLE);
 
@@ -71,6 +72,8 @@ function getWikiData(query, first){
 
 	        	//If the search if to be performed for the links from an article.
 	        	else {
+
+	        		MARKER_COLOR = article_color;
 
 	        		//Loads all links and puts them in global arrays COORD_ARTICLES and TIME_ARTICLES.
 	        		loadLinksArticles(data);

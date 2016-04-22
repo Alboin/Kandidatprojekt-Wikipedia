@@ -35,13 +35,12 @@ function getLinkSearchString(input_title) {
 //Creates a new search for the links. 
 //The function handles at most 50 links/articles at the time.	
 function startLinkSearch(links, color){
+	
 	MAIN_SEARCH = false;
-
-	marker_color = color;
 
 	for(var indx = 0; indx < links.length; indx++){
 		var query = getLinkSearchString(links[indx]);
-		getWikiData(query, MAIN_SEARCH);
+		getWikiData(query, color);
 	}
 
 	//ska sättas till true igen, ifall användaren klickar på en av länkarna?
