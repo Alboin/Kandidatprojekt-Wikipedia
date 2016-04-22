@@ -1,3 +1,14 @@
+
+/*******************************************************************************************************
+ 	Authors: Mostly Albin Bergström
+
+ 	The final query is used to GET data from Wikipedia, a json-object is returned.
+
+ 	The file includes the function:
+ 	- getWikiData
+********************************************************************************************************/
+
+
 //The function takes a final query as input, uses GET (sends a query to the Wikipedia API) 
 //A json-object is returned, saved in the variable 'data'.
 function getWikiData(query, first){

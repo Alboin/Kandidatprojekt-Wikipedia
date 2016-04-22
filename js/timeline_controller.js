@@ -1,5 +1,16 @@
 
+/*******************************************************************************************************
+ 	Authors: Sara Martin
+
+ 	This file handle the time-controller, which is the timeline at the bottom of the screen in the
+ 	timeview. The timeline has handles that the user can use to choose a specific time span.
+
+ 	The file includes the function:
+ 	- moveHandles
+********************************************************************************************************/
+
 	var svg = d3.selectAll("svg");
+	
 	//Declare size constants for handles and timeline.
 	var handle_width = 0.01*window.innerWidth, handle_height = 0.045*window.innerHeight;
 	var edge_radius = 3;
