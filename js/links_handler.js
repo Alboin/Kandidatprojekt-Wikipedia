@@ -33,6 +33,7 @@ function getLinkSearchString(input_title) {
 }
 
 //Creates a new search for the links. 
+//The links = links or backlinks.
 //At the moment an individual search is preformed for each link, in the future, this should be done 50 links at a time.	
 function startLinkSearch(links, color){
 	
@@ -61,6 +62,7 @@ function loadLinksArticles(data) {
 		position: [null,null],
 		time: [[null, null, null], [null, null, null]],
 		birthplace: "",
+		relation_sentence: "",
 	}
 
 	temp_article.id = data.query.pageids[0]; 									//Save article id
@@ -71,6 +73,15 @@ function loadLinksArticles(data) {
 		temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph);	//Take the first sentence from the related article. 
 	
 	temp_article.time = getArticleTime(temp_article.first_paragraph);					//Get time mentioned in first paragraph of the article
+
+
+	//If temp_article is a link, but not a backlink, call the function "getRelationSentence"
+	if(MARKER_COLOR == "black")
+	{
+		//Get the sentence where the link is mentioned in the main article.
+		temp_article.relation_sentence = getRelationSentence(temp_article);	
+	}
+
 
 	if(data.query.pages[temp_article.id].thumbnail)
 		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		//Save small image, source
@@ -164,6 +175,40 @@ function loadLinksArticles(data) {
 	//Return array of articles which have coordinates or time
 	return [COORD_ARTICLES, TIME_ARTICLES];
 
+}
+
+
+
+//Get the sentence where the link is mentioned in the main article.
+function getRelationSentence(temp_article){
+	
+	//Find the position where the link's title is mentioned in the main article.
+	var linkIndex = MAIN_ARTICLE.entirearticle.indexOf(temp_article.title);
+	//console.log("linkIndex för " + temp_article.title + ": " + linkIndex);
+
+	//Find the index for the title "Se även" in the main article.
+	var endOfArticleIndex = MAIN_ARTICLE.entirearticle.indexOf("Se även");
+
+	//If the link's index is greater than 0 and smaller than the index for "Se även".
+	if(linkIndex > 0 && linkIndex < endOfArticleIndex)
+	{
+		//console.log("linkIndex för " + temp_article.title + ": " + linkIndex);
+
+		//Find the index for the first full stop (".") after the link's title.
+		var stopIndex = MAIN_ARTICLE.entirearticle.indexOf(".", linkIndex) + 1;
+
+		//Create a string for the last part of the sentence in which the link is mentioned.
+		var stopString = MAIN_ARTICLE.entirearticle.substring(linkIndex, stopIndex);
+		console.log(temp_article.title + ": " + stopString);
+
+		//Create a string for the complete sentence in which the link is mentioned.
+		var relation_sentence = MAIN_ARTICLE.entirearticle.substring(linkIndex-50, linkIndex + 50);
+	
+		//console.log(temp_article.title + ": " + relation_sentence);
+	}
+	
+	
+	return relation_sentence;
 }
 
 

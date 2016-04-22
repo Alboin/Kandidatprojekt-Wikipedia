@@ -26,7 +26,7 @@ function getWikiData(query, article_color){
 	        	//If the search is to be performed for a main article, eg not links.
 	        	if(MAIN_SEARCH) { 
 
-	        		console.log(data)
+	        		//console.log(data);
 
 	        		MARKER_COLOR = article_color;
 
