@@ -73,7 +73,8 @@ function loadMainArticle(data) {
 		birthplace: "",
 		time: [[null, null, null], [null, null, null]],
 		image_source: "",
-		first_sentence:""
+		first_sentence:"",
+		year: null 
 	}
 	
 	temp_article.id = data.query.pageids[0];											//Save article id
@@ -111,6 +112,9 @@ function loadMainArticle(data) {
 
 	//Add article to the array with articles
 	MAIN_ARTICLE = temp_article;
+
+	//Get the year. 
+	temp_article.year=getYear(temp_article.time);
 
 	//Check if the article has a position. 
 	if(temp_article.position[0]) {
@@ -190,6 +194,8 @@ function getArticleTime(text) {
 					//If it is longer than 2 digits and the previous word was a month it is probably a year.
 					} else if (temp_time[0] != null && previous_word_was_month) {
 						temp_time[2] = parseInt(word);
+
+						getYear(temp_time[2]);
 					} 
 				//If the word is not a number, check if it is a date.
 				} else {
@@ -267,6 +273,15 @@ function getMonth(word) {
 	return -1;
 }
 
+//Get the year in an article. 
+function getYear(date){
+
+	//console.log(date);
+	//Takes the first year in the article. 
+	year = date[0]; 
+	return year; 
+}
+
 function printModalContent(article) {
 
 	/*-----------------------------------------------
@@ -292,7 +307,8 @@ function printModalContent(article) {
 	//TO BE REMOVED
 	//Check if the article has time. 
 	if(article.time[0]) {
-		document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
+		document.getElementById("tidsinfo").innerHTML = "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
+		document.getElementById("tidsinfo").innerHTML = "<b>Artikelns start-år </b>" + article.year[2] + "<br><br>";
 	}
 
 }
