@@ -176,11 +176,11 @@ function loadLinksArticles(data) {
 
 
 	//CONSOLE LOG -> REMOVE LATER
-	/*for( var i=0; i < TIME_ARTICLES.length; i++){
+	for( var i=0; i < TIME_ARTICLES.length; i++){
 		console.log(TIME_ARTICLES[i].time[0]); 					
 	}
-	console.log("hej");
-*/
+	//console.log("hej");
+
 
 	//Return array of articles which have coordinates or time
 	return [COORD_ARTICLES, TIME_ARTICLES];

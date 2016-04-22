@@ -58,6 +58,7 @@ body {
     height:0px; /* Eller ändra den här...*/
     padding: 0px;
     margin: 0px;
+    z-index: 2;
 }
 
         
