@@ -124,8 +124,8 @@ function searchWiki(query, first){
 		        		getFirstRow(main_article.first_paragraph);
 
 		        		generateTimeCircle(main_article.title, main_article.first_sentence);
+		        		//placeDots(main_article.title, main_article.first_sentence);
 			        	
-			        	console.log("hej");
 		        	}
 
 	        	} else {
@@ -157,7 +157,8 @@ function load(data) {
 		time: [null, null],
 		image_source: "",
 		categories: "", 
-		first_sentence:""
+		first_sentence:"", 
+		year: null
 
 	}
 	
@@ -194,6 +195,8 @@ function load(data) {
 	temp_article.birthplace = getPosition(data.query.pages[temp_article.id].revisions[0]["*"]);
 	//To get the first row in a paragraph. 
 	temp_article.first_sentence = getFirstRow(temp_article.first_paragraph);
+
+	temp_article.year=getYear(temp_article.time);
 
 	//Add article to the array with articles
 	main_article = temp_article;

@@ -10,6 +10,9 @@ function printArticle(article) {
 	document.getElementById("artikel_titel").innerHTML = article.title;								//Title
 	document.getElementById("artikel_text").innerHTML = article.first_paragraph;					//Article
 	document.getElementById("artikel_bild").innerHTML = "<img src='" + article.image_source + "'>";	//Thumbnailmage
+
+	
+	
 	
 	//Categories
 	//document.getElementById("artikel_kategori").innerHTML = article.categories;
@@ -31,7 +34,8 @@ function printArticle(article) {
 
 
 	if(article.time[0]) {
-		document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
+		document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start och sluttid </b>" + article.time[0] + "<br><br>";
+		document.getElementById("tidsinfo").innerHTML += "<b>Artikelns start-år </b>" + article.year[2] + "<br><br>";
 	}
 
 }
