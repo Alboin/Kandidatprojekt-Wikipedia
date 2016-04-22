@@ -142,15 +142,19 @@ function getPositionBirthplace(revision) {
 
 //Print the first sentence in an article.  
 function getFirstSentence(paragraph){
-	//Find the position where a dot followed by space is in a string. 
-	var n = paragraph.indexOf(".");
-	//Split the string where the position is set. 
-	var res = paragraph.slice(0, n+1);
+	if(paragraph) { 
+		//Find the position where a dot followed by space is in a string. 
+		var n = paragraph.indexOf(".");
+		//Split the string where the position is set. 
+		var res = paragraph.slice(0, n+1);
 
-	//If you want to use the sentence in a javascript-file it's called this:
-	var first_sentence = res; 
+		//If you want to use the sentence in a javascript-file it's called this:
+		var first_sentence = res; 
 
-	return first_sentence;
+		return first_sentence;
+	} else {
+		return "";
+	}
 }
 
 //This function checks if any dates are mentioned in the article
@@ -167,51 +171,53 @@ function getArticleTime(text) {
 	//Variable to return
 	var time = [];
 
-	//Prepare text.
-	text = text.replace(/[-–&\/\\#,+()$~%.'":*?<>{}]/g, ' ');
-	text = text.toLowerCase();
+	if(text) {
+		//Prepare text.
+		text = text.replace(/[-–&\/\\#,+()$~%.'":*?<>{}]/g, ' ');
+		text = text.toLowerCase();
 
-	for(var indx = 0; indx < text.length; indx++) {
-		//If current char is " ", we have a word.
-		if(text[indx] == " ") {
-			
-			//Check if word is a number, if it is, convert it to an integer and save in "date".
-			if(!isNaN(word) && !(word == "")) {
-				//If the number is less than 3 digits it is probably a date.
-				if(word.length < 3) {
-					temp_time[0] = parseInt(word);
-					//all_dates.push(parseInt(word));
+		for(var indx = 0; indx < text.length; indx++) {
+			//If current char is " ", we have a word.
+			if(text[indx] == " ") {
+				
+				//Check if word is a number, if it is, convert it to an integer and save in "date".
+				if(!isNaN(word) && !(word == "")) {
+					//If the number is less than 3 digits it is probably a date.
+					if(word.length < 3) {
+						temp_time[0] = parseInt(word);
+						//all_dates.push(parseInt(word));
 
-				//If it is longer than 2 digits and the previous word was a month it is probably a year.
-				} else if (temp_time[0] != null && previous_word_was_month) {
-					temp_time[2] = parseInt(word);
-				} 
-			//If the word is not a number, check if it is a date.
-			} else {
-				month = getMonth(word);
-				if(month > -1) {
-					temp_time[1] = month;
-					previous_word_was_month = true;
+					//If it is longer than 2 digits and the previous word was a month it is probably a year.
+					} else if (temp_time[0] != null && previous_word_was_month) {
+						temp_time[2] = parseInt(word);
+					} 
+				//If the word is not a number, check if it is a date.
 				} else {
-					previous_word_was_month = false;
+					month = getMonth(word);
+					if(month > -1) {
+						temp_time[1] = month;
+						previous_word_was_month = true;
+					} else {
+						previous_word_was_month = false;
+					}
 				}
+
+				//If all slots in "temp_time" is filled, save the point of time and clear the variable.
+				if(temp_time[2] != null) {
+					time.push(temp_time);
+					if(time.length > 1)
+						return time;
+					temp_time = [null,null,null];
+				}
+
+				//Clear word
+				word = "";
+
+			} else {
+				//Append current char to word.
+				word += text[indx];
+			
 			}
-
-			//If all slots in "temp_time" is filled, save the point of time and clear the variable.
-			if(temp_time[2] != null) {
-				time.push(temp_time);
-				if(time.length > 1)
-					return time;
-				temp_time = [null,null,null];
-			}
-
-			//Clear word
-			word = "";
-
-		} else {
-			//Append current char to word.
-			word += text[indx];
-		
 		}
 	}
 	return time;

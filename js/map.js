@@ -86,7 +86,6 @@ function chooseNewMainArticle(title) {
 
 	//Create query from user input.
 	var query = getSearchString(title);
-	console.log(query);
 
 	document.getElementById("searchtext").value = title;
 
