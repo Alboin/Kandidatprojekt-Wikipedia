@@ -96,7 +96,8 @@ function getWikiData(query, article_color){
 		        		
 		        		printModalContent(MAIN_ARTICLE);
 
-		        		generateTimeDot(MAIN_ARTICLE.title, MAIN_ARTICLE.first_sentence);
+		        		//Kallas i loadLinksArticles i filen links_handler. Kanske kan tas bort? 
+		        		//generateTimeDot(MAIN_ARTICLE.title, MAIN_ARTICLE.first_sentence);
 		        		
 		        	}
 
@@ -107,7 +108,13 @@ function getWikiData(query, article_color){
 
 	        		MARKER_COLOR = article_color;
 	        		//Loads all links and puts them in global arrays COORD_ARTICLES and TIME_ARTICLES.
-	        		loadLinksArticles(data);
+	        		//loadLinksArticles(data);
+
+	        		var hej = loadLinksArticles(data);
+
+	        		generateTimeDot(hej.title, hej.first_sentence);
+	        		//generateTimeDot();
+
 
 	        	} //END else
 	        },

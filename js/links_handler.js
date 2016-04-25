@@ -152,9 +152,9 @@ function loadLinksArticles(data) {
 		}						
 	}
 
-/*-----------------------------------------------
- 	Check if the article has coordinates
------------------------------------------------*/
+	/*-----------------------------------------------
+	 	Check if the article has coordinates
+	-----------------------------------------------*/
 
 	//If the article has coordinates, save coordinates in 'position'
 	if(data.query.pages[temp_article.id].coordinates) {
@@ -176,15 +176,18 @@ function loadLinksArticles(data) {
 	}
 
 
-/*-----------------------------------------------
- 		Check if the article has a year
------------------------------------------------*/
+	/*-----------------------------------------------
+	 		Check if the article has a year
+	-----------------------------------------------*/
 	//If the article has a year, save the article in TIME_ARTICLES
 	if(temp_article.time[0])
 	{
 		//If the article does not exist in the array, push it into the array
 		if(!time_article_exist){
 			TIME_ARTICLES.push(temp_article);
+		//	 generateTimeDot();
+		
+			//plotDot(temp_article.title, temp_article.first_sentence);
 		}
 
 		//Sort the array time_articles
@@ -205,6 +208,19 @@ function loadLinksArticles(data) {
 			}
 		)
 	}
+
+
+	// // //CONSOLE LOG -> REMOVE LATER
+	// for( var i=0; i < TIME_ARTICLES.length; i++){
+	// 	console.log(TIME_ARTICLES[i].time[0]); 	
+
+	// 	generateTimeDot(temp_article.title, temp_article.first_sentence);
+	// 	count++
+
+	// }	console.log("hej");
+
+	// console.log(TIME_ARTICLES[i].time[0]); 	
+
 
 
 	//Return array of articles which have coordinates or time
