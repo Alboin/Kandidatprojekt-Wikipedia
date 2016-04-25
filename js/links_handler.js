@@ -72,7 +72,7 @@ function loadLinksArticles(data) {
 		position: [null,null],
 		time: [[null, null, null], [null, null, null]],
 		birthplace: "",
-		relation_sentence: "",
+		relation_sentence: ""
 	}
 
 	temp_article.id = data.query.pageids[0]; 									//Save article id
@@ -153,6 +153,7 @@ function loadLinksArticles(data) {
 		//If the article does not exist in the array, push it into the array
 		if(!time_article_exist){
 			TIME_ARTICLES.push(temp_article);
+			//generateTimeDot(temp_article.title, temp_article.first_sentence);
 		}
 
 		//Sort the array time_articles
@@ -174,12 +175,20 @@ function loadLinksArticles(data) {
 		)
 	}
 
+	
+	//Räkna hur många. 
+	count=0;
 
 	//CONSOLE LOG -> REMOVE LATER
 	for( var i=0; i < TIME_ARTICLES.length; i++){
-		console.log(TIME_ARTICLES[i].time[0]); 					
-	}
-	//console.log("hej");
+		//console.log(TIME_ARTICLES[i].time[0]); 	
+
+		generateTimeDot(temp_article.title, temp_article.first_sentence);
+		count++
+
+	}	console.log("hej");
+
+	console.log(TIME_ARTICLES[i].time[0]); 	
 
 
 	//Return array of articles which have coordinates or time

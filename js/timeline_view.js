@@ -16,7 +16,10 @@ function generateTimeDot(title, sentence) {
     var svg = d3.selectAll("svg");
 
     //Number of articles. Temporary!
-    n = 5;
+    n = TIME_ARTICLES.length;
+	//n=3;
+   
+
     //Check if even or odd. 
     odd_or_even = n%2;
     //Center position (the middle of the timeline)
