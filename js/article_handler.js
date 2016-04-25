@@ -83,7 +83,7 @@ function loadMainArticle(data) {
 	
 	temp_article.id = data.query.pageids[0];											//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title;						//Save the title of the article
-	temp_article.entirearticle = data.query.pages[temp_article.id].extract;				//Save first paragraph of the article
+	temp_article.entirearticle = data.query.pages[temp_article.id].extract;				//Save the content of the entire article
 	
 	//Save article image link, if it exist.
 	if(data.query.pages[temp_article.id].thumbnail) {

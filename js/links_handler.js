@@ -35,7 +35,7 @@ function getLinkSearchString(input_title) {
 		//The what to search for
 		var title = "&titles=" + input_title;
 		//Which properties to get. (coordinates, links, revisions, extracts, pageid)
-		var properties = "&prop=coordinates" + "%7Cextracts" + "%7Cpageimages" + "&indexpageids=1" + "&exintro=1" + "&explaintext=1"; 			
+		var properties = "&prop=coordinates" + "%7Cextracts" + "%7Cpageimages" + "&indexpageids=1" /*+ "&exintro=1"*/ + "&explaintext=1"; 			
 		//Create final query
 		var linkQuery = "http://sv.wikipedia.org" + start + title + properties + "&callback=?";
 	    return linkQuery;
@@ -53,9 +53,6 @@ function startLinkSearch(links, color){
 		var query = getLinkSearchString(links[indx]);
 		getWikiData(query, color);
 	}
-
-	//ska sättas till true igen, ifall användaren klickar på en av länkarna?
-	//MAIN_SEARCH = true;
 }
 
 //Works similar as the function 'load'.
@@ -66,6 +63,7 @@ function loadLinksArticles(data) {
 	var temp_article = {
 		title: "",
 		id: -1,
+		entirearticle: "",
 		first_paragraph: "",
 		first_sentence: "",
 		image_source: "",
@@ -77,19 +75,48 @@ function loadLinksArticles(data) {
 
 	temp_article.id = data.query.pageids[0]; 									//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title; 				//Save article title
-	temp_article.first_paragraph = data.query.pages[temp_article.id].extract; 	//Save first paragraph
-
-	if(temp_article.first_paragraph != "")
-		temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph);	//Take the first sentence from the related article. 
+	temp_article.entirearticle = data.query.pages[temp_article.id].extract;		//Save entire article
+	//temp_article.first_paragraph = data.query.pages[temp_article.id].extract; 	//Save first paragraph (Det var såhär innan)
 	
-	temp_article.time = getArticleTime(temp_article.first_paragraph);					//Get time mentioned in first paragraph of the article
-
-	//If temp_article is a link, but not a backlink, call the function "getRelationSentence"
-	if(MARKER_COLOR == "black")
+	//If temp_article.entirearticle is not undefined, get first_paragraph, first_sentence and time.
+	if(temp_article.entirearticle)
 	{
-		//Get the sentence where the link is mentioned in the main article.
-		temp_article.relation_sentence = getRelationSentence(temp_article);	
-	}
+		if(temp_article.entirearticle.indexOf("==") > 0)
+		{
+			//Save first paragraph
+			temp_article.first_paragraph = temp_article.entirearticle.substring(0, temp_article.entirearticle.indexOf("=="));	
+		}
+		else
+		{
+			//Set the first_paragraph to be equal to the entire article.
+			temp_article.first_paragraph = temp_article.entirearticle;
+		}
+
+		//Take the first sentence from the related article. 
+		temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph);	
+		
+		//Get time mentioned in first paragraph of the article
+		temp_article.time = getArticleTime(temp_article.first_paragraph);	
+
+
+		//If temp_article is a link, but not a backlink, call the function "getRelationSentence"
+		if(MARKER_COLOR == "black")
+		{
+			//Get the sentence where the link is mentioned in the main article.
+			temp_article.relation_sentence = getRelationSentence(temp_article);	
+		}
+		//If temp_article is a backlink, not a link, call the function "getRelationWithLink"
+		else if(MARKER_COLOR == "gray")
+		{
+			//Get the sentence where the link is mentioned in the main article.
+			temp_article.relation_sentence = getRelationWithBacklink(temp_article);	
+		}				
+
+	}	
+
+
+
+
 
 	//Save article image link, if it exist.
 	if(data.query.pages[temp_article.id].thumbnail) {
@@ -239,6 +266,49 @@ function getRelationSentence(temp_article){
 		{
 			//Create a string for the complete sentence in which the link is mentioned, from start to stop.
 			var relation_sentence = MAIN_ARTICLE.entirearticle.substring(startIndexEqualsign, stopIndex);
+		}
+
+		//console.log(temp_article.title + ": " + relation_sentence);
+	}
+	return relation_sentence;
+}
+
+
+
+//Get the sentence where the link is mentioned in the main article.
+function getRelationWithBacklink(temp_article) {
+
+	var relation_sentence = "";
+	
+	//Find the position where the main article's title is mentioned in the link's article.
+	var linkIndex = temp_article.entirearticle.indexOf(MAIN_ARTICLE.title);
+
+	//Find the index for the title "Se även" in the link's article.
+	//Links after this title will be ignored, since these are only listed, not mentioned in sentences.
+	var endOfArticleIndex = temp_article.entirearticle.indexOf("Se även");
+
+	//If the link's index is greater than 0 and smaller than the index for "Se även" it means
+	//that the main article is mentioned within the text and the related sentence can be used.
+	if(linkIndex > 0 && linkIndex < endOfArticleIndex)
+	{
+		//Find the index for the first full stop (".") AFTER the link's title.
+		var stopIndex = temp_article.entirearticle.indexOf(".", linkIndex) + 1;
+
+		//Find the index for the full stop (".") BEFORE the link's title.
+		//Or, if the link is mentioned in the first sentence after a title, find the index for "="
+		var startIndexFullstop = indexOfBackwards(linkIndex, temp_article.entirearticle, ".")+1;
+		var startIndexEqualsign = indexOfBackwards(linkIndex, temp_article.entirearticle, "=")+1;
+
+		//Check if the sign before the sentence is "." or "=".
+		if (startIndexFullstop > startIndexEqualsign)
+		{
+			//Create a string for the complete sentence in which the link is mentioned, from start to stop.
+			var relation_sentence = temp_article.entirearticle.substring(startIndexFullstop, stopIndex);
+		}
+		else 
+		{
+			//Create a string for the complete sentence in which the link is mentioned, from start to stop.
+			var relation_sentence = temp_article.entirearticle.substring(startIndexEqualsign, stopIndex);
 		}
 
 		//console.log(temp_article.title + ": " + relation_sentence);
