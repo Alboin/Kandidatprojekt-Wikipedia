@@ -21,48 +21,51 @@ function generateTimeDot(title, sentence) {
 	console.log("Antal artiklar med år " + n  + "plus en");
     //Center position (the middle of the timeline)
     center=1200;
-    //Difference in position between the dots.
-    diff = 80*TIME_ARTICLES.length; 
-    //The number for every dots id.
-    i= diff/80; 
-      
-     		//Creates all the dots with their own id. 
-            //position = "_left"; //creates a part of the id-name.
-            svg.append("circle").attr("cx", center - diff)
-                                .attr("cy", 100)
-                                .attr("r", 10)
-                                .attr("id", "dot") //.attr("id", "dot"+ position + i)
-                                .attr("fill", 'red' );
-			
-			 //plotDot(MAIN_ARTICLE.title, MAIN_ARTICLE.first_sentence);
+
+    if(n>=0){
+
+	    //Difference in position between the dots.
+	    diff = 80*n; 
+	    //The number for every dots id.
+	    i= diff/80; 
+  
+ 		//Creates all the dots with their own id. 
+        //position = "_left"; //creates a part of the id-name.
+        svg.append("circle").attr("cx", center - diff)
+                            .attr("cy", 100)
+                            .attr("r", 10)
+                            .attr("id", "dot") //.attr("id", "dot"+ position + i)
+                            .attr("fill", 'red' );
+		
+		 //plotDot(MAIN_ARTICLE.title, MAIN_ARTICLE.first_sentence);
 
 
-			   // The black circle that's supposted to trigger the tipsy has the id "dot"
-            $('#dot').attr('rel', 'hide');  // dot starts with the tipsy hidden, therefore rel has the id "hide"
-            $('#dot').attr('onclick', 'ShowHideTipsy($(this))'); // When you click on dot the function ShowHideTipsy is called
-            $('#dot').attr({
-                title: ( '<div class="marker-title">' + title + '</div>' + '<div class="mapboxgl-popup">'+  sentence + '</div>'
-                    + '</div><a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>')    
-            }); 
+		// The black circle that's supposted to trigger the tipsy has the id "dot"
+        $('#dot').attr('rel', 'hide');  // dot starts with the tipsy hidden, therefore rel has the id "hide"
+        $('#dot').attr('onclick', 'ShowHideTipsy($(this))'); // When you click on dot the function ShowHideTipsy is called
+        $('#dot').attr({
+            title: ( '<div class="marker-title">' + title + '</div>' + '<div class="mapboxgl-popup">'+  sentence + '</div>'
+                + '</div><a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>')    
+        }); 
 
-            $(function() {
-                $('#dot').tipsy({
-                    trigger: 'manual', // this makes it possible to change tipsy manually like we want to do
-                    gravity: 's', // the gravity decides where the tipsy will show (inverse). s=south, n=north, w=west, nw=northwest etc.
-                    html: true    // makes it possible to have html content in tipsy
-                });
+        $(function() {
+            $('#dot').tipsy({
+                trigger: 'manual', // this makes it possible to change tipsy manually like we want to do
+                gravity: 's', // the gravity decides where the tipsy will show (inverse). s=south, n=north, w=west, nw=northwest etc.
+                html: true    // makes it possible to have html content in tipsy
             });
+        });
 
-            $(document).click(function(){
-                $('#dot').tipsy("hide");
-                console.log("hide tipsy");
-            });
+        $(document).click(function(){
+            $('#dot').tipsy("hide");
+            console.log("hide tipsy");
+        });
 
-            $('#dot').click(function(e){
-                e.stopPropagation();
-            });
+        $('#dot').click(function(e){
+            e.stopPropagation();
+        });
 
-
+	}
 			//console.log(diffplotDot());
 
             // // The black circle that's supposted to trigger the tipsy has the id "dot"
