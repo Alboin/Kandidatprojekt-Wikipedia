@@ -65,14 +65,33 @@ function addArticleToMap(article) {
 	var popup_content = '<div class="marker-title">' + article.title + '</div>' + article.first_sentence +
 		'<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br>';
 
+
 	//Add article relation to popup (if a relation string exist).
-	if(article.relation_sentence && article.relation_sentence != "") {
-		var index = article.relation_sentence.indexOf(MAIN_ARTICLE.title);
-		var beginning = article.relation_sentence.substring(0, index);
-		var marked_word = article.relation_sentence.substring(index, index + MAIN_ARTICLE.title.length);
-		var end = article.relation_sentence.substring(index + MAIN_ARTICLE.title.length, article.relation_sentence.length);
-		popup_content += '<br><b>Relation:</b><br>' + beginning + '<i id="marked_word">' + marked_word + '</i>' + end + '<br>';
+	if(article.relation_sentence && article.relation_sentence != "") 
+	{
+		if(MARKER_COLOR == "black")
+		{
+			var index = article.relation_sentence.indexOf(article.title);
+			var beginning = article.relation_sentence.substring(0, index);
+			var marked_word = article.relation_sentence.substring(index, index + article.title.length);
+			var end = article.relation_sentence.substring(index + article.title.length, article.relation_sentence.length);
+			popup_content += '<br><b>Relation till ' + MAIN_ARTICLE.title + ': </b><br>' + beginning + '<span id="marked_word">' + marked_word + '</span>' + end + '<br>';
+		}
+		else //if(MARKER_COLOR == "grey")
+		{
+			var index = article.relation_sentence.indexOf(MAIN_ARTICLE.title);
+			var beginning = article.relation_sentence.substring(0, index);
+			var marked_title = article.relation_sentence.substring(index, index + MAIN_ARTICLE.title.length);
+			var end = article.relation_sentence.substring(index + MAIN_ARTICLE.title.length, article.relation_sentence.length);
+			popup_content += '<br><b>Relation till ' + MAIN_ARTICLE.title + ': </b><br>' + beginning + '<span id="marked_word">' + marked_title + '</span>' + end + '<br>';
+					
+		}
+
+		//console.log("markerad link-titel: " + marked_word);
+		//console.log("markerad huvudartikel-titel: " + marked_title);
 	}
+
+
 
 	popup_content += '<br><a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + article.title + "'" +')"> Sök på "' + article.title + '" </a>';
 
