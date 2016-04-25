@@ -50,32 +50,39 @@ function generateMap() {
 }
 
 //Creates a marker on the map for one given article.
-function addArticleToMap(coordinate, title, sentence) {
+function addArticleToMap(article) {
 
 	var temp_color;
 
 	if(MARKER_COLOR == "red") {
-		//console.log("1")
 		temp_color = '#ff0000';
 	} else if(MARKER_COLOR == "gray") {
-		//console.log("2")
 		temp_color = '#777777';
 	} else {
-		//console.log("3")
 		temp_color = '#000000';
 	}
 
-	var popup_content = '<div class="marker-title">' + title + '</div>' + sentence +
-		'<a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br><br>' + 
-		'<a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + title + "'" +')"> Sök på "' + title + '" </a>';
+	var popup_content = '<div class="marker-title">' + article.title + '</div>' + article.first_sentence +
+		'<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br>';
+
+	//Add article relation to popup (if a relation string exist).
+	if(article.relation_sentence && article.relation_sentence != "") {
+		var index = article.relation_sentence.indexOf(MAIN_ARTICLE.title);
+		var beginning = article.relation_sentence.substring(0, index);
+		var marked_word = article.relation_sentence.substring(index, index + MAIN_ARTICLE.title.length);
+		var end = article.relation_sentence.substring(index + MAIN_ARTICLE.title.length, article.relation_sentence.length);
+		popup_content += '<br><b>Relation:</b><br>' + beginning + '<i id="marked_word">' + marked_word + '</i>' + end + '<br>';
+	}
+
+	popup_content += '<br><a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + article.title + "'" +')"> Sök på "' + article.title + '" </a>';
 
 	//Create marker
 	//The marker gets a button that when clicked calls the function "changeModalContent with the article title as argument."
-	var marker = L.marker([coordinate[0], coordinate[1]], {
+	var marker = L.marker([article.position[0], article.position[1]], {
     	icon: L.mapbox.marker.icon({
         	'marker-color': temp_color
       	}),
-    	title: title
+    	title: article.title
     }).bindPopup(popup_content).addTo(markerLayer); //Add marker to "markerLayer", a layer wich is cleared with every new search.
 
     all_markers.push(marker);
@@ -119,14 +126,22 @@ function changeModalContent(title) {
 			break;
 		}
 	}
+	if(!temp_article)
+		temp_article = MAIN_ARTICLE;
 
 	//Change Modal title
 	document.getElementById("artikel_titel").innerHTML = title;
 	//Change Modal text
 	document.getElementById("artikel_text").innerHTML = temp_article.first_paragraph;
+	
 	//Change Modal thumbnail
-	document.getElementById("artikel_bild").innerHTML = "<img src='" + temp_article.image_source + "'>";
-	console.log(temp_article.image_source)
+	//Check if an image exist
+	if(temp_article.image_source != "") {
+		document.getElementById("artikel_bild").innerHTML = "<img id='modalImage' src='" + temp_article.image_source + "'>";
+	//If there is no image, remove the 
+	 } else {
+	 	document.getElementById("artikel_bild").innerHTML = "";
+	 }
 
 }
 
