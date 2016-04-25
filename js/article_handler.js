@@ -134,7 +134,7 @@ function loadMainArticle(data) {
 	//Check if the article has a position. 
 	if(temp_article.position[0]) {
 
-		addArticleToMap(temp_article.position, temp_article.title, temp_article.first_sentence);
+		addArticleToMap(temp_article);
 		createMapListObject(temp_article.title);
 		placeMainMarkerOnTop();
 

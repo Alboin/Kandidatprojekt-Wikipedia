@@ -50,7 +50,7 @@ function generateMap() {
 }
 
 //Creates a marker on the map for one given article.
-function addArticleToMap(coordinate, title, sentence) {
+function addArticleToMap(article) {
 
 	var temp_color;
 
@@ -62,17 +62,27 @@ function addArticleToMap(coordinate, title, sentence) {
 		temp_color = '#000000';
 	}
 
-	var popup_content = '<div class="marker-title">' + title + '</div>' + sentence +
-		'<a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br><br>' + 
-		'<a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + title + "'" +')"> Sök på "' + title + '" </a>';
+	var popup_content = '<div class="marker-title">' + article.title + '</div>' + article.first_sentence +
+		'<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br>';
+
+	//Add article relation to popup (if a relation string exist).
+	if(article.relation_sentence && article.relation_sentence != "") {
+		var index = article.relation_sentence.indexOf(MAIN_ARTICLE.title);
+		var beginning = article.relation_sentence.substring(0, index);
+		var marked_word = article.relation_sentence.substring(index, index + MAIN_ARTICLE.title.length);
+		var end = article.relation_sentence.substring(index + MAIN_ARTICLE.title.length, article.relation_sentence.length);
+		popup_content += '<br><b>Relation:</b><br>' + beginning + '<i id="marked_word">' + marked_word + '</i>' + end + '<br>';
+	}
+
+	popup_content += '<br><a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + article.title + "'" +')"> Sök på "' + article.title + '" </a>';
 
 	//Create marker
 	//The marker gets a button that when clicked calls the function "changeModalContent with the article title as argument."
-	var marker = L.marker([coordinate[0], coordinate[1]], {
+	var marker = L.marker([article.position[0], article.position[1]], {
     	icon: L.mapbox.marker.icon({
         	'marker-color': temp_color
       	}),
-    	title: title
+    	title: article.title
     }).bindPopup(popup_content).addTo(markerLayer); //Add marker to "markerLayer", a layer wich is cleared with every new search.
 
     all_markers.push(marker);

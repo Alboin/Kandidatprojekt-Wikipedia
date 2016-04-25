@@ -191,6 +191,10 @@ hr {
     max-height: 200px;
 }
 
+#marked_word {
+    background-color: yellow;
+}
+
 #newMainArticle {
     text-align: right;
 }

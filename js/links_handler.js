@@ -72,7 +72,7 @@ function loadLinksArticles(data) {
 		position: [null,null],
 		time: [[null, null, null], [null, null, null]],
 		birthplace: "",
-		relation_sentence: "",
+		relation_sentence: ""
 	}
 
 	temp_article.id = data.query.pageids[0]; 									//Save article id
@@ -141,7 +141,7 @@ function loadLinksArticles(data) {
 			COORD_ARTICLES.push(temp_article);
 
 			//Send information about the article to the map. 
-			addArticleToMap(temp_article.position, temp_article.title, temp_article.first_sentence);
+			addArticleToMap(temp_article);
 
 			//Create a title on the list
 			createMapListObject(temp_article.title);
@@ -180,13 +180,6 @@ function loadLinksArticles(data) {
 	}
 
 
-	//CONSOLE LOG -> REMOVE LATER
-	/*for( var i=0; i < TIME_ARTICLES.length; i++){
-		console.log(TIME_ARTICLES[i].time[0]); 					
-	}*/
-	//console.log("hej");
-
-
 	//Return array of articles which have coordinates or time
 	return [COORD_ARTICLES, TIME_ARTICLES];
 
@@ -198,6 +191,8 @@ function loadLinksArticles(data) {
 --------------------------------------------------------------------------------*/
 //Get the sentence where the link is mentioned in the main article.
 function getRelationSentence(temp_article){
+
+	var relation_sentence = "";
 	
 	//Find the position where the link's title is mentioned in the main article.
 	var linkIndex = MAIN_ARTICLE.entirearticle.indexOf(temp_article.title);
@@ -215,8 +210,8 @@ function getRelationSentence(temp_article){
 
 		//Find the index for the full stop (".") BEFORE the link's title.
 		//Or, if the link is mentioned in the first sentence after a title, find the index for "="
-		var startIndexFullstop = indexOfBackwards(linkIndex, MAIN_ARTICLE.entirearticle, ".");
-		var startIndexEqualsign = indexOfBackwards(linkIndex, MAIN_ARTICLE.entirearticle, "=");
+		var startIndexFullstop = indexOfBackwards(linkIndex, MAIN_ARTICLE.entirearticle, ".")+1;
+		var startIndexEqualsign = indexOfBackwards(linkIndex, MAIN_ARTICLE.entirearticle, "=")+1;
 
 		//Check if the sign before the sentence is "." or "=".
 		if (startIndexFullstop > startIndexEqualsign)
@@ -232,7 +227,6 @@ function getRelationSentence(temp_article){
 
 		//console.log(temp_article.title + ": " + relation_sentence);
 	}
-	
 	return relation_sentence;
 }
 
