@@ -233,6 +233,8 @@
 		<script>
 			//Generate the map when the page has loaded.
 			$(document).ready(generateMap());
+			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
+			document.getElementById("article_list").style.height = window.innerHeight * 0.65 + "px";
 		</script>
 
 	</body>

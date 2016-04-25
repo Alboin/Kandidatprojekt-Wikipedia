@@ -23,6 +23,10 @@ button:hover{
 	color: black;
 }
 
+a:hover {
+    cursor: pointer;
+}
+
 button {
     background-color: gray; 
     border: none;
@@ -116,7 +120,6 @@ hr {
 }
 
 #article_list {
-    max-height: 450px;
     border-radius: 6px;
     overflow: auto;
     padding: 6px;

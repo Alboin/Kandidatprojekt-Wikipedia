@@ -133,6 +133,7 @@ function changeModalContent(title) {
 	document.getElementById("artikel_titel").innerHTML = title;
 	//Change Modal text
 	document.getElementById("artikel_text").innerHTML = temp_article.first_paragraph;
+	//document.getElementById("artikel_text").innerHTML += '<br><a onclick="getFullText(' + "'" + title + "'" + ')"> Read full article </a>';
 	
 	//Change Modal thumbnail
 	//Check if an image exist
@@ -144,6 +145,23 @@ function changeModalContent(title) {
 	 }
 
 }
+
+//TO BE IMPLEMENTED SOON
+/*function getFullText(title) {
+	if(title != MAIN_ARTICLE.title) {
+		var temp_article;
+		//Loop through all articles and search for a matching title.
+		for(var indx = 0; indx < COORD_ARTICLES.length; indx++) {
+			if(COORD_ARTICLES[indx].title == title) {
+				temp_article = COORD_ARTICLES[indx];
+				break;
+			}
+		}
+	} else {
+		temp_article = MAIN_ARTICLE;
+	}
+	document.getElementById("artikel_text").innerHTML = temp_article.entirearticle;
+}*/
 
 //Is run from the article list on the right side of the screen. When a list-item is clicked this 
 //function opens the popup for the marker associated with the same article as the list-item.
