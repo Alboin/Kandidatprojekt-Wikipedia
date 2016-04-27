@@ -60,65 +60,13 @@
 			<!-- 1st row, top of the page. -->
 	        <div class="row" id="header_row">
 
-	        	<!-- The row is divided in 3 columns with the same size, which are empty to get the inormation in teh center of the page. -->
+	        	<!-- The row is divided in 3 columns with the same size, which are empty to get the information in the center of the page. -->
 		        
-		        <!-- Empty kolumn -->
-		        <div class="col-lg-4"></div>
-
-		        <!-- A column that contains av headlines for the different pages. The headline changes depending on which page is the current search. -->
-		        <div class="col-lg-4">     
-
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
-						<h4> Tidsinformation </h4>
-					</div>
-
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
-						<h4> Platsinformation </h4>			
-					</div>
-
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
-						<h4> Övrigt </h4>
-					</div>
-
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
-						<h4> Wikinspire </h4>
-						<p id="searchcompleted"></p>
-					</div>
-
-	        	</div>	
-
-	        	<!-- Empty kolumn -->
-			    <div class="col-lg-4"></div>
-	    	
-	    	</div>
-
-
-
-			<!-- 2nd row, second from the top. -->
-	        <div class="row" id="upper_row">
-
-	        	<!-- Empty kolumn -->
-		        <div class="col-lg-4"></div>
-
-		        <!-- Column that contains buttons and searchfield -->
-		        <div class="col-lg-4">
-
-					<input type="text", id="searchtext"></input>
+		        <!-- First column in row 1, up to the left -->
+		        <!-- Column that contains searchfield and buttons -->
+		        <div class="col-lg-4" id="topmargin">
+		        	<input type="text", id="searchtext"></input>
 		 			<button id="search"> Search </button>
-					<div class="pageButtons">
-
-						<!-- Buttons for the different pages -->
-						<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
-						<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="hideStartpage()"> Plats </button>
-						<button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>	
-
-						<!-- Button triggs modal --> 
-						<!--Can be nice to use if we want to work on the popup window-->
-						<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-						  Launch demo modal
-						</button-->
-
-					</div>
 
 					<script>
 
@@ -134,12 +82,62 @@
 
 					</script>
 
+						
+					<!-- Buttons for the different pages: timeview and map ("tid" and "Plats") -->
+					<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
+					<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="hideStartpage()"> Plats </button>
+					<!-- <button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>	-->
+
+					<!-- Button triggs modal --> 
+					<!--Can be nice to use if we want to work on the popup window-->
+					<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+					  Launch demo modal
+					</button-->
+						
 		        </div>
 
-		        <!-- Empty kolumn -->
-		        <div class="col-lg-4"></div>
+		        <!-- Second column in row 1, in the middle -->
+		        <!-- A column that contains the headlines for the different pages. 
+		        The headline changes depending on which page is the current search. -->
+		        <div class="col-lg-4">     
 
-		    </div>
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
+						<h4> Tidsinformation </h4>
+					</div>
+
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
+						<h4> Platsinformation </h4>			
+					</div>
+
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
+						<h4> Info </h4>
+					</div>
+
+					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
+						<h4> Wikinspire </h4>
+						<p id="searchcompleted"></p>
+					</div>
+
+	        	</div>	
+
+	        	<!-- Third/last column in row 1, up to the right-->
+			    <div class="col-lg-4">
+					<div class="infoButton">
+						<!-- Buttons for the "övrigt" page, to be "info"-page -->
+						<button id="place_right" ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Info </button>	
+
+						<!-- Button triggs modal --> 
+						<!--Can be nice to use if we want to work on the popup window-->
+						<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+						  Launch demo modal
+						</button-->
+					</div>
+			    </div>
+	    	
+	    	<!-- End of 1st row, top of the page. -->
+	    	</div>
+
+
 
 		    <!-- Modal, the informationbox that appears when a button is beeing clickes -->
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -230,12 +228,20 @@
 
 		</section>
 
+	
 		<script>
 			//Generate the map when the page has loaded.
 			$(document).ready(generateMap());
 			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
 			document.getElementById("article_list").style.height = window.innerHeight * 0.65 + "px";
 		</script>
+
+
+   		<footer>
+			<footer>
+				Copyright © TeamWikipedia
+			</footer>
+		</footer>
 
 	</body>
 </html>

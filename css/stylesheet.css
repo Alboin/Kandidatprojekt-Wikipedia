@@ -1,4 +1,7 @@
 
+
+
+
 #footer {
 	text-align: center;
 	font-size: 100%;
@@ -16,7 +19,7 @@ h4 {
 	font-weight: 100;
 	font-size: 36px;
 	text-align: center;
-	color: gray;
+	color: white;
 }
 
 button:hover{
@@ -44,6 +47,7 @@ button.active {
 	background-color: #cccccc;
 	border-radius: 8px;
 }
+
 
 body { 
 	margin:0; 
@@ -101,8 +105,8 @@ body {
 }
 
 hr {
-    color: #cccccc;
-    background-color: #cccccc;
+    color: #C9FF8F;     /* #cccccc */
+    background-color: #C9FF8F;
     height: 5px;
     margin: 0px;
     padding: 0px;
@@ -202,5 +206,27 @@ hr {
     text-align: right;
 }
 
+#place_right{
+    position: absolute;
+    right: 30px;
+    top: 10px;
+}
+
+#topmargin{
+    top: 10px;
+}
+
+#header_row{
+    background-color: #102C5B;
+    font-color: #ffffff;
+    padding-left: 15px;
+}
+
+footer{
+    background-color: #102C5B;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px;
+}
 
 
