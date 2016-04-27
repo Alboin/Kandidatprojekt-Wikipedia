@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 
 
 
@@ -20,14 +21,27 @@ h4 {
 	font-size: 36px;
 	text-align: center;
 	color: white;
-}
-
-button:hover{
-	color: black;
-}
+=======
+/*Hovers*/
 
 a:hover {
     cursor: pointer;
+>>>>>>> 59f1acc50e5a7274d5139abaaa185457f466d66e
+}
+
+button:hover{
+    color: black;
+}
+
+circle:hover{
+    cursor: pointer;
+}
+
+body { 
+    margin:0; 
+    padding:0; 
+    background: #eeeeee;
+
 }
 
 button {
@@ -48,6 +62,7 @@ button.active {
 	border-radius: 8px;
 }
 
+<<<<<<< HEAD
 
 body { 
 	margin:0; 
@@ -80,28 +95,14 @@ body {
     border: none;
     border-radius: 3px;
     font-size: 12px;
+=======
+h4 {
+>>>>>>> 59f1acc50e5a7274d5139abaaa185457f466d66e
     font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 36px;
     text-align: center;
-    color: #fff;
-    background: #ee8a65;
-}
-
-#back {
-	position: absolute;
-	left: 25px;
-	top: 60px;
-}
-
-.mapboxgl-popup {
-        max-width: 400px;
-        font: 12px/20px 'Roboto', Arial, Helvetica, sans-serif;
-}
-
-.marker-title {
-        font-weight: 700;
-        font-size: 24px;
-        font-family: 'Playfair Display', serif; 
-        text-transform: uppercase;
+    color: gray;
 }
 
 hr {
@@ -111,6 +112,12 @@ hr {
     margin: 0px;
     padding: 0px;
 }
+
+p {
+    text-align: center;
+}
+
+/*Id*/
 
 #article_list_container {
     position: fixed;
@@ -147,6 +154,41 @@ hr {
     color: white;
 }
 
+#back {
+	position: absolute;
+	left: 25px;
+	top: 60px;
+}
+
+#footer {
+    text-align: center;
+    font-size: 100%;
+    font-family: 'Roboto';
+}
+
+#map { 
+    position:absolute; 
+    top:0; 
+    bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
+    width:0px; 
+    height:0px; /* Eller ändra den här...*/
+    padding: 0px;
+    margin: 0px;
+    z-index: 2;
+}
+
+#marked_word {
+    background-color: yellow;
+}
+
+#modalImage {
+    max-width: 300px;
+    max-height: 200px;
+}
+
+#newMainArticle {
+    text-align: right;
+}
 
 #popup{
     position: fixed;
@@ -161,6 +203,36 @@ hr {
     padding: 5px;
     color: #fff;
 } 
+
+#random {
+    display: block;
+    position: relative;
+    margin: 0px auto;
+    width: 50%;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: #fff;
+    background: #ee8a65;
+}
+
+/*Classes*/
+
+.mapboxgl-popup {
+        max-width: 400px;
+        font: 12px/20px 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.marker-title {
+        font-weight: 700;
+        font-size: 24px;
+        font-family: 'Playfair Display', serif; 
+        text-transform: uppercase;
+}
 
 .modal-title{
     font-weight: 700;
@@ -193,18 +265,7 @@ hr {
      border-bottom-right-radius: 5px;
 }
 
-#modalImage {
-    max-width: 300px;
-    max-height: 200px;
-}
 
-#marked_word {
-    background-color: yellow;
-}
-
-#newMainArticle {
-    text-align: right;
-}
 
 #place_right{
     position: absolute;
