@@ -1,32 +1,8 @@
 
-<<<<<<< HEAD
-
-
-
-#footer {
-	text-align: center;
-	font-size: 100%;
-	font-family: 'Roboto';
-}
-
-
-
-p {
-	text-align: center;
-}
-
-h4 {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 100;
-	font-size: 36px;
-	text-align: center;
-	color: white;
-=======
 /*Hovers*/
 
 a:hover {
     cursor: pointer;
->>>>>>> 59f1acc50e5a7274d5139abaaa185457f466d66e
 }
 
 button:hover{
@@ -62,47 +38,20 @@ button.active {
 	border-radius: 8px;
 }
 
-<<<<<<< HEAD
-
-body { 
-	margin:0; 
-	padding:0; 
-    background: #eeeeee;
-
-}  
-
-
-
-#map { 
-	position:absolute; 
-	top:0; 
-	bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
-	width:0px; 
-    height:0px; /* Eller ändra den här...*/
-    padding: 0px;
-    margin: 0px;
-    z-index: 2;
+footer{
+    background-color: #102C5B;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px;
 }
 
-        
-#random {
-    display: block;
-    position: relative;
-    margin: 0px auto;
-    width: 50%;
-    height: 40px;
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
-    font-size: 12px;
-=======
+
 h4 {
->>>>>>> 59f1acc50e5a7274d5139abaaa185457f466d66e
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
     font-size: 36px;
     text-align: center;
-    color: gray;
+    color: white;
 }
 
 hr {
@@ -283,11 +232,5 @@ p {
     padding-left: 15px;
 }
 
-footer{
-    background-color: #102C5B;
-    color: #ffffff;
-    text-align: center;
-    padding: 5px;
-}
 
 
