@@ -186,7 +186,7 @@ function loadLinksArticles(data) {
 		if(!time_article_exist){
 			TIME_ARTICLES.push(temp_article);
 
-			generateTimeDot(temp_article.title, temp_article.first_sentence);
+			generateTimeDot(temp_article);
 		
 		}
 
@@ -208,19 +208,9 @@ function loadLinksArticles(data) {
 			}
 		)
 	}
-
-
-	// // //CONSOLE LOG -> REMOVE LATER
-	// for( var i=0; i < TIME_ARTICLES.length; i++){
-	// 	console.log(TIME_ARTICLES[i].time[0]); 	
-
-	// 	generateTimeDot(temp_article.title, temp_article.first_sentence);
-	// 	count++
-
-	// }	console.log("hej");
-
-	// console.log(TIME_ARTICLES[i].time[0]); 	
-
+	
+	if(temp_article.title == MAIN_ARTICLE.backlinks[MAIN_ARTICLE.backlinks.length-1])
+		console.log("Färdig med hela sökningen!")
 
 
 	//Return array of articles which have coordinates or time
