@@ -17,8 +17,8 @@ function generateTimeDot(title, sentence) {
     var svg = d3.selectAll("svg");
 
     //Number of articles. Temporary!
-    n = TIME_ARTICLES.length;
-	console.log("Antal artiklar med år " + n  + "plus en");
+    var n = TIME_ARTICLES.length;
+	console.log("Antal artiklar med år " + n  + " plus en");
     //Center position (the middle of the timeline)
     center=1200;
 
@@ -45,7 +45,8 @@ function generateTimeDot(title, sentence) {
         $('#dot').attr('onclick', 'ShowHideTipsy($(this))'); // When you click on dot the function ShowHideTipsy is called
         $('#dot').attr({
             title: ( '<div class="marker-title">' + title + '</div>' + '<div class="mapboxgl-popup">'+  sentence + '</div>'
-                + '</div><a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>')    
+                + '</div><a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>'),
+            dot_id: title    
         }); 
 
         $(function() {

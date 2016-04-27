@@ -180,14 +180,14 @@ function loadLinksArticles(data) {
 	 		Check if the article has a year
 	-----------------------------------------------*/
 	//If the article has a year, save the article in TIME_ARTICLES
-	if(temp_article.time[0])
+	if(temp_article.time[0] && temp_article.time[0][2])
 	{
 		//If the article does not exist in the array, push it into the array
 		if(!time_article_exist){
 			TIME_ARTICLES.push(temp_article);
-		//	 generateTimeDot();
+
+			generateTimeDot(temp_article.title, temp_article.first_sentence);
 		
-			//plotDot(temp_article.title, temp_article.first_sentence);
 		}
 
 		//Sort the array time_articles

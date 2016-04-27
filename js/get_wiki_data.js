@@ -110,9 +110,9 @@ function getWikiData(query, article_color){
 	        		//Loads all links and puts them in global arrays COORD_ARTICLES and TIME_ARTICLES.
 	        		//loadLinksArticles(data);
 
-	        		var hej = loadLinksArticles(data);
+	        		loadLinksArticles(data);
 
-	        		generateTimeDot(hej.title, hej.first_sentence);
+
 	        		//generateTimeDot();
 
 
