@@ -60,11 +60,14 @@ function generateTimeDot(title, sentence) {
         $(document).click(function(){
             $('#dot').tipsy("hide");
             console.log("hide tipsy");
+           
         });
 
         $('#dot').click(function(e){
             e.stopPropagation();
+
         });
+
 
 	}
 			//console.log(diffplotDot());
@@ -337,6 +340,7 @@ function ShowHideTipsy(ele){
        $(ele).tipsy("hide"); 
        $(ele).attr('rel','hide');  
        console.log("hide tipsy"); 
+       $('#dot').css({ fill: "#ff0000" }); //Makes the dot red again 
     }
 
     // If the tipsy is hidden, show it!
@@ -345,11 +349,10 @@ function ShowHideTipsy(ele){
         $(ele).tipsy("show");
         $(ele).attr('rel','show');
         console.log("show tipsy");
+        $('#dot').css({ fill: "#0000ff" }); //Makes the dot blue when klicking on it. 
+
     } 
     
-   
     return false;
-
-
 
 }
