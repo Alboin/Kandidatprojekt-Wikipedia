@@ -137,14 +137,26 @@ function hideStartpage() {
 function changeModalContent(title) {
 
 	var temp_article;
+	var found_article = false;
 
 	//Loop through all articles and search for a matching title.
 	for(var indx = 0; indx < COORD_ARTICLES.length; indx++) {
 		if(COORD_ARTICLES[indx].title == title) {
 			temp_article = COORD_ARTICLES[indx];
+			found_article = true;
 			break;
 		}
 	}
+	if(!found_article) {
+		//Loop through all articles and search for a matching title.
+		for(var indx = 0; indx < TIME_ARTICLES.length; indx++) {
+			if(TIME_ARTICLES[indx].title == title) {
+				temp_article = TIME_ARTICLES[indx];
+				break;
+			}
+		}
+	}
+	
 	if(!temp_article)
 		temp_article = MAIN_ARTICLE;
 

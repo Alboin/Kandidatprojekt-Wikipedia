@@ -7,18 +7,19 @@
  	- generateTimeDot
  	- ShowHideTipsy
 
-
 ********************************************************************************************************/
 
+var TIME_DOTS = [];
+
 //Hela funktionen fungerar som en loop som beror på time.articles.length. 
-function generateTimeDot(title, sentence) {
+function generateTimeDot(article) {
     var body = d3.select("body");
     var div = body.append("div");
     var svg = d3.selectAll("svg");
 
     //Number of articles. Temporary!
     var n = TIME_ARTICLES.length;
-	console.log("Antal artiklar med år " + n  + " plus en");
+	//console.log("Antal artiklar med år " + n  + " plus en");
     //Center position (the middle of the timeline)
     center=1200;
 
@@ -31,45 +32,74 @@ function generateTimeDot(title, sentence) {
   
  		//Creates all the dots with their own id. 
         //position = "_left"; //creates a part of the id-name.
-        svg.append("circle").attr("cx", center - diff)
+        var dot = svg.append("circle").attr("cx", center - diff)
                             .attr("cy", 100)
                             .attr("r", 10)
-                            .attr("id", "dot") //.attr("id", "dot"+ position + i)
+                            .attr("id", "dot" + article.id) 
                             .attr("fill", 'red' );
 		
 		 //plotDot(MAIN_ARTICLE.title, MAIN_ARTICLE.first_sentence);
 
-
 		// The black circle that's supposted to trigger the tipsy has the id "dot"
-        $('#dot').attr('rel', 'hide');  // dot starts with the tipsy hidden, therefore rel has the id "hide"
-        $('#dot').attr('onclick', 'ShowHideTipsy($(this))'); // When you click on dot the function ShowHideTipsy is called
-        $('#dot').attr({
-            title: ( '<div class="marker-title">' + title + '</div>' + '<div class="mapboxgl-popup">'+  sentence + '</div>'
-                + '</div><a href onclick="changeModalContent(' + "'" + title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>'),
-            dot_id: title    
+        $('#dot' + article.id).attr('rel', 'hide');  // dot starts with the tipsy hidden, therefore rel has the id "hide"
+        $('#dot' + article.id).attr('onclick', 'ShowHideTipsy('+"'"+ article.id +"'"+')'); // When you click on dot the function ShowHideTipsy is called
+        $('#dot' + article.id).attr({
+            title: ( '<div class="marker-title">' + article.title + '</div>' + '<div class="mapboxgl-popup">'+  article.first_sentence + '</div>'
+                + '</div><a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>'),
+            dot_id: article.id     
         }); 
 
-        $(function() {
-            $('#dot').tipsy({
-                trigger: 'manual', // this makes it possible to change tipsy manually like we want to do
-                gravity: 's', // the gravity decides where the tipsy will show (inverse). s=south, n=north, w=west, nw=northwest etc.
-                html: true    // makes it possible to have html content in tipsy
-            });
+
+        $('#dot' + article.id).tipsy({
+            trigger: 'manual', // this makes it possible to change tipsy manually like we want to do
+            gravity: 's', // the gravity decides where the tipsy will show (inverse). s=south, n=north, w=west, nw=northwest etc.
+            html: true    // makes it possible to have html content in tipsy
         });
 
+        /*$('svg circle').tipsy({ 
+            gravity: 'w', 
+            html: true, 
+            title: function() {
+                return article.title;
+            },
+            trigger: 'manual'
+        });*/
+
+
         $(document).click(function(){
-            $('#dot').tipsy("hide");
+
+            $('#dot' + article.id).tipsy("hide").css({ fill: "#ff0000" }); //Make the dot red.
             console.log("hide tipsy");
            
         });
 
-        $('#dot').click(function(e){
+        $('#dot' + article.id).click(function(e){
             e.stopPropagation();
 
         });
 
 
+        TIME_DOTS.push(dot);
+
 	}
+}
+
+// Tipsy = the popup associated with the dot.
+// This function is called when you click on the black circle with id "dot"
+function ShowHideTipsy(id){
+
+    for(var i = 0; i < TIME_DOTS.length; i++) 
+    {
+        $("#" + TIME_DOTS[i].attr("id")).tipsy("hide").css({ fill: "#ff0000" }); //Make the dot red.
+      
+    }
+    
+
+    $('#dot' + id).tipsy("show").css({ fill: "#0000ff" });  //Make the dot blue when the tipsy is open.
+   
+   return false;
+
+}
 			//console.log(diffplotDot());
 
             // // The black circle that's supposted to trigger the tipsy has the id "dot"
@@ -97,10 +127,9 @@ function generateTimeDot(title, sentence) {
             //     e.stopPropagation();
             // });
         
-   
-}     
+     
 
-function plotDot(title, sentence){
+/*function plotDot(title, sentence){
 
 console.log("Popup");
             // The black circle that's supposted to trigger the tipsy has the id "dot"
@@ -128,7 +157,7 @@ console.log("Popup");
                 e.stopPropagation();
             });
 
-}
+}*/
 
 
 // function generateTimeDot(title, sentence) {
@@ -330,29 +359,4 @@ console.log("Popup");
 // }
 
 
-// Tipsy = the popup associated with the dot.
-// This function is called when you click on the black circle with id "dot"
-function ShowHideTipsy(ele){
-	
-	// If the tipsy has the attribute rel = show, hide it! 
-    if($(ele).attr("rel") == "show") 
-    { 
-       $(ele).tipsy("hide"); 
-       $(ele).attr('rel','hide');  
-       console.log("hide tipsy"); 
-       $('#dot').css({ fill: "#ff0000" }); //Makes the dot red again 
-    }
 
-    // If the tipsy is hidden, show it!
-    else
-    { 
-        $(ele).tipsy("show");
-        $(ele).attr('rel','show');
-        console.log("show tipsy");
-        $('#dot').css({ fill: "#0000ff" }); //Makes the dot blue when klicking on it. 
-
-    } 
-    
-    return false;
-
-}
