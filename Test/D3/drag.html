@@ -21,7 +21,7 @@
 
 	var drag = d3.behavior.drag()
 		.on('dragstart', function() {
-			circle.transition().attr("r", 40).style("fill", "red");
+			//circle.transition().attr("r", 40).style("fill", "red");
 			circle.transition().style("fill", "white");
 
 		})
@@ -49,7 +49,7 @@
 
  
  //Draw the line
- var circle = svg.append("line")
+	var circle = svg.append("line")
                         .attr("x1", 5)
                         .attr("y1", 0)
                         .attr("x2", 5)

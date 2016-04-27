@@ -12,6 +12,7 @@
 var TIME_DOTS = [];
 var TIPSY_IS_SHOWN = false;
 var LAST_CLICKED_ID;
+var DEFAULT_COLOR = "black", MARKED_COLOR = "red";
 
 //Hela funktionen fungerar som en loop som beror på time.articles.length. 
 function generateTimeDot(article) {
@@ -28,30 +29,29 @@ function generateTimeDot(article) {
     if(n>=0){
 
 	    //Difference in position between the dots.
-	    diff = 80*n; 
+	    var diff = 80*n; 
 	    //The number for every dots id.
-	    i= diff/80; 
+	    var i= diff/80; 
   
  		//Creates all the dots with their own id. 
         //position = "_left"; //creates a part of the id-name.
-        var dot = svg.append("circle").attr("cx", center - diff)
-                            .attr("cy", 100)
-                            .attr("r", 10)
-                            .attr("id", "dot" + article.id) 
-                            .attr("fill", 'red' );
-		
-		 //plotDot(MAIN_ARTICLE.title, MAIN_ARTICLE.first_sentence);
+        var dot = svg.append("circle")
+            .attr("cx", center - diff)
+            .attr("cy", 100)
+            .attr("r", 0)
+            .attr("id", "dot" + article.id) 
+            .attr("fill", DEFAULT_COLOR )
+            .attr('onclick', 'ShowHideTipsy('+"'"+ article.id +"'"+')') // When you click on dot the function ShowHideTipsy is called
+            .attr({
+                title: ( '<div class="marker-title">' + article.title + '</div>' + '<div class="mapboxgl-popup">'+  article.first_sentence + '</div>'
+                    + '</div><a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>'),
+                dot_id: article.id     
+            });
 
-		// The black circle that's supposted to trigger the tipsy has the id "dot"
-        //$('#dot' + article.id).attr('rel', 'hide');  // dot starts with the tipsy hidden, therefore rel has the id "hide"
-        $('#dot' + article.id).attr('onclick', 'ShowHideTipsy('+"'"+ article.id +"'"+')'); // When you click on dot the function ShowHideTipsy is called
-        $('#dot' + article.id).attr({
-            title: ( '<div class="marker-title">' + article.title + '</div>' + '<div class="mapboxgl-popup">'+  article.first_sentence + '</div>'
-                + '</div><a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>'),
-            dot_id: article.id     
-        }); 
+        //Perform the animation when a dot is added.
+        dot.transition().duration(1000).attr("r", 10);
 
-
+        //Add tipsy to dot.
         $('#dot' + article.id).tipsy({
             trigger: 'manual', // this makes it possible to change tipsy manually like we want to do
             gravity: 's', // the gravity decides where the tipsy will show (inverse). s=south, n=north, w=west, nw=northwest etc.
@@ -60,14 +60,20 @@ function generateTimeDot(article) {
         });
 
 
-        $(document).click(function(){
-            $('#dot' + article.id).tipsy("hide");
+        //If the user clicks anywhere else on the screen the tipsy will dissapear and the dot get unmarked.
+        $("#lower_row").click(function(){
+
+            $('#dot' + article.id).tipsy("hide"); //Make the dot red.
+            d3.select("#dot" + article.id).transition().attr("r", 10).attr("fill", DEFAULT_COLOR );
+           
         });
 
         //Needed for some reason? Sara Martin maybe you could explain?
         $('#dot' + article.id).click(function(e){
             e.stopPropagation();
+
         });
+
 
         TIME_DOTS.push(dot);
 
@@ -85,21 +91,24 @@ function ShowHideTipsy(id){
     {
         if(id != TIME_DOTS[i].attr("id")) {
             $("#" + TIME_DOTS[i].attr("id")).tipsy("hide");
+            d3.select("#" + TIME_DOTS[i].attr("id")).transition().attr("r", 10).attr("fill", DEFAULT_COLOR );
         }
     }
 
     //Decide if the tipsy should be hidden or shown.
     if(TIPSY_IS_SHOWN && LAST_CLICKED_ID == id) {
         $('#' + id).tipsy("hide");
+        d3.select("#" + id).transition().attr("r", 10).attr("fill", DEFAULT_COLOR );
         TIPSY_IS_SHOWN = false;
     } else {
         $('#' + id).tipsy("show");
+        d3.select("#" + id).transition().attr("r", 16).attr("fill", MARKED_COLOR );
         TIPSY_IS_SHOWN = true;
     }
 
     LAST_CLICKED_ID = id;
    
-    return false;
+   return false;
 
 }
 			//console.log(diffplotDot());
@@ -198,7 +207,7 @@ console.log("Popup");
 //                                 .attr("cy", 300)
 //                                 .attr("r", 10)
 //                                 .attr("id", "dot"+ position + i )
-//                                 .attr("fill", 'red' );
+//                                 .attr("fill", DEFAULT_COLOR );
             
 //             //console.log("vänster");
 
@@ -359,5 +368,6 @@ console.log("Popup");
 //     });
 
 // }
+
 
 

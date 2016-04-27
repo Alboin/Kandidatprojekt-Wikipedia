@@ -81,6 +81,10 @@ function getWikiData(query, article_color){
 		        		map.removeLayer(markerLayer);
 		        		markerLayer = L.mapbox.featureLayer().addTo(map);
 
+		        		//Remove all old dots from timeline.
+		        		TIME_DOTS = [];
+		        		d3.selectAll("circle").remove();
+
 		        		//Clears the list with articles that are displayed on the map.
 		        		$('#article_list').empty();
 
