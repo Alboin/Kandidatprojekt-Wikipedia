@@ -165,7 +165,7 @@ function getPositionBirthplace(revision) {
 function getFirstSentence(paragraph){
 	if(paragraph) { 
 		//Find the position where a dot followed by space is in a string. 
-		var n = paragraph.indexOf(".");
+		var n = paragraph.indexOf(". ");
 		//Split the string where the position is set. 
 		var res = paragraph.slice(0, n+1);
 
