@@ -7,15 +7,17 @@
  	- generateTimeDot
  	- ShowHideTipsy
     - sortDots
+    - createTimeListObject
 
 ********************************************************************************************************/
 
 var TIME_DOTS = [];
 var TIPSY_IS_SHOWN = false;
 var LAST_CLICKED_ID;
-var DEFAULT_COLOR = "black", MARKED_COLOR = "red", BORDER_COLOR = "gray";
-var LEFT_BOUND = 0.15*window.innerWidth, RIGHT_BOUND = 0.65*window.innerWidth;
+var DEFAULT_COLOR = "black", MARKED_COLOR = "gray", BORDER_COLOR = "gray";
+var LEFT_BOUND = 0.15*window.innerWidth, RIGHT_BOUND = 0.55*window.innerWidth;
 var MIN_YEAR = null, MAX_YEAR = null;
+var MOUSE_OVER_LIST = false;
 
 //Hela funktionen fungerar som en loop som beror på time.articles.length. 
 function generateTimeDot(article) {
@@ -45,7 +47,7 @@ function generateTimeDot(article) {
 		//Creates all the dots with their own id. 
     var dot = svg.append("circle")
         .attr("cx", dot_position)
-        .attr("cy", 200)
+        .attr("cy", 300)
         .attr("r", 0)
         .attr("id", "dot" + article.id)
         .attr("start_year", article.time[0][2]) 
@@ -68,8 +70,8 @@ function generateTimeDot(article) {
         fade: true
     });
 
-        //Makes the color change on the dot when hovering. 
-        d3.selectAll('circle')
+    //Makes the color change on the dot when hovering. 
+    d3.selectAll('circle')
       .on('mouseover', function() {
         this.style.fill = MARKED_COLOR;
       })
@@ -78,22 +80,12 @@ function generateTimeDot(article) {
       });
 
 
-        /*$('svg circle').tipsy({ 
-            gravity: 'w', 
-            html: true, 
-            title: function() {
-                return article.title;
-            },
-            trigger: 'manual'
-        });*/
-
-
     //If the user clicks anywhere else on the screen the tipsy will dissapear and the dot get unmarked.
     $("#lower_row").click(function(){
-
-        $('#dot' + article.id).tipsy("hide");
-        d3.select("#dot" + article.id).transition().attr("r", 10).attr("fill", DEFAULT_COLOR );
-       
+        if(!MOUSE_OVER_LIST) {
+            $('#dot' + article.id).tipsy("hide");
+            d3.select("#dot" + article.id).transition().attr("r", 10).attr("fill", DEFAULT_COLOR );
+        }
     });
 
     //Needed for some reason? Sara Martin maybe you could explain?
@@ -103,6 +95,8 @@ function generateTimeDot(article) {
     });
 
     TIME_DOTS.push(dot);
+    
+    createTimeListObject(article);
 
     sortDots();
 
@@ -123,6 +117,7 @@ function ShowHideTipsy(id){
             d3.select("#" + TIME_DOTS[i].attr("id")).transition().attr("r", 10).attr("fill", DEFAULT_COLOR );
         }
     }
+
 
     //Decide if the tipsy should be hidden or shown.
     if(TIPSY_IS_SHOWN && LAST_CLICKED_ID == id) {
@@ -152,12 +147,35 @@ function sortDots() {
 
         var dot_position = (temp_dot.attr("start_year") - MIN_YEAR) / (MAX_YEAR - MIN_YEAR) * RIGHT_BOUND + LEFT_BOUND;
 
-        temp_dot.transition().duration(500)
-            .attr("cx", dot_position)
+        temp_dot.transition()
             .attr("r", 10)
-            .attr("fill", DEFAULT_COLOR )
             .attr("stroke", BORDER_COLOR)
-            .attr("stroke-width", "2");
+            .attr("stroke-width", "2")
+            .transition().duration(1000)
+            .attr("cx", dot_position)
+            .attr("fill", DEFAULT_COLOR );
     }
+
+}
+
+//Creates a new entry on the list with displayed articles.
+function createTimeListObject(article) {
+
+    //Function used internally to insert the new list element in alphabetic order.
+    function sortAlpha(a, b) {
+        return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;  
+    }
+
+    //Select the whole list.
+    var ul = document.getElementById("article_list_time");
+
+    //Create new list entry.
+    var newLi = document.createElement("li");
+    newLi.appendChild(document.createTextNode(article.title));
+    newLi.setAttribute("id", article.title);
+    newLi.setAttribute("onclick", "ShowHideTipsy('" + article.id + "')");
+
+    //Insert new list entry with help of sorting fuction "sortAlpha".
+    $('li', ul).add(newLi).sort(sortAlpha).appendTo(ul);
 
 }

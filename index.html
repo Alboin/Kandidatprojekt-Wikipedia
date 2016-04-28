@@ -175,10 +175,18 @@
    					<!-- A container containing what is shown in the time view. -->
 			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 						<p id="tidsinfo"></p>
-							<svg id="svg" height="500" width="100%">
-								<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
-								<line x1="0" y1="200" x2="1500" y2="200" stroke="gray" stroke-width="2" />
-							</svg>
+
+						<!-- The list with all articles displayed on the time-line. -->
+						<div id='article_list_container_time'>
+							<h3 class='article_list_header'>Visade artiklar</h3>
+							<ul id='article_list_time'></ul>
+						</div>
+						
+						<svg id="svg" height="500" width="100%">
+							<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
+							<line x1="0" y1="300" x2="1500" y2="300" stroke="gray" stroke-width="2" />
+						</svg>
+
 					</div>
 
 					<!-- A container containing what is shown in the map-view. -->
@@ -188,10 +196,10 @@
 						<div id='map'>
 						</div>
 
+						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
-						<h3 id='article_list_header'>Displayed articles</h3>
-							<ul id='article_list'>
-							</ul>
+							<h3 class='article_list_header'>Visade artiklar</h3>
+							<ul id='article_list'></ul>
 						</div>
 
 						<!--Button to go back to start page-->
@@ -225,6 +233,14 @@
 			$(document).ready(generateMap());
 			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
 			$('#article_list').css('max-height', window.innerHeight * 0.65 + 'px');
+			$('#article_list_time').css('max-height', window.innerHeight * 0.65 + 'px');
+
+			//Prevent the article to become "unmarked" when the user clicks somewhere in the article list.
+			$("#article_list_container_time")
+				.mouseenter(function(){
+					MOUSE_OVER_LIST = true;
+				}).mouseleave(function(){
+					MOUSE_OVER_LIST = false;});
 			
 		</script>
 
