@@ -210,7 +210,7 @@ function createMapListObject(title) {
   	newLi.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
 
   	//Insert new list entry with help of sorting fuction "sortAlpha".
-  	$('li', 'ul').add(newLi).sort(sortAlpha).appendTo('ul');
+  	$('li', ul).add(newLi).sort(sortAlpha).appendTo(ul);
 
 }
 

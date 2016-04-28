@@ -164,6 +164,10 @@ function getPositionBirthplace(revision) {
 //Print the first sentence in an article.  
 function getFirstSentence(paragraph){
 	if(paragraph) { 
+
+		//Replace any line-breaks with a space, otherwise the first "." will not be found.
+		paragraph = paragraph.replace(/(\r\n|\n|\r)/gm, " ");
+
 		//Find the position where a dot followed by space is in a string. 
 		var n = paragraph.indexOf(". ");
 		
@@ -176,7 +180,7 @@ function getFirstSentence(paragraph){
 
 		//If you want to use the sentence in a javascript-file it's called this:
 		var first_sentence = res; 
-
+		
 		return first_sentence;
 	} else {
 		return "";

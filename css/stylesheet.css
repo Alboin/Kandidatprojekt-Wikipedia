@@ -78,7 +78,28 @@ p {
     z-index: 999;
 }
 
+#article_list_container_time {
+    position: fixed;
+    right: 0px;
+    width: 220px;
+    padding: 6px;
+    margin-right: 10px;
+    top: 75px;
+    border-radius: 6px;
+    background: rgba(100, 100, 100, 0.4);
+    z-index: 998;
+}
+
 #article_list {
+    border-radius: 6px;
+    overflow: auto;
+    padding: 6px;
+    color: black;
+    background: #fff;
+    opacity: 0.7;
+}
+
+#article_list_time {
     border-radius: 6px;
     overflow: auto;
     padding: 6px;
@@ -98,8 +119,20 @@ p {
     cursor: pointer;
 }
 
-#article_list_header {
+#article_list_time li {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #eeeeee #ffffff;
+}
+
+#article_list_time li:hover {
+    background:#bbb;
+    cursor: pointer;
+}
+
+.article_list_header {
     color: white;
+    text-align: center;
 }
 
 #article_text{
