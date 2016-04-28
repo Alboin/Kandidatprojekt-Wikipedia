@@ -78,7 +78,7 @@ function loadMainArticle(data) {
 		time: [[null, null, null], [null, null, null]],
 		image_source: "",
 		first_sentence:"",
-		year: null 
+		year: null,
 	}
 	
 	temp_article.id = data.query.pageids[0];											//Save article id
