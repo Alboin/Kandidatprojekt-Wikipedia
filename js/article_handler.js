@@ -166,6 +166,11 @@ function getFirstSentence(paragraph){
 	if(paragraph) { 
 		//Find the position where a dot followed by space is in a string. 
 		var n = paragraph.indexOf(". ");
+		
+		//If the first paragraph only is one sentence long, search for "." instead.
+		if(n < 0)
+			n = paragraph.indexOf(".");
+
 		//Split the string where the position is set. 
 		var res = paragraph.slice(0, n+1);
 

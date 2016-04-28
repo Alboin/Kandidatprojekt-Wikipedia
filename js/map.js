@@ -63,6 +63,10 @@ function addArticleToMap(article) {
 		temp_color = '#000000';
 	}
 
+	if(article.title.length > 16) {
+		//Do something with the font-size of the popup title. ".marker-title" could be the right class.
+	}
+
 
 	//If the link is both a link and a backlink give it a special color
 	if(article.link_both_ways){
@@ -132,7 +136,7 @@ function changeModalContent(title) {
 			}
 		}
 	}
-	
+
 	if(!temp_article)
 		temp_article = MAIN_ARTICLE;
 

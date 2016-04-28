@@ -11,13 +11,13 @@ button:hover{
 
 circle:hover{
     cursor: pointer;
+    fill: 'blue';
 }
 
 body { 
     margin:0; 
     padding:0; 
     background: #eeeeee;
-
 }
 
 button {
@@ -30,7 +30,6 @@ button {
     display: inline-block;
     font-size: 16px;
     border-radius: 8px;
-
 }
 
 button.active {
@@ -103,6 +102,10 @@ p {
     color: white;
 }
 
+#article_text{
+    text-align: left; 
+}
+
 #back {
 	position: absolute;
 	left: 25px;
@@ -172,15 +175,17 @@ p {
 /*Classes*/
 
 .mapboxgl-popup {
-        max-width: 400px;
-        font: 12px/20px 'Roboto', Arial, Helvetica, sans-serif;
+    max-width: 400px;
+    font: 12px/20px 'Roboto', Arial, Helvetica, sans-serif;
+    text-align: left; 
 }
 
 .marker-title {
-        font-weight: 700;
-        font-size: 24px;
-        font-family: 'Playfair Display', serif; 
-        text-transform: uppercase;
+    font-weight: 700;
+    font-size: 24px;
+    font-family: 'Playfair Display', serif; 
+    text-transform: uppercase;
+    text-align: left;
 }
 
 .modal-title{
@@ -188,6 +193,8 @@ p {
     font-size: 50px;
     text-transform: uppercase;
     color: white;
+    font-family: 'Playfair Display', serif; 
+    
 }
 
 .modal-header {

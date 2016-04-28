@@ -78,6 +78,11 @@ function loadLinksArticles(data) {
 
 	temp_article.id = data.query.pageids[0]; 									//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title; 				//Save article title
+
+	//Remove discussions and users from the articles. These often contain a ":" in their title.
+	if(temp_article.title.indexOf(":") > 0)
+		return;
+
 	temp_article.entirearticle = data.query.pages[temp_article.id].extract;		//Save entire article
 	//temp_article.first_paragraph = data.query.pages[temp_article.id].extract; 	//Save first paragraph (Det var såhär innan)
 	
