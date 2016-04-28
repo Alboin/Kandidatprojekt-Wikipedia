@@ -38,14 +38,12 @@ function generateTimeDot(article) {
                             .attr("id", "dot" + article.id) 
                             .attr("fill", 'red' );
 		
-		 //plotDot(MAIN_ARTICLE.title, MAIN_ARTICLE.first_sentence);
-
 		// The black circle that's supposted to trigger the tipsy has the id "dot"
         $('#dot' + article.id).attr('rel', 'hide');  // dot starts with the tipsy hidden, therefore rel has the id "hide"
         $('#dot' + article.id).attr('onclick', 'ShowHideTipsy('+"'"+ article.id +"'"+')'); // When you click on dot the function ShowHideTipsy is called
         $('#dot' + article.id).attr({
-            title: ( '<div class="marker-title">' + article.title + '</div>' + '<div class="mapboxgl-popup">'+  article.first_sentence + '</div>'
-                + '</div><a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><p>'),
+            title: ( '<div class="marker-title">' + article.title + '</div>' + '<div class="mapboxgl-popup">'+  article.first_sentence
+                + '<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a></div>'),
             dot_id: article.id     
         }); 
 
@@ -55,6 +53,16 @@ function generateTimeDot(article) {
             gravity: 's', // the gravity decides where the tipsy will show (inverse). s=south, n=north, w=west, nw=northwest etc.
             html: true    // makes it possible to have html content in tipsy
         });
+
+        //Makes the color change on the dot when hovering. 
+        d3.selectAll('circle')
+      .on('mouseover', function() {
+        this.style.fill = 'yellow';
+      })
+      .on('mouseleave', function() {
+        this.style.fill = 'red';
+      });
+
 
         /*$('svg circle').tipsy({ 
             gravity: 'w', 
