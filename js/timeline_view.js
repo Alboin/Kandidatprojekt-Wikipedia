@@ -36,13 +36,14 @@ function generateTimeDot(article) {
         MAX_YEAR = article.time[0][2];
     }
 
+    //Where the content in the pop ups are set.
     var popup_content = '<div class="marker-title">' + article.title + '</div>' + '<div class="mapboxgl-popup">'+  article.first_sentence + '</div>'
                 + '<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a>';
     popup_content += '<br><br><a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + article.title + "'" +')"> Sök på "' + article.title + '" </a>';
 
     var dot_position = (article.time[0][2] - MIN_YEAR) / (MAX_YEAR - MIN_YEAR) * RIGHT_BOUND + LEFT_BOUND;
 
-		//Creates all the dots with their own id. 
+	//Creates all the dots with their own id. 
     var dot = svg.append("circle")
         .attr("cx", dot_position)
         .attr("cy", 200)
@@ -59,7 +60,6 @@ function generateTimeDot(article) {
     //Perform the animation when a dot is added.
     dot.transition().duration(1000).attr("r", 10).attr("stroke", BORDER_COLOR).attr("stroke-width", "2");
 
-
     //Add tipsy to dot.
     $('#dot' + article.id).tipsy({
         trigger: 'manual', // this makes it possible to change tipsy manually like we want to do
@@ -68,25 +68,10 @@ function generateTimeDot(article) {
         fade: true
     });
 
-        //Makes the color change on the dot when hovering. 
-        d3.selectAll('circle')
-      .on('mouseover', function() {
-        this.style.fill = MARKED_COLOR;
-      })
-      .on('mouseleave', function() {
-         this.style.fill = DEFAULT_COLOR;
-      });
-
-
-        /*$('svg circle').tipsy({ 
-            gravity: 'w', 
-            html: true, 
-            title: function() {
-                return article.title;
-            },
-            trigger: 'manual'
-        });*/
-
+    //Makes the color change on the dot when hovering. 
+    d3.selectAll('circle')
+        .on('mouseover', function() {this.style.fill = MARKED_COLOR;}) 
+        .on('mouseleave', function() {this.style.fill = DEFAULT_COLOR;});
 
     //If the user clicks anywhere else on the screen the tipsy will dissapear and the dot get unmarked.
     $("#lower_row").click(function(){
@@ -105,8 +90,6 @@ function generateTimeDot(article) {
     TIME_DOTS.push(dot);
 
     sortDots();
-
-
 }
 
 // Tipsy = the popup associated with the dot.
