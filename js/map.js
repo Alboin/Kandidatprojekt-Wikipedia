@@ -62,6 +62,10 @@ function addArticleToMap(article) {
 		temp_color = '#000000';
 	}
 
+	if(article.title.length > 16) {
+		//Do something with the font-size of the popup title. ".marker-title" could be the right class.
+	}
+
 	var popup_content = '<div class="marker-title">' + article.title + '</div>' + article.first_sentence +
 		'<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br>';
 
@@ -156,7 +160,7 @@ function changeModalContent(title) {
 			}
 		}
 	}
-	
+
 	if(!temp_article)
 		temp_article = MAIN_ARTICLE;
 
