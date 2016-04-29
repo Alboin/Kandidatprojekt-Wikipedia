@@ -225,7 +225,6 @@ function getRelationSentence(temp_article){
 			var relation_sentence = MAIN_ARTICLE.entirearticle.substring(startIndexEqualsign, stopIndex);
 		}
 
-		//console.log(temp_article.title + ": " + relation_sentence);
 	}
 	return relation_sentence;
 }
@@ -268,7 +267,6 @@ function getRelationWithBacklink(temp_article) {
 			var relation_sentence = temp_article.entirearticle.substring(startIndexEqualsign, stopIndex);
 		}
 
-		//console.log(temp_article.title + ": " + relation_sentence);
 	}
 	return relation_sentence;
 }
@@ -301,7 +299,6 @@ function getArticleText(temp_article) {
 
 			//Get the sentence where the link is mentioned in the main article.
 			temp_article.second_relation_sentence = getRelationWithBacklink(temp_article);	
-			console.log(temp_article.second_relation_sentence);
 		}
 		//If temp_article is a link, but not a backlink, call the function "getRelationSentence"
 		else if(MARKER_COLOR == "black")	{

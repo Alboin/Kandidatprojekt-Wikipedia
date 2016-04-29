@@ -182,9 +182,9 @@
 							<ul id='article_list_time'></ul>
 						</div>
 						
-						<svg id="svg" height="500" width="100%">
+						<svg id="svg" height="100%" width="100%">
 							<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
-							<line x1="0" y1="300" x2="1500" y2="300" stroke="gray" stroke-width="2" />
+							<line x1="0" y1="400" x2="1500" y2="400" stroke="gray" stroke-width="2" />
 						</svg>
 
 					</div>
@@ -231,6 +231,8 @@
 		<script>
 			//Generate the map when the page has loaded.
 			$(document).ready(generateMap());
+			$(document).ready(addTimeHandler());
+
 			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
 			$('#article_list').css('max-height', window.innerHeight * 0.65 + 'px');
 			$('#article_list_time').css('max-height', window.innerHeight * 0.65 + 'px');
@@ -245,11 +247,11 @@
 		</script>
 
 
-   		<footer>
+   		<!--<footer>
 			<footer>
 				Copyright © TeamWikipedia
 			</footer>
-		</footer>
+		</footer>-->
 
 	</body>
 </html>
