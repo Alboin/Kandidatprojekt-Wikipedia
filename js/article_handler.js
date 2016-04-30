@@ -329,14 +329,6 @@ function printModalContent(article) {
 	-----------------------------------------------*/
 	document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
 	+ "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
-	
-	//TO BE REMOVED
-	//Check if the article has time. 
-	if(article.time[0]) {
-		document.getElementById("tidsinfo").innerHTML = "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
-		document.getElementById("tidsinfo").innerHTML = "<b>Artikelns start-år </b>" + article.year[2] + "<br><br>";
-		document.getElementById("tidsinfo").innerHTML += "<br><br>" + "Antal länkar med tid:</b> " + TIME_ARTICLES.length;
-	}
 
 }
 

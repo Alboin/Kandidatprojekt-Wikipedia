@@ -10,14 +10,14 @@
 ********************************************************************************************************/
 var TIMELINE_START,	TIMELINE_WIDTH, TIMELINE_HEIGHT, TIMELINE_YPOS;
 
-var HANDLE_LEFT, HANDLE_RIGHT, MARKED_TIME;
+var HANDLE_LEFT, HANDLE_RIGHT, MARKED_TIME, HANDLE_WIDTH;
 
 function addTimeHandler() {
 
 	var svg = d3.selectAll("#svg");
 
 	//Declare size constants for handles and timeline.
-	var handle_width = 0.01*window.innerWidth, handle_height = 0.045*window.innerHeight;
+	HANDLE_WIDTH = 0.01*window.innerWidth, handle_height = 0.045*window.innerHeight;
 	var edge_radius = 3;
 
 	TIMELINE_START = 0.05*window.innerWidth,
@@ -43,17 +43,17 @@ function addTimeHandler() {
 		})
 		.on('drag', function() {
 
-			HANDLE_LEFT.attr('x', (d3.event.x - handle_width/2));
+			HANDLE_LEFT.attr('x', (d3.event.x - HANDLE_WIDTH/2));
 			if(d3.event.x < TIMELINE_START)
-				HANDLE_LEFT.attr('x', (TIMELINE_START - handle_width/2));
-			if(d3.event.x > parseInt(HANDLE_RIGHT.attr('x')) - handle_width/2)
-				HANDLE_LEFT.attr('x', parseInt(HANDLE_RIGHT.attr('x')) - handle_width);
+				HANDLE_LEFT.attr('x', (TIMELINE_START - HANDLE_WIDTH/2));
+			if(d3.event.x > parseInt(HANDLE_RIGHT.attr('x')) - HANDLE_WIDTH/2)
+				HANDLE_LEFT.attr('x', parseInt(HANDLE_RIGHT.attr('x')) - HANDLE_WIDTH);
 			MARKED_TIME
-				.attr('x', parseInt(HANDLE_LEFT.attr('x')) + handle_width/2)
+				.attr('x', parseInt(HANDLE_LEFT.attr('x')) + HANDLE_WIDTH/2)
 				.attr('width', parseInt(HANDLE_RIGHT.attr('x')) - parseInt(HANDLE_LEFT.attr('x')));
 
 			//Update the border variable.
-			DISPLAYED_MIN_YEAR = ((HANDLE_LEFT.attr("x") - handle_width/2 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR;
+			DISPLAYED_MIN_YEAR = ((HANDLE_LEFT.attr("x") - HANDLE_WIDTH/2 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR;
 
 		})
 		.on('dragend', function() {
@@ -69,15 +69,15 @@ function addTimeHandler() {
 		})
 		.on('drag', function() {
 
-			HANDLE_RIGHT.attr('x', (d3.event.x - handle_width/2));
+			HANDLE_RIGHT.attr('x', (d3.event.x - HANDLE_WIDTH/2));
 			if(d3.event.x > TIMELINE_WIDTH + TIMELINE_START)
-				HANDLE_RIGHT.attr('x', (TIMELINE_WIDTH + TIMELINE_START - handle_width/2));
-			if(d3.event.x < parseInt(HANDLE_LEFT.attr('x')) + 1.5 * handle_width)
-				HANDLE_RIGHT.attr('x', parseInt(HANDLE_LEFT.attr('x')) + handle_width);
+				HANDLE_RIGHT.attr('x', (TIMELINE_WIDTH + TIMELINE_START - HANDLE_WIDTH/2));
+			if(d3.event.x < parseInt(HANDLE_LEFT.attr('x')) + 1.5 * HANDLE_WIDTH)
+				HANDLE_RIGHT.attr('x', parseInt(HANDLE_LEFT.attr('x')) + HANDLE_WIDTH);
 			MARKED_TIME.attr('width', parseInt(HANDLE_RIGHT.attr('x')) - parseInt(MARKED_TIME.attr('x')));
 
 			//Update the border variable.
-			DISPLAYED_MAX_YEAR = ((HANDLE_RIGHT.attr("x") - 0 + (handle_width/2) - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR;
+			DISPLAYED_MAX_YEAR = ((HANDLE_RIGHT.attr("x") - 0 + (HANDLE_WIDTH/2) - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR;
 
 		})
 		.on('dragend', function() {
@@ -105,8 +105,8 @@ function addTimeHandler() {
 
 	//Create left handle.
 	HANDLE_LEFT = svg.append('rect')
-		.attr('x', TIMELINE_START - handle_width/2)
-		.attr('width', handle_width)
+		.attr('x', TIMELINE_START - HANDLE_WIDTH/2)
+		.attr('width', HANDLE_WIDTH)
 		.attr('y', TIMELINE_YPOS + TIMELINE_HEIGHT/2 - handle_height/2)
 		.attr('height', handle_height)
 		.attr('rx', edge_radius)
@@ -116,8 +116,8 @@ function addTimeHandler() {
 
 	//Create right handle.
 	HANDLE_RIGHT = svg.append('rect')
-		.attr('x', TIMELINE_START + TIMELINE_WIDTH - handle_width/2)
-		.attr('width', handle_width)
+		.attr('x', TIMELINE_START + TIMELINE_WIDTH - HANDLE_WIDTH/2)
+		.attr('width', HANDLE_WIDTH)
 		.attr('y', TIMELINE_YPOS + TIMELINE_HEIGHT/2 - handle_height/2)
 		.attr('height', handle_height)
 		.attr('rx', edge_radius)
@@ -153,9 +153,12 @@ function moveHandles(left_pos, right_pos) {
 		console.log("Left pos was bigger than right pos.");
 		return;
 	}
-	HANDLE_LEFT.transition().duration(2000).attr('x', left_pos);
-	HANDLE_RIGHT.transition().duration(2000).attr('x', right_pos);
-	MARKED_TIME.transition().duration(2000).attr('x', left_pos).attr('width', right_pos-left_pos);
+	var temp_left = left_pos*TIMELINE_WIDTH + TIMELINE_START - HANDLE_WIDTH/2
+	var temp_right = right_pos*TIMELINE_WIDTH + TIMELINE_START - HANDLE_WIDTH/2
+
+	HANDLE_LEFT.transition().duration(2000).attr('x', temp_left);
+	HANDLE_RIGHT.transition().duration(2000).attr('x', temp_right);
+	MARKED_TIME.transition().duration(2000).attr('x', temp_left).attr('width', temp_right - temp_left);
 }
 
 
