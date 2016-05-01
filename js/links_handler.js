@@ -207,6 +207,8 @@ function getRelationSentence(temp_article){
 	{
 		//Find the index for the first full stop (".") AFTER the link's title.
 		var stopIndex = MAIN_ARTICLE.entirearticle.indexOf(".", linkIndex) + 1;
+		if(stopIndex > MAIN_ARTICLE.entirearticle.indexOf("==", linkIndex))
+			stopIndex = MAIN_ARTICLE.entirearticle.indexOf("==", linkIndex);
 
 		//Find the index for the full stop (".") BEFORE the link's title.
 		//Or, if the link is mentioned in the first sentence after a title, find the index for "="
@@ -249,6 +251,8 @@ function getRelationWithBacklink(temp_article) {
 	{
 		//Find the index for the first full stop (".") AFTER the link's title.
 		var stopIndex = temp_article.entirearticle.indexOf(".", linkIndex) + 1;
+		if(stopIndex > MAIN_ARTICLE.entirearticle.indexOf("==", linkIndex))
+			stopIndex = MAIN_ARTICLE.entirearticle.indexOf("==", linkIndex);
 
 		//Find the index for the full stop (".") BEFORE the link's title.
 		//Or, if the link is mentioned in the first sentence after a title, find the index for "="

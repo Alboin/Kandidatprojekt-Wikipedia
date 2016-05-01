@@ -253,7 +253,7 @@ function createPopupContent (article) {
 			popup_content += '<br><b>' + MAIN_ARTICLE.title + 's relation till ' + article.title + ': </b><br>' + beginning + '<span id="marked_word">' + marked_word + '</span>' + end + '<br>';
 		}
 		//if the article = backlink
-		else if(MARKER_COLOR == "grey"){
+		else if(MARKER_COLOR == "gray"){
 			var index = article.relation_sentence.indexOf(MAIN_ARTICLE.title);
 			var beginning = article.relation_sentence.substring(0, index);
 			var marked_title = article.relation_sentence.substring(index, index + MAIN_ARTICLE.title.length);

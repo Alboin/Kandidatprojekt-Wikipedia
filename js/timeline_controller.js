@@ -112,6 +112,8 @@ function addTimeHandler() {
 		.attr('rx', edge_radius)
 		.attr("id", "left_time_handle")
 		.style('fill', 'rgb(200,200,200)')
+		.attr("stroke", "rgb(100,100,100)")
+        .attr("stroke-width", "1")
 		.call(drag_HANDLE_LEFT);
 
 	//Create right handle.
@@ -123,6 +125,8 @@ function addTimeHandler() {
 		.attr('rx', edge_radius)
 		.attr("id", "right_time_handle")
 		.style('fill', 'rgb(200,200,200)')
+		.attr("stroke", "rgb(100,100,100)")
+        .attr("stroke-width", "1")
 		.call(drag_HANDLE_RIGHT);
 
 

@@ -71,9 +71,7 @@ function generateTimeDot(article) {
         YEAR_COUNTER.push(same_year);
 
     //Where the content in the pop ups are set.
-    var popup_content = '<div class="marker-title">' + article.title + '</div>' + '<div class="mapboxgl-popup">'+  article.first_sentence + '</div>'
-                + '<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a>';
-    popup_content += '<br><br><a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + article.title + "'" +')"> Sök på "' + article.title + '" </a>';
+    var popup_content = createPopupContent(article);
 
     var dot_position = (article.time[0][2] - MIN_YEAR) / (MAX_YEAR - MIN_YEAR) * RIGHT_BOUND + LEFT_BOUND;
 
