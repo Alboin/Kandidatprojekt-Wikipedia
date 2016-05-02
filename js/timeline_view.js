@@ -48,6 +48,7 @@ function generateTimeDot(article) {
 
     //Variable to log how many articles with the same years exist.
     var same_year = {
+        title: article.title,
         year: article.time[0][2],
         count: 1
     }
@@ -238,16 +239,19 @@ function createTimeListObject(article) {
         return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;  
     }
 
+
     //Select the whole list.
     var ul = document.getElementById("article_list_time");
 
-    //Create new list entry.
-    var newLi = document.createElement("li");
-    newLi.appendChild(document.createTextNode(article.title));
-    newLi.setAttribute("id", article.title);
-    newLi.setAttribute("onclick", "ShowHideTipsy('" + article.id + "')");
+    if(!$(ul).find('li:contains("' + article.title + '")')[0]) {
 
-    //Insert new list entry with help of sorting fuction "sortAlpha".
-    $('li', ul).add(newLi).sort(sortAlpha).appendTo(ul);
+        //Create new list entry.
+        var newLi = document.createElement("li");
+        newLi.appendChild(document.createTextNode(article.title));
+        newLi.setAttribute("id", article.title);
+        newLi.setAttribute("onclick", "ShowHideTipsy('" + article.id + "')");
 
+        //Insert new list entry with help of sorting fuction "sortAlpha".
+        $('li', ul).add(newLi).sort(sortAlpha).appendTo(ul);
+    }
 }
