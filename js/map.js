@@ -11,6 +11,7 @@
  	- changeModalContent
  	- openMarkerPopup
  	- createMapListObject
+ 	- createPopupContent
  	
 ********************************************************************************************************/
 
@@ -62,38 +63,17 @@ function addArticleToMap(article) {
 		temp_color = '#000000';
 	}
 
-	var popup_content = '<div class="marker-title">' + article.title + '</div>' + article.first_sentence +
-		'<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br>';
-
-
-	//Add article relation to popup (if a relation string exist).
-	if(article.relation_sentence && article.relation_sentence != "") 
-	{
-		if(MARKER_COLOR == "black")
-		{
-			var index = article.relation_sentence.indexOf(article.title);
-			var beginning = article.relation_sentence.substring(0, index);
-			var marked_word = article.relation_sentence.substring(index, index + article.title.length);
-			var end = article.relation_sentence.substring(index + article.title.length, article.relation_sentence.length);
-			popup_content += '<br><b>Relation till ' + MAIN_ARTICLE.title + ': </b><br>' + beginning + '<span id="marked_word">' + marked_word + '</span>' + end + '<br>';
-		}
-		else //if(MARKER_COLOR == "grey")
-		{
-			var index = article.relation_sentence.indexOf(MAIN_ARTICLE.title);
-			var beginning = article.relation_sentence.substring(0, index);
-			var marked_title = article.relation_sentence.substring(index, index + MAIN_ARTICLE.title.length);
-			var end = article.relation_sentence.substring(index + MAIN_ARTICLE.title.length, article.relation_sentence.length);
-			popup_content += '<br><b>Relation till ' + MAIN_ARTICLE.title + ': </b><br>' + beginning + '<span id="marked_word">' + marked_title + '</span>' + end + '<br>';
-					
-		}
-
-		//console.log("markerad link-titel: " + marked_word);
-		//console.log("markerad huvudartikel-titel: " + marked_title);
+	if(article.title.length > 16) {
+		//Do something with the font-size of the popup title. ".marker-title" could be the right class.
 	}
 
 
+	//If the link is both a link and a backlink give it a special color
+	if(article.link_both_ways){
+		temp_color = '#2E8A2F';	//green
+	}
 
-	popup_content += '<br><a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + article.title + "'" +')"> Sök på "' + article.title + '" </a>';
+	var popup_content = createPopupContent(article);
 
 	//Create marker
 	//The marker gets a button that when clicked calls the function "changeModalContent with the article title as argument."
@@ -156,7 +136,7 @@ function changeModalContent(title) {
 			}
 		}
 	}
-	
+
 	if(!temp_article)
 		temp_article = MAIN_ARTICLE;
 
@@ -223,13 +203,69 @@ function createMapListObject(title) {
 	//Select the whole list.
 	var ul = document.getElementById("article_list");
 
-	//Create new list entry.
-  	var newLi = document.createElement("li");
-  	newLi.appendChild(document.createTextNode(title));
-  	newLi.setAttribute("id", title);
-  	newLi.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
 
-  	//Insert new list entry with help of sorting fuction "sortAlpha".
-  	$('li', 'ul').add(newLi).sort(sortAlpha).appendTo('ul');
+    if(!$(ul).find('li:contains("' + title + '")')[0]) {
 
+		//Create new list entry.
+	  	var newLi = document.createElement("li");
+	  	newLi.appendChild(document.createTextNode(title));
+	  	newLi.setAttribute("id", title);
+	  	newLi.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
+
+	  	//Insert new list entry with help of sorting fuction "sortAlpha".
+	  	$('li', ul).add(newLi).sort(sortAlpha).appendTo(ul);
+	}
+}
+
+//Function that creates the content for the popup
+function createPopupContent (article) {
+
+	var popup_content = '<div class="marker-title">' + article.title + '</div>' + article.first_sentence +
+		'<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br>';
+
+
+	//Add article relation to popup (if a relation string exist).
+	if(article.relation_sentence && article.relation_sentence != "") 
+	{
+		//if the article = link + backlink
+		if(article.link_both_ways){
+			var index = article.relation_sentence.indexOf(article.title);
+			var beginning = article.relation_sentence.substring(0, index);
+			var marked_word = article.relation_sentence.substring(index, index + article.title.length);
+			var end = article.relation_sentence.substring(index + article.title.length, article.relation_sentence.length);
+
+			popup_content += '<br><b>' + MAIN_ARTICLE.title + 's relation till ' + article.title + ': </b><br>' 
+							+ beginning + '<span id="marked_word">' + marked_word + '</span>' + end + '<br>';
+
+			if(article.second_relation_sentence && article.second_relation_sentence != ""){
+				var indx = article.second_relation_sentence.indexOf(MAIN_ARTICLE.title);
+				var begin = article.second_relation_sentence.substring(0, indx);
+				var marked_title = article.second_relation_sentence.substring(indx, indx + MAIN_ARTICLE.title.length);
+				var ending = article.second_relation_sentence.substring(indx + MAIN_ARTICLE.title.length, article.second_relation_sentence.length);	
+
+				popup_content += '<br><b>' + article.title + 's relation till ' + MAIN_ARTICLE.title + ': </b><br>' 
+						    + begin + '<span id="marked_word">' + marked_title + '</span>' + ending + '<br>';		
+			}						
+		}
+		//if the article = link
+		else if(MARKER_COLOR == "black"){	
+			var index = article.relation_sentence.indexOf(article.title);
+			var beginning = article.relation_sentence.substring(0, index);
+			var marked_word = article.relation_sentence.substring(index, index + article.title.length);
+			var end = article.relation_sentence.substring(index + article.title.length, article.relation_sentence.length);
+			popup_content += '<br><b>' + MAIN_ARTICLE.title + 's relation till ' + article.title + ': </b><br>' + beginning + '<span id="marked_word">' + marked_word + '</span>' + end + '<br>';
+		}
+		//if the article = backlink
+		else if(MARKER_COLOR == "gray"){
+			var index = article.relation_sentence.indexOf(MAIN_ARTICLE.title);
+			var beginning = article.relation_sentence.substring(0, index);
+			var marked_title = article.relation_sentence.substring(index, index + MAIN_ARTICLE.title.length);
+			var end = article.relation_sentence.substring(index + MAIN_ARTICLE.title.length, article.relation_sentence.length);			
+			popup_content += '<br><b>' + article.title + 's relation till ' + MAIN_ARTICLE.title + ': </b><br>' + beginning + '<span id="marked_word">' + marked_title + '</span>' + end + '<br>';
+		}
+	}
+
+	popup_content += '<br><a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + article.title + "'" +')"> Sök på "' + article.title + '" </a>';
+
+	return popup_content;
 }

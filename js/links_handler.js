@@ -11,6 +11,7 @@
 	- linksPosition
 	- loadLinksArticles
 	- sort (sorts TIME_ARTICLES by year, month, day)
+	- getArticleText
 ********************************************************************************************************/
 
 
@@ -70,7 +71,9 @@ function loadLinksArticles(data) {
 		position: [null,null],
 		time: [[null, null, null], [null, null, null]],
 		birthplace: "",
-		relation_sentence: ""
+		relation_sentence: "",
+		second_relation_sentence: "",
+		link_both_ways: false
 	}
 
 	temp_article.id = data.query.pageids[0]; 									//Save article id
@@ -83,46 +86,6 @@ function loadLinksArticles(data) {
 	temp_article.entirearticle = data.query.pages[temp_article.id].extract;		//Save entire article
 	//temp_article.first_paragraph = data.query.pages[temp_article.id].extract; 	//Save first paragraph (Det var såhär innan)
 	
-	//If temp_article.entirearticle is not undefined, get first_paragraph, first_sentence and time.
-	if(temp_article.entirearticle)
-	{
-		if(temp_article.entirearticle.indexOf("==") > 0)
-		{
-			//Save first paragraph
-			temp_article.first_paragraph = temp_article.entirearticle.substring(0, temp_article.entirearticle.indexOf("=="));	
-		}
-		else
-		{
-			//Set the first_paragraph to be equal to the entire article.
-			temp_article.first_paragraph = temp_article.entirearticle;
-		}
-
-		//Take the first sentence from the related article. 
-		temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph);	
-		
-		//Get time mentioned in first paragraph of the article
-		temp_article.time = getArticleTime(temp_article.first_paragraph);	
-
-
-		//If temp_article is a link, but not a backlink, call the function "getRelationSentence"
-		if(MARKER_COLOR == "black")
-		{
-			//Get the sentence where the link is mentioned in the main article.
-			temp_article.relation_sentence = getRelationSentence(temp_article);	
-		}
-		//If temp_article is a backlink, not a link, call the function "getRelationWithLink"
-		else if(MARKER_COLOR == "gray")
-		{
-			//Get the sentence where the link is mentioned in the main article.
-			temp_article.relation_sentence = getRelationWithBacklink(temp_article);	
-		}				
-
-	}	
-
-
-
-
-
 	//Save article image link, if it exist.
 	if(data.query.pages[temp_article.id].thumbnail) {
 		temp_article.image_source = data.query.pages[temp_article.id].thumbnail.source;		
@@ -135,24 +98,12 @@ function loadLinksArticles(data) {
 
 
 	/*--------------------------------------------------------------------
-		Bool to check if the article already exists in coord_articles
-		+ Bool to check if the article already exists in time_articles
+		Bool to check if the article already exists in time_articles,
+		if so it means that the article is both a link and a backlink
 	----------------------------------------------------------------------*/	 	
-	//Boolean to check if an article already exists in the array 'coord_articles' or not
-	var coord_article_exist = false	
-	var time_article_exist = false;
-	
-	//Lopp through the array to see if the article is already in the array, if so --> break and set boolean to true
-	for( var i=0; i < COORD_ARTICLES.length; i++){
-		if (COORD_ARTICLES[i].title == temp_article.title){
-			coord_article_exist = true;
-			break;
-		}						
-	}
-
 	for( var i=0; i < TIME_ARTICLES.length; i++){
 		if (TIME_ARTICLES[i].title == temp_article.title){
-			time_article_exist = true;
+			temp_article.link_both_ways = true;	
 			break;
 		}						
 	}
@@ -163,23 +114,38 @@ function loadLinksArticles(data) {
 
 	//If the article has coordinates, save coordinates in 'position'
 	if(data.query.pages[temp_article.id].coordinates) {
+
+		//Loop through the array to see if the article is already in the array, if so --> break and set boolean to true
+		for( var i=0; i < COORD_ARTICLES.length; i++){
+			if (COORD_ARTICLES[i].title == temp_article.title){
+				coord_article_exist = true;
+				temp_article.link_both_ways = true;	//if the link already exists it means that it is both a link and a backlink
+				break;
+			}						
+		}
+
+		getArticleText(temp_article);
+
+		//Save the article's coordinates in the variable 'position'
 		temp_article.position =
 			[data.query.pages[temp_article.id].coordinates[0].lat,
 			 data.query.pages[temp_article.id].coordinates[0].lon]
-		
-		//If the article does not exist in the array, push it into the array
-		if(!coord_article_exist){
+	
+		//Add the article to the array
+		COORD_ARTICLES.push(temp_article);
 
-			COORD_ARTICLES.push(temp_article);
+		//Send information about the article to the map. 
+		addArticleToMap(temp_article);
 
-			//Send information about the article to the map. 
-			addArticleToMap(temp_article);
-
+		//If the article is only a link or a backlink (not both), createMapListObject
+		if(!temp_article.link_both_ways){
 			//Create a title on the list
 			createMapListObject(temp_article.title);
 		}
 	}
 
+	if(temp_article.first_sentence != "")
+		getArticleText(temp_article);
 
 	/*-----------------------------------------------
 	 		Check if the article has a year
@@ -187,14 +153,10 @@ function loadLinksArticles(data) {
 	//If the article has a year, save the article in TIME_ARTICLES
 	if(temp_article.time[0] && temp_article.time[0][2])
 	{
-		//If the article does not exist in the array, push it into the array
-		if(!time_article_exist){
-			TIME_ARTICLES.push(temp_article);
 
-			generateTimeDot(temp_article);
+		TIME_ARTICLES.push(temp_article);
+		generateTimeDot(temp_article);
 		
-		}
-
 		//Sort the array time_articles
 		TIME_ARTICLES.sort(
 			function(a, b)
@@ -245,6 +207,8 @@ function getRelationSentence(temp_article){
 	{
 		//Find the index for the first full stop (".") AFTER the link's title.
 		var stopIndex = MAIN_ARTICLE.entirearticle.indexOf(".", linkIndex) + 1;
+		if(stopIndex > MAIN_ARTICLE.entirearticle.indexOf("==", linkIndex))
+			stopIndex = MAIN_ARTICLE.entirearticle.indexOf("==", linkIndex);
 
 		//Find the index for the full stop (".") BEFORE the link's title.
 		//Or, if the link is mentioned in the first sentence after a title, find the index for "="
@@ -263,7 +227,6 @@ function getRelationSentence(temp_article){
 			var relation_sentence = MAIN_ARTICLE.entirearticle.substring(startIndexEqualsign, stopIndex);
 		}
 
-		//console.log(temp_article.title + ": " + relation_sentence);
 	}
 	return relation_sentence;
 }
@@ -288,6 +251,8 @@ function getRelationWithBacklink(temp_article) {
 	{
 		//Find the index for the first full stop (".") AFTER the link's title.
 		var stopIndex = temp_article.entirearticle.indexOf(".", linkIndex) + 1;
+		if(stopIndex > MAIN_ARTICLE.entirearticle.indexOf("==", linkIndex))
+			stopIndex = MAIN_ARTICLE.entirearticle.indexOf("==", linkIndex);
 
 		//Find the index for the full stop (".") BEFORE the link's title.
 		//Or, if the link is mentioned in the first sentence after a title, find the index for "="
@@ -306,9 +271,50 @@ function getRelationWithBacklink(temp_article) {
 			var relation_sentence = temp_article.entirearticle.substring(startIndexEqualsign, stopIndex);
 		}
 
-		//console.log(temp_article.title + ": " + relation_sentence);
 	}
 	return relation_sentence;
+}
+
+/*----------------------------------------------------------------------------------------------------
+ 	Function that gets the text and information from the entire article, 
+	such as first_paragraph, first_sentence, time, relation_sentence and second_relation_sentence
+------------------------------------------------------------------------------------------------------*/
+function getArticleText(temp_article) {
+	//If temp_article.entirearticle is not undefined, get first_paragraph, first_sentence and time.
+	if(temp_article.entirearticle)
+	{
+		//If the entire article is longer than just one paragraph
+		if(temp_article.entirearticle.indexOf("==") > 0){
+			//Save first paragraph
+			temp_article.first_paragraph = temp_article.entirearticle.substring(0, temp_article.entirearticle.indexOf("=="));	
+		}
+		else{
+			//Set the first_paragraph to be equal to the entire article.
+			temp_article.first_paragraph = temp_article.entirearticle;
+		}
+		
+		temp_article.first_sentence = getFirstSentence(temp_article.first_paragraph);	//Take the first sentence from the related article. 			
+		temp_article.time = getArticleTime(temp_article.first_paragraph);		//Get time mentioned in first paragraph of the article
+
+		//If the article is both a link and a backlink
+		if(temp_article.link_both_ways){
+			//Get the sentence where the link is mentioned in the main article.
+			temp_article.relation_sentence = getRelationSentence(temp_article);	
+
+			//Get the sentence where the link is mentioned in the main article.
+			temp_article.second_relation_sentence = getRelationWithBacklink(temp_article);	
+		}
+		//If temp_article is a link, but not a backlink, call the function "getRelationSentence"
+		else if(MARKER_COLOR == "black")	{
+			//Get the sentence where the link is mentioned in the main article.
+			temp_article.relation_sentence = getRelationSentence(temp_article);	
+		}
+		//If temp_article is a backlink, not a link, call the function "getRelationWithLink"
+		else{
+			//Get the sentence where the link is mentioned in the main article.
+			temp_article.relation_sentence = getRelationWithBacklink(temp_article);	
+		}			
+	}	
 }
 
 

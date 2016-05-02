@@ -188,11 +188,18 @@
 
    					<!-- A container containing what is shown in the time view. -->
 			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
-						<p id="tidsinfo"></p>
-							<svg id="svg" height="500" width="100%">
-								<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
-								<line x1="0" y1="100" x2="1500" y2="100" stroke="gray" stroke-width="2" />
-							</svg>
+
+						<!-- The list with all articles displayed on the time-line. -->
+						<div id='article_list_container_time'>
+							<h3 class='article_list_header'>Visade artiklar</h3>
+							<ul id='article_list_time'></ul>
+						</div>
+						
+						<svg id="svg" height="100%" width="100%">
+							<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
+							<line x1="0" y1="400" x2="3000" y2="400" stroke="gray" stroke-width="2" />
+						</svg>
+
 					</div>
 
 					<!-- A container containing what is shown in the map-view. -->
@@ -202,10 +209,16 @@
 						<div id='map'>
 						</div>
 
+						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
+<<<<<<< HEAD
 						<h3 id='article_list_header'>Displayd articles </h3>
 							<ul id='article_list'>
 							</ul>
+=======
+							<h3 class='article_list_header'>Visade artiklar</h3>
+							<ul id='article_list'></ul>
+>>>>>>> 084c5ee662c1bf9c8100256217a8a2a179526b1a
 						</div>
 
 						<!--Button to go back to start page-->
@@ -237,17 +250,28 @@
 		<script>
 			//Generate the map when the page has loaded.
 			$(document).ready(generateMap());
+			$(document).ready(addTimeHandler());
+			$(document).ready(console.log("Document is ready!"));
+
 			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
 			$('#article_list').css('max-height', window.innerHeight * 0.65 + 'px');
+			$('#article_list_time').css('max-height', window.innerHeight * 0.65 + 'px');
+
+			//Prevent the article to become "unmarked" when the user clicks somewhere in the article list.
+			$("#article_list_container_time")
+				.mouseenter(function(){
+					MOUSE_OVER_LIST = true;
+				}).mouseleave(function(){
+					MOUSE_OVER_LIST = false;});
 			
 		</script>
 
 
-   		<footer>
+   		<!--<footer>
 			<footer>
 				Copyright © TeamWikipedia
 			</footer>
-		</footer>
+		</footer>-->
 
 	</body>
 </html>

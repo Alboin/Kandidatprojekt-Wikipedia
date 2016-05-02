@@ -77,6 +77,7 @@ p {
 
 /*Id*/
 
+<<<<<<< HEAD
 #transbox {
     position: fixed;
     width: 33%;
@@ -86,6 +87,14 @@ p {
     border-bottom-left-radius: 6px;
     background: rgba(73, 106, 111, 0.4);
     z-index: 999;
+=======
+#right_time_handle {
+    cursor: pointer;
+}
+
+#left_time_handle {
+    cursor: pointer;
+>>>>>>> 084c5ee662c1bf9c8100256217a8a2a179526b1a
 }
 
 #article_list_container {
@@ -99,7 +108,28 @@ p {
     z-index: 999;
 }
 
+#article_list_container_time {
+    position: fixed;
+    right: 0px;
+    width: 220px;
+    padding: 6px;
+    margin-right: 10px;
+    top: 75px;
+    border-radius: 6px;
+    background: rgba(100, 100, 100, 0.4);
+    z-index: 998;
+}
+
 #article_list {
+    border-radius: 6px;
+    overflow: auto;
+    padding: 6px;
+    color: black;
+    background: #fff;
+    opacity: 0.7;
+}
+
+#article_list_time {
     border-radius: 6px;
     overflow: auto;
     padding: 6px;
@@ -119,8 +149,20 @@ p {
     cursor: pointer;
 }
 
-#article_list_header {
+#article_list_time li {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #eeeeee #ffffff;
+}
+
+#article_list_time li:hover {
+    background:#bbb;
+    cursor: pointer;
+}
+
+.article_list_header {
     color: white;
+    text-align: center;
 }
 
 #article_text{
@@ -195,6 +237,21 @@ p {
 
 /*Classes*/
 
+<<<<<<< HEAD
+=======
+div.tooltip {   
+    position: absolute;         
+    text-align: center;         
+    min-width: 60px;                    
+    min-height: 10px;                   
+    padding: 2px;               
+    font: 12px sans-serif;      
+    background: white; 
+    border: 0px;        
+    border-radius: 3px;         
+    pointer-events: none;           
+}
+>>>>>>> 084c5ee662c1bf9c8100256217a8a2a179526b1a
 
 .mapboxgl-popup {
     max-width: 400px;
@@ -256,7 +313,11 @@ p {
 }
 
 #header_row{
+<<<<<<< HEAD
     background-color: #304755;
+=======
+    background-color: #aaaaaa;
+>>>>>>> 084c5ee662c1bf9c8100256217a8a2a179526b1a
     font-color: #ffffff;
     padding-left: 15px;
 }
