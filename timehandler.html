@@ -13,44 +13,83 @@
 		//Declare size constants for handles and timeline.
 		var handle_width = 0.01*window.innerWidth, handle_height = 0.045*window.innerHeight;
 		var edge_radius = 3;
-		var timeline_start = 0.06*window.innerWidth,
+		var timeline_start = 0.09*window.innerWidth,
 			timeline_width = window.innerWidth - 2*timeline_start,
 			timeline_height = 0.03*window.innerHeight,
 			timeline_ypos = 0.9*window.innerHeight;
 
-		//Drag-functionality for left handle.
+		var logValue_right; 
+		var logValue_left;
+
+		function logScale(value)
+		{
+			var minp = timeline_start; 
+			var maxp = timeline_start + timeline_width;
+
+			var minv = Math.log(1);
+			var maxv = Math.log(10000000);
+
+			var scale = (maxv-minv)/(maxp-minp);
+
+			return  Math.log(value) / scale;
+		}
+
+
+		// WHAT HAPPENS WHEN YOU DRAG THE LEFT HANDLE
 		var drag_handle_left = d3.behavior.drag()
 			.on('dragstart', function() {
 				console.log("Start drag");
 			})
-			.on('drag', function() {
-				handle_left.attr('x', (d3.event.x - handle_width/2));
-				if(d3.event.x < timeline_start)
-					handle_left.attr('x', (timeline_start - handle_width/2));
+			.on('drag', function() {	// When dragging starts
+				handle_left.attr('x', d3.event.x - handle_width/2);	// set x position value 
+
+				if(d3.event.x < timeline_start)	
+				{
+					handle_left.attr('x', timeline_start - handle_width/2);
+					//logValue_left = logScale(handle_left.attr('x'));
+				}
+					
 				if(d3.event.x > parseInt(handle_right.attr('x')) - handle_width/2)
+				{
 					handle_left.attr('x', parseInt(handle_right.attr('x')) - handle_width);
+					//logValue_left = logScale(handle_left.attr('x'));
+				}
+				
 				marked_time
 					.attr('x', parseInt(handle_left.attr('x')) + handle_width/2)
 					.attr('width', parseInt(handle_right.attr('x')) - parseInt(handle_left.attr('x')));
-				console.log("pos: " + handle_left.attr('x'));
+
+				logValue_left = logScale(handle_left.attr('x'));
+				//console.log("pos: " + handle_left.attr('x'));
+				console.log("logX value = " + logValue_left);
 			})
-			.on('dragend', function() {
+
+			.on('dragend', function() {	// when dragging stops
 				console.log("End drag");
 		});
 
 		//Drag-functionality for right handle.
 		var drag_handle_right = d3.behavior.drag()
 			.on('dragstart', function() {
-				console.log("Start drag");
+				console.log("Start drag");	
 			})
-			.on('drag', function() {
-				handle_right.attr('x', (d3.event.x - handle_width/2));
+
+			.on('drag', function() { // when the handle starts to drag
+				handle_right.attr('x', (d3.event.x - handle_width/2));	// set x-value to the position of the handle
+				
 				if(d3.event.x > timeline_width + timeline_start)
 					handle_right.attr('x', (timeline_width + timeline_start - handle_width/2));
 				if(d3.event.x < parseInt(handle_left.attr('x')) + 1.5 * handle_width)
 					handle_right.attr('x', parseInt(handle_left.attr('x')) + handle_width);
 				marked_time.attr('width', parseInt(handle_right.attr('x')) - parseInt(marked_time.attr('x')));
-			})
+			
+
+				logValue_right = logScale(handle_right.attr('x'));
+				console.log("logY value = " + logValue_right);
+
+			}) // END drag function
+
+
 			.on('dragend', function() {
 				console.log("End drag");
 		});
@@ -75,7 +114,7 @@
 
 		//Create left handle.
 		var handle_left = svg.append('rect')
-			.attr('x', timeline_start - handle_width/2)
+			.attr('x', (timeline_start - handle_width/2))
 			.attr('width', handle_width)
 			.attr('y', timeline_ypos + timeline_height/2 - handle_height/2)
 			.attr('height', handle_height)
