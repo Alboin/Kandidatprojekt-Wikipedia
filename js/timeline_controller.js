@@ -12,6 +12,9 @@ var TIMELINE_START,	TIMELINE_WIDTH, TIMELINE_HEIGHT, TIMELINE_YPOS;
 
 var HANDLE_LEFT, HANDLE_RIGHT, MARKED_TIME, HANDLE_WIDTH;
 
+var TIMELINE_TEXTS = [];
+var HANDLE_TEXTS = [];
+
 function addTimeHandler() {
 
 	var svg = d3.selectAll("#svg");
@@ -25,14 +28,31 @@ function addTimeHandler() {
 	TIMELINE_HEIGHT = 0.03*window.innerHeight,
 	TIMELINE_YPOS = 0.8*window.innerHeight;
 
-	// Define the div for the tooltip
-    var div1 = d3.select("body").append("div1")   
-        .attr("class", "tooltip")               
-        .style("opacity", 0);
+	//Decides how many labels should be generated below the timeline depending on your screen size.
+    var numberOfTimelabels = Math.round(window.innerWidth/150);
 
-    var div2 = d3.select("body").append("div2")   
-        .attr("class", "tooltip")               
-        .style("opacity", 0);
+    //Generates text-elements below the timeline with the right spacing and positioning.
+    for(var i = 0; i <= numberOfTimelabels; i++) {
+        TIMELINE_TEXTS[i] = svg.append("text")
+            .attr("x", i/numberOfTimelabels*TIMELINE_WIDTH + TIMELINE_START - 16)
+            .attr("y", TIMELINE_YPOS + 0.06*window.innerHeight)
+            .attr("font-family", '"Roboto", sans-serif')
+            .attr("fill", "rgb(70,70,70)");
+    }
+
+    //This is the left handle's time-label.
+    HANDLE_TEXTS[0] = svg.append("text")
+            .attr("x", TIMELINE_START - 16)
+            .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
+            .attr("font-family", '"Roboto", sans-serif')
+            .attr("font-weight", "bold");
+
+    //This is the right handle's time-label.
+    HANDLE_TEXTS[1] = svg.append("text")
+            .attr("x", TIMELINE_WIDTH + TIMELINE_START - 16)
+            .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
+            .attr("font-family", '"Roboto", sans-serif')
+            .attr("font-weight", "bold");
 
 
 	//Drag-functionality for left handle.
@@ -52,8 +72,7 @@ function addTimeHandler() {
 				.attr('x', parseInt(HANDLE_LEFT.attr('x')) + HANDLE_WIDTH/2)
 				.attr('width', parseInt(HANDLE_RIGHT.attr('x')) - parseInt(HANDLE_LEFT.attr('x')));
 
-			//Update the border variable.
-			DISPLAYED_MIN_YEAR = ((HANDLE_LEFT.attr("x") - HANDLE_WIDTH/2 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR;
+			updateHandleText();
 
 		})
 		.on('dragend', function() {
@@ -75,9 +94,8 @@ function addTimeHandler() {
 			if(d3.event.x < parseInt(HANDLE_LEFT.attr('x')) + 1.5 * HANDLE_WIDTH)
 				HANDLE_RIGHT.attr('x', parseInt(HANDLE_LEFT.attr('x')) + HANDLE_WIDTH);
 			MARKED_TIME.attr('width', parseInt(HANDLE_RIGHT.attr('x')) - parseInt(MARKED_TIME.attr('x')));
-
-			//Update the border variable.
-			DISPLAYED_MAX_YEAR = ((HANDLE_RIGHT.attr("x") - 0 + (HANDLE_WIDTH/2) - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR;
+			
+			updateHandleText();
 
 		})
 		.on('dragend', function() {
@@ -129,26 +147,6 @@ function addTimeHandler() {
         .attr("stroke-width", "1")
 		.call(drag_HANDLE_RIGHT);
 
-
-
-		/*HANDLE_LEFT.on("mouseover", function(d) {  
-            div1.transition()        
-                .duration(50)      
-                .style("opacity", .8);      
-            div1 .html(DISPLAYED_MIN_YEAR)  
-                .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 28) + "px");    
-            })
-
-		HANDLE_RIGHT.on("mouseover", function(d) {  
-            div2.transition()        
-                .duration(50)      
-                .style("opacity", .8);      
-            div2 .html(DISPLAYED_MAX_YEAR)  
-                .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 28) + "px");    
-            })*/
-
 }
 
 //Function to animate handle movement.
@@ -163,6 +161,20 @@ function moveHandles(left_pos, right_pos) {
 	HANDLE_LEFT.transition().duration(2000).attr('x', temp_left);
 	HANDLE_RIGHT.transition().duration(2000).attr('x', temp_right);
 	MARKED_TIME.transition().duration(2000).attr('x', temp_left).attr('width', temp_right - temp_left);
+
+	HANDLE_TEXTS[0].text("");
+	HANDLE_TEXTS[1].text("");
+
+}
+
+function updateHandleText() {
+
+	//Update the border variables.
+	DISPLAYED_MIN_YEAR = Math.round(((HANDLE_LEFT.attr("x") - 0 + HANDLE_WIDTH/2 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR);
+	DISPLAYED_MAX_YEAR = Math.round(((HANDLE_RIGHT.attr("x") - 0 + (HANDLE_WIDTH/2) - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR);
+
+	HANDLE_TEXTS[0].text(String(DISPLAYED_MIN_YEAR)).attr("x", HANDLE_LEFT.attr("x") - 10);
+	HANDLE_TEXTS[1].text(String(DISPLAYED_MAX_YEAR)).attr("x", HANDLE_RIGHT.attr("x") - 10);
 }
 
 

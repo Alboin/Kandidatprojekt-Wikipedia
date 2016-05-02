@@ -8,6 +8,7 @@
  	- ShowHideTipsy
     - sortDots
     - createTimeListObject
+    - updateTimeTexts
 
 ********************************************************************************************************/
 
@@ -145,6 +146,10 @@ function generateTimeDot(article) {
 
     sortDots();
 
+    updateTimeTexts();
+
+    updateHandleText();
+
 }
 
 // Tipsy = the popup associated with the dot.
@@ -253,5 +258,25 @@ function createTimeListObject(article) {
 
         //Insert new list entry with help of sorting fuction "sortAlpha".
         $('li', ul).add(newLi).sort(sortAlpha).appendTo(ul);
+    }
+}
+
+//Updates the labels below the interactive time-line with the right years.
+function updateTimeTexts() {
+    for(var i = 0; i < TIMELINE_TEXTS.length; i++) {
+        if(i == 0) {
+            TIMELINE_TEXTS[i].text(String(MIN_YEAR));            
+        } else if(i == TIMELINE_TEXTS.length - 1) {
+            TIMELINE_TEXTS[i].text(String(MAX_YEAR));
+        } else if(MAX_YEAR - MIN_YEAR < 10) {
+            TIMELINE_TEXTS[i].text("");
+        } else {
+            //if(MAX_YEAR - MIN_YEAR < 100) {
+                var year = Math.round(((TIMELINE_TEXTS[i].attr("x") - 0 + 16 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR);                
+            //} else {
+                //var year = Math.round(((i/TIMELINE_TEXTS.length) * (MAX_YEAR-MIN_YEAR) + MIN_YEAR)/10) * 10;
+            //}
+            TIMELINE_TEXTS[i].text(String(year));
+        }
     }
 }

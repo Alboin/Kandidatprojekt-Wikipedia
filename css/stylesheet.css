@@ -89,6 +89,10 @@ p {
     z-index: 999;
 }
 
+#middle_row {
+    color: white;
+}
+
 #right_time_handle {
     cursor: pointer;
 }
