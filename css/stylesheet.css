@@ -77,7 +77,7 @@ p {
 
 /*Id*/
 
-<<<<<<< HEAD
+
 #transbox {
     position: fixed;
     width: 33%;
@@ -87,14 +87,14 @@ p {
     border-bottom-left-radius: 6px;
     background: rgba(73, 106, 111, 0.4);
     z-index: 999;
-=======
+}
+
 #right_time_handle {
     cursor: pointer;
 }
 
 #left_time_handle {
     cursor: pointer;
->>>>>>> 084c5ee662c1bf9c8100256217a8a2a179526b1a
 }
 
 #article_list_container {
@@ -237,8 +237,6 @@ p {
 
 /*Classes*/
 
-<<<<<<< HEAD
-=======
 div.tooltip {   
     position: absolute;         
     text-align: center;         
@@ -251,7 +249,7 @@ div.tooltip {
     border-radius: 3px;         
     pointer-events: none;           
 }
->>>>>>> 084c5ee662c1bf9c8100256217a8a2a179526b1a
+
 
 .mapboxgl-popup {
     max-width: 400px;
@@ -313,11 +311,7 @@ div.tooltip {
 }
 
 #header_row{
-<<<<<<< HEAD
     background-color: #304755;
-=======
-    background-color: #aaaaaa;
->>>>>>> 084c5ee662c1bf9c8100256217a8a2a179526b1a
     font-color: #ffffff;
     padding-left: 15px;
 }
