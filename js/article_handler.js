@@ -80,6 +80,8 @@ function loadMainArticle(data) {
 		first_sentence:"",
 		year: null 
 	}
+
+
 	
 	temp_article.id = data.query.pageids[0];											//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title;						//Save the title of the article
@@ -129,6 +131,8 @@ function loadMainArticle(data) {
 
 	//Add article to the array with articles
 	MAIN_ARTICLE = temp_article;
+
+		document.getElementById("middle_row").innerHTML =  "" + MAIN_ARTICLE.title;	
 
 	//Get the year. 
 	temp_article.year=getYear(temp_article.time);

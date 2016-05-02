@@ -53,10 +53,20 @@ h4 {
     color: white;
 }
 
+h5 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 70;
+    font-size: 30px;
+    text-align: center;
+    color: gray;
+
+}
+
+//används ej?
 hr {
     color: #C9FF8F;     /* #cccccc */
-    background-color: #C9FF8F;
-    height: 5px;
+    background-color: #496A6F;
+    height: 0px;
     margin: 0px;
     padding: 0px;
 }
@@ -66,6 +76,17 @@ p {
 }
 
 /*Id*/
+
+#transbox {
+    position: fixed;
+    width: 33%;
+    /*padding-top: 1px;*/
+    /*margin: 1px;*/
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    background: rgba(73, 106, 111, 0.4);
+    z-index: 999;
+}
 
 #article_list_container {
     position: fixed;
@@ -174,6 +195,7 @@ p {
 
 /*Classes*/
 
+
 .mapboxgl-popup {
     max-width: 400px;
     font: 12px/20px 'Roboto', Arial, Helvetica, sans-serif;
@@ -234,7 +256,7 @@ p {
 }
 
 #header_row{
-    background-color: #102C5B;
+    background-color: #304755;
     font-color: #ffffff;
     padding-left: 15px;
 }
