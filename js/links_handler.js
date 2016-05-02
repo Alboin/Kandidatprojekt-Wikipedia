@@ -144,8 +144,10 @@ function loadLinksArticles(data) {
 		}
 	}
 
-	if(temp_article.first_sentence != "")
+	if(temp_article.first_sentence.length < 1) 
 		getArticleText(temp_article);
+
+
 
 	/*-----------------------------------------------
 	 		Check if the article has a year
@@ -280,6 +282,7 @@ function getRelationWithBacklink(temp_article) {
 	such as first_paragraph, first_sentence, time, relation_sentence and second_relation_sentence
 ------------------------------------------------------------------------------------------------------*/
 function getArticleText(temp_article) {
+	
 	//If temp_article.entirearticle is not undefined, get first_paragraph, first_sentence and time.
 	if(temp_article.entirearticle)
 	{
