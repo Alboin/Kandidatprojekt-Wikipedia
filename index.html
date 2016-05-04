@@ -175,23 +175,120 @@
    					<!-- A container containing what is shown in the time view. -->
 			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 						<p id="tidsinfo"></p>
-							<svg id="svg" height="500" width="100%">
-								<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
-								<line x1="0" y1="200" x2="1500" y2="200" stroke="gray" stroke-width="2" />
-							</svg>
+
+						<svg class="cursors" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onload="init(evt)" width="100%" height="100%">
+
+						<style>
+						   /* {cursor: none;}*/
+
+							.caption{
+							font-size: 14px;
+							font-family: Georgia, serif;
+						    }
+						    .tooltip{
+							font-size: 12px;
+						    }
+						    .tooltip_bg{
+							fill: white;
+							stroke: black;
+							stroke-width: 1;
+							opacity: 0.85;
+						    }
+
+						</style>
+
+							<script type="text/ecmascript">
+							    <![CDATA[
+
+									function init(evt)
+									{
+									    if ( window.svgDocument == null )
+									    {
+											svgDocument = evt.target.ownerDocument;
+									    }
+
+									    vertlical_line = svgDocument.getElementById('vertlical_line');
+									    cursor = svgDocument.getElementById('cursor');
+
+									    //For the text. 
+									    tooltip = svgDocument.getElementById('tooltip');
+									    tooltip_bg = svgDocument.getElementById('tooltip_bg');
+
+
+									}
+
+									function ShowTooltip(evt, mouseovertext)
+									{
+
+									    //The vertical line, only changes on x-axis. 
+									   	vertlical_line.setAttributeNS(null,"x1",evt.clientX);
+									   	vertlical_line.setAttributeNS(null,"x2",evt.clientX);
+
+									    //The circle that follows the line. Also called: The cursor. 
+									    cursor.setAttributeNS(null,"width",length);
+									    cursor.setAttributeNS(null,"cx",evt.clientX);
+									    cursor.setAttributeNS(null,"cy",evt.clientY-75);
+
+										//Set cursor and line to visible
+									    vertlical_line.setAttributeNS(null,"visibility","visibile");
+									    cursor.setAttributeNS(null,"visibility","visibile");
+
+									    //For the text. 
+									    tooltip.setAttributeNS(null,"x",evt.clientX+11);
+									    tooltip.setAttributeNS(null,"y",evt.clientY+27);
+									    tooltip.firstChild.data = mouseovertext;
+									    tooltip.setAttributeNS(null,"visibility","visible");
+
+									    tooltip_bg.setAttributeNS(null,"x",evt.clientX+8);
+									    tooltip_bg.setAttributeNS(null,"y",evt.clientY+14);
+									    tooltip_bg.setAttributeNS(null,"visibility","visibile");
+									}
+
+									function HideTooltip(evt)
+									{
+										//Hide the line and circle. 
+									    vertlical_line.setAttributeNS(null,"visibility","hidden");
+									    cursor.setAttributeNS(null,"visibility","hidden");
+
+									    //For the text. 
+									    tooltip.setAttributeNS(null,"visibility","hidden");
+		   								tooltip_bg.setAttributeNS(null,"visibility","hidden");
+									}
+
+							    ]]>
+
+							</script>
+
+								<!--The area where the cursor is visible-->
+							  	<rect id="rect1" x="0" y="0" width="100%" height="100%" fill="blue" opacity="0" onmousemove="ShowTooltip(evt)" />
+
+								<!--Lådan som kommer fram när den blir visible-->
+							   	<line id="vertlical_line" x1="0" y1="0" x2="0" y2="1000" stroke="black" stroke-width="1" visibility="hidden" />
+							    <circle id="cursor" cx="0" cy="0" r="3" fill="black"  visibility="hidden" />
+								<!--För den lilla textrutan-->
+
+							    <rect class="tooltip_bg" id="tooltip_bg"
+							      			x="0" y="0" rx="4" ry="4"
+							      			width="55" height="17" visibility="hidden"/>
+							 
+
+						</svg>
+
+						<svg class="horizontal_line" id="svg" height="500" width="100%">
+							<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
+							<line id="horizontal_line" x1="0" y1="200" x2="1500" y2="200" stroke="gray" stroke-width="2" />
+						</svg>
 					</div>
 
 					<!-- A container containing what is shown in the map-view. -->
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
 
 						<!--Map container-->
-						<div id='map'>
-						</div>
+						<div id='map'></div>
 
 						<div id='article_list_container'>
-						<h3 id='article_list_header'>Displayed articles</h3>
-							<ul id='article_list'>
-							</ul>
+							<h3 id='article_list_header'>Displayed articles</h3>
+							<ul id='article_list'></ul>
 						</div>
 
 						<!--Button to go back to start page-->
