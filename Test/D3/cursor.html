@@ -3,14 +3,14 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onload="init(evt)" width="100%" height="100%">
 
-	<style>
+	<!--style>
 	    .tooltip_bg{
 		fill: white;
 		stroke: black;
 		stroke-width: 1;
 		opacity: 0.85;
 	    }
-	</style>
+	</style-->
 
 	<script type="text/ecmascript">
 	    <![CDATA[
@@ -54,11 +54,11 @@
 
 	</script>
 
-	<!--The area where the cursor is visible-->>
+	<!--The area where the cursor is visible-->
   	<rect id="rect1" x="0" y="0" width="500" height="1000" fill="blue" opacity="0.25" onmousemove="ShowTooltip(evt)" onmouseout="HideTooltip(evt)"/>
 
 	<!--Lådan som kommer fram när den blir visible-->
-   	<line id="tooltip_bg" x1="0" y1="0" x2="0" y2="1000" stroke="white" stroke-width="5" visibility="hidden" />
-    <circle id="cursor" cx="100" cy="100" r="10" fill="white" visibility="hidden" />
+   	<line id="tooltip_bg" x1="0" y1="0" x2="0" y2="1000" stroke="black" stroke-width="1" visibility="visible" z-index="100" />
+    <circle id="cursor" cx="100" cy="100" r="3" fill="black" visibility="visible" z-index="100" />
 
 </svg>
