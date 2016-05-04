@@ -78,8 +78,10 @@ function loadMainArticle(data) {
 		time: [[null, null, null], [null, null, null]],
 		image_source: "",
 		first_sentence:"",
-		year: null 
+		year: null,
 	}
+
+
 	
 	temp_article.id = data.query.pageids[0];											//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title;						//Save the title of the article
@@ -130,6 +132,8 @@ function loadMainArticle(data) {
 	//Add article to the array with articles
 	MAIN_ARTICLE = temp_article;
 
+		document.getElementById("middle_row").innerHTML =  "" + MAIN_ARTICLE.title;	
+
 	//Get the year. 
 	temp_article.year=getYear(temp_article.time);
 
@@ -164,6 +168,10 @@ function getPositionBirthplace(revision) {
 //Print the first sentence in an article.  
 function getFirstSentence(paragraph){
 	if(paragraph) { 
+
+		//Replace any line-breaks with a space, otherwise the first "." will not be found.
+		paragraph = paragraph.replace(/(\r\n|\n|\r)/gm, " ");
+
 		//Find the position where a dot followed by space is in a string. 
 		var n = paragraph.indexOf(". ");
 		
@@ -176,7 +184,7 @@ function getFirstSentence(paragraph){
 
 		//If you want to use the sentence in a javascript-file it's called this:
 		var first_sentence = res; 
-
+		
 		return first_sentence;
 	} else {
 		return "";
@@ -325,14 +333,6 @@ function printModalContent(article) {
 	-----------------------------------------------*/
 	document.getElementById("artikelinfo").innerHTML = "<b>Artikeltitel:</b> " + article.title
 	+ "<br><b>Artikel-Id: </b>" + article.id +"<br><br><b>Första paragrafen i artikeln: </b><br>" + article.first_paragraph + "<br><br>";
-	
-	//TO BE REMOVED
-	//Check if the article has time. 
-	if(article.time[0]) {
-		document.getElementById("tidsinfo").innerHTML = "<b>Artikelns start och sluttid </b>" + article.time + "<br><br>";
-		document.getElementById("tidsinfo").innerHTML = "<b>Artikelns start-år </b>" + article.year[2] + "<br><br>";
-		document.getElementById("tidsinfo").innerHTML += "<br><br>" + "Antal länkar med tid:</b> " + TIME_ARTICLES.length;
-	}
 
 }
 

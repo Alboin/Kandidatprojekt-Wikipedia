@@ -83,12 +83,16 @@ function getWikiData(query, article_color){
 
 		        		//Remove all old dots from timeline.
 		        		TIME_DOTS = [];
+		        		YEAR_COUNTER = [];
 		        		$('#' + LAST_CLICKED_ID).tipsy("hide");
 		        		d3.selectAll("circle").remove();
+		        		MIN_YEAR = null, MAX_YEAR = null;
+		        		setTimeout(moveHandles(0,1), 3000);
 
 
 		        		//Clears the list with articles that are displayed on the map.
 		        		$('#article_list').empty();
+		        		$('#article_list_time').empty();
 
 		        		MAIN_ARTICLE = loadMainArticle(data);
 
@@ -102,8 +106,8 @@ function getWikiData(query, article_color){
 		        		
 		        		printModalContent(MAIN_ARTICLE);
 
-		        		//Kallas i loadLinksArticles i filen links_handler. Kanske kan tas bort? 
-		        		//generateTimeDot(MAIN_ARTICLE);
+		        		if(MAIN_ARTICLE.time[0])
+		        			generateTimeDot(MAIN_ARTICLE);
 		        		
 		        	}
 

@@ -96,6 +96,7 @@
 						
 		        </div>
 
+
 		        <!-- Second column in row 1, in the middle -->
 		        <!-- A column that contains the headlines for the different pages. 
 		        The headline changes depending on which page is the current search. -->
@@ -163,41 +164,55 @@
 			</div>
 
 			<!--The line under the searchbuttons-->
-			<hr>
+			
+
+				<div class="col-lg-4"></div>
+					<div class="col-lg-4">
+										<div id="transbox">
+							<h5 id="middle_row"></h5> 	
+					</div></div>
+				<div class="col-lg-4">						
+
+				</div>
+
+
+
+			
 			
 
 			<!--3rd row, the row at the bottom.-->		
    			<div class="row nomargin" id="lower_row">
-   			
+   			<!--  -->
    				<!-- The row contains only one column that fills the entire screen width. -->
    				<div class="col-lg-12">
 
    					<!-- A container containing what is shown in the time view. -->
 			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
+
 						<p id="tidsinfo"></p>
 
-						<svg class="cursors" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onload="init(evt)" width="100%" height="100%">
+						<svg class="cursors" id= "svg" mlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onload="init(evt)" width="100%" height="100%">
+<!-- 
+							<style>
+							   /* {cursor: none;} Can be used later*/ 
 
-						<style>
-						   /* {cursor: none;}*/
+								.caption{
+								font-size: 14px;
+								font-family: Georgia, serif;
+							    }
+							    .tooltip{
+								font-size: 12px;
+							    }
+							    .tooltip_bg{
+								fill: white;
+								stroke: black;
+								stroke-width: 1;
+								opacity: 0.85;
+							    }
 
-							.caption{
-							font-size: 14px;
-							font-family: Georgia, serif;
-						    }
-						    .tooltip{
-							font-size: 12px;
-						    }
-						    .tooltip_bg{
-							fill: white;
-							stroke: black;
-							stroke-width: 1;
-							opacity: 0.85;
-						    }
-
-						</style>
-
-							<script type="text/ecmascript">
+							</style>
+ -->
+							<!-- <script type="text/ecmascript">
 							    <![CDATA[
 
 									function init(evt)
@@ -257,27 +272,28 @@
 
 							    ]]>
 
-							</script>
+							</script> -->
 
-								<!--The area where the cursor is visible-->
-							  	<rect id="rect1" x="0" y="0" width="100%" height="100%" fill="blue" opacity="0" onmousemove="ShowTooltip(evt)" />
+							<!--The area where the cursor is visible-->
+						  	<rect id="rect1" x="0" y="0" width="100%" height="100%" fill="blue" opacity="0" onmousemove="ShowTooltip(evt)" />
 
-								<!--Lådan som kommer fram när den blir visible-->
-							   	<line id="vertlical_line" x1="0" y1="0" x2="0" y2="1000" stroke="black" stroke-width="1" visibility="hidden" />
-							    <circle id="cursor" cx="0" cy="0" r="3" fill="black"  visibility="hidden" />
-								<!--För den lilla textrutan-->
+							<!--Lådan som kommer fram när den blir visible-->
+						   	<line id="vertlical_line" x1="0" y1="0" x2="0" y2="1000" stroke="black" stroke-width="1" visibility="hidden" />
+							<circle id="cursor" cx="0" cy="0" r="3" fill="black"  visibility="hidden" />
+							
 
-							    <rect class="tooltip_bg" id="tooltip_bg"
-							      			x="0" y="0" rx="4" ry="4"
-							      			width="55" height="17" visibility="hidden"/>
-							 
+						    	<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
+							<line id="horizontal_line" x1="0" y1="400" x2="3000" y2="400" stroke="gray" stroke-width="2" />
 
 						</svg>
 
-						<svg class="horizontal_line" id="svg" height="500" width="100%">
-							<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
-							<line id="horizontal_line" x1="0" y1="200" x2="1500" y2="200" stroke="gray" stroke-width="2" />
-						</svg>
+						<!-- The list with all articles displayed on the time-line. -->
+						<div id='article_list_container_time'>
+							<h3 class='article_list_header'>Visade artiklar</h3>
+							<ul id='article_list_time'></ul>
+						</div>
+						
+
 					</div>
 
 					<!-- A container containing what is shown in the map-view. -->
@@ -286,9 +302,12 @@
 						<!--Map container-->
 						<div id='map'></div>
 
+						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
+
 							<h3 id='article_list_header'>Displayed articles</h3>
 							<ul id='article_list'></ul>
+
 						</div>
 
 						<!--Button to go back to start page-->
@@ -320,17 +339,28 @@
 		<script>
 			//Generate the map when the page has loaded.
 			$(document).ready(generateMap());
+			$(document).ready(addTimeHandler());
+			$(document).ready(console.log("Document is ready!"));
+
 			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
 			$('#article_list').css('max-height', window.innerHeight * 0.65 + 'px');
+			$('#article_list_time').css('max-height', window.innerHeight * 0.65 + 'px');
+
+			//Prevent the article to become "unmarked" when the user clicks somewhere in the article list.
+			$("#article_list_container_time")
+				.mouseenter(function(){
+					MOUSE_OVER_LIST = true;
+				}).mouseleave(function(){
+					MOUSE_OVER_LIST = false;});
 			
 		</script>
 
 
-   		<footer>
+   		<!--<footer>
 			<footer>
 				Copyright © TeamWikipedia
 			</footer>
-		</footer>
+		</footer>-->
 
 	</body>
 </html>
