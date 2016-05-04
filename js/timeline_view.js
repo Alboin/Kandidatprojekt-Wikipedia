@@ -9,6 +9,7 @@
     - sortDots
     - createTimeListObject
     - updateTimeTexts
+    - updateSecondTimeTexts
 
 ********************************************************************************************************/
 
@@ -16,7 +17,8 @@ var TIME_DOTS = [];
 var TIPSY_IS_SHOWN = false;
 var LAST_CLICKED_ID;
 var DEFAULT_COLOR = "black", MARKED_COLOR = "gray", BORDER_COLOR = "gray";
-var LEFT_BOUND = 0.15*window.innerWidth, RIGHT_BOUND = 0.55*window.innerWidth;
+var SECOND_TIMELINE_YPOS = 0.5*window.innerHeight;
+var LEFT_BOUND = 0.15*window.innerWidth, RIGHT_BOUND = 0.70*window.innerWidth;
 var MIN_YEAR = null, MAX_YEAR = null;
 var DISPLAYED_MIN_YEAR = null, DISPLAYED_MAX_YEAR = null;
 var MOUSE_OVER_LIST = false;
@@ -80,7 +82,7 @@ function generateTimeDot(article) {
 	//Creates all the dots with their own id. 
     var dot = svg.append("circle")
         .attr("cx", dot_position)
-        .attr("cy", 400 - y_pos_shift)
+        .attr("cy", SECOND_TIMELINE_YPOS - y_pos_shift)
         .attr("r", 0)
         .attr("id", "dot" + article.id)
         .attr("start_year", article.time[0][2]) 
@@ -147,6 +149,8 @@ function generateTimeDot(article) {
     sortDots();
 
     updateTimeTexts();
+
+    updateSecondTimeTexts();
 
     updateHandleText();
 
@@ -265,18 +269,54 @@ function createTimeListObject(article) {
 function updateTimeTexts() {
     for(var i = 0; i < TIMELINE_TEXTS.length; i++) {
         if(i == 0) {
-            TIMELINE_TEXTS[i].text(String(MIN_YEAR));            
+            TIMELINE_TEXTS[i].text(String(MIN_YEAR)).transition().duration(1000).attr( "fill-opacity", 1 );            
         } else if(i == TIMELINE_TEXTS.length - 1) {
-            TIMELINE_TEXTS[i].text(String(MAX_YEAR));
+            TIMELINE_TEXTS[i].text(String(MAX_YEAR)).transition().duration(1000).attr( "fill-opacity", 1 );
         } else if(MAX_YEAR - MIN_YEAR < 10) {
-            TIMELINE_TEXTS[i].text("");
+            TIMELINE_TEXTS[i].transition().attr( "fill-opacity", 0 );
         } else {
             //if(MAX_YEAR - MIN_YEAR < 100) {
                 var year = Math.round(((TIMELINE_TEXTS[i].attr("x") - 0 + 16 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR);                
             //} else {
                 //var year = Math.round(((i/TIMELINE_TEXTS.length) * (MAX_YEAR-MIN_YEAR) + MIN_YEAR)/10) * 10;
             //}
-            TIMELINE_TEXTS[i].text(String(year));
+            TIMELINE_TEXTS[i].text(String(year)).transition().duration(1000).attr( "fill-opacity", 1 );
         }
     }
 }
+
+//Updates the labels below the interactive time-line with the right years.
+function updateSecondTimeTexts() {
+
+    for(var i = 0; i < TIMELINE_SECOND_TEXTS.length; i++) {
+
+        //var year_pos = ((Number(TIMELINE_SECOND_TEXTS[i].text()) - DISPLAYED_MIN_YEAR) / (DISPLAYED_MAX_YEAR - DISPLAYED_MIN_YEAR)) * RIGHT_BOUND + LEFT_BOUND;
+
+        var year = Math.round(((TIMELINE_SECOND_TEXTS[i].attr("x") - LEFT_BOUND)/(RIGHT_BOUND-LEFT_BOUND))*(DISPLAYED_MAX_YEAR-DISPLAYED_MIN_YEAR) + DISPLAYED_MIN_YEAR); 
+        //console.log("procent: " + (TIMELINE_SECOND_TEXTS[i].attr("x") - LEFT_BOUND)/(RIGHT_BOUND-LEFT_BOUND)*(DISPLAYED_MAX_YEAR-DISPLAYED_MIN_YEAR))               
+
+        TIMELINE_SECOND_TEXTS[i].text(String(year)).transition().duration(1000).attr( "fill-opacity", 1 );//.transition().duration(1000).attr("x", year_pos);
+    }
+}
+
+//Toggles the article-list from being shown or hidden.
+function hideArticleList() {
+    $("#article_list_time").slideToggle();
+}
+
+$('#article_list_container_time').hover(function(){
+    console.log("hej")
+    $(this).css('background-color', "#aaa");
+});
+
+//Add the actual timeline.
+$(document).ready(function() {
+        var line = d3.selectAll("#svg").append("line")
+    .attr("x1", 0)
+    .attr("x2", window.innerWidth)
+    .attr("y1", SECOND_TIMELINE_YPOS)
+    .attr("y2", SECOND_TIMELINE_YPOS)
+    .attr("stroke", "black")
+    .attr("stroke-width", 2);
+});
+

@@ -191,13 +191,11 @@
 
 						<!-- The list with all articles displayed on the time-line. -->
 						<div id='article_list_container_time'>
-							<h3 class='article_list_header'>Visade artiklar</h3>
+							<h3 class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>Visade artiklar</h3>
 							<ul id='article_list_time'></ul>
 						</div>
 						
 						<svg id="svg" height="100%" width="100%">
-							<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
-							<line x1="0" y1="400" x2="3000" y2="400" stroke="gray" stroke-width="2" />
 						</svg>
 
 					</div>
@@ -259,6 +257,9 @@
 					MOUSE_OVER_LIST = true;
 				}).mouseleave(function(){
 					MOUSE_OVER_LIST = false;});
+
+			//Hide the article list in time-view by default.
+			 $("#article_list_time").slideToggle();
 			
 		</script>
 

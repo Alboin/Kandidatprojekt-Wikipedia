@@ -13,6 +13,7 @@ var TIMELINE_START,	TIMELINE_WIDTH, TIMELINE_HEIGHT, TIMELINE_YPOS;
 var HANDLE_LEFT, HANDLE_RIGHT, MARKED_TIME, HANDLE_WIDTH;
 
 var TIMELINE_TEXTS = [];
+var TIMELINE_SECOND_TEXTS = [];
 var HANDLE_TEXTS = [];
 
 function addTimeHandler() {
@@ -31,13 +32,34 @@ function addTimeHandler() {
 	//Decides how many labels should be generated below the timeline depending on your screen size.
     var numberOfTimelabels = Math.round(window.innerWidth/150);
 
-    //Generates text-elements below the timeline with the right spacing and positioning.
+    //Generates text-elements below the bottom timeline with the right spacing and positioning.
     for(var i = 0; i <= numberOfTimelabels; i++) {
         TIMELINE_TEXTS[i] = svg.append("text")
             .attr("x", i/numberOfTimelabels*TIMELINE_WIDTH + TIMELINE_START - 16)
             .attr("y", TIMELINE_YPOS + 0.06*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
-            .attr("fill", "rgb(70,70,70)");
+            .attr("fill", "rgb(70,70,70)")
+            .classed("unselectable", true)
+            .attr( "fill-opacity", 0 );
+    }
+
+    //Generates text-elements below the top timeline with the right spacing and positioning.
+    for(var i = 0; i < numberOfTimelabels; i++) {
+        TIMELINE_SECOND_TEXTS[i] = svg.append("text")
+            .attr("x", (i/numberOfTimelabels)*window.innerWidth + 50)//(RIGHT_BOUND) + LEFT_BOUND - 16)
+            .attr("y", 400 + 0.06*window.innerHeight)
+            .attr("font-family", '"Roboto", sans-serif')
+            .attr("fill", "rgb(70,70,70)")
+            .attr("font-size", 10)
+            .classed("unselectable", true)
+            .attr( "fill-opacity", 0 );
+
+        var line = TIMELINE_SECOND_TEXTS[i]
+        	.append("line")
+        	.attr("x1", TIMELINE_SECOND_TEXTS[i].attr("x"))
+        	.attr("x2", TIMELINE_SECOND_TEXTS[i].attr("x"))
+        	.attr("y1", TIMELINE_SECOND_TEXTS[i].attr("y"))
+        	.attr("y2", TIMELINE_SECOND_TEXTS[i].attr("y") + 100);
     }
 
     //This is the left handle's time-label.
@@ -45,14 +67,18 @@ function addTimeHandler() {
             .attr("x", TIMELINE_START - 16)
             .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
-            .attr("font-weight", "bold");
+            .attr("font-weight", "bold")
+            .classed("unselectable", true)
+            .attr( "fill-opacity", 0 );
 
     //This is the right handle's time-label.
     HANDLE_TEXTS[1] = svg.append("text")
             .attr("x", TIMELINE_WIDTH + TIMELINE_START - 16)
             .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
-            .attr("font-weight", "bold");
+            .attr("font-weight", "bold")
+            .classed("unselectable", true)
+            .attr( "fill-opacity", 0 );
 
 
 	//Drag-functionality for left handle.
@@ -78,6 +104,7 @@ function addTimeHandler() {
 		.on('dragend', function() {
 			//Update the timeline.
 			sortDots();
+			updateSecondTimeTexts();
 	});
 
 	//Drag-functionality for right handle.
@@ -101,6 +128,7 @@ function addTimeHandler() {
 		.on('dragend', function() {
 			//Update the timeline.
 			sortDots();
+			updateSecondTimeTexts();
 	});
 
 
@@ -173,8 +201,13 @@ function updateHandleText() {
 	DISPLAYED_MIN_YEAR = Math.round(((HANDLE_LEFT.attr("x") - 0 + HANDLE_WIDTH/2 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR);
 	DISPLAYED_MAX_YEAR = Math.round(((HANDLE_RIGHT.attr("x") - 0 + (HANDLE_WIDTH/2) - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR);
 
-	HANDLE_TEXTS[0].text(String(DISPLAYED_MIN_YEAR)).attr("x", HANDLE_LEFT.attr("x") - 10);
-	HANDLE_TEXTS[1].text(String(DISPLAYED_MAX_YEAR)).attr("x", HANDLE_RIGHT.attr("x") - 10);
+	if(HANDLE_TEXTS[0].attr("fill-opacity") < 0.5) {
+		HANDLE_TEXTS[0].text(String(DISPLAYED_MIN_YEAR)).attr("x", HANDLE_LEFT.attr("x") - 10).transition().duration(1000).attr( "fill-opacity", 1 );
+		HANDLE_TEXTS[1].text(String(DISPLAYED_MAX_YEAR)).attr("x", HANDLE_RIGHT.attr("x") - 10).transition().duration(1000).attr( "fill-opacity", 1 );
+	} else {
+		HANDLE_TEXTS[0].text(String(DISPLAYED_MIN_YEAR)).attr("x", HANDLE_LEFT.attr("x") - 10);
+		HANDLE_TEXTS[1].text(String(DISPLAYED_MAX_YEAR)).attr("x", HANDLE_RIGHT.attr("x") - 10);
+	}
 }
 
 
