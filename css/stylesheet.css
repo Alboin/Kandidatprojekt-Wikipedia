@@ -10,10 +10,10 @@ button:hover{
     color: black;
 }
 
-circle:hover{
+/*circle:hover{
     cursor: pointer;
     fill: 'blue';
-}
+}*/
 
 body { 
     margin:0; 
@@ -63,7 +63,7 @@ h5 {
 
 }
 
-//används ej?
+/*används ej?*/
 hr {
     color: #C9FF8F;     /* #cccccc */
     background-color: #496A6F;
@@ -83,7 +83,7 @@ p {
     position: fixed;
     width: 33%;
     /*padding-top: 1px;*/
-    /*margin: 1px;*/
+    margin: 0px;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     background: rgba(73, 106, 111, 0.4);
@@ -324,12 +324,15 @@ div.tooltip {
 
 #topmargin{
     top: 10px;
+    margin: 0;
+    padding: 0;
 }
 
 #header_row{
     background-color: #304755;
     font-color: #ffffff;
-    padding-left: 15px;
+    padding: 0;
+    margin: 0;
 }
 
 #article_list_header_time:hover {

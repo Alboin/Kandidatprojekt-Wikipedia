@@ -30,10 +30,10 @@
 
 </style>
 <body>
-    <div onmousemove="myFunction(event)" ></div>
+  <!--  <div onmousemove="myFunction(event)" ></div>
     <div id="theline"></div>
       <div id="thecircle"></div>
-
+-->
     <script>
 
    // var a = document.getElementById("alphasvg");
@@ -50,50 +50,47 @@
         .attr("width", "100%")
         .attr("height", "100%")
 
-
-
-$(document).bind('mousemove', function (e) {
-   // if (click == true) {
-        $('#theline').css({
-            left: e.pageX,
-            top: e.pageY
-        });
-         $('#thecircle').css({
-            left: e.pageX,
-            top: e.pageY
-        });
-   // }
-});
-
-
     var circle = svg.append("circle")
                     //.call(drag)
                     .attr("r", 20)
-                    .attr("cx", 50)
-                    .attr("cy", 50)
-                    .style("fill", "green");
+                    .style("fill", "green")
+                    .attr("id", "thecircle");
 
  
  //Draw the line
-    var circle = svg.append("line")
+    var line = svg.append("line")
                         .attr("x1", 5)
                         .attr("y1", 0)
                         .attr("x2", 5)
                         .attr("y2", 200)
                         .attr("stroke-width", 5)
-                        .attr("stroke", "black");   
+                        .attr("stroke", "black");
 
-function myFunction(e) {
+
+$(document).bind('mousemove', function (e) {
+    //console.log(IsMouseOver($("#article_list_container_time"))
+    if(!IsMouseOver($("#article_list_container_time"))) {
+        line.attr("x1", e.pageX).attr("x2", e.pageX);
+        circle.attr("cx", e.pageX).attr("cy", e.pageY);
+    } else {
+        line.attr("stroke", "green");
+    }
+});
+
+
+   
+
+//function myFunction(e) {
    // var cx = e.clientX;
     //var cy = e.clientY;
-    line.setAttributeNS(null,"x1", e.clientX);
-    line.setAttributeNS(null,"x2", e.clientX);
+ //   line.setAttributeNS(null,"x1", e.clientX);
+  //  line.setAttributeNS(null,"x2", e.clientX);
    // var coor = "Coordinates: (" + x + "," + y + ")";
     //document.getElementById("demo").innerHTML = coor;
-}
+//}
 
- d3.selectAll('line')
- .on('mouseover', function() {this.style.fill = 'blue';}) 
+ //d3.selectAll('line')
+ //.on('mouseover', function() {this.style.fill = 'blue';}) 
 
 
             //The vertical line, only changes on x-axis. 

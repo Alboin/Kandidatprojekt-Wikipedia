@@ -47,7 +47,7 @@ function addTimeHandler() {
     for(var i = 0; i < numberOfTimelabels; i++) {
         TIMELINE_SECOND_TEXTS[i] = svg.append("text")
             .attr("x", (i/numberOfTimelabels)*window.innerWidth + 50)//(RIGHT_BOUND) + LEFT_BOUND - 16)
-            .attr("y", 400 + 0.06*window.innerHeight)
+            .attr("y", SECOND_TIMELINE_YPOS + 0.06*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
             .attr("fill", "rgb(70,70,70)")
             .attr("font-size", 10)
@@ -175,6 +175,43 @@ function addTimeHandler() {
         .attr("stroke-width", "1")
 		.call(drag_HANDLE_RIGHT);
 
+	//Draw the circle following the mouse.
+	/*var circle = svg.append("circle")
+        .attr("r", 0)
+        .style("fill", "gray");*/
+ 
+ 	//Draw the line following the mouse.
+    var line = svg.append("line")
+        .attr("y1", SECOND_TIMELINE_YPOS)
+        .attr("y2", SECOND_TIMELINE_YPOS + 0.06*window.innerHeight)
+        .attr("stroke", "gray");
+
+    var mouse_text = svg.append("text")
+        .attr("y", SECOND_TIMELINE_YPOS + 0.09*window.innerHeight)
+        .attr("font-family", '"Roboto", sans-serif')
+        .attr("font-weight", "bold")
+        .classed("unselectable", true)
+        .attr( "fill-opacity", 0 )
+        .text("1234");
+
+	$("#svg").bind('mousemove', function (e) {
+		if (e.pageY > window.innerHeight*0.8 || e.pageY < 74) {
+			//console.log($('a#rticle_list_header_time:hover').length != 0)
+			line.attr("stroke-opacity", 0);
+			mouse_text.attr("fill-opacity", 0);
+			//circle.attr("r", 0);
+			//document.body.style.cursor = 'auto';
+		} else {
+			//var pos_y = e.pageY - 70;
+			var year = Math.round(((e.pageX - LEFT_BOUND)/(RIGHT_BOUND))*(DISPLAYED_MAX_YEAR-DISPLAYED_MIN_YEAR) + DISPLAYED_MIN_YEAR);
+			line.attr("x1", e.pageX).attr("x2", e.pageX).attr("stroke-opacity", 1);
+			mouse_text.attr("fill-opacity", 1).attr("x", e.pageX - 16).text(String(year));
+		    //circle.attr("cx", e.pageX).attr("cy", pos_y).attr("r", 5);
+			//document.body.style.cursor = 'none';
+		}
+	});
+
+
 }
 
 //Function to animate handle movement.
@@ -209,6 +246,8 @@ function updateHandleText() {
 		HANDLE_TEXTS[1].text(String(DISPLAYED_MAX_YEAR)).attr("x", HANDLE_RIGHT.attr("x") - 10);
 	}
 }
+
+
 
 
 

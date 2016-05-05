@@ -50,7 +50,7 @@
 
 	</head>
 
-	<body style="overflow: hidden">
+	<body style="overflow: hidden; width:100%;height:100%;margin:0;">
 
 		<!-- Section is a container for the whole page. -->
 		<section ng-init="page = 1" class="page" ng-controller="PageController as pageCtrl">
@@ -191,7 +191,7 @@
 
 						<p id="tidsinfo"></p>
 
-						<svg class="cursors" id= "svg" mlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onload="init(evt)" width="100%" height="100%">
+						<svg id= "svg"   style="width:100%;height:100%;margin:0;">
 <!-- 
 							<style>
 							   /* {cursor: none;} Can be used later*/ 
@@ -275,15 +275,15 @@
 							</script> -->
 
 							<!--The area where the cursor is visible-->
-						  	<rect id="rect1" x="0" y="0" width="100%" height="100%" fill="blue" opacity="0" onmousemove="ShowTooltip(evt)" />
+						  	<!--<rect id="rect1" x="0" y="0" width="100%" height="100%" fill="blue" opacity="0" onmousemove="ShowTooltip(evt)" />-->
 
 							<!--Lådan som kommer fram när den blir visible-->
-						   	<line id="vertlical_line" x1="0" y1="0" x2="0" y2="1000" stroke="black" stroke-width="1" visibility="hidden" />
-							<circle id="cursor" cx="0" cy="0" r="3" fill="black"  visibility="hidden" />
+						   	<!--<line id="vertlical_line" x1="0" y1="0" x2="0" y2="1000" stroke="black" stroke-width="1" visibility="hidden" />
+							<circle id="cursor" cx="0" cy="0" r="3" fill="black"  visibility="hidden" />-->
 							
 
 						    	<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
-							<line id="horizontal_line" x1="0" y1="400" x2="3000" y2="400" stroke="gray" stroke-width="2" />
+							<!--<line id="horizontal_line" x1="0" y1="400" x2="3000" y2="400" stroke="gray" stroke-width="2" /> -->
 
 						</svg>
 
@@ -305,7 +305,7 @@
 						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
 
-							<h3 id='article_list_header'>Displayed articles</h3>
+							<h3 id='article_list_header'>Visade artiklar</h3>
 							<ul id='article_list'></ul>
 
 						</div>

@@ -85,6 +85,7 @@ function generateTimeDot(article) {
         .attr("cy", SECOND_TIMELINE_YPOS - y_pos_shift)
         .attr("r", 0)
         .attr("id", "dot" + article.id)
+        .classed("time_dot_class", true)
         .attr("start_year", article.time[0][2]) 
         .attr("fill", DEFAULT_COLOR )
         .attr('onclick', 'ShowHideTipsy('+"'"+ article.id +"'"+')') // When you click on dot the function ShowHideTipsy is called
@@ -111,10 +112,10 @@ function generateTimeDot(article) {
             this.style.fill = MARKED_COLOR;    
             div.transition()        
                 .duration(50)      
-                .style("opacity", .8);      
+                .style("opacity", .9);      
             div .html(article.title + "<br>" + article.time[0][2])  
-                .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 28) + "px");    
+                .style("left", (d3.event.pageX + 8) + "px")     
+                .style("top", (d3.event.pageY - 30) + "px");    
             })                  
         .on("mouseout", function(d) {  
             this.style.fill = DEFAULT_COLOR;     
@@ -292,7 +293,7 @@ function updateSecondTimeTexts() {
 
         //var year_pos = ((Number(TIMELINE_SECOND_TEXTS[i].text()) - DISPLAYED_MIN_YEAR) / (DISPLAYED_MAX_YEAR - DISPLAYED_MIN_YEAR)) * RIGHT_BOUND + LEFT_BOUND;
 
-        var year = Math.round(((TIMELINE_SECOND_TEXTS[i].attr("x") - LEFT_BOUND)/(RIGHT_BOUND-LEFT_BOUND))*(DISPLAYED_MAX_YEAR-DISPLAYED_MIN_YEAR) + DISPLAYED_MIN_YEAR); 
+        var year = Math.round(((TIMELINE_SECOND_TEXTS[i].attr("x") - LEFT_BOUND + 11)/(RIGHT_BOUND))*(DISPLAYED_MAX_YEAR-DISPLAYED_MIN_YEAR) + DISPLAYED_MIN_YEAR); 
         //console.log("procent: " + (TIMELINE_SECOND_TEXTS[i].attr("x") - LEFT_BOUND)/(RIGHT_BOUND-LEFT_BOUND)*(DISPLAYED_MAX_YEAR-DISPLAYED_MIN_YEAR))               
 
         TIMELINE_SECOND_TEXTS[i].text(String(year)).transition().duration(1000).attr( "fill-opacity", 1 );//.transition().duration(1000).attr("x", year_pos);
