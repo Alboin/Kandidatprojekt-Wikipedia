@@ -37,14 +37,11 @@
                     width: this.$element[0].offsetWidth,
                     height: this.$element[0].offsetHeight
                 });
-                console.log("hej")
-                console.log(pos)
                 
                 var actualWidth = $tip[0].offsetWidth,
                     actualHeight = $tip[0].offsetHeight,
                     gravity = maybeCall(this.options.gravity, this.$element[0]);
 
-                console.log(actualWidth)
                 
                 var tp;
                 switch (gravity.charAt(0)) {

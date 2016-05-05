@@ -270,17 +270,21 @@ function createTimeListObject(article) {
 function updateTimeTexts() {
     for(var i = 0; i < TIMELINE_TEXTS.length; i++) {
         if(i == 0) {
-            TIMELINE_TEXTS[i].text(String(MIN_YEAR)).transition().duration(1000).attr( "fill-opacity", 1 );            
-        } else if(i == TIMELINE_TEXTS.length - 1) {
+            //A special case for the very first time-label.
+            TIMELINE_TEXTS[i].text(String(MIN_YEAR)).transition().duration(1000).attr( "fill-opacity", 1 );  
+
+        } else if (i == TIMELINE_TEXTS.length - 1) {
+            //A special case for the very last time-label.
             TIMELINE_TEXTS[i].text(String(MAX_YEAR)).transition().duration(1000).attr( "fill-opacity", 1 );
-        } else if(MAX_YEAR - MIN_YEAR < 10) {
+
+        } else if (MAX_YEAR - MIN_YEAR < 10) {
+            //If the shown articles span less than 10 years hide the text-labels placed in the middle of the timeline.
             TIMELINE_TEXTS[i].transition().attr( "fill-opacity", 0 );
+
         } else {
-            //if(MAX_YEAR - MIN_YEAR < 100) {
-                var year = Math.round(((TIMELINE_TEXTS[i].attr("x") - 0 + 16 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR);                
-            //} else {
-                //var year = Math.round(((i/TIMELINE_TEXTS.length) * (MAX_YEAR-MIN_YEAR) + MIN_YEAR)/10) * 10;
-            //}
+            //Calculate year depending on text position.
+            var year = Math.round(((TIMELINE_TEXTS[i].attr("x") - 0 + 16 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR); 
+            //Uppdate the year.               
             TIMELINE_TEXTS[i].text(String(year)).transition().duration(1000).attr( "fill-opacity", 1 );
         }
     }
@@ -291,11 +295,9 @@ function updateSecondTimeTexts() {
 
     for(var i = 0; i < TIMELINE_SECOND_TEXTS.length; i++) {
 
-        //var year_pos = ((Number(TIMELINE_SECOND_TEXTS[i].text()) - DISPLAYED_MIN_YEAR) / (DISPLAYED_MAX_YEAR - DISPLAYED_MIN_YEAR)) * RIGHT_BOUND + LEFT_BOUND;
-
+        //Calculate year depending on text position.
         var year = Math.round(((TIMELINE_SECOND_TEXTS[i].attr("x") - LEFT_BOUND + 11)/(RIGHT_BOUND))*(DISPLAYED_MAX_YEAR-DISPLAYED_MIN_YEAR) + DISPLAYED_MIN_YEAR); 
-        //console.log("procent: " + (TIMELINE_SECOND_TEXTS[i].attr("x") - LEFT_BOUND)/(RIGHT_BOUND-LEFT_BOUND)*(DISPLAYED_MAX_YEAR-DISPLAYED_MIN_YEAR))               
-
+        //Uppdate the year.
         TIMELINE_SECOND_TEXTS[i].text(String(year)).transition().duration(1000).attr( "fill-opacity", 1 );//.transition().duration(1000).attr("x", year_pos);
     }
 }
@@ -305,14 +307,9 @@ function hideArticleList() {
     $("#article_list_time").slideToggle();
 }
 
-$('#article_list_container_time').hover(function(){
-    console.log("hej")
-    $(this).css('background-color', "#aaa");
-});
-
 //Add the actual timeline.
 $(document).ready(function() {
-        var line = d3.selectAll("#svg").append("line")
+    var line = d3.selectAll("#svg").append("line")
     .attr("x1", 0)
     .attr("x2", window.innerWidth)
     .attr("y1", SECOND_TIMELINE_YPOS)
