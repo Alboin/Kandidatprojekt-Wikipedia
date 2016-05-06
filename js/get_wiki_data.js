@@ -85,7 +85,7 @@ function getWikiData(query, article_color){
 		        		TIME_DOTS = [];
 		        		YEAR_COUNTER = [];
 		        		$('#' + LAST_CLICKED_ID).tipsy("hide");
-		        		d3.selectAll("circle").remove();
+		        		d3.selectAll(".time_dot_class").remove();
 		        		MIN_YEAR = null, MAX_YEAR = null;
 		        		setTimeout(moveHandles(0,1), 3000);
 

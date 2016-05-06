@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>This'll be Great</title>
+  
+    <meta charset="utf-8">
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+</head>
+<!--svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1278"-->
+
+
+<style>
+#theline {
+    height:1000px;
+    width:5px;
+    background-color:red;
+    position:absolute;
+}
+
+#thecircle {
+    width: 100px;
+    height: 100px;
+    background: red;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+
+</style>
+<body>
+  <!--  <div onmousemove="myFunction(event)" ></div>
+    <div id="theline"></div>
+      <div id="thecircle"></div>
+-->
+    <script>
+
+   // var a = document.getElementById("alphasvg");
+
+        //it's important to add an load event listener to the object, as it will load the svg doc asynchronously
+      //  a.addEventListener("load",function(){
+
+
+
+ //var click = false;
+
+    var svg = d3.select("body")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+
+    var circle = svg.append("circle")
+                    //.call(drag)
+                    .attr("r", 20)
+                    .style("fill", "green")
+                    .attr("id", "thecircle");
+
+ 
+ //Draw the line
+    var line = svg.append("line")
+                        .attr("x1", 5)
+                        .attr("y1", 0)
+                        .attr("x2", 5)
+                        .attr("y2", 200)
+                        .attr("stroke-width", 5)
+                        .attr("stroke", "black");
+
+
+$(document).bind('mousemove', function (e) {
+    //console.log(IsMouseOver($("#article_list_container_time"))
+    if(!IsMouseOver($("#article_list_container_time"))) {
+        line.attr("x1", e.pageX).attr("x2", e.pageX);
+        circle.attr("cx", e.pageX).attr("cy", e.pageY);
+    } else {
+        line.attr("stroke", "green");
+    }
+});
+
+
+   
+
+//function myFunction(e) {
+   // var cx = e.clientX;
+    //var cy = e.clientY;
+ //   line.setAttributeNS(null,"x1", e.clientX);
+  //  line.setAttributeNS(null,"x2", e.clientX);
+   // var coor = "Coordinates: (" + x + "," + y + ")";
+    //document.getElementById("demo").innerHTML = coor;
+//}
+
+ //d3.selectAll('line')
+ //.on('mouseover', function() {this.style.fill = 'blue';}) 
+
+
+            //The vertical line, only changes on x-axis. 
+            
+           // tooltip_bg.setAttributeNS(null,"x2",evt.clientX);
+
+
+
+
+
+</script> 
+</body>
+
+
+</html>

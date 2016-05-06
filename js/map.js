@@ -203,15 +203,18 @@ function createMapListObject(title) {
 	//Select the whole list.
 	var ul = document.getElementById("article_list");
 
-	//Create new list entry.
-  	var newLi = document.createElement("li");
-  	newLi.appendChild(document.createTextNode(title));
-  	newLi.setAttribute("id", title);
-  	newLi.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
 
-  	//Insert new list entry with help of sorting fuction "sortAlpha".
-  	$('li', ul).add(newLi).sort(sortAlpha).appendTo(ul);
+    if(!$(ul).find('li:contains("' + title + '")')[0]) {
 
+		//Create new list entry.
+	  	var newLi = document.createElement("li");
+	  	newLi.appendChild(document.createTextNode(title));
+	  	newLi.setAttribute("id", title);
+	  	newLi.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
+
+	  	//Insert new list entry with help of sorting fuction "sortAlpha".
+	  	$('li', ul).add(newLi).sort(sortAlpha).appendTo(ul);
+	}
 }
 
 //Function that creates the content for the popup

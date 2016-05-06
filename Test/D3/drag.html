@@ -15,8 +15,8 @@
 		.attr("width", "100%")
 	  	.attr("height", "100%")
 	  	.on('mousemove', function() {
-    var coordinates = d3.mouse(this)
-    draw_lines(coordinates)
+    	var coordinates = d3.mouse(this);
+   
   });
 
 	var drag = d3.behavior.drag()
@@ -62,7 +62,7 @@
 	//Mitt försök:
 	// https://www.dashingd3js.com/svg-paths-and-d3js 
 
-
+//console.log("hej" + cx);
 
 
 
@@ -70,7 +70,7 @@
 		posText.text(String(pos));
 	}
 
-	
+
 
 </script>
 </body>

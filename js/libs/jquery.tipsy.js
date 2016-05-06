@@ -41,6 +41,7 @@
                 var actualWidth = $tip[0].offsetWidth,
                     actualHeight = $tip[0].offsetHeight,
                     gravity = maybeCall(this.options.gravity, this.$element[0]);
+
                 
                 var tp;
                 switch (gravity.charAt(0)) {
@@ -48,7 +49,7 @@
                         tp = {top: pos.top + pos.height + this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2};
                         break;
                     case 's':
-                        tp = {top: pos.top - actualHeight - this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2};
+                        tp = {top: pos.top - actualHeight - this.options.offset, left: pos.left/* + pos.width / 2*/ - actualWidth / 2 + 10};
                         break;
                     case 'e':
                         tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth - this.options.offset};
@@ -193,7 +194,7 @@
         gravity: 'n',
         html: false,
         live: false,
-        offset: 0,
+        offset: 10,
         opacity: 0.8,
         title: 'title',
         trigger: 'hover'

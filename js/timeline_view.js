@@ -8,6 +8,8 @@
  	- ShowHideTipsy
     - sortDots
     - createTimeListObject
+    - updateTimeTexts
+    - updateSecondTimeTexts
 
 ********************************************************************************************************/
 
@@ -15,7 +17,8 @@ var TIME_DOTS = [];
 var TIPSY_IS_SHOWN = false;
 var LAST_CLICKED_ID;
 var DEFAULT_COLOR = "black", MARKED_COLOR = "gray", BORDER_COLOR = "gray";
-var LEFT_BOUND = 0.15*window.innerWidth, RIGHT_BOUND = 0.55*window.innerWidth;
+var SECOND_TIMELINE_YPOS = 0.5*window.innerHeight;
+var LEFT_BOUND = 0.15*window.innerWidth, RIGHT_BOUND = 0.70*window.innerWidth;
 var MIN_YEAR = null, MAX_YEAR = null;
 var DISPLAYED_MIN_YEAR = null, DISPLAYED_MAX_YEAR = null;
 var MOUSE_OVER_LIST = false;
@@ -48,6 +51,7 @@ function generateTimeDot(article) {
 
     //Variable to log how many articles with the same years exist.
     var same_year = {
+        title: article.title,
         year: article.time[0][2],
         count: 1
     }
@@ -78,9 +82,10 @@ function generateTimeDot(article) {
 	//Creates all the dots with their own id. 
     var dot = svg.append("circle")
         .attr("cx", dot_position)
-        .attr("cy", 400 - y_pos_shift)
+        .attr("cy", SECOND_TIMELINE_YPOS - y_pos_shift)
         .attr("r", 0)
         .attr("id", "dot" + article.id)
+        .classed("time_dot_class", true)
         .attr("start_year", article.time[0][2]) 
         .attr("fill", DEFAULT_COLOR )
         .attr('onclick', 'ShowHideTipsy('+"'"+ article.id +"'"+')') // When you click on dot the function ShowHideTipsy is called
@@ -107,10 +112,10 @@ function generateTimeDot(article) {
             this.style.fill = MARKED_COLOR;    
             div.transition()        
                 .duration(50)      
-                .style("opacity", .8);      
+                .style("opacity", .9);      
             div .html(article.title + "<br>" + article.time[0][2])  
-                .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 28) + "px");    
+                .style("left", (d3.event.pageX + 8) + "px")     
+                .style("top", (d3.event.pageY - 30) + "px");    
             })                  
         .on("mouseout", function(d) {  
             this.style.fill = DEFAULT_COLOR;     
@@ -143,6 +148,12 @@ function generateTimeDot(article) {
     createTimeListObject(article);
 
     sortDots();
+
+    updateTimeTexts();
+
+    updateSecondTimeTexts();
+
+    updateHandleText();
 
 }
 
@@ -238,16 +249,72 @@ function createTimeListObject(article) {
         return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;  
     }
 
+
     //Select the whole list.
     var ul = document.getElementById("article_list_time");
 
-    //Create new list entry.
-    var newLi = document.createElement("li");
-    newLi.appendChild(document.createTextNode(article.title));
-    newLi.setAttribute("id", article.title);
-    newLi.setAttribute("onclick", "ShowHideTipsy('" + article.id + "')");
+    if(!$(ul).find('li:contains("' + article.title + '")')[0]) {
 
-    //Insert new list entry with help of sorting fuction "sortAlpha".
-    $('li', ul).add(newLi).sort(sortAlpha).appendTo(ul);
+        //Create new list entry.
+        var newLi = document.createElement("li");
+        newLi.appendChild(document.createTextNode(article.title));
+        newLi.setAttribute("id", article.title);
+        newLi.setAttribute("onclick", "ShowHideTipsy('" + article.id + "')");
 
+        //Insert new list entry with help of sorting fuction "sortAlpha".
+        $('li', ul).add(newLi).sort(sortAlpha).appendTo(ul);
+    }
 }
+
+//Updates the labels below the interactive time-line with the right years.
+function updateTimeTexts() {
+    for(var i = 0; i < TIMELINE_TEXTS.length; i++) {
+        if(i == 0) {
+            //A special case for the very first time-label.
+            TIMELINE_TEXTS[i].text(String(MIN_YEAR)).transition().duration(1000).attr( "fill-opacity", 1 );  
+
+        } else if (i == TIMELINE_TEXTS.length - 1) {
+            //A special case for the very last time-label.
+            TIMELINE_TEXTS[i].text(String(MAX_YEAR)).transition().duration(1000).attr( "fill-opacity", 1 );
+
+        } else if (MAX_YEAR - MIN_YEAR < 10) {
+            //If the shown articles span less than 10 years hide the text-labels placed in the middle of the timeline.
+            TIMELINE_TEXTS[i].transition().attr( "fill-opacity", 0 );
+
+        } else {
+            //Calculate year depending on text position.
+            var year = Math.round(((TIMELINE_TEXTS[i].attr("x") - 0 + 16 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR); 
+            //Uppdate the year.               
+            TIMELINE_TEXTS[i].text(String(year)).transition().duration(1000).attr( "fill-opacity", 1 );
+        }
+    }
+}
+
+//Updates the labels below the interactive time-line with the right years.
+function updateSecondTimeTexts() {
+
+    for(var i = 0; i < TIMELINE_SECOND_TEXTS.length; i++) {
+
+        //Calculate year depending on text position.
+        var year = Math.round(((TIMELINE_SECOND_TEXTS[i].attr("x") - LEFT_BOUND + 11)/(RIGHT_BOUND))*(DISPLAYED_MAX_YEAR-DISPLAYED_MIN_YEAR) + DISPLAYED_MIN_YEAR); 
+        //Uppdate the year.
+        TIMELINE_SECOND_TEXTS[i].text(String(year)).transition().duration(1000).attr( "fill-opacity", 1 );//.transition().duration(1000).attr("x", year_pos);
+    }
+}
+
+//Toggles the article-list from being shown or hidden.
+function hideArticleList() {
+    $("#article_list_time").slideToggle();
+}
+
+//Add the actual timeline.
+$(document).ready(function() {
+    var line = d3.selectAll("#svg").append("line")
+    .attr("x1", 0)
+    .attr("x2", window.innerWidth)
+    .attr("y1", SECOND_TIMELINE_YPOS)
+    .attr("y2", SECOND_TIMELINE_YPOS)
+    .attr("stroke", "black")
+    .attr("stroke-width", 2);
+});
+

@@ -50,7 +50,7 @@
 
 	</head>
 
-	<body style="overflow: hidden">
+	<body style="overflow: hidden; width:100%;height:100%;margin:0;">
 
 		<!-- Section is a container for the whole page. -->
 		<section ng-init="page = 1" class="page" ng-controller="PageController as pageCtrl">
@@ -95,6 +95,7 @@
 					</button-->
 						
 		        </div>
+
 
 		        <!-- Second column in row 1, in the middle -->
 		        <!-- A column that contains the headlines for the different pages. 
@@ -163,28 +164,135 @@
 			</div>
 
 			<!--The line under the searchbuttons-->
-			<hr>
+			
+
+				<div class="col-lg-4"></div>
+					<div class="col-lg-4">
+										<div id="transbox">
+							<h5 id="middle_row"></h5> 	
+					</div></div>
+				<div class="col-lg-4">						
+
+				</div>
+
+
+
+			
 			
 
 			<!--3rd row, the row at the bottom.-->		
    			<div class="row nomargin" id="lower_row">
-   			
+   			<!--  -->
    				<!-- The row contains only one column that fills the entire screen width. -->
    				<div class="col-lg-12">
 
    					<!-- A container containing what is shown in the time view. -->
 			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 
+						<p id="tidsinfo"></p>
+
+						<svg id= "svg"   style="width:100%;height:100%;margin:0;">
+<!-- 
+							<style>
+							   /* {cursor: none;} Can be used later*/ 
+
+								.caption{
+								font-size: 14px;
+								font-family: Georgia, serif;
+							    }
+							    .tooltip{
+								font-size: 12px;
+							    }
+							    .tooltip_bg{
+								fill: white;
+								stroke: black;
+								stroke-width: 1;
+								opacity: 0.85;
+							    }
+
+							</style>
+ -->
+							<!-- <script type="text/ecmascript">
+							    <![CDATA[
+
+									function init(evt)
+									{
+									    if ( window.svgDocument == null )
+									    {
+											svgDocument = evt.target.ownerDocument;
+									    }
+
+									    vertlical_line = svgDocument.getElementById('vertlical_line');
+									    cursor = svgDocument.getElementById('cursor');
+
+									    //For the text. 
+									    tooltip = svgDocument.getElementById('tooltip');
+									    tooltip_bg = svgDocument.getElementById('tooltip_bg');
+
+
+									}
+
+									function ShowTooltip(evt, mouseovertext)
+									{
+
+									    //The vertical line, only changes on x-axis. 
+									   	vertlical_line.setAttributeNS(null,"x1",evt.clientX);
+									   	vertlical_line.setAttributeNS(null,"x2",evt.clientX);
+
+									    //The circle that follows the line. Also called: The cursor. 
+									    cursor.setAttributeNS(null,"width",length);
+									    cursor.setAttributeNS(null,"cx",evt.clientX);
+									    cursor.setAttributeNS(null,"cy",evt.clientY-75);
+
+										//Set cursor and line to visible
+									    vertlical_line.setAttributeNS(null,"visibility","visibile");
+									    cursor.setAttributeNS(null,"visibility","visibile");
+
+									    //For the text. 
+									    tooltip.setAttributeNS(null,"x",evt.clientX+11);
+									    tooltip.setAttributeNS(null,"y",evt.clientY+27);
+									    tooltip.firstChild.data = mouseovertext;
+									    tooltip.setAttributeNS(null,"visibility","visible");
+
+									    tooltip_bg.setAttributeNS(null,"x",evt.clientX+8);
+									    tooltip_bg.setAttributeNS(null,"y",evt.clientY+14);
+									    tooltip_bg.setAttributeNS(null,"visibility","visibile");
+									}
+
+									function HideTooltip(evt)
+									{
+										//Hide the line and circle. 
+									    vertlical_line.setAttributeNS(null,"visibility","hidden");
+									    cursor.setAttributeNS(null,"visibility","hidden");
+
+									    //For the text. 
+									    tooltip.setAttributeNS(null,"visibility","hidden");
+		   								tooltip_bg.setAttributeNS(null,"visibility","hidden");
+									}
+
+							    ]]>
+
+							</script> -->
+
+							<!--The area where the cursor is visible-->
+						  	<!--<rect id="rect1" x="0" y="0" width="100%" height="100%" fill="blue" opacity="0" onmousemove="ShowTooltip(evt)" />-->
+
+							<!--Lådan som kommer fram när den blir visible-->
+						   	<!--<line id="vertlical_line" x1="0" y1="0" x2="0" y2="1000" stroke="black" stroke-width="1" visibility="hidden" />
+							<circle id="cursor" cx="0" cy="0" r="3" fill="black"  visibility="hidden" />-->
+							
+
+						    	<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
+							<!--<line id="horizontal_line" x1="0" y1="400" x2="3000" y2="400" stroke="gray" stroke-width="2" /> -->
+
+						</svg>
+
 						<!-- The list with all articles displayed on the time-line. -->
 						<div id='article_list_container_time'>
-							<h3 class='article_list_header'>Visade artiklar</h3>
+							<h3 class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>Visade artiklar</h3>
 							<ul id='article_list_time'></ul>
 						</div>
-						
-						<svg id="svg" height="100%" width="100%">
-							<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
-							<line x1="0" y1="400" x2="1500" y2="400" stroke="gray" stroke-width="2" />
-						</svg>
+
 
 					</div>
 
@@ -192,13 +300,14 @@
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
 
 						<!--Map container-->
-						<div id='map'>
-						</div>
+						<div id='map'></div>
 
 						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
-							<h3 class='article_list_header'>Visade artiklar</h3>
+
+							<h3 id='article_list_header'>Visade artiklar</h3>
 							<ul id='article_list'></ul>
+
 						</div>
 
 						<!--Button to go back to start page-->
@@ -243,6 +352,9 @@
 					MOUSE_OVER_LIST = true;
 				}).mouseleave(function(){
 					MOUSE_OVER_LIST = false;});
+
+			//Hide the article list in time-view by default.
+			 $("#article_list_time").slideToggle();
 			
 		</script>
 

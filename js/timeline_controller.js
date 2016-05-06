@@ -12,6 +12,10 @@ var TIMELINE_START,	TIMELINE_WIDTH, TIMELINE_HEIGHT, TIMELINE_YPOS;
 
 var HANDLE_LEFT, HANDLE_RIGHT, MARKED_TIME, HANDLE_WIDTH;
 
+var TIMELINE_TEXTS = [];
+var TIMELINE_SECOND_TEXTS = [];
+var HANDLE_TEXTS = [];
+
 function addTimeHandler() {
 
 	var svg = d3.selectAll("#svg");
@@ -25,14 +29,56 @@ function addTimeHandler() {
 	TIMELINE_HEIGHT = 0.03*window.innerHeight,
 	TIMELINE_YPOS = 0.8*window.innerHeight;
 
-	// Define the div for the tooltip
-    var div1 = d3.select("body").append("div1")   
-        .attr("class", "tooltip")               
-        .style("opacity", 0);
+	//Decides how many labels should be generated below the timeline depending on your screen size.
+    var numberOfTimelabels = Math.round(window.innerWidth/150);
 
-    var div2 = d3.select("body").append("div2")   
-        .attr("class", "tooltip")               
-        .style("opacity", 0);
+    //Generates text-elements below the bottom timeline with the right spacing and positioning.
+    for(var i = 0; i <= numberOfTimelabels; i++) {
+        TIMELINE_TEXTS[i] = svg.append("text")
+            .attr("x", i/numberOfTimelabels*TIMELINE_WIDTH + TIMELINE_START - 16)
+            .attr("y", TIMELINE_YPOS + 0.06*window.innerHeight)
+            .attr("font-family", '"Roboto", sans-serif')
+            .attr("fill", "rgb(70,70,70)")
+            .classed("unselectable", true)
+            .attr( "fill-opacity", 0 );
+    }
+
+    //Generates text-elements below the top timeline with the right spacing and positioning.
+    for(var i = 0; i < numberOfTimelabels; i++) {
+        TIMELINE_SECOND_TEXTS[i] = svg.append("text")
+            .attr("x", (i/numberOfTimelabels)*window.innerWidth + 50)//(RIGHT_BOUND) + LEFT_BOUND - 16)
+            .attr("y", SECOND_TIMELINE_YPOS + 0.06*window.innerHeight)
+            .attr("font-family", '"Roboto", sans-serif')
+            .attr("fill", "rgb(70,70,70)")
+            .attr("font-size", 10)
+            .classed("unselectable", true)
+            .attr( "fill-opacity", 0 );
+
+        var line = TIMELINE_SECOND_TEXTS[i]
+        	.append("line")
+        	.attr("x1", TIMELINE_SECOND_TEXTS[i].attr("x"))
+        	.attr("x2", TIMELINE_SECOND_TEXTS[i].attr("x"))
+        	.attr("y1", TIMELINE_SECOND_TEXTS[i].attr("y"))
+        	.attr("y2", TIMELINE_SECOND_TEXTS[i].attr("y") + 100);
+    }
+
+    //This is the left handle's time-label.
+    HANDLE_TEXTS[0] = svg.append("text")
+            .attr("x", TIMELINE_START - 16)
+            .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
+            .attr("font-family", '"Roboto", sans-serif')
+            .attr("font-weight", "bold")
+            .classed("unselectable", true)
+            .attr( "fill-opacity", 0 );
+
+    //This is the right handle's time-label.
+    HANDLE_TEXTS[1] = svg.append("text")
+            .attr("x", TIMELINE_WIDTH + TIMELINE_START - 16)
+            .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
+            .attr("font-family", '"Roboto", sans-serif')
+            .attr("font-weight", "bold")
+            .classed("unselectable", true)
+            .attr( "fill-opacity", 0 );
 
 
 	//Drag-functionality for left handle.
@@ -52,13 +98,13 @@ function addTimeHandler() {
 				.attr('x', parseInt(HANDLE_LEFT.attr('x')) + HANDLE_WIDTH/2)
 				.attr('width', parseInt(HANDLE_RIGHT.attr('x')) - parseInt(HANDLE_LEFT.attr('x')));
 
-			//Update the border variable.
-			DISPLAYED_MIN_YEAR = ((HANDLE_LEFT.attr("x") - HANDLE_WIDTH/2 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR;
+			updateHandleText();
 
 		})
 		.on('dragend', function() {
 			//Update the timeline.
 			sortDots();
+			updateSecondTimeTexts();
 	});
 
 	//Drag-functionality for right handle.
@@ -75,14 +121,14 @@ function addTimeHandler() {
 			if(d3.event.x < parseInt(HANDLE_LEFT.attr('x')) + 1.5 * HANDLE_WIDTH)
 				HANDLE_RIGHT.attr('x', parseInt(HANDLE_LEFT.attr('x')) + HANDLE_WIDTH);
 			MARKED_TIME.attr('width', parseInt(HANDLE_RIGHT.attr('x')) - parseInt(MARKED_TIME.attr('x')));
-
-			//Update the border variable.
-			DISPLAYED_MAX_YEAR = ((HANDLE_RIGHT.attr("x") - 0 + (HANDLE_WIDTH/2) - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR;
+			
+			updateHandleText();
 
 		})
 		.on('dragend', function() {
 			//Update the timeline.
 			sortDots();
+			updateSecondTimeTexts();
 	});
 
 
@@ -129,25 +175,35 @@ function addTimeHandler() {
         .attr("stroke-width", "1")
 		.call(drag_HANDLE_RIGHT);
 
+ 
+ 	//Draw the line following the mouse and the second timeline.
+    var line = svg.append("line")
+        .attr("y1", SECOND_TIMELINE_YPOS)
+        .attr("y2", SECOND_TIMELINE_YPOS + 0.06*window.innerHeight)
+        .attr("stroke", "gray");
 
+    //Add the time-label connected with above line.
+    var mouse_text = svg.append("text")
+        .attr("y", SECOND_TIMELINE_YPOS + 0.09*window.innerHeight)
+        .attr("font-family", '"Roboto", sans-serif')
+        .attr("font-weight", "bold")
+        .classed("unselectable", true)
+        .attr( "fill-opacity", 0 )
+        .text("1234");
 
-		/*HANDLE_LEFT.on("mouseover", function(d) {  
-            div1.transition()        
-                .duration(50)      
-                .style("opacity", .8);      
-            div1 .html(DISPLAYED_MIN_YEAR)  
-                .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 28) + "px");    
-            })
+    //This controls the movement of the line and time-label and changes the text in the label to the correct year.
+	$("#svg").bind('mousemove', function (e) {
+		if (e.pageY > window.innerHeight*0.8 || e.pageY < 74) {
+			line.attr("stroke-opacity", 0);
+			mouse_text.attr("fill-opacity", 0);
+		} else {
+			var year = Math.round(((e.pageX - LEFT_BOUND)/(RIGHT_BOUND))*(DISPLAYED_MAX_YEAR-DISPLAYED_MIN_YEAR) + DISPLAYED_MIN_YEAR);
+			if(year != 0)
+				mouse_text.attr("fill-opacity", 1).attr("x", e.pageX - 16).text(String(year));
+			line.attr("x1", e.pageX).attr("x2", e.pageX).attr("stroke-opacity", 1);
+		}
+	});
 
-		HANDLE_RIGHT.on("mouseover", function(d) {  
-            div2.transition()        
-                .duration(50)      
-                .style("opacity", .8);      
-            div2 .html(DISPLAYED_MAX_YEAR)  
-                .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 28) + "px");    
-            })*/
 
 }
 
@@ -163,7 +219,28 @@ function moveHandles(left_pos, right_pos) {
 	HANDLE_LEFT.transition().duration(2000).attr('x', temp_left);
 	HANDLE_RIGHT.transition().duration(2000).attr('x', temp_right);
 	MARKED_TIME.transition().duration(2000).attr('x', temp_left).attr('width', temp_right - temp_left);
+
+	HANDLE_TEXTS[0].text("");
+	HANDLE_TEXTS[1].text("");
+
 }
+
+function updateHandleText() {
+
+	//Update the border variables.
+	DISPLAYED_MIN_YEAR = Math.round(((HANDLE_LEFT.attr("x") - 0 + HANDLE_WIDTH/2 - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR);
+	DISPLAYED_MAX_YEAR = Math.round(((HANDLE_RIGHT.attr("x") - 0 + (HANDLE_WIDTH/2) - TIMELINE_START)/TIMELINE_WIDTH)*(MAX_YEAR-MIN_YEAR) + MIN_YEAR);
+
+	if(HANDLE_TEXTS[0].attr("fill-opacity") < 0.5) {
+		HANDLE_TEXTS[0].text(String(DISPLAYED_MIN_YEAR)).attr("x", HANDLE_LEFT.attr("x") - 10).transition().duration(1000).attr( "fill-opacity", 1 );
+		HANDLE_TEXTS[1].text(String(DISPLAYED_MAX_YEAR)).attr("x", HANDLE_RIGHT.attr("x") - 10).transition().duration(1000).attr( "fill-opacity", 1 );
+	} else {
+		HANDLE_TEXTS[0].text(String(DISPLAYED_MIN_YEAR)).attr("x", HANDLE_LEFT.attr("x") - 10);
+		HANDLE_TEXTS[1].text(String(DISPLAYED_MAX_YEAR)).attr("x", HANDLE_RIGHT.attr("x") - 10);
+	}
+}
+
+
 
 
 

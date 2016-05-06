@@ -1,4 +1,5 @@
 
+
 /*Hovers*/
 
 a:hover {
@@ -9,10 +10,10 @@ button:hover{
     color: black;
 }
 
-circle:hover{
+/*circle:hover{
     cursor: pointer;
     fill: 'blue';
-}
+}*/
 
 html,
 body { 
@@ -54,10 +55,20 @@ h4 {
     color: white;
 }
 
+h5 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 70;
+    font-size: 30px;
+    text-align: center;
+    color: gray;
+
+}
+
+/*används ej?*/
 hr {
     color: #C9FF8F;     /* #cccccc */
-    background-color: #C9FF8F;
-    height: 5px;
+    background-color: #496A6F;
+    height: 0px;
     margin: 0px;
     padding: 0px;
 }
@@ -123,6 +134,22 @@ footer{
 
 
 /*Id*/
+
+
+#transbox {
+    position: fixed;
+    width: 33%;
+    /*padding-top: 1px;*/
+    margin: 0px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    background: rgba(73, 106, 111, 0.4);
+    z-index: 999;
+}
+
+#middle_row {
+    color: white;
+}
 
 #right_time_handle {
     cursor: pointer;
@@ -193,11 +220,6 @@ footer{
 #article_list_time li:hover {
     background:#bbb;
     cursor: pointer;
-}
-
-.article_list_header {
-    color: white;
-    text-align: center;
 }
 
 #article_text{
@@ -272,6 +294,12 @@ footer{
 
 /*Classes*/
 
+.article_list_header {
+    color: white;
+    text-align: center;
+    margin: 10;
+}
+
 div.tooltip {   
     position: absolute;         
     text-align: center;         
@@ -284,6 +312,7 @@ div.tooltip {
     border-radius: 3px;         
     pointer-events: none;           
 }
+
 
 .mapboxgl-popup {
     max-width: 400px;
@@ -332,6 +361,16 @@ div.tooltip {
      border-bottom-right-radius: 5px;
 }
 
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
 
 
 #place_right{
@@ -342,14 +381,24 @@ div.tooltip {
 
 #topmargin{
     top: 10px;
+    margin: 0;
+    padding: 0;
 }
 
 #header_row{
-    background-color: #102C5B;
+    background-color: #304755;
     font-color: #ffffff;
-    padding-left: 15px;
-    height: 10%;
+    padding: 0;
+    margin: 0;
 }
+
+#article_list_header_time:hover {
+    color: black;
+    cursor: pointer;
+}
+
+
+
 
 
 
