@@ -1,0 +1,43 @@
+
+				<!-- Section is a container for the whole page. -->
+
+			<!-- A container containing what is shown in the map-view. -->
+		<!--div class="pageCtrl" ng-show="pageCtrl.isSet(2)"-->
+
+			<!--Map container-->
+			<div id='map'>
+			</div>
+
+			<!-- The list with all articles displayed on the map. -->
+			<div id='article_list_container'>
+				<h3 class='article_list_header'>Visade artiklar</h3>
+				<ul id='article_list'></ul>
+			</div>
+
+			<!--Button to go back to start page-->
+			<!--button ng-click="pageCtrl.setPage(4)" id='back' onclick="hideStartpage()"><i class="fa fa-arrow-left" id=back""></i></button-->
+			<p>HEJ!</p>
+
+
+			
+		<!--/div-->
+
+		<script>
+			//Generate the map when the page has loaded.
+			$(document).ready(generateMap());
+			$(document).ready(addTimeHandler());
+			$(document).ready(console.log("Document is ready!"));
+
+			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
+			$('#article_list').css('max-height', window.innerHeight * 0.65 + 'px');
+			$('#article_list_time').css('max-height', window.innerHeight * 0.65 + 'px');
+
+			//Prevent the article to become "unmarked" when the user clicks somewhere in the article list.
+			$("#article_list_container_time")
+				.mouseenter(function(){
+					MOUSE_OVER_LIST = true;
+				}).mouseleave(function(){
+					MOUSE_OVER_LIST = false;});
+			
+		</script>
+

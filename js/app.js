@@ -8,7 +8,19 @@
 ********************************************************************************************************/
 
 
-(function(){
+  var app = angular.module('wikiSearch', ['ngRoute']);
+
+app.config(['$routeProvider', function($routeProvider)
+{
+	$routeProvider
+
+	.when("/", {templateUrl:"index-designtest.html", controller: "PageController"})
+	.when("/map", {templateUrl:"pages/mapview.html", controller: "PageController"})
+	.when("/time", {templateUrl:"pages/timeview.html", controller: "PageController"});
+}]);
+
+
+//(function(){
 	
 	//'article' is an object that could have different attributes, such as 'title' and 'coord'.	
 	//At the moment the object does not have any attributes. 
@@ -23,7 +35,7 @@
 
 	//This controller controls the "pages" in the application 
 	app.controller('PageController', function(){
-		this.page = 4;
+		/*this.page = 1;
 
 		this.setPage = function(setPage){
 			this.page = setPage;
@@ -31,10 +43,13 @@
 
 		this.isSet = function(isSet){
 			return this.page === isSet;
-		};
+		};*/
 	});
 
-})(); 
+//})();
+
+
+
 
 
 
