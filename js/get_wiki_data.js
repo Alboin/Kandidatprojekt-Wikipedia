@@ -4,7 +4,7 @@
 
  	The final query is used to GET data from Wikipedia, a json-object is returned.
 
- 	The file includes the function:
+ 	The file includes the functions:
  	- getWikiData
  	- makeFirstLettersCapital
 ********************************************************************************************************/

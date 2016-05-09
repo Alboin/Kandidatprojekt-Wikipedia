@@ -10,6 +10,7 @@
     - createTimeListObject
     - updateTimeTexts
     - updateSecondTimeTexts
+    - hideArticleList
 
 ********************************************************************************************************/
 

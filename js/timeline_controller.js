@@ -6,7 +6,10 @@
  	timeview. The timeline has handles that the user can use to choose a specific time span.
 
  	The file includes the function:
+ 	- addTimeHandler
  	- moveHandles
+	- updateHandleText
+
 ********************************************************************************************************/
 var TIMELINE_START,	TIMELINE_WIDTH, TIMELINE_HEIGHT, TIMELINE_YPOS;
 

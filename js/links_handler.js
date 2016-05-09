@@ -8,10 +8,14 @@
 	This file includes the functions:
 	- getLinkSearchString
 	- startLinkSearch
-	- linksPosition
 	- loadLinksArticles
-	- sort (sorts TIME_ARTICLES by year, month, day)
+	- getRelationSentence
+	- getRelationWithBacklink
 	- getArticleText
+
+	//Har de här två flyttats? 
+	- linksPosition
+	- sort (sorts TIME_ARTICLES by year, month, day)
 ********************************************************************************************************/
 
 
