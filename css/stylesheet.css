@@ -18,7 +18,7 @@ button:hover{
 body { 
     margin:0; 
     padding:0; 
-    background: #eeeeee;
+    background: #dddddd;
 }
 
 button {
@@ -87,7 +87,7 @@ p {
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     background: rgba(73, 106, 111, 0.4);
-    z-index: 999;
+    z-index: 10;
 }
 
 #middle_row {
@@ -122,7 +122,7 @@ p {
     top: 75px;
     border-radius: 6px;
     background: rgba(100, 100, 100, 0.4);
-    z-index: 998;
+    z-index: 10;
 }
 
 #article_list {
@@ -243,6 +243,11 @@ p {
     margin: 10;
 }
 
+.article_list_header:hover {
+    color: black;
+    cursor: pointer;
+}
+
 div.tooltip {   
     position: absolute;         
     text-align: center;         
@@ -333,11 +338,6 @@ div.tooltip {
     font-color: #ffffff;
     padding: 0;
     margin: 0;
-}
-
-#article_list_header_time:hover {
-    color: black;
-    cursor: pointer;
 }
 
 

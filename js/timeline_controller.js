@@ -12,9 +12,14 @@ var TIMELINE_START,	TIMELINE_WIDTH, TIMELINE_HEIGHT, TIMELINE_YPOS;
 
 var HANDLE_LEFT, HANDLE_RIGHT, MARKED_TIME, HANDLE_WIDTH;
 
+//All labels below the lower timeline.
 var TIMELINE_TEXTS = [];
+//All labels below the upper timeline.
 var TIMELINE_SECOND_TEXTS = [];
+//The two labels that follows the handles on the lower timeline.
 var HANDLE_TEXTS = [];
+//The two labels that show min and max displayed year.
+var BORDER_TEXTS = [];
 
 function addTimeHandler() {
 
@@ -140,6 +145,44 @@ function addTimeHandler() {
 		.attr('height', TIMELINE_HEIGHT)
 		.attr('rx', edge_radius)
 		.style('fill', 'rgb(100,100,100)');
+
+	//A line to show the border of min displayed year.
+	var bound1 = svg.append('rect')
+		.attr("x", LEFT_BOUND)
+		.attr("width", 2)
+		.attr("y", SECOND_TIMELINE_YPOS/2 - 44)
+		.attr("height", SECOND_TIMELINE_YPOS/2 + 44)
+		.style("fill", "rgb(200,200,200)");
+
+	//A line to show the border of max displayed year.
+	var bound2 = svg.append('rect')
+		.attr("x", RIGHT_BOUND + LEFT_BOUND)
+		.attr("width", 2)
+		.attr("y", SECOND_TIMELINE_YPOS/2 - 44)
+		.attr("height", SECOND_TIMELINE_YPOS/2 + 44)
+		.style("fill", "rgb(200,200,200)");
+		
+	//Text to the lines that were implementet jsut above.
+	BORDER_TEXTS[0] = svg.append("text")
+		.attr("x", LEFT_BOUND - 3)
+		.attr("y", SECOND_TIMELINE_YPOS/2)
+		.attr("font-family", '"Roboto", sans-serif')
+		.attr("font-weight", "bold")
+        .attr("fill", "rgb(200,200,200)")
+        .attr("font-size", 20)
+        .classed("unselectable", true)
+        .attr("transform", "rotate(270," + (LEFT_BOUND - 3) + "," + SECOND_TIMELINE_YPOS/2 + ")");
+
+	//Text to the lines that were implementet jsut above.
+	BORDER_TEXTS[1] = svg.append("text")
+		.attr("x", LEFT_BOUND + RIGHT_BOUND)
+		.attr("y", SECOND_TIMELINE_YPOS/2)
+		.attr("font-family", '"Roboto", sans-serif')
+		.attr("font-weight", "bold")
+        .attr("fill", "rgb(180,180,180)")
+        .attr("font-size", 20)
+        .classed("unselectable", true)
+        .attr("transform", "rotate(270," + (LEFT_BOUND-3+RIGHT_BOUND) + "," + SECOND_TIMELINE_YPOS/2 + ")");
 
 	//Create marked section of timeline.
 	MARKED_TIME = svg.append('rect')
