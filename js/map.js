@@ -7,6 +7,8 @@
  	The file includes the functions:
  	- generateMap
  	- addArticleToMap
+ 	- chooseNewMainArticle
+ 	- placeMainMarkerOnTop
  	- hideStartpage
  	- changeModalContent
  	- openMarkerPopup
