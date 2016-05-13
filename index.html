@@ -84,9 +84,30 @@
 
 						
 					<!-- Buttons for the different pages: timeview and map ("tid" and "Plats") -->
-					<img id="icon" src="img/globe-pink.png" alt="GlobeIcon" style="width:9%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)">
+					<!-- ICON FOR THE MAPVIEW -->
+					<img class="globe" src="img/globe_white.png" alt="GlobeIcon" style="width:9%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)">
 
-					<img id="icon" src="img/clock_red.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)">
+					<script  type='text/javascript'>
+						$(document).ready(function(){
+						    $(".globe").hover(
+						        function() {$(this).attr("src","img/globe_orange_weak.png");},
+						        function() {$(this).attr("src","img/globe_white.png");
+						    });
+						});
+					</script>
+
+					<!-- ICON FOR THE TIMEVIEW -->
+					<img class="clock" src="img/clock_white.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)">
+
+					<script  type='text/javascript'>
+						$(document).ready(function(){
+						    $(".clock").hover(
+						        function() {$(this).attr("src","img/clock_orange_weak.png");},
+						        function() {$(this).attr("src","img/clock_white.png");
+						    });
+						});
+					</script>
+
 
 					<!--<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
 

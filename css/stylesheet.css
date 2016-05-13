@@ -90,18 +90,7 @@ section#search
 
 }
 
-input.globe {
-    background-image: url(../img/globe-red.png) no-repeat;
-    cursor:pointer;
-    width: 40px;
-    height: 40px;
-    border: none;
-}
-input.globe:focus{
-    color:#f23;
-    font-weight: bold;
-    border: 2px solid #f23;
-}
+
 
 button {
     background-color: gray; 
@@ -129,11 +118,13 @@ input#searchtext
 }
 
 footer{
+
     background-color: #102C5B;
     color: #ffffff;
     text-align: center;
     padding: 5px;
 }
+
 
 
 /*--------------------------------------------------------
@@ -243,11 +234,6 @@ footer{
     font-family: 'Roboto';
 }
 
-#icon {
-    margin-bottom: 10px;
-    margin-left: 10px;
-
-}
 
 #map { 
     position:absolute; 
@@ -318,6 +304,16 @@ footer{
     cursor: pointer;
 }
 
+
+.clock {
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.clock:hover{
+    cursor:pointer;
+}
+
 div.tooltip {   
     position: absolute;         
     text-align: center;         
@@ -329,6 +325,15 @@ div.tooltip {
     border: 0px;        
     border-radius: 3px;         
     pointer-events: none;           
+}
+
+.globe {
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.globe:hover{
+    cursor:pointer;
 }
 
 
