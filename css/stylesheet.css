@@ -10,10 +10,9 @@ button:hover{
     color: black;
 }
 
-/*circle:hover{
+circle:hover{
     cursor: pointer;
-    fill: 'blue';
-}*/
+}
 
 html,
 body { 

@@ -58,6 +58,7 @@ function startLinkSearch(links, color){
 		var query = getLinkSearchString(links[indx]);
 		getWikiData(query, color);
 	}
+	generateTimeDot(MAIN_ARTICLE);
 }
 
 //Works similar as the function 'load'.
