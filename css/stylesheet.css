@@ -1,6 +1,7 @@
 
-
-/*Hovers*/
+/*--------------------------------------------------------
+                      HOVERS 
+/*------------------------------------------------------*/
 
 a:hover {
     cursor: pointer;
@@ -124,7 +125,7 @@ button#search
 
 input#searchtext 
 {
-    width: 80%;
+    width: 40%;
 }
 
 footer{
@@ -135,7 +136,9 @@ footer{
 }
 
 
-/*Id*/
+/*--------------------------------------------------------
+                            ID
+/*------------------------------------------------------*/
 
 
 #transbox {
@@ -240,6 +243,12 @@ footer{
     font-family: 'Roboto';
 }
 
+#icon {
+    margin-bottom: 10px;
+    margin-left: 10px;
+
+}
+
 #map { 
     position:absolute; 
     top:0; 
@@ -294,7 +303,9 @@ footer{
     background: #ee8a65;
 }
 
-/*Classes*/
+/*--------------------------------------------------------
+                        CLASSES
+/*------------------------------------------------------*/
 
 .article_list_header {
     color: white;
@@ -379,7 +390,6 @@ div.tooltip {
 }
 
 
-
 #place_right{
     position: absolute;
     right: 30px;
@@ -400,8 +410,9 @@ div.tooltip {
 }
 
 
-
-
+/*--------------------------------------------------------
+                       NAVBAR
+/*------------------------------------------------------*/
 
 
 .navbar-default .navbar-brand {
