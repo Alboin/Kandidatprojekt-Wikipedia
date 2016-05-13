@@ -1,0 +1,59 @@
+<!--*******************************************************************************************************
+ 
+    HEADER 2
+
+    This file creates the navbar in the top. It is seen in timeview and mapview. 
+    
+    The file is written in html and uses AngularJS. 
+
+********************************************************************************************************-->
+
+<nav class="navbar navbar-default" role="navigation">
+
+    <div class="navbar-header">
+
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        </button>
+  
+    </div>
+    
+    <div class="navbar-center navbar-brand" href="#/"><a class="navbar-brand">Wikipedia</a></div>
+    
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+     
+        <form class="navbar-form navbar-left" role="search">
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="searchtext" placeholder="Search">
+            </div>
+            <button id="search" type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
+            
+            <i style="color: white" class="fa fa-calendar fa-3x" aria-hidden="true"></i>
+            <i style="color: white" class="fa fa-globe fa-3x" aria-hidden="true"></i>
+
+        </form>
+
+        <script>
+
+            // If the button "search" is clicked, the search is activated.
+            document.getElementById("search").addEventListener("click", pressSearchButton);
+
+            //Trigger searchbutton by clicking the enter key
+            $("#searchtext").keyup(function(event){
+                if(event.keyCode == 13){
+                    $("#search").click();
+                }
+            });
+            
+        </script>
+        
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">ABOUT</a></li>      
+        </ul>
+
+    </div>
+
+</nav>
