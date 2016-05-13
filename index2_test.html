@@ -1,7 +1,13 @@
 <!--*******************************************************************************************************
     
-    ORIGINALET
-	DET HÄR BLIR ALLTSÅ DEN ANDRA VYN.
+DET HÄR BLIR ALLTSÅ DEN ANDRA VYN.(Som kommer från orginalet)
+
+This is the second page.
+First page -> Second page
+index_text.html -> index2_test.html
+
+This page uses pages/header2.html as header. 
+
 
 ********************************************************************************************************-->
 <!-- This code is written with angular.js -->
@@ -42,13 +48,13 @@
  		<script type="text/javascript" src="js/map.js"></script>
  		<script type="text/javascript" src="js/timeline_view.js"></script>
  		<script type="text/javascript" src="js/timeline_controller.js"></script>
-
-<!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
- 		
 		
 		<!--Modal popup-->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	    <!--Includes the header in all the different views-->
+	    <div ng-include='"pages/header2.html"'></div>
 
 	</head>
 
@@ -60,6 +66,8 @@
 		<!-- The page The page consists of three rows that are placed above each other. "Header_row" "upper_row" and "lower_row". -->
 			
 			<!-- 1st row, top of the page. -->
+
+
 	        <div class="row" id="header_row">
 
 	        	<!-- The row is divided in 3 columns with the same size, which are empty to get the information in the center of the page. -->
@@ -104,7 +112,7 @@
 		        The headline changes depending on which page is the current search. -->
 		        <div class="col-lg-4">     
 
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
+					<!--div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 						<h4> Tidsinformation </h4>
 					</div>
 
@@ -119,7 +127,7 @@
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
 						<h4> Wikinspire </h4>
 						<p id="searchcompleted"></p>
-					</div>
+					</div-->
 
 	        	</div>	
 

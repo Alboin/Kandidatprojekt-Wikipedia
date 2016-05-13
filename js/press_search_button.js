@@ -11,7 +11,8 @@
 
 //The function is run when the user press "search"
 function pressSearchButton() {		
-
+	generateMap();
+	addTimeHandler();
 	//Save user input.
 	var usertext = document.getElementById("searchtext").value;
 
@@ -23,5 +24,6 @@ function pressSearchButton() {
 	HAS_RUN_EXTRA_SEARCH = false;
 
 	getWikiData(query, "red");
+
 	//HERE you could have some type of loadMainArticleingscreen that is shown while waiting for a response from the function.
 }

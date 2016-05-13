@@ -78,7 +78,7 @@ function getWikiData(query, article_color){
 
 		        		//Remove all old markers from map.
 		        		all_markers = [];
-		        		map.removeLayer(markerLayer);
+		        		//map.removeLayer(markerLayer);
 		        		markerLayer = L.mapbox.featureLayer().addTo(map);
 
 		        		//Remove all old dots from timeline.
