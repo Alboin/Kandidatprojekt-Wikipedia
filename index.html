@@ -43,9 +43,7 @@
  		<script type="text/javascript" src="js/timeline_view.js"></script>
  		<script type="text/javascript" src="js/timeline_controller.js"></script>
 
-<!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
- 		
-		
+
 		<!--Modal popup-->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -86,15 +84,29 @@
 
 						
 					<!-- Buttons for the different pages: timeview and map ("tid" and "Plats") -->
-					<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
-					<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="hideStartpage()"> Plats </button>
-					<!-- <button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>	-->
+					<!-- ICON FOR THE MAPVIEW -->
+					<img class="globe" src="img/globe_white.png" alt="GlobeIcon" style="width:9%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)">
 
-					<!-- Button triggs modal --> 
-					<!--Can be nice to use if we want to work on the popup window-->
-					<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-					  Launch demo modal
-					</button-->
+					<script  type='text/javascript'>
+						$(document).ready(function(){
+						    $(".globe").hover(
+						        function() {$(this).attr("src","img/globe_orange_weak.png");},
+						        function() {$(this).attr("src","img/globe_white.png");
+						    });
+						});
+					</script>
+
+					<!-- ICON FOR THE TIMEVIEW -->
+					<img class="clock" src="img/clock_white.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)">
+
+					<script  type='text/javascript'>
+						$(document).ready(function(){
+						    $(".clock").hover(
+						        function() {$(this).attr("src","img/clock_orange_weak.png");},
+						        function() {$(this).attr("src","img/clock_white.png");
+						    });
+						});
+					</script>
 						
 		        </div>
 
@@ -179,9 +191,6 @@
 
 
 
-			
-			
-
 			<!--3rd row, the row at the bottom.-->		
    			<div class="row nomargin" id="lower_row">
    			<!--  -->
@@ -215,7 +224,7 @@
 						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
 
-							<h3 id='article_list_header'>Visade artiklar</h3>
+							<h3 class='article_list_header' id="article_list_header_map" onclick='hideArticleListMap()'>Visade artiklar</h3>
 							<ul id='article_list'></ul>
 
 						</div>
@@ -267,13 +276,6 @@
 			 $("#article_list_time").slideToggle();
 			
 		</script>
-
-
-   		<!--<footer>
-			<footer>
-				Copyright © TeamWikipedia
-			</footer>
-		</footer>-->
 
 	</body>
 </html>

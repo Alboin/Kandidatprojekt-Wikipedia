@@ -8,10 +8,14 @@
 	This file includes the functions:
 	- getLinkSearchString
 	- startLinkSearch
-	- linksPosition
 	- loadLinksArticles
-	- sort (sorts TIME_ARTICLES by year, month, day)
+	- getRelationSentence
+	- getRelationWithBacklink
 	- getArticleText
+
+	//Har de här två flyttats? 
+	- linksPosition
+	- sort (sorts TIME_ARTICLES by year, month, day)
 ********************************************************************************************************/
 
 
@@ -54,6 +58,7 @@ function startLinkSearch(links, color){
 		var query = getLinkSearchString(links[indx]);
 		getWikiData(query, color);
 	}
+	generateTimeDot(MAIN_ARTICLE);
 }
 
 //Works similar as the function 'load'.
@@ -73,15 +78,22 @@ function loadLinksArticles(data) {
 		birthplace: "",
 		relation_sentence: "",
 		second_relation_sentence: "",
-		link_both_ways: false
+		link_both_ways: false,
+		is_backlink: false
 	}
+	if(MARKER_COLOR == "gray")
+		temp_article.is_backlink = true;
 
 	temp_article.id = data.query.pageids[0]; 									//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title; 				//Save article title
 
 	//Remove discussions and users from the articles. These often contain a ":" in their title.
-	if(temp_article.title.indexOf(":") > 0)
+	if(temp_article.title.indexOf(":") > 0){
+		if(temp_article.title == MAIN_ARTICLE.backlinks[MAIN_ARTICLE.backlinks.length-1]) {
+			console.log("Färdig med hela sökningen! (1)");
+		}
 		return;
+	}
 
 	temp_article.entirearticle = data.query.pages[temp_article.id].extract;		//Save entire article
 	//temp_article.first_paragraph = data.query.pages[temp_article.id].extract; 	//Save first paragraph (Det var såhär innan)
@@ -155,12 +167,34 @@ function loadLinksArticles(data) {
 	//If the article has a year, save the article in TIME_ARTICLES
 	if(temp_article.time[0] && temp_article.time[0][2])
 	{
+		var time_article_exist = false;
 
-		TIME_ARTICLES.push(temp_article);
-		generateTimeDot(temp_article);
+		if(TIME_ARTICLES.length > 0) {
+
+			for(var i = 0; i < TIME_ARTICLES.length; i++) {
+				if(TIME_DOTS[0].id == MAIN_ARTICLE.id) {
+					TIME_DOTS[0].attr("dot_color", "#ff0000").attr("dot_border_color", "#ff8888");
+					d3.select("#dot" + MAIN_ARTICLE.id).attr("dot_color", "#ff0000").attr("dot_border_color", "#ff8888").attr("fill", "#ff0000");
+					var k = i+1;
+				} else {
+					var k = i;
+				}
+				if(TIME_ARTICLES[i].id == temp_article.id) {
+					TIME_ARTICLES[i] = temp_article;
+					TIME_DOTS[k].attr("dot_color", "#2E8A2F").attr("dot_border_color", "#96c496");
+					d3.select("#" + TIME_DOTS[i].id).attr("dot_color", "#2E8A2F").attr("dot_border_color", "#96c496").attr("fill", "#2E8A2F");
+					time_article_exist = true;
+					break;
+				}
+			}
+		}
+		if(!time_article_exist) {
+			TIME_ARTICLES.push(temp_article);
+			generateTimeDot(temp_article);
+		}
 		
 		//Sort the array time_articles
-		TIME_ARTICLES.sort(
+		/*TIME_ARTICLES.sort(
 			function(a, b)
 			{
 				//If the two articles do not have the same year -> sort them by year
@@ -175,11 +209,12 @@ function loadLinksArticles(data) {
 				else
 					return (a.time[0][0]) - (b.time[0][0]);	
 			}
-		)
+		)*/
 	}
 	
-	if(temp_article.title == MAIN_ARTICLE.backlinks[MAIN_ARTICLE.backlinks.length-1])
-		console.log("Färdig med hela sökningen!")
+	if(temp_article.title == MAIN_ARTICLE.backlinks[MAIN_ARTICLE.backlinks.length-1]) {
+		console.log("Färdig med hela sökningen! (2)");
+	}
 
 
 	//Return array of articles which have coordinates or time

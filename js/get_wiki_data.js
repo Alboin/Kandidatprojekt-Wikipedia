@@ -4,7 +4,7 @@
 
  	The final query is used to GET data from Wikipedia, a json-object is returned.
 
- 	The file includes the function:
+ 	The file includes the functions:
  	- getWikiData
  	- makeFirstLettersCapital
 ********************************************************************************************************/
@@ -82,12 +82,14 @@ function getWikiData(query, article_color){
 		        		markerLayer = L.mapbox.featureLayer().addTo(map);
 
 		        		//Remove all old dots from timeline.
-		        		TIME_DOTS = [];
 		        		YEAR_COUNTER = [];
+		        		TIME_DOTS = [];
 		        		$('#' + LAST_CLICKED_ID).tipsy("hide");
-		        		d3.selectAll(".time_dot_class").remove();
+		        		d3.selectAll(".time_dot_class").transition().duration(200).attr("r", 0).transition().duration(300).remove();
 		        		MIN_YEAR = null, MAX_YEAR = null;
+		        		$("#lower_row").unbind( "click" );
 		        		setTimeout(moveHandles(0,1), 3000);
+
 
 
 		        		//Clears the list with articles that are displayed on the map.

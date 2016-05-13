@@ -11,8 +11,8 @@
 
 //The function is run when the user press "search"
 function pressSearchButton() {		
-	generateMap();
-	addTimeHandler();
+	//generateMap();
+	//addTimeHandler();
 	//Save user input.
 	var usertext = document.getElementById("searchtext").value;
 

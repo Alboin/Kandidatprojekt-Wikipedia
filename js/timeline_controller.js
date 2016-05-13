@@ -6,15 +6,23 @@
  	timeview. The timeline has handles that the user can use to choose a specific time span.
 
  	The file includes the function:
+ 	- addTimeHandler
  	- moveHandles
+	- updateHandleText
+
 ********************************************************************************************************/
 var TIMELINE_START,	TIMELINE_WIDTH, TIMELINE_HEIGHT, TIMELINE_YPOS;
 
 var HANDLE_LEFT, HANDLE_RIGHT, MARKED_TIME, HANDLE_WIDTH;
 
+//All labels below the lower timeline.
 var TIMELINE_TEXTS = [];
+//All labels below the upper timeline.
 var TIMELINE_SECOND_TEXTS = [];
+//The two labels that follows the handles on the lower timeline.
 var HANDLE_TEXTS = [];
+//The two labels that show min and max displayed year.
+var BORDER_TEXTS = [];
 
 function addTimeHandler() {
 
@@ -27,7 +35,14 @@ function addTimeHandler() {
 	TIMELINE_START = 0.05*window.innerWidth,
 	TIMELINE_WIDTH = window.innerWidth - 2*TIMELINE_START,
 	TIMELINE_HEIGHT = 0.03*window.innerHeight,
-	TIMELINE_YPOS = 0.8*window.innerHeight;
+	TIMELINE_YPOS = 0.75*window.innerHeight;
+
+	var timeline_container = svg.append("rect")
+		.attr("width", window.innerWidth + 20)
+		.attr("height", window.innerHeight)
+		.attr("x", -10)
+		.attr("y", (TIMELINE_YPOS - (window.innerHeight - TIMELINE_YPOS)/2) + handle_height)
+		.attr("style", "fill:rgb(70,70,70);stroke:gray;stroke-width:5;");
 
 	//Decides how many labels should be generated below the timeline depending on your screen size.
     var numberOfTimelabels = Math.round(window.innerWidth/150);
@@ -38,7 +53,7 @@ function addTimeHandler() {
             .attr("x", i/numberOfTimelabels*TIMELINE_WIDTH + TIMELINE_START - 16)
             .attr("y", TIMELINE_YPOS + 0.06*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
-            .attr("fill", "rgb(70,70,70)")
+            .attr("fill", "rgb(150,150,150)")//"rgb(70,70,70)")
             .classed("unselectable", true)
             .attr( "fill-opacity", 0 );
     }
@@ -68,6 +83,7 @@ function addTimeHandler() {
             .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
             .attr("font-weight", "bold")
+            .attr("fill", "rgb(200,200,200)")
             .classed("unselectable", true)
             .attr( "fill-opacity", 0 );
 
@@ -77,6 +93,7 @@ function addTimeHandler() {
             .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
             .attr("font-weight", "bold")
+            .attr("fill", "rgb(200,200,200)")
             .classed("unselectable", true)
             .attr( "fill-opacity", 0 );
 
@@ -140,6 +157,44 @@ function addTimeHandler() {
 		.attr('height', TIMELINE_HEIGHT)
 		.attr('rx', edge_radius)
 		.style('fill', 'rgb(100,100,100)');
+
+	//A line to show the border of min displayed year.
+	var bound1 = svg.append('rect')
+		.attr("x", LEFT_BOUND)
+		.attr("width", 2)
+		.attr("y", SECOND_TIMELINE_YPOS/2 - 44)
+		.attr("height", SECOND_TIMELINE_YPOS/2 + 44)
+		.style("fill", "rgb(200,200,200)");
+
+	//A line to show the border of max displayed year.
+	var bound2 = svg.append('rect')
+		.attr("x", RIGHT_BOUND + LEFT_BOUND)
+		.attr("width", 2)
+		.attr("y", SECOND_TIMELINE_YPOS/2 - 44)
+		.attr("height", SECOND_TIMELINE_YPOS/2 + 44)
+		.style("fill", "rgb(200,200,200)");
+		
+	//Left text to the lines that were implementet just above.
+	BORDER_TEXTS[0] = svg.append("text")
+		.attr("x", LEFT_BOUND - 3)
+		.attr("y", SECOND_TIMELINE_YPOS/2 + 22)
+		.attr("font-family", '"Roboto", sans-serif')
+		.attr("font-weight", "bold")
+        .attr("fill", "rgb(180,180,180)")
+        .attr("font-size", 20)
+        .classed("unselectable", true)
+        .attr("transform", "rotate(270," + (LEFT_BOUND - 3) + "," + SECOND_TIMELINE_YPOS/2 + ")");
+
+	//Right text to the lines that were implementet just above.
+	BORDER_TEXTS[1] = svg.append("text")
+		.attr("x", LEFT_BOUND + RIGHT_BOUND)
+		.attr("y", SECOND_TIMELINE_YPOS/2)
+		.attr("font-family", '"Roboto", sans-serif')
+		.attr("font-weight", "bold")
+        .attr("fill", "rgb(180,180,180)")
+        .attr("font-size", 20)
+        .classed("unselectable", true)
+        .attr("transform", "rotate(270," + (LEFT_BOUND-3+RIGHT_BOUND) + "," + SECOND_TIMELINE_YPOS/2 + ")");
 
 	//Create marked section of timeline.
 	MARKED_TIME = svg.append('rect')

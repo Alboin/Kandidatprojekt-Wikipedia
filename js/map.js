@@ -7,11 +7,14 @@
  	The file includes the functions:
  	- generateMap
  	- addArticleToMap
+ 	- chooseNewMainArticle
+ 	- placeMainMarkerOnTop
  	- hideStartpage
  	- changeModalContent
  	- openMarkerPopup
  	- createMapListObject
  	- createPopupContent
+ 	- hideArticleListMap
  	
 ********************************************************************************************************/
 
@@ -268,4 +271,8 @@ function createPopupContent (article) {
 	popup_content += '<br><a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + article.title + "'" +')"> Sök på "' + article.title + '" </a>';
 
 	return popup_content;
+}
+
+function hideArticleListMap() {
+    $("#article_list").slideToggle();
 }
