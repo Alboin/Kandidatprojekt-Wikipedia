@@ -84,8 +84,14 @@
 
 						
 					<!-- Buttons for the different pages: timeview and map ("tid" and "Plats") -->
-					<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
-					<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="hideStartpage()"> Plats </button>
+					<img id="icon" src="img/globe-pink.png" alt="GlobeIcon" style="width:9%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)">
+
+					<img id="icon" src="img/clock_red.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)">
+
+					<!--<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
+
+					<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="hideStartpage()"> Plats </button> -->
+
 					<!-- <button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>	-->
 
 					<!-- Button triggs modal --> 

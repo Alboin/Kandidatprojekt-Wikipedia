@@ -126,7 +126,7 @@ button#search
 
 input#searchtext 
 {
-    width: 80%;
+    width: 40%;
 }
 
 footer{
@@ -242,6 +242,12 @@ footer{
     text-align: center;
     font-size: 100%;
     font-family: 'Roboto';
+}
+
+#icon {
+    margin-bottom: 10px;
+    margin-left: 10px;
+
 }
 
 #map { 
