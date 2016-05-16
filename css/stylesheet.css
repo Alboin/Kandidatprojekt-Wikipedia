@@ -133,6 +133,7 @@ input#searchbutton
 input#searchtext 
 {
     width: 40%;
+    margin-left: 3%;
 }
 
 footer{
@@ -150,7 +151,23 @@ footer{
 /*------------------------------------------------------*/
 
 #globe{
+}
 
+#loading_gif {
+    position: absolute;
+    color: green;
+    left: 12.5%;
+    top: 29px;
+    z-index: 10;
+}
+
+#loading_done_checkbox {
+    position: absolute;
+    color: rgba(0, 37, 51, 0.7);;
+    left: 12.5%;
+    top: 26px;
+    z-index: 10;
+    font-size: 20px;
 }
 
 

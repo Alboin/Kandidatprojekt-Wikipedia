@@ -85,7 +85,7 @@
 						
 					<!-- Buttons for the different pages: timeview and map ("tid" and "Plats") -->
 					<!-- ICON FOR THE MAPVIEW -->
-					<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)">
+					<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)"/>
 
 
 					<!-- handle icon when hovered -->
@@ -328,8 +328,8 @@
 			$(document).ready(console.log("Document is ready!"));
 
 			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
-			$('#article_list').css('max-height', window.innerHeight * 0.65 + 'px');
-			$('#article_list_time').css('max-height', window.innerHeight * 0.65 + 'px');
+			$('#article_list').css('max-height', window.innerHeight * 0.6 + 'px');
+			$('#article_list_time').css('max-height', window.innerHeight * 0.55 + 'px');
 
 			//Prevent the article to become "unmarked" when the user clicks somewhere in the article list.
 			$("#article_list_container_time")

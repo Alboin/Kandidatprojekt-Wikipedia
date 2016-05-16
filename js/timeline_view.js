@@ -43,10 +43,12 @@ function generateTimeDot(article) {
     //Sets some starting values for the first article.
     if(!MIN_YEAR) {
         MIN_YEAR = article.time[0][2];
-        MAX_YEAR = MIN_YEAR + 0.1;
+        MAX_YEAR = MIN_YEAR + 1;
         DISPLAYED_MIN_YEAR = MIN_YEAR;
-        DISPLAYED_MAX_YEAR = MIN_YEAR + 0.1;
+        DISPLAYED_MAX_YEAR = MIN_YEAR + 1;
     }
+    if(MIN_YEAR == MAX_YEAR - 1)
+        MIN_YEAR = MIN_YEAR - 1;
 
     //If the article year is smaller than MIN_YEAR or bigger than MAX_YEAR, change the global variables.
     if(article.time[0][2] < MIN_YEAR) {

@@ -18,6 +18,7 @@
 	- sort (sorts TIME_ARTICLES by year, month, day)
 ********************************************************************************************************/
 
+var LAST_LINK_TITLE = "";
 
 //This function works similar to the function 'getSearchString'. Used for the related links in the 
 //first search of an article. The functions defines which properties to get from the article.	*/
@@ -82,17 +83,23 @@ function loadLinksArticles(data) {
 		link_both_ways: false,
 		is_backlink: false
 	}
+
 	if(MARKER_COLOR == "gray")
 		temp_article.is_backlink = true;
 
 	temp_article.id = data.query.pageids[0]; 									//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title; 				//Save article title
 
+	//When the search is somewhat done replace the loading gif with a checkbox icon.
+	//The search may not be completed since it is not entirely sure that the result for the last link searched for arrive last.
+	if(MAIN_ARTICLE.backlinks[MAIN_ARTICLE.backlinks.length -1].toLowerCase() == temp_article.title.toLowerCase()) {
+		$("#loading_gif").remove();
+		$("#header_row").append("<i class='fa fa-check-circle' aria-hidden='true' id='loading_done_checkbox'></i>");
+		console.log("Search completed.")
+	}
+
 	//Remove discussions and users from the articles. These often contain a ":" in their title.
 	if(temp_article.title.indexOf(":") > 0){
-		if(temp_article.title == MAIN_ARTICLE.backlinks[MAIN_ARTICLE.backlinks.length-1]) {
-			console.log("Färdig med hela sökningen! (1)");
-		}
 		return;
 	}
 
@@ -213,11 +220,6 @@ function loadLinksArticles(data) {
 			}
 		)*/
 	}
-	
-	if(temp_article.title == MAIN_ARTICLE.backlinks[MAIN_ARTICLE.backlinks.length-1]) {
-		console.log("Färdig med hela sökningen! (2)");
-	}
-
 
 	//Return array of articles which have coordinates or time
 	return [COORD_ARTICLES, TIME_ARTICLES];
