@@ -32,6 +32,8 @@ function getWikiData(query, article_color){
 
 	        		MARKER_COLOR = article_color;
 
+	        		console.log(data);
+
 	        		//If the result is not a valid article and no redirection proposal is given (see below).
 	        		if(data.query.pageids[0] == -1) {
 
@@ -55,6 +57,7 @@ function getWikiData(query, article_color){
 	        					var query = getSearchString(article_title.toLowerCase());
 	        					MAIN_SEARCH = true;
 	        					getWikiData(query, "red");
+
 	        				}
 	        				HAS_RUN_EXTRA_SEARCH = true;
 

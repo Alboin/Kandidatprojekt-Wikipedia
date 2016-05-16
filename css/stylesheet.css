@@ -99,8 +99,7 @@ section#search
 }
 
 
-
-/*button {
+button {
     background-color: gray; 
     border: none;
     color: white;
@@ -110,7 +109,7 @@ section#search
     display: inline-block;
     font-size: 16px;
     border-radius: 8px;
-}*/
+}
 
 
 button#search
@@ -329,6 +328,18 @@ footer{
 }
 
 
+.btn-primary {
+    color: #fff;
+    background-color: #002533;
+    border-color: #002533;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #002533; 
+    border-color: #002533;
+}
+
 .clock {
     margin-bottom: 10px;
     margin-left: 10px;
@@ -364,6 +375,10 @@ div.tooltip {
     cursor:pointer;
 }
 
+.info_button{
+   cursor: pointer; 
+   cursor: hand; 
+}
 
 .mapboxgl-popup {
     max-width: 400px;
@@ -391,7 +406,7 @@ div.tooltip {
 .modal-header {
     padding:9px 15px;
     border-bottom:1px solid #eee;
-    background-color: gray;
+    background-color: #002533;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
@@ -400,10 +415,15 @@ div.tooltip {
      border-top-right-radius: 5px;
 }
 
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+
 .modal-footer {
     padding:9px 15px;
     border-top:1px solid #eee;
-    background-color: gray;
+    background-color: #002533;
     -webkit-border-bottom-left-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
     -moz-border-radius-bottomleft: 5px;
@@ -422,7 +442,6 @@ div.tooltip {
     cursor: default;
 }
 
-
 .wiki_title{
     font-weight: 500;
     font-size: 100px;
@@ -431,7 +450,6 @@ div.tooltip {
     text-align: center;
     font-family: 'Playfair Display', serif; 
 }
-
 
 #place_right{
     position: absolute;
@@ -446,7 +464,7 @@ div.tooltip {
 }
 
 #header_row{
-    background-color: #304755;
+    background-color: #002533;
     font-color: #ffffff;
     padding: 0;
     margin: 0;
@@ -482,8 +500,6 @@ div.tooltip {
                        NAVBAR
 /*------------------------------------------------------*/
 
-
-
 /* Bra sida som genererar navbar CSS: http://work.smarchal.com/twbscolor/ */
 .navbar{
     border-radius: 0px;
@@ -501,9 +517,6 @@ div.tooltip {
     font-family: 'Playfair Display', serif; 
 }
 
-
-
-
 .navbar-center
 {
     position: absolute;
@@ -520,52 +533,65 @@ div.tooltip {
   border-color: #002533;
   border-radius: 0px;
 }
+
 .navbar-default .navbar-brand {
   color: #ffffff;
 }
+
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
   color: #eaebec;
 }
+
 .navbar-default .navbar-text {
   color: #ffffff;
 }
+
 .navbar-default .navbar-nav > li > a {
   color: #ffffff;
 }
+
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #eaebec;
 }
+
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #eaebec;
   background-color: #f99c08;
 }
+
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
   color: #eaebec;
   background-color: #f99c08;
 }
+
 .navbar-default .navbar-toggle {
   border-color: #f99c08;
 }
+
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
   background-color: #f99c08;
 }
+
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #ffffff;
 }
+
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
   border-color: #ffffff;
 }
+
 .navbar-default .navbar-link {
   color: #ffffff;
 }
+
 .navbar-default .navbar-link:hover {
   color: #eaebec;
 }

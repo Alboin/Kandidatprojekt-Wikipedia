@@ -182,16 +182,34 @@
 
 	        	<!-- Third/last column in row 1, up to the right-->
 			    <div class="col-lg-4">
+
+			    	<!--Info-modal-->
 					<div class="infoButton">
 						<!-- Buttons for the "övrigt" page, to be "info"-page -->
-						<img id ="place_right" class="info" src="img/info.png" style="width:8%;" ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(1)">
 
-						<!-- Button triggs modal --> 
-						<!--Can be nice to use if we want to work on the popup window-->
-						<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-						  Launch demo modal
-						</button-->
+						<img id="place_right" class="info_button" data-toggle="modal" data-target="#myModal" src="img/info.png" style="width:8%;"> <!--i class="fa fa-info" aria-hidden="true"></i--></img>
+
+
+						<div id="myModal" class="modal fade">
+   							<div class="modal-dialog">
+        						<div class="modal-content">
+            						<div class="modal-header">
+            							<!--The cross in top right corner of the modal-->
+               							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                						<h4 class="modal-title">Info</h4>
+           							</div>
+									<div class="modal-body">
+			                			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel vehicula erat. Phasellus vestibulum leo eu mi tempor blandit. Suspendisse eget iaculis lectus. Donec vitae tempus enim, quis tristique magna. Donec lobortis, sem ac pretium viverra, leo nisl consequat arcu, sit amet ullamcorper nunc turpis ac erat. In rutrum auctor ligula, quis mattis enim lacinia eu. Aliquam at magna a erat laoreet iaculis quis a justo. Donec porttitor vulputate massa, nec suscipit nisi mollis sed.
+									</div>
+								</div>
+                    		</div>
+        
+    					</div>
+   
+
+		
 					</div>
+
 			    </div>
 	    	
 	    	<!-- End of 1st row, top of the page. -->
