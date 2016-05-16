@@ -179,6 +179,7 @@ function generateTimeDot(article) {
 
     });
 
+
     //Needed for some reason? Sara Martin maybe you could explain?
     $('#dot' + article.id).click(function(e){
         e.stopPropagation();

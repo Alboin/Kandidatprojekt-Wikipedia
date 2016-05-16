@@ -166,6 +166,16 @@ function addTimeHandler() {
 		.attr("height", SECOND_TIMELINE_YPOS/2 + 44)
 		.style("fill", "rgb(200,200,200)");
 
+	//Sets the sizes for the inaccessible areas at the left and right of the timeview.
+    $("#inaccessible_area_left")
+    	.css("width", LEFT_BOUND)
+    	.css("height", (TIMELINE_YPOS - (window.innerHeight - TIMELINE_YPOS)/2) + handle_height + 9);
+    $("#inaccessible_area_right")
+    	.css("width", LEFT_BOUND + 14)
+    	.css("height", (TIMELINE_YPOS - (window.innerHeight - TIMELINE_YPOS)/2) + handle_height + 9);
+
+
+
 	//A line to show the border of max displayed year.
 	var bound2 = svg.append('rect')
 		.attr("x", RIGHT_BOUND + LEFT_BOUND)
@@ -257,7 +267,7 @@ function addTimeHandler() {
 				mouse_text.attr("fill-opacity", 1).attr("x", e.pageX - 16).text(String(year));
 			line.attr("x1", e.pageX).attr("x2", e.pageX).attr("stroke-opacity", 1);
 		}
-	});
+	});             
 
 
 }

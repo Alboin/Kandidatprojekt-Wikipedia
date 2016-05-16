@@ -409,6 +409,27 @@ div.tooltip {
     margin: 0;
 }
 
+#inaccessible_area_left {
+    background-color: red;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: -1;
+    opacity: 0.3;
+    z-index: 10;
+}
+
+#inaccessible_area_right {
+    background-color: blue;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: -1;
+    right: 0;
+    opacity: 0.3;
+    z-index: 10;
+}
+
 
 /*--------------------------------------------------------
                        NAVBAR
