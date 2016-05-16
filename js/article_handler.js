@@ -322,12 +322,7 @@ function printModalContent(article) {
 	document.getElementById("artikel_text").innerHTML = article.first_paragraph;					//Article
 	if(article.image_source != "")
 		document.getElementById("artikel_bild").innerHTML = "<img id='modalImage' src='" + article.image_source + "'>";	//Thumbnailmage
-	
-	//TODO
-	//Categories
-	//document.getElementById("artikel_kategori").innerHTML = article.categories;
 
-	//TO BE REMOVED
 	/*-----------------------------------------------
 			Gets information about the article 
 	-----------------------------------------------*/
