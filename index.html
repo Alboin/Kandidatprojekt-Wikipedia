@@ -76,7 +76,7 @@
 						//Trigger searchbutton by clicking the enter key
 						$("#searchtext").keyup(function(event){
 	    					if(event.keyCode == 13){
-	        					$("#search").click();
+	        					pressSearchButton();
     						}
 						});
 
@@ -85,50 +85,61 @@
 						
 					<!-- Buttons for the different pages: timeview and map ("tid" and "Plats") -->
 					<!-- ICON FOR THE MAPVIEW -->
-					<img class="globe" id="globe"; src="img/globe_white.png" alt="GlobeIcon" style="width:9%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)">
+					<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)">
+
 
 					<!-- handle icon when hovered -->
 					<script  type='text/javascript'>
 						$(document).ready(function(){
-						    $(".globe").hover(
-						        function() {$(this).attr("src","img/globe_orange_weak.png");},
-						        function() {$(this).attr("src","img/globe_white.png");
-						    });
+							$("#globe").mouseenter(function(){
+								if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
+									$("#globe").attr("src" , "img/globe_orange_weak_small.png");
+								}
+							});
+							$("#globe").mouseleave(function(){
+								if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
+									$("#globe").attr("src" , "img/globe_white_small.png");
+								}
+							});
+
+							$("#clock").mouseenter(function(){
+								if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
+									$("#clock").attr("src" , "img/clock_orange_weak_small.png");
+								}
+							});
+							$("#clock").mouseleave(function(){
+								if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
+									$("#clock").attr("src" , "img/clock_white_small.png");
+								}
+							});
+
 						});
 					</script>
 
 					<!-- handle icon when clicked -->
 					<script>
 					    function changeGlobeImage(element) {
-					         var right = "img/globe_orange_strong.png";
-					         var left = "img/globe_white.png";
-					         element.src = element.bln ? right : left;	//bln = boolean 
-					         element.bln = !element.bln;
+
+					    	if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
+					    		$("#globe").attr("src", "img/globe_orange_strong_small.png");
+					    	}
+					    	$("#clock").attr("src", "img/clock_white_small.png");
 					     }
 					</script>
 
 
 					<!-- ICON FOR THE TIMEVIEW -->
-					<img class="clock" src="img/clock_white.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
 
-					<!-- handle icon when hovered -->
-					<script  type='text/javascript'>
-						$(document).ready(function(){
-						    $(".clock").hover(
-						        function() {$(this).attr("src","img/clock_orange_weak.png");},
-						        function() {$(this).attr("src","img/clock_white.png");
-						    });
-						});
-					</script>
+					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
 
 
 					<!-- handle icon when clicked -->
 					<script>
 					    function changeClockImage(element) {
-					         var right = "img/clock_orange_strong.png";
-					         var left = "img/clock_white.png";
-					         element.src = element.bln ? right : left;	//bln = boolean 
-					         element.bln = !element.bln;
+					    	if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
+					    		$("#clock").attr("src", "img/clock_orange_strong_small.png");
+					    	}
+					    	$("#globe").attr("src", "img/globe_white_small.png");
 					     }
 					</script>
 
@@ -171,16 +182,34 @@
 
 	        	<!-- Third/last column in row 1, up to the right-->
 			    <div class="col-lg-4">
+
+			    	<!--Info-modal-->
 					<div class="infoButton">
 						<!-- Buttons for the "övrigt" page, to be "info"-page -->
-						<img id ="place_right" class="info" src="img/info.png" style="width:8%;" ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(1)">
 
-						<!-- Button triggs modal --> 
-						<!--Can be nice to use if we want to work on the popup window-->
-						<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-						  Launch demo modal
-						</button-->
+						<img id="place_right" class="info_button" data-toggle="modal" data-target="#myModal" src="img/info.png" style="width:8%;"> <!--i class="fa fa-info" aria-hidden="true"></i--></img>
+
+
+						<div id="myModal" class="modal fade">
+   							<div class="modal-dialog">
+        						<div class="modal-content">
+            						<div class="modal-header">
+            							<!--The cross in top right corner of the modal-->
+               							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                						<h4 class="modal-title">Info</h4>
+           							</div>
+									<div class="modal-body">
+			                			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel vehicula erat. Phasellus vestibulum leo eu mi tempor blandit. Suspendisse eget iaculis lectus. Donec vitae tempus enim, quis tristique magna. Donec lobortis, sem ac pretium viverra, leo nisl consequat arcu, sit amet ullamcorper nunc turpis ac erat. In rutrum auctor ligula, quis mattis enim lacinia eu. Aliquam at magna a erat laoreet iaculis quis a justo. Donec porttitor vulputate massa, nec suscipit nisi mollis sed.
+									</div>
+								</div>
+                    		</div>
+        
+    					</div>
+   
+
+		
 					</div>
+
 			    </div>
 	    	
 	    	<!-- End of 1st row, top of the page. -->
@@ -239,6 +268,9 @@
 						<svg id= "svg"   style="width:100%;height:100%;margin:0;">
 
 						</svg>
+
+						<div id="inaccessible_area_left"></div>
+						<div id="inaccessible_area_right"></div>
 
 						<!-- The list with all articles displayed on the time-line. -->
 						<div id='article_list_container_time'>

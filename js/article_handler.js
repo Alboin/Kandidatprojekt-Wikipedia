@@ -135,7 +135,11 @@ function loadMainArticle(data) {
 		document.getElementById("middle_row").innerHTML =  "" + MAIN_ARTICLE.title;	
 
 	//Get the year. 
-	temp_article.year=getYear(temp_article.time);
+	//temp_article.year=getYear(temp_article.time);
+	temp_article.time = getArticleTime(temp_article.first_paragraph);
+
+	if(temp_article.time[0])
+		TIME_ARTICLES.push(temp_article);
 
 	//Check if the article has a position. 
 	if(temp_article.position[0]) {
@@ -322,12 +326,7 @@ function printModalContent(article) {
 	document.getElementById("artikel_text").innerHTML = article.first_paragraph;					//Article
 	if(article.image_source != "")
 		document.getElementById("artikel_bild").innerHTML = "<img id='modalImage' src='" + article.image_source + "'>";	//Thumbnailmage
-	
-	//TODO
-	//Categories
-	//document.getElementById("artikel_kategori").innerHTML = article.categories;
 
-	//TO BE REMOVED
 	/*-----------------------------------------------
 			Gets information about the article 
 	-----------------------------------------------*/

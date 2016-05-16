@@ -18,7 +18,8 @@ var TIME_DOTS = [];
 var TIPSY_IS_SHOWN = false;
 var LAST_CLICKED_ID;
 var DEFAULT_COLOR = "black", MARKED_COLOR = "white", BORDER_COLOR = "black";
-var SECOND_TIMELINE_YPOS = 0.5*window.innerHeight;
+var DOT_RADIUS = 7;
+var SECOND_TIMELINE_YPOS = 0.6*window.innerHeight;
 var LEFT_BOUND = 0.15*window.innerWidth, RIGHT_BOUND = 0.70*window.innerWidth;
 var MIN_YEAR = null, MAX_YEAR = null;
 var DISPLAYED_MIN_YEAR = null, DISPLAYED_MAX_YEAR = null;
@@ -32,7 +33,7 @@ var YEAR_COUNTER = [];
 function generateTimeDot(article) {
     
     //To prevent any articles without id to be entered, since this would mess with the dot-id as well.
-    if(!article.id || article.id == "")
+    if(!article.id || article.id == "" || !article.time || !article.time[0] || !article.time[0][2])
         return;
 
     var body = d3.select("body");
@@ -162,7 +163,7 @@ function generateTimeDot(article) {
             var dot = d3.select("#dot" + article.id);
             if(dot.attr("cx") > 0 && dot.attr("cx") < window.innerWidth) {
                 dot.transition()
-                    .attr("r", 10)
+                    .attr("r", DOT_RADIUS)
                     .attr("fill", dot.attr("dot_color") )
                     .attr("stroke", dot.attr("dot_border_color"))
                     .attr("stroke-width", 2);
@@ -172,12 +173,13 @@ function generateTimeDot(article) {
         }
         
         /*d3.select("#dot" + MAIN_ARTICLE.id).transition()
-            .attr("r", 10)
+            .attr("r", DOT_RADIUS)
             .attr("fill", "#ff0000" )
             .attr("stroke", "#ff8888")
             .attr("stroke-width", 2);*/
 
     });
+
 
     //Needed for some reason? Sara Martin maybe you could explain?
     $('#dot' + article.id).click(function(e){
@@ -210,7 +212,7 @@ function ShowHideTipsy(id){
         if(id != TIME_DOTS[i].attr("id")) {
             $("#" + TIME_DOTS[i].attr("id")).tipsy("hide");
             var dot = d3.select("#" + TIME_DOTS[i].attr("id"));
-            dot.transition().attr("r", 10).attr("fill", dot.attr("dot_color"));
+            dot.transition().attr("r", DOT_RADIUS).attr("fill", dot.attr("dot_color"));
         }
     }
 
@@ -219,7 +221,7 @@ function ShowHideTipsy(id){
     if(TIPSY_IS_SHOWN && LAST_CLICKED_ID && LAST_CLICKED_ID == id) {
         $('#' + id).tipsy("hide");
         var dot = d3.select("#" + id);
-        dot.transition().attr("r", 10).attr("fill", dot.attr("dot_color"));
+        dot.transition().attr("r", DOT_RADIUS).attr("fill", dot.attr("dot_color"));
         TIPSY_IS_SHOWN = false;
     } else {
         $('#' + id).tipsy("show");
@@ -267,7 +269,7 @@ function sortDots() {
             //if(temp_dot.attr("id") != ("dot" + MAIN_ARTICLE.id)) {
                 //Moves the dot, also animates it upon creation.
                 temp_dot.transition()
-                    .attr("r", 10)
+                    .attr("r", DOT_RADIUS)
                     .attr("stroke", temp_dot.attr("dot_border_color"))
                     .attr("stroke-width", "2")
                     .transition().duration(1000)
@@ -288,8 +290,8 @@ function sortDots() {
     if(DRAGGING_HANDLE)
         setTimeout(function(){DRAGGING_HANDLE = false;}, 100);
 
-    BORDER_TEXTS[0].text(String(DISPLAYED_MIN_YEAR));
-    BORDER_TEXTS[1].text(String(DISPLAYED_MAX_YEAR));
+    BORDER_TEXTS[0].text(String(Math.round(DISPLAYED_MIN_YEAR)));
+    BORDER_TEXTS[1].text(String(Math.round(DISPLAYED_MAX_YEAR)));
 
 }
 
@@ -327,7 +329,7 @@ function updateTimeTexts() {
 
         } else if (i == TIMELINE_TEXTS.length - 1) {
             //A special case for the very last time-label.
-            TIMELINE_TEXTS[i].text(String(MAX_YEAR)).transition().duration(1000).attr( "fill-opacity", 1 );
+            TIMELINE_TEXTS[i].text(String(Math.round(MAX_YEAR))).transition().duration(1000).attr( "fill-opacity", 1 );
 
         } else if (MAX_YEAR - MIN_YEAR < 10) {
             //If the shown articles span less than 10 years hide the text-labels placed in the middle of the timeline.

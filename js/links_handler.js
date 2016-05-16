@@ -58,7 +58,8 @@ function startLinkSearch(links, color){
 		var query = getLinkSearchString(links[indx]);
 		getWikiData(query, color);
 	}
-	generateTimeDot(MAIN_ARTICLE);
+	if(MAIN_ARTICLE.time)
+		generateTimeDot(MAIN_ARTICLE);
 }
 
 //Works similar as the function 'load'.
@@ -190,7 +191,8 @@ function loadLinksArticles(data) {
 		}
 		if(!time_article_exist) {
 			TIME_ARTICLES.push(temp_article);
-			generateTimeDot(temp_article);
+			if(temp_article.time)
+				generateTimeDot(temp_article);
 		}
 		
 		//Sort the array time_articles
