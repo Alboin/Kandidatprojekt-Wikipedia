@@ -149,6 +149,10 @@ footer{
                             ID
 /*------------------------------------------------------*/
 
+#globe{
+
+}
+
 
 #transbox {
     position: fixed;
@@ -352,6 +356,10 @@ div.tooltip {
 }
 
 .globe:hover{
+    cursor:pointer;
+}
+
+.globe:active{
     cursor:pointer;
 }
 
