@@ -34,7 +34,7 @@ function addTimeHandler() {
 
 	TIMELINE_START = 0.05*window.innerWidth,
 	TIMELINE_WIDTH = window.innerWidth - 2*TIMELINE_START,
-	TIMELINE_HEIGHT = 0.03*window.innerHeight,
+	TIMELINE_HEIGHT = 0.01*window.innerHeight,
 	TIMELINE_YPOS = 0.75*window.innerHeight;
 
 	var timeline_container = svg.append("rect")
@@ -42,7 +42,7 @@ function addTimeHandler() {
 		.attr("height", window.innerHeight)
 		.attr("x", -10)
 		.attr("y", (TIMELINE_YPOS - (window.innerHeight - TIMELINE_YPOS)/2) + handle_height)
-		.attr("style", "fill:rgb(70,70,70);stroke:gray;stroke-width:5;");
+		.attr("style", "fill:rgb(0, 37, 51);stroke:rgb(0, 37, 51);stroke-width:5;");
 
 	//Decides how many labels should be generated below the timeline depending on your screen size.
     var numberOfTimelabels = Math.round(window.innerWidth/150);
@@ -53,7 +53,7 @@ function addTimeHandler() {
             .attr("x", i/numberOfTimelabels*TIMELINE_WIDTH + TIMELINE_START - 16)
             .attr("y", TIMELINE_YPOS + 0.06*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
-            .attr("fill", "rgb(150,150,150)")//"rgb(70,70,70)")
+            .attr("fill", "rgb(255, 255, 255)")//"rgb(70,70,70)")
             .classed("unselectable", true)
             .attr( "fill-opacity", 0 );
     }
@@ -83,7 +83,7 @@ function addTimeHandler() {
             .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
             .attr("font-weight", "bold")
-            .attr("fill", "rgb(200,200,200)")
+            .attr("fill", "rgb(255,255,255)")
             .classed("unselectable", true)
             .attr( "fill-opacity", 0 );
 
@@ -93,7 +93,7 @@ function addTimeHandler() {
             .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
             .attr("font-weight", "bold")
-            .attr("fill", "rgb(200,200,200)")
+            .attr("fill", "rgb(255,255,255)")
             .classed("unselectable", true)
             .attr( "fill-opacity", 0 );
 
@@ -202,7 +202,7 @@ function addTimeHandler() {
 		.attr('width', TIMELINE_WIDTH)
 		.attr('y', TIMELINE_YPOS)
 		.attr('height', TIMELINE_HEIGHT)
-		.style('fill', 'rgb(150,150,150)');
+		.style('fill', 'rgb(255,0,0)');
 
 	//Create left handle.
 	HANDLE_LEFT = svg.append('rect')
@@ -212,8 +212,8 @@ function addTimeHandler() {
 		.attr('height', handle_height)
 		.attr('rx', edge_radius)
 		.attr("id", "left_time_handle")
-		.style('fill', 'rgb(200,200,200)')
-		.attr("stroke", "rgb(100,100,100)")
+		.style('fill', 'rgb(249, 156, 8)')
+		.attr("stroke", "rgb(249, 156, 8)")
         .attr("stroke-width", "1")
 		.call(drag_HANDLE_LEFT);
 
@@ -225,8 +225,8 @@ function addTimeHandler() {
 		.attr('height', handle_height)
 		.attr('rx', edge_radius)
 		.attr("id", "right_time_handle")
-		.style('fill', 'rgb(200,200,200)')
-		.attr("stroke", "rgb(100,100,100)")
+		.style('fill', 'rgb(249, 156, 8)')
+		.attr("stroke", "rgb(249, 156, 8)")
         .attr("stroke-width", "1")
 		.call(drag_HANDLE_RIGHT);
 

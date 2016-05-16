@@ -32,7 +32,6 @@ function getWikiData(query, article_color){
 
 	        		MARKER_COLOR = article_color;
 
-	        		console.log(data);
 
 	        		//If the result is not a valid article and no redirection proposal is given (see below).
 	        		if(data.query.pageids[0] == -1) {

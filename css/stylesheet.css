@@ -20,7 +20,7 @@ html,
 body { 
     margin:0; 
     padding:0; 
-    background: #dddddd;
+    background: #ffffff;
     height: 100%;
     width: 100%;
     overflow-x: hidden;
@@ -110,19 +110,18 @@ button {
     border-radius: 8px;
 }
 
-
 button#search
 {
     background-color: #F99C08;
     color: white;
-    padding: 7px;
+    padding: 10px;
 }
 
 input#searchbutton 
 {
     padding: 7px;
-    width: 7%;
-    height: 2.8%;
+    /* width: 7%;
+   height: 2.8%;*/
     background:url(../img/magnifier_white.png);
     background-repeat: no-repeat;
     background-color: #F99C08;
@@ -131,7 +130,7 @@ input#searchbutton
 
 input#searchtext 
 {
-    width: 40%;
+    /*width: 40%;*/
 }
 
 footer{
@@ -326,6 +325,11 @@ footer{
     cursor: pointer;
 }
 
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    /* border-color: #ccc; */
+}
 
 .btn-primary {
     color: #fff;
@@ -340,8 +344,9 @@ footer{
 }
 
 .clock {
-    margin-bottom: 10px;
-    margin-left: 10px;
+    margin: 2px;
+    margin-top: 5px;
+   
 }
 
 .clock:hover{
@@ -362,8 +367,8 @@ div.tooltip {
 }
 
 .globe {
-    margin-bottom: 15px;
-    margin-left: 10px;
+    margin-top: 10px;
+    margin: 2px;
 }
 
 .globe:hover{
@@ -417,6 +422,7 @@ div.tooltip {
 .modal-body {
     max-height: calc(100vh - 210px);
     overflow-y: auto;
+    color: black;
 }
 
 .modal-footer {
@@ -449,6 +455,14 @@ div.tooltip {
     text-align: center;
     font-family: 'Playfair Display', serif; 
 }
+.wiki_title2{
+    font-weight: 500;
+    font-size: 30px;
+    text-transform: uppercase;
+    color: #56727C;
+    text-align: center;
+    font-family: 'Playfair Display', serif; 
+}
 
 #place_right{
     position: absolute;
@@ -464,9 +478,9 @@ div.tooltip {
 
 #header_row{
     background-color: #002533;
-    font-color: #ffffff;
-    padding: 0;
-    margin: 0;
+    color: #ffffff;
+    padding: 10px;
+    margin: 0px;
 }
 
 #article_list_header_time:hover {
