@@ -361,6 +361,14 @@ function updateSecondTimeTexts() {
 //Toggles the article-list from being shown or hidden.
 function hideArticleList() {
     $("#article_list_time").slideToggle();
+
+    if($("#article_list_arrow_time").css("transform").substring(0,8) == "matrix(1"
+        || $("#article_list_arrow_time").css("transform") == "none") {
+       $("#article_list_arrow_time").css({"transform": "rotate(180deg)"});
+    } else {
+       $("#article_list_arrow_time").css({"transform": "rotate(0deg)"});
+    }
+
 }
 
 //Add the actual timeline.

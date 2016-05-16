@@ -123,8 +123,8 @@ button {
 
 button#searchbutton
 {
-    width: 7%;
-    height: 8%;
+    width: 37px;
+    height: 37px;
     background-repeat: no-repeat;
     background-color: #F99C08;
     border: 0;
@@ -135,14 +135,14 @@ button#searchbutton
 
 button#searchbutton2
 {
-    width: 7%;
-    height: 3%;
+    width: 37px;
+    height: 37px;
     background-repeat: no-repeat;
     background-color: #F99C08;
     border: 0;
     color:white;
     font-weight: bold;
-    margin: 0;
+    margin: 0px;
 }
 
 
@@ -161,7 +161,6 @@ input#searchbutton
 input#searchtext 
 {
     width: 40%;
-    margin-left: 3%;
 
 }
 
@@ -187,14 +186,27 @@ footer{
                             ID
 /*------------------------------------------------------*/
 
+#article_list_arrow_map {
+    transform: rotate(180deg);
+}
+
 #globe{
+    position: absolute;
+    top: -3px;
+    left: 49%;
+}
+
+#clock {
+    position: absolute;
+    top: 0px;
+    left: 62%;
 }
 
 #loading_gif {
     position: absolute;
     color: green;
     left: 12.5%;
-    top: 29px;
+    top: 20px;
     z-index: 10;
 }
 
@@ -202,7 +214,7 @@ footer{
     position: absolute;
     color: rgba(0, 37, 51, 0.7);;
     left: 12.5%;
-    top: 26px;
+    top: 18px;
     z-index: 10;
     font-size: 20px;
 }
@@ -512,9 +524,10 @@ div.tooltip {
 }
 
 #topmargin{
-    top: 10px;
-    margin: 0;
+   /* top: 10px;*/
+    margin: 10px;
     padding: 0;
+    max-height: 35px;
 }
 
 #header_row{

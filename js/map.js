@@ -271,4 +271,10 @@ function createPopupContent (article) {
 
 function hideArticleListMap() {
     $("#article_list").slideToggle();
+    if($("#article_list_arrow_map").css("transform").substring(0,8) == "matrix(1"
+        || $("#article_list_arrow_map").css("transform") == "none") {
+       $("#article_list_arrow_map").css({"transform": "rotate(180deg)"});
+    } else {
+       $("#article_list_arrow_map").css({"transform": "rotate(0deg)"});
+    }
 }
