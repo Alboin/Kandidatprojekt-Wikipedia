@@ -44,14 +44,6 @@ function generateMap() {
 	map = L.mapbox.map('map', 'mapbox.light', {attributionControl: false, maxBounds: bounds, minZoom: 2})
     .setView([0,0], 2);
 
-    //Create D3 overlay
-    //var svg = d3.select(map.getPanes().overlayPane).append("svg");
-    //var g = svg.append("g").attr("class", "leaflet-zoom-hide");
-
-    //Create circle in D3 and display on map.
-    //var circle = svg.append("circle").attr("cx", 25).attr("cy", 25).attr("r", 20).attr("id", "svart").style("fill", "green");
-
-
 	//Layer containing all the markers. 
 	markerLayer = L.mapbox.featureLayer().addTo(map);
 	

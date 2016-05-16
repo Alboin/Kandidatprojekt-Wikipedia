@@ -66,17 +66,17 @@
 		        <!-- Column that contains searchfield and buttons -->
 		        <div class="col-lg-4" id="topmargin">
 		        	<input type="text", id="searchtext"></input>
- 		 			<button id="search"> Search </button>
+ 		 			<input type="submit" id="searchbutton" name="submit" alt="search" value="">
 
 					<script>
 
 						// If the button "search" is clicked, the search is activated.
-						document.getElementById("search").addEventListener("click", pressSearchButton);
+						document.getElementById("searchbutton").addEventListener("click", pressSearchButton);
 
 						//Trigger searchbutton by clicking the enter key
 						$("#searchtext").keyup(function(event){
 	    					if(event.keyCode == 13){
-	        					$("#search").click();
+	        					pressSearchButton();
     						}
 						});
 
@@ -86,6 +86,7 @@
 					<!-- Buttons for the different pages: timeview and map ("tid" and "Plats") -->
 					<!-- ICON FOR THE MAPVIEW -->
 					<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)">
+
 
 					<!-- handle icon when hovered -->
 					<script  type='text/javascript'>
@@ -118,16 +119,17 @@
 					<!-- handle icon when clicked -->
 					<script>
 					    function changeGlobeImage(element) {
+
 					    	if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
 					    		$("#globe").attr("src", "img/globe_orange_strong_small.png");
 					    	}
 					    	$("#clock").attr("src", "img/clock_white_small.png");
-
 					     }
 					</script>
 
 
 					<!-- ICON FOR THE TIMEVIEW -->
+
 					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
 
 
@@ -164,19 +166,15 @@
 		        <div class="col-lg-4">     
 
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
-						<h4> Tidsinformation </h4>
 					</div>
 
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
-						<h4> Platsinformation </h4>			
 					</div>
 
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
-						<h4> Info </h4>
 					</div>
 
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
-						<h4> Wikinspire </h4>
 						<p id="searchcompleted"></p>
 					</div>
 
@@ -186,7 +184,7 @@
 			    <div class="col-lg-4">
 					<div class="infoButton">
 						<!-- Buttons for the "övrigt" page, to be "info"-page -->
-						<button id="place_right" ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Info </button>	
+						<img id ="place_right" class="info" src="img/info.png" style="width:8%;" ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(1)">
 
 						<!-- Button triggs modal --> 
 						<!--Can be nice to use if we want to work on the popup window-->
@@ -258,7 +256,7 @@
 
 						<!-- The list with all articles displayed on the time-line. -->
 						<div id='article_list_container_time'>
-							<h3 class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>Visade artiklar</h3>
+							<h3 class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>Relaterade artiklar</h3>
 							<ul id='article_list_time'></ul>
 						</div>
 
@@ -274,7 +272,7 @@
 						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
 
-							<h3 class='article_list_header' id="article_list_header_map" onclick='hideArticleListMap()'>Visade artiklar</h3>
+							<h3 class='article_list_header' id="article_list_header_map" onclick='hideArticleListMap()'>Relaterade artiklar</h3>
 							<ul id='article_list'></ul>
 
 						</div>

@@ -35,7 +35,7 @@ function addTimeHandler() {
 	TIMELINE_START = 0.05*window.innerWidth,
 	TIMELINE_WIDTH = window.innerWidth - 2*TIMELINE_START,
 	TIMELINE_HEIGHT = 0.03*window.innerHeight,
-	TIMELINE_YPOS = 0.75*window.innerHeight;
+	TIMELINE_YPOS = 0.8*window.innerHeight;
 
 	var timeline_container = svg.append("rect")
 		.attr("width", window.innerWidth + 20)

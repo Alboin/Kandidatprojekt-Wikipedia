@@ -20,7 +20,7 @@ html,
 body { 
     margin:0; 
     padding:0; 
-    background: #dddddd;
+    background: white;/*background: #dddddd;*/
     height: 100%;
     width: 100%;
     /*overflow-x: hidden;*/
@@ -50,6 +50,12 @@ h2 {
     text-transform: uppercase;
     font-weight: bold;
 
+}
+
+h3{
+    font-family: 'Playfair Display';
+    text-transform: uppercase;
+    color: white;
 }
 
 h4 {
@@ -114,6 +120,17 @@ button#search
     padding: 7px;
 }
 
+input#searchbutton 
+{
+    padding: 7px;
+    width: 7%;
+    height: 2.8%;
+    background:url(../img/magnifier_white.png);
+    background-repeat: no-repeat;
+    background-color: #F99C08;
+    border: 0;
+}
+
 input#searchtext 
 {
     width: 40%;
@@ -145,8 +162,9 @@ footer{
     margin: 0px;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
-    background: rgba(73, 106, 111, 0.4);
+    background: rgba(0, 37, 51, 0.7);
     z-index: 10;
+    font-family: 'Playfair Display';
 }
 
 #middle_row {
@@ -168,7 +186,7 @@ footer{
     padding: 6px;
     margin: 10px;
     border-radius: 6px;
-    background: rgba(100, 100, 100, 0.4);
+    background: rgba(0, 37, 51, 0.7);
     z-index: 999;
 }
 
@@ -180,7 +198,7 @@ footer{
     margin-right: 10px;
     top: 75px;
     border-radius: 6px;
-    background: rgba(100, 100, 100, 0.4);
+    background: rgba(0, 37, 51, 0.7);
     z-index: 10;
 }
 
@@ -334,7 +352,7 @@ div.tooltip {
 }
 
 .globe {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     margin-left: 10px;
 }
 
@@ -440,7 +458,7 @@ div.tooltip {
     margin: 0;
     position: absolute;
     top: -1;
-    opacity: 0.3;
+    opacity: 0.2;
     z-index: 10;
 }
 
@@ -451,7 +469,7 @@ div.tooltip {
     position: absolute;
     top: -1;
     right: 0;
-    opacity: 0.3;
+    opacity: 0.2;
     z-index: 10;
 }
 
