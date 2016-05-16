@@ -17,9 +17,9 @@
 	var app = angular.module('wikiSearch', []);
 
 	//This controller controls the articles. 
-	app.controller('ArticleController', function(){
-		this.product = article;
-	});
+	// app.controller('ArticleController', function(){
+	// 	this.product = article;
+	// });
 
 	//This controller controls the "pages" in the application 
 	app.controller('PageController', function(){

@@ -159,12 +159,12 @@ function addTimeHandler() {
 		.style('fill', 'rgb(100,100,100)');
 
 	//A line to show the border of min displayed year.
-	var bound1 = svg.append('rect')
+	/*var bound1 = svg.append('rect')
 		.attr("x", LEFT_BOUND)
 		.attr("width", 2)
 		.attr("y", SECOND_TIMELINE_YPOS/2 - 44)
 		.attr("height", SECOND_TIMELINE_YPOS/2 + 44)
-		.style("fill", "rgb(200,200,200)");
+		.style("fill", "rgb(200,200,200)");*/
 
 	//Sets the sizes for the inaccessible areas at the left and right of the timeview.
     $("#inaccessible_area_left")
@@ -177,21 +177,21 @@ function addTimeHandler() {
 
 
 	//A line to show the border of max displayed year.
-	var bound2 = svg.append('rect')
+	/*var bound2 = svg.append('rect')
 		.attr("x", RIGHT_BOUND + LEFT_BOUND)
 		.attr("width", 2)
 		.attr("y", SECOND_TIMELINE_YPOS/2 - 44)
 		.attr("height", SECOND_TIMELINE_YPOS/2 + 44)
-		.style("fill", "rgb(200,200,200)");
+		.style("fill", "rgb(200,200,200)");*/
 		
 	//Left text to the lines that were implementet just above.
 	BORDER_TEXTS[0] = svg.append("text")
 		.attr("x", LEFT_BOUND - 3)
-		.attr("y", SECOND_TIMELINE_YPOS/2 + 22)
+		.attr("y", SECOND_TIMELINE_YPOS/2 + 32)
 		.attr("font-family", '"Roboto", sans-serif')
 		.attr("font-weight", "bold")
         .attr("fill", "rgb(180,180,180)")
-        .attr("font-size", 20)
+        .attr("font-size", 35)
         .classed("unselectable", true)
         .attr("transform", "rotate(270," + (LEFT_BOUND - 3) + "," + SECOND_TIMELINE_YPOS/2 + ")");
 
@@ -202,7 +202,7 @@ function addTimeHandler() {
 		.attr("font-family", '"Roboto", sans-serif')
 		.attr("font-weight", "bold")
         .attr("fill", "rgb(180,180,180)")
-        .attr("font-size", 20)
+        .attr("font-size", 35)
         .classed("unselectable", true)
         .attr("transform", "rotate(270," + (LEFT_BOUND-3+RIGHT_BOUND) + "," + SECOND_TIMELINE_YPOS/2 + ")");
 

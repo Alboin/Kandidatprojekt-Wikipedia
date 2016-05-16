@@ -1,25 +1,29 @@
-<!DOCTYPE html svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<html>
-
-	<body>		
-
-			<!-- Section is a container for the whole page. -->
+<!--*******************************************************************************************************
+ 
+	This file handles the time_view.  
 	
-	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
+ 	The file is written in html. 
 
-		<!-- The list with all articles displayed on the time-line. -->
-		<div id='article_list_container_time'>
-			<h3 class='article_list_header'>Visade artiklar</h3>
-			<ul id='article_list_time'></ul>
+********************************************************************************************************-->
+
+<div class="container">
+
+    <div class="row nomargin" id="lower_row">
+
+        <div class="col-lg-12">
+
+			<p id="tidsinfo"></p>
+
+			<svg id= "svg" style="width:100%;height:100%;margin:0;"></svg>
+
+			<!-- The list with all articles displayed on the time-line. -->
+			<div id='article_list_container_time'>
+				<h3 class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>Visade artiklar</h3>
+				<ul id='article_list_time'></ul>
+			</div>
+
 		</div>
-		
-		<svg id="svg" height="100%" width="100%">
-			<!--Draw horizontal line in d3, y1=y2 to keep the line straight-->
-			<line x1="0" y1="400" x2="1500" y2="400" stroke="gray" stroke-width="2" />
-		</svg>
 
 	</div>
 
-</body>
-
-</html>
+</div>

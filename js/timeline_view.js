@@ -18,6 +18,7 @@ var TIME_DOTS = [];
 var TIPSY_IS_SHOWN = false;
 var LAST_CLICKED_ID;
 var DEFAULT_COLOR = "black", MARKED_COLOR = "white", BORDER_COLOR = "black";
+var DOT_RADIUS = 7;
 var SECOND_TIMELINE_YPOS = 0.5*window.innerHeight;
 var LEFT_BOUND = 0.15*window.innerWidth, RIGHT_BOUND = 0.70*window.innerWidth;
 var MIN_YEAR = null, MAX_YEAR = null;
@@ -162,7 +163,7 @@ function generateTimeDot(article) {
             var dot = d3.select("#dot" + article.id);
             if(dot.attr("cx") > 0 && dot.attr("cx") < window.innerWidth) {
                 dot.transition()
-                    .attr("r", 10)
+                    .attr("r", DOT_RADIUS)
                     .attr("fill", dot.attr("dot_color") )
                     .attr("stroke", dot.attr("dot_border_color"))
                     .attr("stroke-width", 2);
@@ -172,7 +173,7 @@ function generateTimeDot(article) {
         }
         
         /*d3.select("#dot" + MAIN_ARTICLE.id).transition()
-            .attr("r", 10)
+            .attr("r", DOT_RADIUS)
             .attr("fill", "#ff0000" )
             .attr("stroke", "#ff8888")
             .attr("stroke-width", 2);*/
@@ -211,7 +212,7 @@ function ShowHideTipsy(id){
         if(id != TIME_DOTS[i].attr("id")) {
             $("#" + TIME_DOTS[i].attr("id")).tipsy("hide");
             var dot = d3.select("#" + TIME_DOTS[i].attr("id"));
-            dot.transition().attr("r", 10).attr("fill", dot.attr("dot_color"));
+            dot.transition().attr("r", DOT_RADIUS).attr("fill", dot.attr("dot_color"));
         }
     }
 
@@ -220,7 +221,7 @@ function ShowHideTipsy(id){
     if(TIPSY_IS_SHOWN && LAST_CLICKED_ID && LAST_CLICKED_ID == id) {
         $('#' + id).tipsy("hide");
         var dot = d3.select("#" + id);
-        dot.transition().attr("r", 10).attr("fill", dot.attr("dot_color"));
+        dot.transition().attr("r", DOT_RADIUS).attr("fill", dot.attr("dot_color"));
         TIPSY_IS_SHOWN = false;
     } else {
         $('#' + id).tipsy("show");
@@ -268,7 +269,7 @@ function sortDots() {
             //if(temp_dot.attr("id") != ("dot" + MAIN_ARTICLE.id)) {
                 //Moves the dot, also animates it upon creation.
                 temp_dot.transition()
-                    .attr("r", 10)
+                    .attr("r", DOT_RADIUS)
                     .attr("stroke", temp_dot.attr("dot_border_color"))
                     .attr("stroke-width", "2")
                     .transition().duration(1000)

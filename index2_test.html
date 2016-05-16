@@ -1,7 +1,13 @@
 <!--*******************************************************************************************************
     
-    ORIGINALET
-	DET HÄR BLIR ALLTSÅ DEN ANDRA VYN.
+DET HÄR BLIR ALLTSÅ DEN ANDRA VYN.(Som kommer från orginalet)
+
+This is the second page.
+First page -> Second page
+index_text.html -> index2_test.html
+
+This page uses pages/header2.html as header. 
+
 
 ********************************************************************************************************-->
 <!-- This code is written with angular.js -->
@@ -42,11 +48,13 @@
  		<script type="text/javascript" src="js/map.js"></script>
  		<script type="text/javascript" src="js/timeline_view.js"></script>
  		<script type="text/javascript" src="js/timeline_controller.js"></script>
-
-
+		
 		<!--Modal popup-->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	    <!--Includes the header in all the different views-->
+	    <div ng-include='"pages/header2.html"'></div>
 
 	</head>
 
@@ -58,6 +66,8 @@
 		<!-- The page The page consists of three rows that are placed above each other. "Header_row" "upper_row" and "lower_row". -->
 			
 			<!-- 1st row, top of the page. -->
+
+
 	        <div class="row" id="header_row">
 
 	        	<!-- The row is divided in 3 columns with the same size, which are empty to get the information in the center of the page. -->
@@ -84,68 +94,8 @@
 
 						
 					<!-- Buttons for the different pages: timeview and map ("tid" and "Plats") -->
-					<!-- ICON FOR THE MAPVIEW -->
-					<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)">
-
-					<!-- handle icon when hovered -->
-					<script  type='text/javascript'>
-						$(document).ready(function(){
-							$("#globe").mouseenter(function(){
-								if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
-									$("#globe").attr("src" , "img/globe_orange_weak_small.png");
-								}
-							});
-							$("#globe").mouseleave(function(){
-								if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
-									$("#globe").attr("src" , "img/globe_white_small.png");
-								}
-							});
-
-							$("#clock").mouseenter(function(){
-								if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
-									$("#clock").attr("src" , "img/clock_orange_weak_small.png");
-								}
-							});
-							$("#clock").mouseleave(function(){
-								if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
-									$("#clock").attr("src" , "img/clock_white_small.png");
-								}
-							});
-
-						});
-					</script>
-
-					<!-- handle icon when clicked -->
-					<script>
-					    function changeGlobeImage(element) {
-					    	if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
-					    		$("#globe").attr("src", "img/globe_orange_strong_small.png");
-					    	}
-					    	$("#clock").attr("src", "img/clock_white_small.png");
-
-					     }
-					</script>
-
-
-					<!-- ICON FOR THE TIMEVIEW -->
-					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
-
-
-					<!-- handle icon when clicked -->
-					<script>
-					    function changeClockImage(element) {
-					    	if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
-					    		$("#clock").attr("src", "img/clock_orange_strong_small.png");
-					    	}
-					    	$("#globe").attr("src", "img/globe_white_small.png");
-					     }
-					</script>
-
-
-					<!--<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
-
-					<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="hideStartpage()"> Plats </button> -->
-
+					<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
+					<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="hideStartpage()"> Plats </button>
 					<!-- <button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>	-->
 
 					<!-- Button triggs modal --> 
@@ -153,7 +103,6 @@
 					<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 					  Launch demo modal
 					</button-->
-
 						
 		        </div>
 
@@ -163,7 +112,7 @@
 		        The headline changes depending on which page is the current search. -->
 		        <div class="col-lg-4">     
 
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
+					<!--div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 						<h4> Tidsinformation </h4>
 					</div>
 
@@ -178,7 +127,7 @@
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
 						<h4> Wikinspire </h4>
 						<p id="searchcompleted"></p>
-					</div>
+					</div-->
 
 	        	</div>	
 
@@ -238,6 +187,9 @@
 
 
 
+			
+			
+
 			<!--3rd row, the row at the bottom.-->		
    			<div class="row nomargin" id="lower_row">
    			<!--  -->
@@ -252,9 +204,6 @@
 						<svg id= "svg"   style="width:100%;height:100%;margin:0;">
 
 						</svg>
-
-						<div id="inaccessible_area_left"></div>
-						<div id="inaccessible_area_right"></div>
 
 						<!-- The list with all articles displayed on the time-line. -->
 						<div id='article_list_container_time'>
@@ -274,7 +223,7 @@
 						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
 
-							<h3 class='article_list_header' id="article_list_header_map" onclick='hideArticleListMap()'>Visade artiklar</h3>
+							<h3 id='article_list_header'>Visade artiklar</h3>
 							<ul id='article_list'></ul>
 
 						</div>
@@ -326,6 +275,13 @@
 			 $("#article_list_time").slideToggle();
 			
 		</script>
+
+
+   		<!--<footer>
+			<footer>
+				Copyright © TeamWikipedia
+			</footer>
+		</footer>-->
 
 	</body>
 </html>

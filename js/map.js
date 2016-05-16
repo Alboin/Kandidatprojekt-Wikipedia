@@ -33,11 +33,15 @@ function generateMap() {
 	document.getElementById("map").style.width = window.innerWidth + "px";
 	document.getElementById("map").style.height = window.innerHeight + "px";
 
+	var southWest = L.latLng(90, -200),
+	    northEast = L.latLng(-90, 300),
+	    bounds = L.latLngBounds(southWest, northEast);
+
 	//Needed to get access to mapbox.
 	L.mapbox.accessToken ='pk.eyJ1Ijoic2FyYWh5ZWFoaCIsImEiOiJjaWx4dGw5M2gwMGc0dW9tNGk1M3JnbWI1In0.Zo28bpcbm5VxdSkJ0qXC8A';
 
 	//Create map, light version and disable attributes. Set start-position and zoom-level.
-	map = L.mapbox.map('map', 'mapbox.light', {attributionControl: false})
+	map = L.mapbox.map('map', 'mapbox.light', {attributionControl: false, maxBounds: bounds, minZoom: 2})
     .setView([0,0], 2);
 
     //Create D3 overlay
