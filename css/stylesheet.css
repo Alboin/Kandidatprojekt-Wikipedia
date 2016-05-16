@@ -34,6 +34,13 @@ header {
     color: white;
 }
 
+.intro-text{
+    padding: 200px;
+    font-family: 'Playfair Display', Arial;
+    font-size: 80px;
+    text-align: center;
+    color: white;
+}
 
 h1 {
     font-family: 'Playfair Display', Arial;
@@ -56,12 +63,13 @@ h3{
     font-family: 'Playfair Display';
     text-transform: uppercase;
     color: white;
+    text-align: center;
 }
 
 h4 {
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
-    font-size: 36px;
+    font-size: 20px;
     text-align: center;
     color: white;
 }
@@ -74,6 +82,7 @@ h5 {
     color: gray;
 
 }
+
 
 /*används ej?*/
 hr {
@@ -95,7 +104,7 @@ section#search
     width: 100%;
     background-color: #E0E2FF;
     color: black;
-
+    text-align: center;
 }
 
 
@@ -112,12 +121,30 @@ button {
 }
 
 
-button#search
+button#searchbutton
 {
+    width: 7%;
+    height: 8%;
+    background-repeat: no-repeat;
     background-color: #F99C08;
-    color: white;
-    padding: 7px;
+    border: 0;
+    color:white;
+    font-weight: bold;
+    margin: 0;
 }
+
+button#searchbutton2
+{
+    width: 7%;
+    height: 3%;
+    background-repeat: no-repeat;
+    background-color: #F99C08;
+    border: 0;
+    color:white;
+    font-weight: bold;
+    margin: 0;
+}
+
 
 input#searchbutton 
 {
@@ -130,18 +157,28 @@ input#searchbutton
     border: 0;
 }
 
+
 input#searchtext 
 {
     width: 40%;
     margin-left: 3%;
+
 }
 
-footer{
+
+
+/*footer {
     clear: both;
     position: relative;
     z-index: 10;
     height: 3em;
     margin-top: -3em;
+}*/
+
+footer{
+    height: 15%;
+    background-color: black;
+    color: white;
 }
 
 

@@ -260,7 +260,7 @@ function sortDots() {
 
         } else if(dot_position > window.innerWidth) {
 
-            //If the dot is outside of the window, do a ´different animation.
+            //If the dot is outside of the window, do a different animation.
             temp_dot
                 .transition().duration(1000)
                 .attr("cx", window.innerWidth)
