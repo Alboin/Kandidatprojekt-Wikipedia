@@ -229,7 +229,7 @@ footer{
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     background: rgba(0, 37, 51, 0.7);
-    z-index: 10;
+    z-index: 990;
     font-family: 'Playfair Display';
 }
 
@@ -533,8 +533,9 @@ div.tooltip {
 }
 
 #place_right{
+    cursor: pointer; 
     position: absolute;
-    right: 30px;
+    right: 1%;
     top: 10px;
 }
 
@@ -695,7 +696,7 @@ div.tooltip {
 }
 
 .navbar-header {
-    position: relative;
+    position: absolute;
     z-index: 1000;
 }
 
