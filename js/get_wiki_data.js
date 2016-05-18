@@ -17,6 +17,7 @@ function getWikiData(query, article_color){
 	$(document).ready(function(){
 		//Add the loading animation at the start of the search (if it does not already exist).
 		if(!$("#loading_gif").attr("id")) {
+			$("#loading_done_checkbox").remove();
 			$("#header_row").append("<img src='img/ajax-loader.gif' id='loading_gif' alt='loading...' />");
 		}
 		//<img src='img/ajax-loader.gif' alt='loading...' />

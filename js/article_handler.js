@@ -322,6 +322,16 @@ function printModalContent(article) {
 			Text for the modal popup 
 	-----------------------------------------------*/
 	
+	if(article.title.length > 18){
+		$("#artikel_titel").css("font-size","30px");
+	}
+	else if (article.title.length < 10){
+		
+		$("#artikel_titel").css("font-size","50px");
+	}
+	else {
+		$("#artikel_titel").css("font-size","40px");
+	}
 	document.getElementById("artikel_titel").innerHTML = article.title;								//Title
 	document.getElementById("artikel_text").innerHTML = article.first_paragraph;					//Article
 	if(article.image_source != "")

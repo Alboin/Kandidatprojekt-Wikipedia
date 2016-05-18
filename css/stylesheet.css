@@ -27,19 +27,33 @@ body {
     overflow: hidden; /*Disable the scroll-bars since they will mess with the page-layout and are not really needed.*/
 }
 
+
 header {
     width: 100%;
-    height: 60%;
+    height: 30%;
     background-color:#002533;
     color: white;
 }
 
 .intro-text{
-    padding: 200px;
+    padding: 50px;
     font-family: 'Playfair Display', Arial;
-    font-size: 80px;
+    font-size: 60px;
     text-align: center;
     color: white;
+}
+
+#header_text{
+    padding-top: 10px;
+    font-family: 'Playfair Display', Arial;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+}
+
+#header_text:hover {
+    cursor: pointer;
+    color: rgb(200,200,230);
 }
 
 h1 {
@@ -94,13 +108,20 @@ hr {
 }
 
 p {
-    text-align: center;
+    margin: 0px;
+}
+
+p#searchdescription{
+    font-weight: 100;
+    font-size: 18px;
+    float: left;
+    margin-left: 5%;
 }
 
 section#search
 {
     padding-top:50px;
-    height:40%;
+    height:80%;
     width: 100%;
     background-color: #E0E2FF;
     color: black;
@@ -117,7 +138,7 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
 }
 
 button#searchbutton
@@ -131,6 +152,9 @@ button#searchbutton
     color:white;
     font-weight: bold;
     margin: 0;
+    position:absolute;
+    /*left: 67%;*/
+    z-index: 10;
 }
 
 button#searchbutton2
@@ -142,7 +166,11 @@ button#searchbutton2
     border: 0;
     color:white;
     font-weight: bold;
-    margin: 0px;
+    margin: 10px;
+    margin-left: 0px;
+   /* position:absolute;*/
+    left: 38%;
+    z-index: 10;
 }
 
 
@@ -158,20 +186,16 @@ input#searchbutton
 }
 
 
-input#searchtext 
+input#searchtext1 
 {
-    /*width: 40%;*/
+    width: 90%;
+    height: 37px;
 }
 
-
-
-/*footer {
-    clear: both;
-    position: relative;
-    z-index: 10;
-    height: 3em;
-    margin-top: -3em;
-}*/
+input#searchtext2
+{
+    width: 40%;
+}
 
 footer{
     height: 15%;
@@ -189,24 +213,33 @@ footer{
     transform: rotate(180deg);
 }
 
-#globe{
-    /*position: absolute;
-    float: right;*/
-    top: -3px;
-    left: 49%;
+#searchtext {
+    height: 37px;
 }
 
-#clock {
-    /*position: absolute;
-    float: right;*/
+#searchtext2 {
+    height: 37px;
+}
+/*
+#globe{
+    position: absolute;
+    float: right;
+    top: -3px;
+    left: 49%;
+}*/
+
+
+/*#clock {
+    position: absolute;
+    float: right;
     top: 0px;
     left: 62%;
-}
-*/
+}*/
+
 #loading_gif {
     position: absolute;
     color: green;
-    left: 12.5%;
+    left: 12%;
     top: 20px;
     z-index: 10;
 }
@@ -214,7 +247,7 @@ footer{
 #loading_done_checkbox {
     position: absolute;
     color: rgba(0, 37, 51, 0.7);;
-    left: 12.5%;
+    left: 12%;
     top: 18px;
     z-index: 10;
     font-size: 20px;
@@ -224,13 +257,14 @@ footer{
 #transbox {
     position: fixed;
     width: 33%;
-    /*padding-top: 1px;*/
+    height: 9%;
     margin: 0px;
+    margin-top: 3.6%;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
-    background: rgba(0, 37, 51, 0.7);
-    z-index: 10;
-    font-family: 'Playfair Display';
+    background: #002533;
+    opacity: 0.7;
+    z-index: 990;
 }
 
 #middle_row {
@@ -248,18 +282,20 @@ footer{
 #article_list_container {
     position: fixed;
     right: 0px;
-    width: 220px;
+    width: 13.5%;
     padding: 6px;
-    margin: 10px;
+    margin-right: 10px;
+    top: 75px;
     border-radius: 6px;
-    background: rgba(0, 37, 51, 0.7);
+    background: #002533;
+    opacity: 0.7; 
     z-index: 999;
 }
 
 #article_list_container_time {
     position: fixed;
     right: 0px;
-    width: 220px;
+    width: 13.5%;
     padding: 6px;
     margin-right: 10px;
     top: 75px;
@@ -322,6 +358,20 @@ footer{
     text-align: center;
     font-size: 100%;
     font-family: 'Roboto';
+}
+
+#map_footer {
+    position: fixed;
+    width: 100%;
+    height: 8%;
+    z-index: 1000;
+    background-color:#002533;
+    color: white;
+    bottom: 0px;   
+}
+
+#map_footer_text{
+    font-size: 12pt;
 }
 
 
@@ -413,9 +463,7 @@ footer{
 }
 
 .clock {
-    margin: 2px;
-    margin-top: 5px;
-   
+   /* margin: 10px;   */
 }
 
 .clock:hover{
@@ -436,8 +484,10 @@ div.tooltip {
 }
 
 .globe {
-    margin-top: 10px;
-    margin: 2px;
+    
+   /* margin: 10px;
+    margin-left: 20px;*/
+
 }
 
 .globe:hover{
@@ -462,6 +512,7 @@ div.tooltip {
 .marker-title {
     font-weight: 700;
     font-size: 24px;
+    max-width: 40px;
     font-family: 'Playfair Display', serif; 
     text-transform: uppercase;
     text-align: left;
@@ -469,7 +520,7 @@ div.tooltip {
 
 .modal-title{
     font-weight: 700;
-    font-size: 50px;
+    font-size: 40px;
     text-transform: uppercase;
     color: white;
     font-family: 'Playfair Display', serif; 
@@ -526,37 +577,51 @@ div.tooltip {
 }
 .wiki_title2{
     font-weight: 500;
-    font-size: 30px;
+    font-size: 35px;
     text-transform: uppercase;
     color: #56727C;
     text-align: center;
-    font-family: 'Playfair Display', serif; 
+    font-family: 'Playfair Display', serif;
+    /* margin-top: 3%; */
 }
 
 #place_right{
-    position: absolute;
-    right: 30px;
+    cursor: pointer;
+    /* position: absolute; */
+    right: 1%;
     top: 10px;
+    margin: 12px;
+    float: right;
 }
 
 #topmargin{
    /* top: 10px;*/
     margin: 10px;
     padding: 0;
-    max-height: 35px;
+    height: 37px;
 }
+
+
 
 #header_row{
     background-color: #002533;
-    
     padding: 10px;
     margin: 0px;
+    font-color: #ffffff;
+    padding: 0;
+    margin: 0;
+    z-index: 100;
+    position:fixed;
+    width: 100%;
+    min-height: 37px;
+
 }
 
 #inaccessible_area_left {
     background: linear-gradient(to top, black , white);
     padding: 0;
     margin: 0;
+    margin-top: 75px;
     position: absolute;
     top: -1;
     opacity: 0.2;
@@ -567,6 +632,7 @@ div.tooltip {
     background: linear-gradient(to top, black , white);
     padding: 0;
     margin: 0;
+    margin-top: 75px;
     position: absolute;
     top: -1;
     right: 0;
@@ -696,7 +762,7 @@ div.tooltip {
 }
 
 .navbar-header {
-    position: relative;
+    position: absolute;
     z-index: 1000;
 }
 

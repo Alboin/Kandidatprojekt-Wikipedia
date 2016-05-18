@@ -30,7 +30,7 @@ function addTimeHandler() {
 
 	//Declare size constants for handles and timeline.
 	HANDLE_WIDTH = 0.01*window.innerWidth, handle_height = 0.045*window.innerHeight;
-	var edge_radius = 3;
+	var edge_radius = 0;
 
 	TIMELINE_START = 0.05*window.innerWidth,
 	TIMELINE_WIDTH = window.innerWidth - 2*TIMELINE_START,
@@ -45,6 +45,7 @@ function addTimeHandler() {
 		.attr("x", -10)
 		.attr("y", (TIMELINE_YPOS - (window.innerHeight - TIMELINE_YPOS)/2) + handle_height)
 		.attr("style", "fill:rgb(0, 37, 51);stroke:rgb(0, 37, 51);stroke-width:5;");
+
 
 	//Decides how many labels should be generated below the timeline depending on your screen size.
     var numberOfTimelabels = Math.round(window.innerWidth/150);
@@ -214,7 +215,7 @@ function addTimeHandler() {
 		.attr('width', TIMELINE_WIDTH)
 		.attr('y', TIMELINE_YPOS)
 		.attr('height', TIMELINE_HEIGHT)
-		.style('fill', 'rgb(255,0,0)');
+		.style('fill', 'rgb(255,255,255)');
 
 	//Create left handle.
 	HANDLE_LEFT = svg.append('rect')

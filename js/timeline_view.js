@@ -23,6 +23,7 @@ var SECOND_TIMELINE_YPOS = 0.6*window.innerHeight;
 var LEFT_BOUND = 0.15*window.innerWidth, RIGHT_BOUND = 0.70*window.innerWidth;
 var MIN_YEAR = null, MAX_YEAR = null;
 var DISPLAYED_MIN_YEAR = null, DISPLAYED_MAX_YEAR = null;
+var PREV_DISPLAYED_MIN_YEAR = null, PREV_DISPLAYED_MAX_YEAR = null;
 var MOUSE_OVER_LIST = false;
 var DRAGGING_HANDLE = false;
 var TEMP_COLOR;
@@ -240,7 +241,7 @@ function ShowHideTipsy(id){
 //Sorts the dots in chronological order. Is run every time a new dot is added.
 function sortDots() {
 
-    d3.select("#dot" + MAIN_ARTICLE.id).attr("fill", "##0000ff");
+    d3.select("#dot" + MAIN_ARTICLE.id).attr("fill", "#0000ff");
 
     //Loop through all the dots and update their position.
     for(var i = 0; i < TIME_DOTS.length; i++) {
