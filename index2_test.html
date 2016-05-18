@@ -1,13 +1,7 @@
 <!--*******************************************************************************************************
     
-DET HÄR BLIR ALLTSÅ DEN ANDRA VYN.(Som kommer från orginalet)
-
-This is the second page.
-First page -> Second page
-index_text.html -> index2_test.html
-
-This page uses pages/header2.html as header. 
-
+    ORIGINALET
+	DET HÄR BLIR ALLTSÅ DEN ANDRA VYN.
 
 ********************************************************************************************************-->
 <!-- This code is written with angular.js -->
@@ -70,15 +64,22 @@ This page uses pages/header2.html as header.
 		        
 		        <!-- First column in row 1, up to the left -->
 		        <!-- Column that contains searchfield and buttons -->
-		        <div class="col-lg-4" id="topmargin">
-		        	<input type="text", id="searchtext"></input>
- 		 			<!--input type="submit" id="searchbutton2" name="submit" alt="search" value=""-->
+			
+
+                	
+
+		        <div class="col-lg-4" id="topleftmargin">	 
+		        	<input type="text", id="searchtext2"></input>
 
  		 			<button id="searchbutton2"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button>
+ 		 			
+ 		 			<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)"/>
 
- 		 			<form name="search">
+					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
+
+ 		 			<form style="height: 0px; padding: 0px; margin: 0px; width: 0px;" name="search">
 						<input type="hidden" name="textresult">
-					</form>
+					</form>			
 
 					<script language="javascript">
 
@@ -94,12 +95,6 @@ This page uses pages/header2.html as header.
 						document.getElementById("searchtext").value = delineate(text);
 						previousSearch(delineate(text));
 
-					</script> 
-
-
-
-					<script>
-
 						// If the button "search" is clicked, the search is activated.
 						document.getElementById("searchbutton2").addEventListener("click", pressSearchButton);
 
@@ -112,16 +107,10 @@ This page uses pages/header2.html as header.
 
 					</script>
 
-
-						
-					<!-- Buttons for the different pages: timeview and map ("tid" and "Plats") -->
-					<!-- ICON FOR THE MAPVIEW -->
-					<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)"/>
-
-
 					<!-- handle icon when hovered -->
 					<script  type='text/javascript'>
 						$(document).ready(function(){
+
 							$("#globe").mouseenter(function(){
 								if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
 									$("#globe").attr("src" , "img/globe_orange_weak_small.png");
@@ -155,37 +144,21 @@ This page uses pages/header2.html as header.
 					    		$("#globe").attr("src", "img/globe_orange_strong_small.png");
 					    	}
 					    	$("#clock").attr("src", "img/clock_white_small.png");
+
 					     }
 					</script>
-
-
-					<!-- ICON FOR THE TIMEVIEW -->
-
-					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
 
 
 					<!-- handle icon when clicked -->
 					<script>
 					    function changeClockImage(element) {
+
 					    	if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
 					    		$("#clock").attr("src", "img/clock_orange_strong_small.png");
 					    	}
 					    	$("#globe").attr("src", "img/globe_white_small.png");
 					     }
 					</script>
-
-
-					<!--<button ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)"> Tid </button>
-
-					<button ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="hideStartpage()"> Plats </button> -->
-
-					<!-- <button ng-class="{ active: pageCtrl.isSet(3) }" ng-click="pageCtrl.setPage(3)"> Övrigt </button>	-->
-
-					<!-- Button triggs modal --> 
-					<!--Can be nice to use if we want to work on the popup window-->
-					<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-					  Launch demo modal
-					</button-->
 
 						
 		        </div>
@@ -194,30 +167,60 @@ This page uses pages/header2.html as header.
 		        <!-- Second column in row 1, in the middle -->
 		        <!-- A column that contains the headlines for the different pages. 
 		        The headline changes depending on which page is the current search. -->
-		        <div class="col-lg-4">  
+
+		        <div class="col-lg-4" id="topcentermargin">     
+
 		        	<script> 
 		        		function goToStartPage() {
 
 		        		}
 		        	</script>
-		        	<div id = "header_text"><i class="fa fa-wikipedia-w fa-2x" aria-hidden="true" onclick='goToStartPage()'  action="index2_test.html" href="index_test.html"></i>ikinspire</div>   
+		        	<!--div id = "header_text"><i class="fa fa-wikipedia-w fa-2x" aria-hidden="true" onclick='goToStartPage()'  action="index2_test.html" href="index_test.html"></i>ikinspire</div-->   
 
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
-					</div>
 
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
-					</div>
+					<h4 class="wiki_title2" href="index_test.html">Wikinspire</h4>
 
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
-					</div>
+				</div>
 
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
-						<p id="searchcompleted"></p>
-					</div>
 
-	        	</div>	
+
 
 	        	<!-- Third/last column in row 1, up to the right-->
+
+			    <!-- <div class="col-lg-4" id="toprightmargin">
+
+					<div class="infoButton">
+						
+						<img id="place_right" class="info_button" data-toggle="modal" data-target="#infoModal" src="img/info.png" style="width:8%;">
+						</img>
+
+
+						<div id="infoModal" class="modal fade">
+
+   							<div class="modal-dialog">
+
+        						<div class="modal-content">
+
+            						<div class="modal-header">
+            							
+               							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                						<h4 class="modal-title">Info</h4>
+           							</div>
+
+									<div class="modal-body">
+			                			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel vehicula erat. Phasellus vestibulum leo eu mi tempor blandit. Suspendisse eget iaculis lectus. Donec vitae tempus enim, quis tristique magna. Donec lobortis, sem ac pretium viverra, leo nisl consequat arcu, sit amet ullamcorper nunc turpis ac erat. In rutrum auctor ligula, quis mattis enim lacinia eu. Aliquam at magna a erat laoreet iaculis quis a justo. Donec porttitor vulputate massa, nec suscipit nisi mollis sed.
+									</div>
+
+								</div>
+
+                    		</div>
+        
+    					</div>
+   		
+					</div>
+
+			    </div> -->
+	    	
 
 	        	<div class="col-lg-4"></div>
 
@@ -231,11 +234,17 @@ This page uses pages/header2.html as header.
 				</div>
 				<div class="infoButton">
 					<!-- Buttons for the "övrigt" page, to be "info"-page -->
-					<img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" src="img/info.png" style="width:3%;"></img>
+					<img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" src="img/info.png" style="width:2%;"></img>
 					
 			   	</div>
 
-			   	<div id="myInfoModal" class="modal fade">
+			   
+	    	<!-- End of 1st row, top of the page. -->
+	    	</div>
+
+
+	    	<!--Modal for the information-->
+				<div id="myInfoModal" class="modal fade" >
    					<div class="modal-dialog">
         				<div class="modal-content">
             				<div class="modal-header">
@@ -243,17 +252,13 @@ This page uses pages/header2.html as header.
                					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 				<h4 class="modal-title">Info</h4>
            					</div>
-							<div class="modal-info-body">
+							<div class="modal-info-body" style="padding: 10px; margin: 10px;">
 			                	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel vehicula erat. Phasellus vestibulum leo eu mi tempor blandit. Suspendisse eget iaculis lectus. Donec vitae tempus enim, quis tristique magna. Donec lobortis, sem ac pretium viverra, leo nisl consequat arcu, sit amet ullamcorper nunc turpis ac erat. In rutrum auctor ligula, quis mattis enim lacinia eu. Aliquam at magna a erat laoreet iaculis quis a justo. Donec porttitor vulputate massa, nec suscipit nisi mollis sed.
 							</div>
 						</div>
                     </div>
         
     			</div>
-
-
-	    	<!-- End of 1st row, top of the page. -->
-	    	</div>
 
 
 
@@ -280,23 +285,24 @@ This page uses pages/header2.html as header.
 			  	</div>
 			</div>
 
+
 			<!--The line under the searchbutton2s-->
-			
 
-				<div class="col-lg-4"></div>
-					<div class="col-lg-4">
-										<div id="transbox">
-							<h5 id="middle_row"></h5> 	
-					</div></div>
-				<div class="col-lg-4">						
-
+				<div class="col-lg-4">
 				</div>
 
+				<div class="col-lg-4">
+					<div id="transbox">
+						<h5 id="middle_row"></h5> 	
+					</div>
+				</div>
+
+				<div class="col-lg-4">						
+				</div>
 
 
 			<!--3rd row, the row at the bottom.-->		
    			<div class="row nomargin" id="lower_row">
-   			<!--  -->
    				<!-- The row contains only one column that fills the entire screen width. -->
    				<div class="col-lg-12">
 
@@ -305,20 +311,21 @@ This page uses pages/header2.html as header.
 
 						<p id="tidsinfo"></p>
 
-						<svg id= "svg"   style="width:100%;height:100%;margin:0;margin-top:75px">
-
-						</svg>
+						<svg id="svg" style="width:100%;height:100%;margin:0;margin-top:75px"></svg>
 
 						<div id="inaccessible_area_left"></div>
 						<div id="inaccessible_area_right"></div>
 
 						<!-- The list with all articles displayed on the time-line. -->
 						<div id='article_list_container_time'>
+
 							<h3  class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>
 								Relaterade artiklar
+
 								<i class="fa fa-angle-double-down" id="article_list_arrow_time" aria-hidden="true"></i>
 							</h3>
 							
+
 							<ul id='article_list_time'></ul>
 						</div>
 
@@ -337,7 +344,7 @@ This page uses pages/header2.html as header.
 								Relaterade artiklar
 								<i class="fa fa-angle-double-down" id="article_list_arrow_map" aria-hidden="true"></i>
 							</h3>
-							
+
 							<ul id='article_list'></ul>
 
 						</div>
@@ -357,13 +364,13 @@ This page uses pages/header2.html as header.
 
 					<!-- A container containing what is shown in the "övrigt" view.. -->
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
-						<blockquote id="links"> </blockquote>
+						<p id="links"> </p>
 					</div>
 
 					<!-- A container containing what is shown right after the search is done. -->
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
 						<p id="sökgenomförd"></p>
-						<blockquote id="artikelinfo"></blockquote>		
+						<p id="artikelinfo"></p>		
 						<p id="artikel_kategori"></p>
 					</div>
 

@@ -23,7 +23,8 @@
 
 	//This controller controls the "pages" in the application 
 	app.controller('PageController', function(){
-		this.page = 4;
+		this.page = 1;
+		changeClockImage();
 
 		this.setPage = function(setPage){
 			this.page = setPage;

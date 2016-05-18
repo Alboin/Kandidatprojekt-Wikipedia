@@ -20,7 +20,7 @@ html,
 body { 
     margin:0; 
     padding:0; 
-    background: white;/*background: #dddddd;*/
+    background: #ffffff;
     height: 100%;
     width: 100%;
     /*overflow-x: hidden;*/
@@ -108,7 +108,14 @@ hr {
 }
 
 p {
-    text-align: center;
+    margin: 0px;
+}
+
+p#searchdescription{
+    font-weight: 100;
+    font-size: 18px;
+    float: left;
+    margin-left: 5%;
 }
 
 section#search
@@ -134,19 +141,19 @@ button {
     /*border-radius: 8px;*/
 }
 
-
 button#searchbutton
 {
     width: 37px;
     height: 37px;
     background-repeat: no-repeat;
     background-color: #F99C08;
+    padding: 10px;
     border: 0;
     color:white;
     font-weight: bold;
     margin: 0;
     position:absolute;
-    left: 67%;
+    /*left: 67%;*/
     z-index: 10;
 }
 
@@ -159,8 +166,9 @@ button#searchbutton2
     border: 0;
     color:white;
     font-weight: bold;
-    margin: 0px;
-    position:absolute;
+    margin: 10px;
+    margin-left: 0px;
+   /* position:absolute;*/
     left: 38%;
     z-index: 10;
 }
@@ -169,8 +177,8 @@ button#searchbutton2
 input#searchbutton 
 {
     padding: 7px;
-    width: 7%;
-    height: 2.8%;
+    /* width: 7%;
+   height: 2.8%;*/
     background:url(../img/magnifier_white.png);
     background-repeat: no-repeat;
     background-color: #F99C08;
@@ -178,21 +186,16 @@ input#searchbutton
 }
 
 
-input#searchtext 
+input#searchtext1 
 {
-    width: 40%;
-
+    width: 90%;
+    height: 37px;
 }
 
-
-
-/*footer {
-    clear: both;
-    position: relative;
-    z-index: 10;
-    height: 3em;
-    margin-top: -3em;
-}*/
+input#searchtext2
+{
+    width: 40%;
+}
 
 footer{
     height: 15%;
@@ -217,23 +220,26 @@ footer{
 #searchtext2 {
     height: 37px;
 }
-
+/*
 #globe{
     position: absolute;
+    float: right;
     top: -3px;
     left: 49%;
-}
+}*/
 
-#clock {
+
+/*#clock {
     position: absolute;
+    float: right;
     top: 0px;
     left: 62%;
-}
+}*/
 
 #loading_gif {
     position: absolute;
     color: green;
-    left: 11.5%;
+    left: 12%;
     top: 20px;
     z-index: 10;
 }
@@ -241,7 +247,7 @@ footer{
 #loading_done_checkbox {
     position: absolute;
     color: rgba(0, 37, 51, 0.7);;
-    left: 11.5%;
+    left: 12%;
     top: 18px;
     z-index: 10;
     font-size: 20px;
@@ -251,14 +257,14 @@ footer{
 #transbox {
     position: fixed;
     width: 33%;
-    /*padding-top: 1px;*/
+    height: 9%;
     margin: 0px;
-    margin-top: 50px;
+    margin-top: 3.6%;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
-    background: rgba(0, 37, 51, 0.7);
+    background: #002533;
+    opacity: 0.7;
     z-index: 990;
-    font-family: 'Playfair Display';
 }
 
 #middle_row {
@@ -276,19 +282,20 @@ footer{
 #article_list_container {
     position: fixed;
     right: 0px;
-    width: 220px;
+    width: 13.5%;
     padding: 6px;
     margin-right: 10px;
     top: 75px;
     border-radius: 6px;
-    background: rgba(0, 37, 51, 0.7);
+    background: #002533;
+    opacity: 0.7; 
     z-index: 999;
 }
 
 #article_list_container_time {
     position: fixed;
     right: 0px;
-    width: 220px;
+    width: 13.5%;
     padding: 6px;
     margin-right: 10px;
     top: 75px;
@@ -437,6 +444,11 @@ footer{
     cursor: pointer;
 }
 
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    /* border-color: #ccc; */
+}
 
 .btn-primary {
     color: #fff;
@@ -451,8 +463,7 @@ footer{
 }
 
 .clock {
-    margin-bottom: 10px;
-    margin-left: 10px;
+   /* margin: 10px;   */
 }
 
 .clock:hover{
@@ -473,8 +484,10 @@ div.tooltip {
 }
 
 .globe {
-    margin-bottom: 15px;
-    margin-left: 10px;
+    
+   /* margin: 10px;
+    margin-left: 20px;*/
+
 }
 
 .globe:hover{
@@ -499,6 +512,7 @@ div.tooltip {
 .marker-title {
     font-weight: 700;
     font-size: 24px;
+    max-width: 40px;
     font-family: 'Playfair Display', serif; 
     text-transform: uppercase;
     text-align: left;
@@ -506,7 +520,7 @@ div.tooltip {
 
 .modal-title{
     font-weight: 700;
-    font-size: 50px;
+    font-size: 40px;
     text-transform: uppercase;
     color: white;
     font-family: 'Playfair Display', serif; 
@@ -528,6 +542,7 @@ div.tooltip {
 .modal-body {
     max-height: calc(100vh - 210px);
     overflow-y: auto;
+    color: black;
 }
 
 .modal-footer {
@@ -560,12 +575,23 @@ div.tooltip {
     text-align: center;
     font-family: 'Playfair Display', serif; 
 }
+.wiki_title2{
+    font-weight: 500;
+    font-size: 35px;
+    text-transform: uppercase;
+    color: #56727C;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    /* margin-top: 3%; */
+}
 
 #place_right{
-    cursor: pointer; 
-    position: absolute;
+    cursor: pointer;
+    /* position: absolute; */
     right: 1%;
     top: 10px;
+    margin: 12px;
+    float: right;
 }
 
 #topmargin{
@@ -575,8 +601,12 @@ div.tooltip {
     height: 37px;
 }
 
+
+
 #header_row{
     background-color: #002533;
+    padding: 10px;
+    margin: 0px;
     font-color: #ffffff;
     padding: 0;
     margin: 0;
@@ -584,6 +614,7 @@ div.tooltip {
     position:fixed;
     width: 100%;
     min-height: 37px;
+
 }
 
 #inaccessible_area_left {

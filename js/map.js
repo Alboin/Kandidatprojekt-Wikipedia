@@ -33,7 +33,7 @@ function generateMap() {
 	document.getElementById("map").style.width = window.innerWidth + "px";
 	document.getElementById("map").style.height = window.innerHeight + "px";
 
-	var southWest = L.latLng(130, -200),
+	var southWest = L.latLng(1000, -200),
 	    northEast = L.latLng(-90, 300),
 	    bounds = L.latLngBounds(southWest, northEast);
 
@@ -141,6 +141,16 @@ function changeModalContent(title) {
 
 	//Change Modal title
 	document.getElementById("artikel_titel").innerHTML = title;
+	//Change title size depending on its length.
+	if(article.title.length > 18){
+		$("#artikel_titel").css("font-size","30px");
+	}
+	else if (article.title.length < 10){
+		$("#artikel_titel").css("font-size","50px");
+	}
+	else {
+		$("#artikel_titel").css("font-size","40px");
+	}
 	//Change Modal text
 	document.getElementById("artikel_text").innerHTML = temp_article.first_paragraph;
 	//document.getElementById("artikel_text").innerHTML += '<br><a onclick="getFullText(' + "'" + title + "'" + ')"> Read full article </a>';
