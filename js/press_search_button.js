@@ -11,11 +11,10 @@
 
 //The function is run when the user press "search"
 function pressSearchButton() {		
-	//generateMap();
-	//addTimeHandler();
-	//Save user input.
-	var usertext = document.getElementById("searchtext").value;
 
+	//Save user input.
+
+	var usertext = document.getElementById("searchtext").value;
 	//Create query from user input.
 	var query = getSearchString(usertext);
 
@@ -25,5 +24,29 @@ function pressSearchButton() {
 
 	getWikiData(query, "red");
 
+
+	
+//	document.location = "index2_test.html";
+
 	//HERE you could have some type of loadMainArticleingscreen that is shown while waiting for a response from the function.
 }
+
+function previousSearch(txt)
+{
+	var usertext = txt;
+	//Create query from user input.
+	var query = getSearchString(usertext);
+
+	//This function is run asynchronously.
+	MAIN_SEARCH = true;
+	HAS_RUN_EXTRA_SEARCH = false;
+
+	getWikiData(query, "red");
+}
+/*
+function getSearchText()
+{
+	console.log(usertext);
+	document.getElementById("new_searchtext").value = "Sökning: " + usertext;
+}
+*/

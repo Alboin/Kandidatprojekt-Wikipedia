@@ -34,8 +34,10 @@ function addTimeHandler() {
 
 	TIMELINE_START = 0.05*window.innerWidth,
 	TIMELINE_WIDTH = window.innerWidth - 2*TIMELINE_START,
+
 	TIMELINE_HEIGHT = 0.01*window.innerHeight,
-	TIMELINE_YPOS = 0.75*window.innerHeight;
+	TIMELINE_YPOS = 0.8*window.innerHeight;
+
 
 	var timeline_container = svg.append("rect")
 		.attr("width", window.innerWidth + 20)
@@ -159,29 +161,39 @@ function addTimeHandler() {
 		.style('fill', 'rgb(100,100,100)');
 
 	//A line to show the border of min displayed year.
-	var bound1 = svg.append('rect')
+	/*var bound1 = svg.append('rect')
 		.attr("x", LEFT_BOUND)
 		.attr("width", 2)
 		.attr("y", SECOND_TIMELINE_YPOS/2 - 44)
 		.attr("height", SECOND_TIMELINE_YPOS/2 + 44)
-		.style("fill", "rgb(200,200,200)");
+		.style("fill", "rgb(200,200,200)");*/
+
+	//Sets the sizes for the inaccessible areas at the left and right of the timeview.
+    $("#inaccessible_area_left")
+    	.css("width", LEFT_BOUND)
+    	.css("height", (TIMELINE_YPOS - (window.innerHeight - TIMELINE_YPOS)/2) + handle_height + 9);
+    $("#inaccessible_area_right")
+    	.css("width", LEFT_BOUND + 14)
+    	.css("height", (TIMELINE_YPOS - (window.innerHeight - TIMELINE_YPOS)/2) + handle_height + 9);
+
+
 
 	//A line to show the border of max displayed year.
-	var bound2 = svg.append('rect')
+	/*var bound2 = svg.append('rect')
 		.attr("x", RIGHT_BOUND + LEFT_BOUND)
 		.attr("width", 2)
 		.attr("y", SECOND_TIMELINE_YPOS/2 - 44)
 		.attr("height", SECOND_TIMELINE_YPOS/2 + 44)
-		.style("fill", "rgb(200,200,200)");
+		.style("fill", "rgb(200,200,200)");*/
 		
 	//Left text to the lines that were implementet just above.
 	BORDER_TEXTS[0] = svg.append("text")
 		.attr("x", LEFT_BOUND - 3)
-		.attr("y", SECOND_TIMELINE_YPOS/2 + 22)
+		.attr("y", SECOND_TIMELINE_YPOS/2 + 32)
 		.attr("font-family", '"Roboto", sans-serif')
 		.attr("font-weight", "bold")
         .attr("fill", "rgb(180,180,180)")
-        .attr("font-size", 20)
+        .attr("font-size", 35)
         .classed("unselectable", true)
         .attr("transform", "rotate(270," + (LEFT_BOUND - 3) + "," + SECOND_TIMELINE_YPOS/2 + ")");
 
@@ -192,7 +204,7 @@ function addTimeHandler() {
 		.attr("font-family", '"Roboto", sans-serif')
 		.attr("font-weight", "bold")
         .attr("fill", "rgb(180,180,180)")
-        .attr("font-size", 20)
+        .attr("font-size", 35)
         .classed("unselectable", true)
         .attr("transform", "rotate(270," + (LEFT_BOUND-3+RIGHT_BOUND) + "," + SECOND_TIMELINE_YPOS/2 + ")");
 
@@ -257,7 +269,7 @@ function addTimeHandler() {
 				mouse_text.attr("fill-opacity", 1).attr("x", e.pageX - 16).text(String(year));
 			line.attr("x1", e.pageX).attr("x2", e.pageX).attr("stroke-opacity", 1);
 		}
-	});
+	});             
 
 
 }

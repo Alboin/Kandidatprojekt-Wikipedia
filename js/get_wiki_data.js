@@ -15,6 +15,11 @@ var HAS_RUN_EXTRA_SEARCH = false;
 //A json-object is returned, saved in the variable 'data'.
 function getWikiData(query, article_color){
 	$(document).ready(function(){
+		//Add the loading animation at the start of the search (if it does not already exist).
+		if(!$("#loading_gif").attr("id")) {
+			$("#header_row").append("<img src='img/ajax-loader.gif' id='loading_gif' alt='loading...' />");
+		}
+		//<img src='img/ajax-loader.gif' alt='loading...' />
 	    $.ajax({
 	        type: "GET",
 	        url: query,
@@ -27,8 +32,6 @@ function getWikiData(query, article_color){
 
 	        	//If the search is to be performed for a main article, eg not links.
 	        	if(MAIN_SEARCH) { 
-
-	        		console.log(data);
 
 	        		MARKER_COLOR = article_color;
 
@@ -80,7 +83,7 @@ function getWikiData(query, article_color){
 
 		        		//Remove all old markers from map.
 		        		all_markers = [];
-		        		//map.removeLayer(markerLayer);
+		        		map.removeLayer(markerLayer);
 		        		markerLayer = L.mapbox.featureLayer().addTo(map);
 
 		        		//Remove all old dots from timeline.

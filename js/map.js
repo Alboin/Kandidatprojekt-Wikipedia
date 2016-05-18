@@ -33,20 +33,16 @@ function generateMap() {
 	document.getElementById("map").style.width = window.innerWidth + "px";
 	document.getElementById("map").style.height = window.innerHeight + "px";
 
+	var southWest = L.latLng(90, -200),
+	    northEast = L.latLng(-90, 300),
+	    bounds = L.latLngBounds(southWest, northEast);
+
 	//Needed to get access to mapbox.
 	L.mapbox.accessToken ='pk.eyJ1Ijoic2FyYWh5ZWFoaCIsImEiOiJjaWx4dGw5M2gwMGc0dW9tNGk1M3JnbWI1In0.Zo28bpcbm5VxdSkJ0qXC8A';
 
 	//Create map, light version and disable attributes. Set start-position and zoom-level.
-	map = L.mapbox.map('map', 'mapbox.light', {attributionControl: false})
+	map = L.mapbox.map('map', 'mapbox.light', {attributionControl: false, maxBounds: bounds, minZoom: 2})
     .setView([0,0], 2);
-
-    //Create D3 overlay
-    //var svg = d3.select(map.getPanes().overlayPane).append("svg");
-    //var g = svg.append("g").attr("class", "leaflet-zoom-hide");
-
-    //Create circle in D3 and display on map.
-    //var circle = svg.append("circle").attr("cx", 25).attr("cy", 25).attr("r", 20).attr("id", "svart").style("fill", "green");
-
 
 	//Layer containing all the markers. 
 	markerLayer = L.mapbox.featureLayer().addTo(map);
@@ -275,4 +271,10 @@ function createPopupContent (article) {
 
 function hideArticleListMap() {
     $("#article_list").slideToggle();
+    if($("#article_list_arrow_map").css("transform").substring(0,8) == "matrix(1"
+        || $("#article_list_arrow_map").css("transform") == "none") {
+       $("#article_list_arrow_map").css({"transform": "rotate(180deg)"});
+    } else {
+       $("#article_list_arrow_map").css({"transform": "rotate(0deg)"});
+    }
 }
