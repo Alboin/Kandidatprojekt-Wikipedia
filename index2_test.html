@@ -194,7 +194,13 @@ This page uses pages/header2.html as header.
 		        <!-- Second column in row 1, in the middle -->
 		        <!-- A column that contains the headlines for the different pages. 
 		        The headline changes depending on which page is the current search. -->
-		        <div class="col-lg-4">     
+		        <div class="col-lg-4">  
+		        	<script> 
+		        		function goToStartPage() {
+
+		        		}
+		        	</script>
+		        	<div id = "header_text"><i class="fa fa-wikipedia-w fa-2x" aria-hidden="true" onclick='goToStartPage()'  action="index2_test.html" href="index_test.html"></i>ikinspire</div>   
 
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 					</div>
@@ -278,7 +284,7 @@ This page uses pages/header2.html as header.
 
 						<p id="tidsinfo"></p>
 
-						<svg id= "svg"   style="width:100%;height:100%;margin:0;">
+						<svg id= "svg"   style="width:100%;height:100%;margin:0;margin-top:75px">
 
 						</svg>
 
@@ -287,8 +293,8 @@ This page uses pages/header2.html as header.
 
 						<!-- The list with all articles displayed on the time-line. -->
 						<div id='article_list_container_time'>
-							<h3>Relaterade artiklar</h3>
-							<h3 class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>
+							<h3  class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>
+								Relaterade artiklar
 								<i class="fa fa-angle-double-down" id="article_list_arrow_time" aria-hidden="true"></i>
 							</h3>
 							
@@ -302,15 +308,15 @@ This page uses pages/header2.html as header.
 					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
 
 						<!--Map container-->
-						<div id='map'></div>
+						<div id='map' style="margin-top: 75px;"></div>
 
 						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
-							<h3>Relaterade artiklar</h3>
 							<h3 class='article_list_header' id="article_list_header_map" onclick='hideArticleListMap()'>
+								Relaterade artiklar
 								<i class="fa fa-angle-double-down" id="article_list_arrow_map" aria-hidden="true"></i>
 							</h3>
-
+							
 							<ul id='article_list'></ul>
 
 						</div>
@@ -349,7 +355,7 @@ This page uses pages/header2.html as header.
 
 			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
 			$('#article_list').css('max-height', window.innerHeight * 0.6 + 'px');
-			$('#article_list_time').css('max-height', window.innerHeight * 0.55 + 'px');
+			$('#article_list_time').css('max-height', window.innerHeight * 0.5 + 'px');
 
 			//Prevent the article to become "unmarked" when the user clicks somewhere in the article list.
 			$("#article_list_container_time")
