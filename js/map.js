@@ -33,7 +33,7 @@ function generateMap() {
 	document.getElementById("map").style.width = window.innerWidth + "px";
 	document.getElementById("map").style.height = window.innerHeight + "px";
 
-	var southWest = L.latLng(90, -200),
+	var southWest = L.latLng(130, -200),
 	    northEast = L.latLng(-90, 300),
 	    bounds = L.latLngBounds(southWest, northEast);
 

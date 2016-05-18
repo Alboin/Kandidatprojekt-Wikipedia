@@ -253,6 +253,7 @@ footer{
     width: 33%;
     /*padding-top: 1px;*/
     margin: 0px;
+    margin-top: 50px;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     background: rgba(0, 37, 51, 0.7);
@@ -375,7 +376,6 @@ footer{
     height:0px; /* Eller ändra den här...*/
     padding: 0px;
     margin: 0px;
-    margin-top: 50px;
     z-index: 31;
 }
 
