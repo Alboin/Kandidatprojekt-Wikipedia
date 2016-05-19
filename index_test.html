@@ -87,14 +87,15 @@
 </head>
 
 <body ng-app="wikiSearch">
-  <header>
+  <!--header>
 
-    <div class = "intro-text"><i class="fa fa-wikipedia-w fa-2x" aria-hidden="true"></i>ikinspire</div>
+   
 
-  </header>  
+</header-->  
     <!--Uses the controller in app_test.js-->
 
 <section id = "search">
+     <div class = "intro-text"><i class="fa fa-wikipedia-w fa-1x" aria-hidden="true"></i>ikinspire</div>
      <div class="row nomargin" id="lower_row">
 
         <div class="col-lg-12">
@@ -114,6 +115,8 @@
                     <button id="searchbutton"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button>
                    
                 </form>
+
+                <p id ="errormessage"></p>
                 <!--<input type="text", id="searchtext" value = "Sök efter en artikel"></input>-->
                 <!--button id="search"> Search</button-->
                 <!--a href="#/map">Map view</a>
@@ -140,28 +143,29 @@
     </div>
 
 </section>
-
 <footer>
 
     <div class ="col-lg-12">
-
-        <div class = "col-lg-4"></div>
-        <div class ="col-lg-2">
-            <h4>Wikinspire utvecklades i kursen TNM094</h4>
-                <p>Hej!</p>
+            <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <p id = "footertxt">Copyright &copy; Team Wikinspire 2016</p>
+                </div>
+                <div class="col-md-4">
+                    <div class ="hover_text">
+                        <h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
+                    </div>
+                </div>
+                <div class="col-md-4 text-right">
+                    <p id = "footertxt">Norrköping, Sweden</p>
+                </div>
+            </div>
         </div>
-
-
-        <div class ="col-lg-2">
-            <h4>Vi som har utvecklat projektet heter</h4>
-            <p>Sara Martin, Albin Bergström, Johanna Westberg, Sarah Fosse, Hanna Johansson</p>
-        </div>
-        <div class ="col-lg-4"></div>
-
+    
 
     </div>
-
  </footer>
+
 
 </body>
 <!--Oklart var scriptet ska ligga för att det ska fungera--> 

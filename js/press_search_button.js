@@ -1,6 +1,6 @@
 
 /*******************************************************************************************************
- 	Authors: Albin Bergström
+ 	Authors: Albin Bergström mostly + Sara Martin a little bit
 
  	This file contain the function which is run when the user press "search", or the Enter-button.
  	The function starts the searchprocess for the data for an article.
@@ -35,8 +35,6 @@ function pressSearchButton() {
 	}
 
 	window.history.replaceState( {} , 'newsearch', window.location.pathname + "?SearchResult=" + usertext);
-
-
 
 	//HERE you could have some type of loadMainArticleingscreen that is shown while waiting for a response from the function.
 }
