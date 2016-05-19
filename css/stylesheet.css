@@ -228,6 +228,16 @@ footer{
     left:50px;
     color: white;
 }
+
+#loadingbar {
+    position: relative;
+    left: 0px;
+    height: 5px;
+    width: 0px;
+    z-index: 500000;
+    background-color: #F99C08;
+    border-radius: 0px;
+}
 /*
 #globe{
     position: absolute;
@@ -244,6 +254,7 @@ footer{
     left: 62%;
 }*/
 
+/*
 #loading_gif {
     position: absolute;
     color: green;
@@ -259,15 +270,13 @@ footer{
     top: 18px;
     z-index: 10;
     font-size: 20px;
-}
+}*/
 
 
 #transbox {
     position: fixed;
     width: 33%;
-    height: 9%;
-    margin: 0px;
-    margin-top: 3.6%;
+    min-height: 9%;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     background: rgba(0, 37, 51, 0.7);

@@ -23,7 +23,7 @@ function pressSearchButton() {
 		//This function is run asynchronously.
 		MAIN_SEARCH = true;
 		HAS_RUN_EXTRA_SEARCH = false;
-
+		
 		getWikiData(query, "red");
 
 	} else {

@@ -77,7 +77,7 @@ function generateTimeDot(article) {
     for(var i = 0; i < YEAR_COUNTER.length; i++) {
         //If it exist, increment the counter and update the y_pos_shift.
         if(YEAR_COUNTER[i].year == article.time[0][2]) {
-            y_pos_shift = YEAR_COUNTER[i].count * 30;
+            y_pos_shift = YEAR_COUNTER[i].count * 25;
             YEAR_COUNTER[i].count++;
             exist = true;
             break;
@@ -256,7 +256,7 @@ function sortDots() {
         if(BOUNDS_HAS_CHANGED || temp_dot.attr("dot_not_moved_yet") == "true") {
 
             var dot_position = ((temp_dot.attr("start_year") - DISPLAYED_MIN_YEAR) / (DISPLAYED_MAX_YEAR - DISPLAYED_MIN_YEAR)) * RIGHT_BOUND + LEFT_BOUND;
-            console.log("flytta dot")
+
             //Moves the dot, also animates it upon creation.
             temp_dot.transition()
                 .attr("r", DOT_RADIUS)

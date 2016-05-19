@@ -18,10 +18,10 @@ function getWikiData(query, article_color){
 	SEARCH_IS_ACTIVE = true;
 	$(document).ready(function(){
 		//Add the loading animation at the start of the search (if it does not already exist).
-		if(!$("#loading_gif").attr("id")) {
+		/*if(!$("#loading_gif").attr("id")) {
 			$("#loading_done_checkbox").remove();
-			$("#header_row").append("<img src='img/ajax-loader.gif' id='loading_gif' alt='loading...' />");
-		}
+			$("#header_row").append("<img src='img/Loading_icon.gif' id='loading_gif' alt='loading...' style='width: 3%;'/>");
+		}*/
 		//<img src='img/ajax-loader.gif' alt='loading...' />
 	    $.ajax({
 	        type: "GET",
@@ -113,11 +113,14 @@ function getWikiData(query, article_color){
 		        		//Empty old links from arrays:
 		        		COORD_ARTICLES = [];
 		        		TIME_ARTICLES = [];
+		        		LINK_RESULTS_RECIEVED = 0;
+						$("#loadingbar").css("width", "0");
+
 
 		        		//Run searches on the links and backlinks asynchronously.
 		        		startLinkSearch(MAIN_ARTICLE.links, "black");
 		        		startLinkSearch(MAIN_ARTICLE.backlinks, "gray");
-		        		
+
 		        		printModalContent(MAIN_ARTICLE);
 
 		        		if(MAIN_ARTICLE.time[0])
@@ -131,6 +134,9 @@ function getWikiData(query, article_color){
 	        	else {
 
 	        		MARKER_COLOR = article_color;
+
+	        		LINK_RESULTS_RECIEVED++;
+					$("#loadingbar").css("width", String(((LINK_RESULTS_RECIEVED)/(MAIN_ARTICLE.links.length + MAIN_ARTICLE.backlinks.length))*window.innerWidth + 20));
 
 	        		//Loads all links and puts them in global arrays COORD_ARTICLES and TIME_ARTICLES.
 	        		loadLinksArticles(data);
