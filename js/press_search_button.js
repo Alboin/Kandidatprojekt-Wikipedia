@@ -34,12 +34,14 @@ function pressSearchButton() {
   		});
 	}
 
+	window.history.replaceState( {} , 'newsearch', window.location.pathname + "?SearchResult=" + usertext);
 
-	
-//	document.location = "index2_test.html";
+
 
 	//HERE you could have some type of loadMainArticleingscreen that is shown while waiting for a response from the function.
 }
+
+
 
 function previousSearch(txt)
 {

@@ -69,7 +69,8 @@
                 	
 
 		        <div class="col-lg-4" id="topleftmargin">	 
-		        	<input type="text", id="searchtext"></input>
+
+		        	<input type="text", id="searchtext" placeholder ="Sök efter en ny artikel..." autocomplete ="off"></input>
 
  		 			<button id="searchbutton2"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button>
  		 			
@@ -77,9 +78,11 @@
 
 					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
 
+
+					<!-- OLD SEARCH -->
  		 			<form style="height: 0px; padding: 0px; margin: 0px; width: 0px;" name="search">
 						<input type="hidden" name="textresult">
-					</form>			
+					</form>	
 
 					<script language="javascript">
 
@@ -87,21 +90,24 @@
 						document.search.textresult.value = locate
 						var text = document.search.textresult.value
 
+
 						function delineate(str)
 						{
-						point = str.lastIndexOf("=");
-						return(str.substring(point+1,str.length));
+							point = str.lastIndexOf("=");
+							return(str.substring(point+1,str.length));
 						}
-						document.getElementById("searchtext").value = delineate(text);
+						//document.getElementById("searchtext").value = delineate(text);
 						previousSearch(delineate(text));
 
 						// If the button "search" is clicked, the search is activated.
+
 						document.getElementById("searchbutton2").addEventListener("click", pressSearchButton);
 
 						//Trigger searchbutton2 by clicking the enter key
 						$("#searchtext").keyup(function(event){
 	    					if(event.keyCode == 13){
 	        					pressSearchButton();
+
     						}
 						});
 

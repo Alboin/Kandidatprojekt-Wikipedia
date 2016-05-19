@@ -107,8 +107,8 @@
                 <p id="searchdescription">
                             Sök efter en Wikipediaartikel</p>
 
-                <form method="LINK" action="index2_test.html">
-                    <input id = "searchtext1" type="text" name="SearchResult"> 
+                <form method="link" action="index2_test.html" autocomplete ="off">
+                    <input id = "searchtext1" type="text" name="SearchResult" placeholder ="Sök efter en artikel..." > 
                     <!--input type="submit" id = "search" value="Search"-->
                     <!--input type="submit" id="searchbutton" value=""-->
                     <button id="searchbutton"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button>
@@ -123,7 +123,7 @@
                     // If the button "search" is clicked, the search is activated.
                     document.getElementById("searchbutton").addEventListener("click", pressSearchButton);
                     //Trigger searchbutton by clicking the enter key
-                    $("#searchtext").keyup(function(event){
+                    $("#searchtext1").keyup(function(event){
                         if(event.keyCode == 13){
                             $("#searchbutton").click();
                         }
