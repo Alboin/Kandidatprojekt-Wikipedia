@@ -42,7 +42,7 @@ function addTimeHandler() {
 		.attr("height", window.innerHeight)
 		.attr("x", -10)
 		.attr("y", (TIMELINE_YPOS - (window.innerHeight - TIMELINE_YPOS)/2) + handle_height)
-		.attr("style", "fill:rgb(00,25,33);stroke:gray;stroke-width:5;");
+		.attr("style", "fill:rgb(00,25,33);");//stroke:gray;stroke-width:5;");
 
 	//Decides how many labels should be generated below the timeline depending on your screen size.
     var numberOfTimelabels = Math.round(window.innerWidth/150);

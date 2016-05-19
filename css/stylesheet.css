@@ -48,12 +48,12 @@ header {
     font-family: 'Playfair Display', Arial;
     font-size: 20px;
     text-align: center;
-    color: white;
+    color: #507583;/*white;*/
 }
 
 #header_text:hover {
     cursor: pointer;
-    color: rgb(200,200,230);
+    color: #90a5b3;
 }
 
 h1 {
@@ -257,7 +257,7 @@ footer{
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     background: rgba(0, 37, 51, 0.7);
-    z-index: 990;
+    z-index: 100;
     font-family: 'Playfair Display';
 }
 
