@@ -121,6 +121,7 @@ function addTimeHandler() {
 
 		})
 		.on('dragend', function() {
+			BOUNDS_HAS_CHANGED = true;
 			//Update the timeline.
 			sortDots();
 			updateSecondTimeTexts();
@@ -145,6 +146,7 @@ function addTimeHandler() {
 
 		})
 		.on('dragend', function() {
+			BOUNDS_HAS_CHANGED = true;
 			//Update the timeline.
 			sortDots();
 			updateSecondTimeTexts();
@@ -286,6 +288,8 @@ function moveHandles(left_pos, right_pos) {
 	HANDLE_LEFT.transition().duration(2000).attr('x', temp_left);
 	HANDLE_RIGHT.transition().duration(2000).attr('x', temp_right);
 	MARKED_TIME.transition().duration(2000).attr('x', temp_left).attr('width', temp_right - temp_left);
+
+	BOUNDS_HAS_CHANGED = false;
 
 	HANDLE_TEXTS[0].text("");
 	HANDLE_TEXTS[1].text("");
