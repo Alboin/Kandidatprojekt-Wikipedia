@@ -7,22 +7,32 @@
 
  	The file includes the function:
  	- pressSearchButton
+ 	- previousSearch
 ********************************************************************************************************/
 
 //The function is run when the user press "search"
 function pressSearchButton() {		
 
-	//Save user input.
+	if(!SEARCH_IS_ACTIVE) {
 
-	var usertext = document.getElementById("searchtext").value;
-	//Create query from user input.
-	var query = getSearchString(usertext);
+		//Save user input.
+		var usertext = document.getElementById("searchtext").value;
+		//Create query from user input.
+		var query = getSearchString(usertext);
 
-	//This function is run asynchronously.
-	MAIN_SEARCH = true;
-	HAS_RUN_EXTRA_SEARCH = false;
+		//This function is run asynchronously.
+		MAIN_SEARCH = true;
+		HAS_RUN_EXTRA_SEARCH = false;
 
-	getWikiData(query, "red");
+		getWikiData(query, "red");
+
+	} else {
+		console.log("Search is still active...")
+		//Show the message below the search-box for a brief moment.
+		$("#search_not_complete_message").fadeIn( 500, function() {
+			$("#search_not_complete_message").fadeOut(3000);
+  		});
+	}
 
 
 	
