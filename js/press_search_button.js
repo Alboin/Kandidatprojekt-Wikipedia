@@ -13,9 +13,10 @@
 function pressSearchButton() {		
 
 	//Save user input.
-
 	var usertext = document.getElementById("searchtext").value;
 	//Create query from user input.
+
+
 	var query = getSearchString(usertext);
 
 	//This function is run asynchronously.
@@ -24,12 +25,14 @@ function pressSearchButton() {
 
 	getWikiData(query, "red");
 
+	window.history.replaceState( {} , 'newsearch', window.location.pathname + "?SearchResult=" + usertext);
 
-	
-//	document.location = "index2_test.html";
+
 
 	//HERE you could have some type of loadMainArticleingscreen that is shown while waiting for a response from the function.
 }
+
+
 
 function previousSearch(txt)
 {
