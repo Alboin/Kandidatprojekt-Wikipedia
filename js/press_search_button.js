@@ -1,6 +1,6 @@
 
 /*******************************************************************************************************
- 	Authors: Albin Bergström
+ 	Authors: Albin Bergström mostly + Sara Martin a little bit
 
  	This file contain the function which is run when the user press "search", or the Enter-button.
  	The function starts the searchprocess for the data for an article.

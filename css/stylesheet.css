@@ -35,6 +35,16 @@ header {
     color: white;
 }
 
+.hover_text
+{
+    color: #E0E2FF;
+}
+
+.hover_text:hover
+{
+    color: #90a5b3;
+}
+
 .intro-text{
     padding: 50px;
     font-family: 'Playfair Display', Arial;
@@ -116,6 +126,22 @@ p#searchdescription{
     font-size: 18px;
     float: left;
     margin-left: 5%;
+}
+
+p#footertxt
+{
+    padding-top: 20; 
+    font-family: 'Arial';
+    font-size: 100%;
+    font-weight: bold;
+}
+
+p#relations
+{
+    font-family: 'Arial';
+    color: white;
+    font-size: 80%;
+    padding: 15 15 10 15;
 }
 
 section#search
@@ -204,13 +230,7 @@ footer{
     padding: 10 10 10 10;
 }
 
-p#footertxt
-{
-    padding-top: 20; 
-    font-family: 'Arial';
-    font-size: 100%;
-    font-weight: bold;
-}
+
 
 
 /*--------------------------------------------------------
@@ -603,13 +623,13 @@ div.tooltip {
     font-weight: 500;
     font-size: 35px;
     text-transform: uppercase;
-    color: #426C7B;
+    color: black;
     text-align: center;
     font-family: 'Playfair Display', serif;
     /* margin-top: 3%; */
 }
 .wiki_title2 :hover{
-    color: #395D6B;
+    color: white;
     text-decoration: none;
 }
 

@@ -1,6 +1,6 @@
 
 /*******************************************************************************************************
- 	Authors: Sara Martin
+ 	Authors: Sara Martin & Albin Bergström
 
  	This file handle the time-controller, which is the timeline at the bottom of the screen in the
  	timeview. The timeline has handles that the user can use to choose a specific time span.

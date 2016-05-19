@@ -284,7 +284,7 @@
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
 				        	<h4 class="modal-title" id="myModalLabel"><p id="artikel_titel"></p></h4>
-				        	<p id="artikel_bild"></p>
+				        	<p class ="text-center" id="artikel_bild"></p>
 				      	</div>
 
 					    <div class="modal-body">
@@ -338,12 +338,18 @@
 
 							<h3  class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>
 								Relaterade artiklar
-
+							<br>
 								<i class="fa fa-angle-double-down" id="article_list_arrow_time" aria-hidden="true"></i>
 							</h3>
-							
-
 							<ul id='article_list_time'></ul>
+
+							<p id ="relations">	
+								<img src="img/dot_red.png" alt="Marker" style="width:5%"> Huvudartikel.	 <br>  
+								<img src="img/dot_black.png" alt="Marker" style="width:5%"> Länkas från huvudartikeln.	<br>
+								<img src="img/dot_gray.png" alt="Marker" style="width:5%"> Länkar till huvudartikeln.	<br>
+								<img src="img/dot_green.png" alt="Marker" style="width:5%"> Artikeln länkas till och från huvudartikeln.
+							</p>
+
 
 						</div>
 
@@ -364,15 +370,16 @@
 							</h3>
 
 							<ul id='article_list'></ul>
+							<p id="relations"> 
+								<img src="img/pin_red.png" alt="Marker" style="width:5%"> Huvudartikel.	  <br> 
+								<img src="img/pin_black.png" alt="Marker" style="width:5%"> Länkas från huvudartikeln.	<br>
+								<img src="img/pin_gray.png" alt="Marker" style="width:5%"> Länkar till huvudartikeln.		<br>
+								<img src="img/pin_green.png" alt="Marker" style="width:5%"> Artikeln länkas till och från huvudartikeln.</p>
 
 						</div>
 
 						<div id="map_footer"> 
-							<h4 id="map_footer_text"> 
-								<img src="img/pin_red.png" alt="Marker" style="width:2%"> Huvudartikel.	   
-								<img src="img/pin_black.png" alt="Marker" style="width:2%"> Länkas från huvudartikeln.	
-								<img src="img/pin_gray.png" alt="Marker" style="width:2%"> Länkar till huvudartikeln.		
-								<img src="img/pin_green.png" alt="Marker" style="width:2%"> Stark relation, artikeln länkas till och från huvudartikeln.</h4>
+							
 						</div>
 
 						<!--Button to go back to start page-
