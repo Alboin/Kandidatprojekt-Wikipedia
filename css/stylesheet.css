@@ -30,7 +30,7 @@ body {
 
 header {
     width: 100%;
-    height: 30%;
+    height: 80%;
     background-color:#002533;
     color: white;
 }
@@ -121,7 +121,7 @@ p#searchdescription{
 section#search
 {
     padding-top:50px;
-    height:80%;
+    height:90%;
     width: 100%;
     background-color: #E0E2FF;
     color: black;
@@ -198,11 +198,19 @@ input#searchtext2
 }
 
 footer{
-    height: 15%;
-    background-color: black;
+    height: 10%;
     color: white;
+    background-color:#002533;
+    padding: 10 10 10 10;
 }
 
+p#footertxt
+{
+    padding-top: 20; 
+    font-family: 'Arial';
+    font-size: 100%;
+    font-weight: bold;
+}
 
 
 /*--------------------------------------------------------
@@ -579,10 +587,14 @@ div.tooltip {
     font-weight: 500;
     font-size: 35px;
     text-transform: uppercase;
-    color: #56727C;
+    color: #426C7B;
     text-align: center;
     font-family: 'Playfair Display', serif;
     /* margin-top: 3%; */
+}
+.wiki_title2 :hover{
+    color: #395D6B;
+    text-decoration: none;
 }
 
 #place_right{

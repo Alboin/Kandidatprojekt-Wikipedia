@@ -27,8 +27,6 @@ function pressSearchButton() {
 
 	window.history.replaceState( {} , 'newsearch', window.location.pathname + "?SearchResult=" + usertext);
 
-
-
 	//HERE you could have some type of loadMainArticleingscreen that is shown while waiting for a response from the function.
 }
 
