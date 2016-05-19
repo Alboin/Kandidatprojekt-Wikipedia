@@ -26,6 +26,7 @@
 		this.page = 1;
 		changeClockImage();
 
+
 		this.setPage = function(setPage){
 			this.page = setPage;
 		};

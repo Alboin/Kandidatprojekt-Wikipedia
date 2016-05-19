@@ -148,6 +148,10 @@
 
 					    	if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
 					    		$("#globe").attr("src", "img/globe_orange_strong_small.png");
+					    		
+					    		for(var i = 0; i < TIME_ARTICLES.length; i++)
+					    			$('#dot' + TIME_ARTICLES[i].id).tipsy("hide");
+
 					    	}
 					    	$("#clock").attr("src", "img/clock_white_small.png");
 
@@ -315,6 +319,10 @@
    				<!-- The row contains only one column that fills the entire screen width. -->
    				<div class="col-lg-12">
 
+   					<div id="search_not_complete_message"><p> Sökningen pågår fortfarande... </p></div>
+   					<script>$("#search_not_complete_message").hide();
+   					$("#search_not_complete_message").css("color", "#F99C08");</script>
+
    					<!-- A container containing what is shown in the time view. -->
 			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 
@@ -367,8 +375,8 @@
 								<img src="img/pin_green.png" alt="Marker" style="width:2%"> Stark relation, artikeln länkas till och från huvudartikeln.</h4>
 						</div>
 
-						<!--Button to go back to start page-->
-						<button ng-click="pageCtrl.setPage(4)" id='back' onclick="hideStartpage()"><i class="fa fa-arrow-left" id=back""></i></button>
+						<!--Button to go back to start page-
+						<button ng-click="pageCtrl.setPage(4)" id='back' onclick="hideStartpage()"><i class="fa fa-arrow-left" id=back""></i></button>-->
 						
 					</div>
 

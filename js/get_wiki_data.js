@@ -10,10 +10,12 @@
 ********************************************************************************************************/
 //Variable that controls how many extra search-attempts should be performed.
 var HAS_RUN_EXTRA_SEARCH = false;
+var SEARCH_IS_ACTIVE = false;
 
 //The function takes a final query as input, uses GET (sends a query to the Wikipedia API) 
 //A json-object is returned, saved in the variable 'data'.
 function getWikiData(query, article_color){
+	SEARCH_IS_ACTIVE = true;
 	$(document).ready(function(){
 		//Add the loading animation at the start of the search (if it does not already exist).
 		if(!$("#loading_gif").attr("id")) {
@@ -54,6 +56,8 @@ function getWikiData(query, article_color){
 	        				//If both lower- and uppercase has been tried.
 	        				} else if(HAS_RUN_EXTRA_SEARCH) {
 	        					window.alert("The entered search-text did not yield any results.");
+								$("#loading_gif").remove();
+								SEARCH_IS_ACTIVE = false;
 	        				//If searchstring is uppercase.
 	        				} else {
 	        					//Run new search.
@@ -66,6 +70,8 @@ function getWikiData(query, article_color){
 
 	        			} else {
 	        				window.alert("The entered search-text did not yield any results.");
+							$("#loading_gif").remove();
+							SEARCH_IS_ACTIVE = false;
 	        			}
 	        		
 	        		//If the result is not a valid article, the returned object often contains a redirection proposal

@@ -95,6 +95,7 @@ function loadLinksArticles(data) {
 	if(MAIN_ARTICLE.backlinks[MAIN_ARTICLE.backlinks.length -1].toLowerCase() == temp_article.title.toLowerCase()) {
 		$("#loading_gif").remove();
 		$("#header_row").append("<i class='fa fa-check-circle' aria-hidden='true' id='loading_done_checkbox'></i>");
+		SEARCH_IS_ACTIVE = false;
 		console.log("Search completed.")
 	}
 
