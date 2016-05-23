@@ -680,6 +680,7 @@ div.tooltip {
     text-align: center;
     font-color: #002533;
     font-family: 'Playfair Display', serif;
+        margin: 2%;
     /* margin-top: 3%; */
 }
 .wiki_title2 :hover{
@@ -711,7 +712,7 @@ div.tooltip {
     /* margin: 0%; */
     font-color: #ffffff;
     padding: 0;
-    padding-bottom: 3%;
+    padding-bottom: 4%;
     margin: 0%;
     z-index: 100;
     position: fixed;
