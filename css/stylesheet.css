@@ -403,9 +403,11 @@ footer{
 }
 
 #article_list li {
-    border-style: solid;
+    border-top-style: solid;
+    border-bottom-style: solid;
     border-width: 1px;
     border-color: #eeeeee #ffffff;
+    background: rgba(0,0,0,0);
 }
 
 #article_list li:hover {
@@ -414,13 +416,14 @@ footer{
 }
 
 #article_list_time li {
-    border-style: solid;
+    border-top-style: solid;
+    border-bottom-style: solid;
     border-width: 1px;
     border-color: #eeeeee #ffffff;
 }
 
 #article_list_time li:hover {
-    background:#fff;
+    background: white;
     cursor: pointer;
 }
 
@@ -713,7 +716,7 @@ div.tooltip {
     z-index: 100;
     position: fixed;
     width: 100%;
-    height: 8%;
+    height: 50px;/*8%;*/
 
 }
 
