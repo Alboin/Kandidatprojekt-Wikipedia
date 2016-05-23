@@ -96,16 +96,16 @@ function generateTimeDot(article) {
     var dot_color, dot_border_color;
     if(article.title == MAIN_ARTICLE.title) {
         dot_color = '#ff0000';
-        dot_border_color = '#ff8888';
+        dot_border_color = '#ff3232';
     } else if(article.link_both_ways) {
-        dot_color = '#2E8A2F'; 
-        dot_border_color = '#96c496';
+        dot_color = '#f99c08'; 
+        dot_border_color = '#f9a520';
     } else if(article.is_backlink) {
-        dot_color = '#767676';
-        dot_border_color = '#b5b5b5';
+        dot_color = '#5F8CAB';
+        dot_border_color = '#7ea3bb';
     } else {
-        dot_color = '#000000'
-        dot_border_color = '#797979';
+        dot_color = '#2B5673'
+        dot_border_color = '#55778f';
     }
 
     var temp = Math.random() * window.innerHeight;
@@ -246,7 +246,7 @@ function ShowHideTipsy(id){
 //Sorts the dots in chronological order. Is run every time a new dot is added.
 function sortDots() {
 
-    d3.select("#dot" + MAIN_ARTICLE.id).attr("fill", "#0000ff");
+    d3.select("#dot" + MAIN_ARTICLE.id).attr("fill", "#ff0000");
 
     //Loop through all the dots and update their position.
     for(var i = 0; i < TIME_DOTS.length; i++) {
