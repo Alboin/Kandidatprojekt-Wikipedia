@@ -91,9 +91,8 @@ function loadLinksArticles(data) {
 	temp_article.id = data.query.pageids[0]; 									//Save article id
 	temp_article.title = data.query.pages[temp_article.id].title; 				//Save article title
 
-	//When the search is somewhat done replace the loading gif with a checkbox icon.
 	//The search may not be completed since it is not entirely sure that the result for the last link searched for arrive last.
-	if(MAIN_ARTICLE.backlinks[MAIN_ARTICLE.backlinks.length -1].toLowerCase() == temp_article.title.toLowerCase()) {
+	if(LINK_RESULTS_RECIEVED > (MAIN_ARTICLE.backlinks.length + MAIN_ARTICLE.links.length)*0.97) {
 		//$("#loading_gif").remove();
 		//$("#header_row").append("<i class='fa fa-check-circle' aria-hidden='true' id='loading_done_checkbox'></i>");
 		SEARCH_IS_ACTIVE = false;

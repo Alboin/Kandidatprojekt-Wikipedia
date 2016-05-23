@@ -7,6 +7,7 @@
  	The file includes the functions:
  	- getWikiData
  	- makeFirstLettersCapital
+ 	- getRandomWikiData
 ********************************************************************************************************/
 //Variable that controls how many extra search-attempts should be performed.
 var HAS_RUN_EXTRA_SEARCH = false;
@@ -165,4 +166,28 @@ function makeFirstLettersCapital(text) {
 		}
 	}
 	return text;
+}
+
+function getRandomWikiData(query){
+
+    $.ajax({
+        type: "GET",
+        url: query,
+        contentType: "application/json; charset=utf-8",
+        async: true,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+
+			getRandomTitle(data);
+
+		},
+
+        //Error message in console, if no search was done.
+        error: function (errorMessage) {
+        	console.log("FEL.");
+        }
+
+
+	});
+
 }

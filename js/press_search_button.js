@@ -11,12 +11,25 @@
 ********************************************************************************************************/
 
 //The function is run when the user press "search"
-function pressSearchButton() {		
+function pressSearchButton(random) {		
 
 	if(!SEARCH_IS_ACTIVE) {
 
-		//Save user input.
-		var usertext = document.getElementById("searchtext").value;
+		//If it is a random search
+		if(random){
+			//Save user input.
+			var usertext = random;
+			console.log("hej jag är random");
+
+		}
+		else{
+
+			//Save user input.
+			var usertext = document.getElementById("searchtext").value;
+			console.log("hej jag fattar inte att jag är random");
+
+		}
+
 		//Create query from user input.
 		var query = getSearchString(usertext);
 
@@ -39,6 +52,31 @@ function pressSearchButton() {
 	//HERE you could have some type of loadMainArticleingscreen that is shown while waiting for a response from the function.
 }
 
+//When the random button is pressed.
+function pressRandomSearchButton() {	
+
+	if(!SEARCH_IS_ACTIVE) {
+
+		//Create query from user input.
+		var query = getRandomSearchString();
+
+		//This function is run asynchronously.
+		MAIN_SEARCH = true;
+		HAS_RUN_EXTRA_SEARCH = false;
+		
+		getRandomWikiData(query);
+		//getRandomTitle(data); //Kan använda den här direkt kanske? 
+
+
+		} else {
+			console.log("Search is still active...")
+			//Show the message below the search-box for a brief moment.
+			$("#search_not_complete_message").fadeIn( 500, function() {
+				$("#search_not_complete_message").fadeOut(3000);
+	  		});
+		}
+	
+}	
 
 
 function previousSearch(txt)
@@ -53,10 +91,4 @@ function previousSearch(txt)
 
 	getWikiData(query, "red");
 }
-/*
-function getSearchText()
-{
-	console.log(usertext);
-	document.getElementById("new_searchtext").value = "Sökning: " + usertext;
-}
-*/
+

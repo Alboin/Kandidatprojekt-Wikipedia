@@ -37,30 +37,3 @@
 	});
 
 })(); 
-
-
-
-
-/* ------------------------------------------------
-	An example of how an object could look like,
-	if every article would be "hard coded"
-------------------------------------------------- */
-/*
-(function(){
-
-	var article = { 
-		title: 'Sverige', 
-		coord: 63.16,
-		found: true };
-	var app = angular.module('wikiSearch', []);
-
-	app.controller('ArticleController', function(){
-		this.products = articles;
-	});
-
-	// det här kan behövas senare för att undersöka info om en artikel
-	var articles = [
-		{ title: 'Sverige', coord: 63.16, found: true},
-		{ title: 'Gustav Vasa', coord: 1500, found: true }
-	];
-})(); */

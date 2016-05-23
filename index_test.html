@@ -101,52 +101,52 @@
 <section id = "search">
 
 
-     <div class = "intro-text">Wikinspire</div>
 
      <div class="row nomargin" id="lower_row">
 
+    <!--Random button-->
+    <form method="link" href="index2_test.html" autocomplete ="off">
+        <img id="random" src="img/dice.png"></img>
+    </form>
 
+
+    <script>
+        //Eventlistener for the random button
+        document.getElementById("random").addEventListener("click", pressRandomSearchButton);
+    </script>
+
+     <div class = "intro-text">Wikinspire</div>
+        <div class="row nomargin" id="lower_row">
             <div class="col-lg-12">
-
-
 
                 <div class="col-lg-4">
                 </div>
 
-            <div class="col-lg-4" id="topmargin">
+                <div class="col-lg-4" id="topmargin">
 
+                    <form method="link" action="index2_test.html" autocomplete ="off">
+                        <input id = "searchtext1" type="text" name="SearchResult" placeholder ="Sök efter en artikel..." > 
+                        <!--input type="submit" id = "search" value="Search"-->
+                        <!--input type="submit" id="searchbutton" value=""-->
+                        <button id="searchbutton"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button> 
+                    </form>
 
-               <!-- <h2>Sök efter en Wikipediaartikel</h2> -->
+                    <p id ="errormessage"></p>
 
-            <!--    <p id="searchdescription">
-                            Sök efter en Wikipediaartikel</p> -->
+                    <script>
+                        // If the button "search" is clicked, the search is activated.
+                        document.getElementById("searchbutton").addEventListener("click", pressSearchButton);
+                        //Trigger searchbutton by clicking the enter key
+                        $("#searchtext1").keyup(function(event){
+                            if(event.keyCode == 13){
+                                $("#searchbutton").click();
+                            }
+                        });
+                        
+                    </script>
 
+                </div>    
 
-                <form method="link" action="index2_test.html" autocomplete ="off">
-                    <input id = "searchtext1" type="text" name="SearchResult" placeholder ="Sök efter en artikel..." > 
-                    <!--input type="submit" id = "search" value="Search"-->
-                    <!--input type="submit" id="searchbutton" value=""-->
-                    <button id="searchbutton"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button>
-                   
-                </form>
-
-                <p id ="errormessage"></p>
-                <!--<input type="text", id="searchtext" value = "Sök efter en artikel"></input>-->
-                <!--button id="search"> Search</button-->
-                <!--a href="#/map">Map view</a>
-                <a href="#/time">Time view</a-->
-
-                <script>
-                    // If the button "search" is clicked, the search is activated.
-                    document.getElementById("searchbutton").addEventListener("click", pressSearchButton);
-                    //Trigger searchbutton by clicking the enter key
-                    $("#searchtext1").keyup(function(event){
-                        if(event.keyCode == 13){
-                            $("#searchbutton").click();
-                        }
-                    });
-                    
-                </script>
             </div>   
 
             <div class="col-lg-4">
@@ -162,21 +162,27 @@
         <div class ="col-lg-12">
                 <div class="container">
                 <div class="row">
+
                     <div class="col-md-4">
                         <p id = "footertxt">Copyright &copy; Team Wikinspire 2016</p>
                     </div>
+
                     <div class="col-md-4">
+
                         <div class ="hover_text">
                             <h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
                         </div>
+
                     </div>
+
                     <div class="col-md-4 text-right">
                         <p id = "footertxt">Norrköping, Sweden</p>
                     </div>
+
                 </div>
             </div>
         </div>
-     </footer>
+    </footer>
 
 
 </body>
