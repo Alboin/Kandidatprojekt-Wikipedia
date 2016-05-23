@@ -352,7 +352,7 @@ footer{
     position: fixed;
     right: 0%;
     width: 13.5%;
-    padding: 0.5%;
+    padding: 0px;
     margin-right: 1%;
     top: 10%;
     border-radius: 5%;
@@ -365,7 +365,7 @@ footer{
     position: fixed;
     right: 0%;
     width: 13.5%;
-    padding: 0.5%;
+    padding: 0px;
     margin-right: 1%;
     top: 10%;
     border-radius: 6px;

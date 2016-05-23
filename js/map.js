@@ -210,10 +210,10 @@ function changeModalContent(title) {
 //function opens the popup for the marker associated with the same article as the list-item.
 function openMarkerPopup(title) {
 
-	$("#map_" + title.replaceAll(" ", "_")).css("background", "#7095a3");
-
 	//Loop through all markers on the map and if one with the same title exist, open that one's popup.
 	for(var i = 0; i < all_markers.length; i++) {
+
+		$("#map_" + all_markers[i].options.title.replaceAll(" ", "_")).css("background", "rgba(0,0,0,0)");
 
 		//Find the starting and ending index of the article title
 		var start_of_title = (all_markers[i]._popup._content).indexOf('>');
@@ -224,6 +224,9 @@ function openMarkerPopup(title) {
 			all_markers[i].openPopup();
 		}
 	}
+
+	//Change background color for the list-item that is connected with the selected marker.
+	$("#map_" + title.replaceAll(" ", "_")).css("background", "#7095a3");
 }
 
 //Creates a new entry on the list with displayed articles.
