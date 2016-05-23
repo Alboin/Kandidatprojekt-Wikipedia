@@ -85,6 +85,13 @@
 </head>
 
 <body ng-app="wikiSearch">
+    
+    <div class="infoButton">
+        <!-- Buttons for the "övrigt" page, to be "info"-page -->
+        <img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" src="img/info.png"></img>
+        <!--The modal text is outside the body in this file-->
+    </div>
+
 
 
     <!--Uses the controller in app_test.js-->
@@ -95,6 +102,8 @@
 
 
             <div class="col-lg-12">
+
+
 
                 <div class="col-lg-4">
                 </div>
@@ -167,7 +176,25 @@
 
 </body>
 
+    <!--Modal for the information-->
+    <div id="myInfoModal" class="modal fade" >
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--The cross in top right corner of the modal-->
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Info</h4>
+                </div>
+                <div class="modal-info-body">
+                    Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. En sökning resulterar i två vyer: Kartvy och Tidsvy.  
 
+                    Det här projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, Hanna Johansson, Johanna Westberg och Sarah Fosse. 
+
+                    <br><h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </html>
 

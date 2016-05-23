@@ -44,14 +44,13 @@
  		<script type="text/javascript" src="js/timeline_view.js"></script>
  		<script type="text/javascript" src="js/timeline_controller.js"></script>
 
-
 		<!--Modal popup-->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 	</head>
 
-	<body style="overflow: hidden; width:100%;height:100%;margin:0;">
+	<body>
 
 		<!-- Section is a container for the whole page. -->
 		<section ng-init="page = 3" class="page" ng-controller="PageController as pageCtrl" >
@@ -71,13 +70,13 @@
 
  		 			<button id="searchbutton2"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button>
  		 			
- 		 			<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)"/>
+ 		 			<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)"/>
 
-					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
+					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
 
 
 					<!-- OLD SEARCH -->
- 		 			<form style="height: 0px; padding: 0px; margin: 0px; width: 0px;" name="search">
+ 		 			<form name="search">
 						<input type="hidden" name="textresult">
 					</form>	
 
@@ -196,7 +195,7 @@
 
 				<div class="infoButton">
 					<!-- Buttons for the "övrigt" page, to be "info"-page -->
-					<img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" src="img/info.png" style="width:2%;"></img>
+					<img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" src="img/info.png"></img>
 					
 			   	</div>
 
@@ -214,7 +213,7 @@
            					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             				<h4 class="modal-title">Info</h4>
        					</div>
-						<div class="modal-info-body" style="padding: 10px; margin: 10px;">
+						<div class="modal-info-body">
 		                	Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. En sökning resulterar i två vyer: Kartvy och Tidsvy. 	
 
 		                	Det här projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, Hanna Johansson, Johanna Westberg och Sarah Fosse. 
@@ -280,7 +279,7 @@
 
 						<p id="tidsinfo"></p>
 
-						<svg id="svg" style="width:100%;height:100%;margin:0;margin-top:75px"></svg>
+						<svg id="svg"></svg>
 
 						<div id="inaccessible_area_left"></div>
 						<div id="inaccessible_area_right"></div>
@@ -290,16 +289,16 @@
 
 							<h3  class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>
 								Visade artiklar
-							<br>
+								<br>
 								<i class="fa fa-angle-double-down" id="article_list_arrow_time" aria-hidden="true"></i>
 							</h3>
 							<ul id='article_list_time'></ul>
 
 							<p id ="relations">	
-								<img src="img/dot_red.png" alt="Marker" style="width:5%"> Huvudartikel.	 <br>  
-								<img src="img/dot_black.png" alt="Marker" style="width:5%"> Länkas från huvudartikeln.	<br>
-								<img src="img/dot_gray.png" alt="Marker" style="width:5%"> Länkar till huvudartikeln.	<br>
-								<img src="img/dot_green.png" alt="Marker" style="width:5%"> Artikeln länkas till och från huvudartikeln.
+								<img class="marker" src="img/dot_red.png" alt="Marker"> Huvudartikel.	 <br>  
+								<img class="marker" src="img/dot_black.png" alt="Marker"> Länkas från huvudartikeln.	<br>
+								<img class="marker" src="img/dot_gray.png" alt="Marker"> Länkar till huvudartikeln.	<br>
+								<img class="marker" src="img/dot_green.png" alt="Marker"> Artikeln länkas till och från huvudartikeln.
 							</p>
 
 						</div>
@@ -315,16 +314,17 @@
 						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
 							<h3 class='article_list_header' id="article_list_header_map" onclick='hideArticleListMap()'>
-								Visade artiklar
+								Visade artiklar 
+								<br>
 								<i class="fa fa-angle-double-down" id="article_list_arrow_map" aria-hidden="true"></i>
 							</h3>
 
 							<ul id='article_list'></ul>
 							<p id="relations"> 
-								<img src="img/pin_red.png" alt="Marker" style="width:5%"> Huvudartikel.	  <br> 
-								<img src="img/pin_black.png" alt="Marker" style="width:5%"> Länkas från huvudartikeln.	<br>
-								<img src="img/pin_gray.png" alt="Marker" style="width:5%"> Länkar till huvudartikeln.		<br>
-								<img src="img/pin_green.png" alt="Marker" style="width:5%"> Artikeln länkas till och från huvudartikeln.</p>
+								<img class="marker" src="img/pin_red.png" alt="Marker"> Huvudartikel.	  <br> 
+								<img class="marker" src="img/pin_black.png" alt="Marker"> Länkas från huvudartikeln.	<br>
+								<img class="marker" src="img/pin_gray.png" alt="Marker"> Länkar till huvudartikeln.		<br>
+								<img class="marker" src="img/pin_green.png" alt="Marker"> Artikeln länkas till och från huvudartikeln.</p>
 
 						</div>
 
@@ -363,8 +363,8 @@
 			$(document).ready(console.log("Document is ready!"));
 
 			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
-			$('#article_list').css('max-height', window.innerHeight * 0.6 + 'px');
-			$('#article_list_time').css('max-height', window.innerHeight * 0.5 + 'px');
+			// $('#article_list').css('max-height', window.innerHeight * 0.6 + 'px');
+			// $('#article_list_time').css('max-height', window.innerHeight * 0.5 + 'px');
 
 			//Prevent the article to become "unmarked" when the user clicks somewhere in the article list.
 			$("#article_list_container_time")
