@@ -30,7 +30,7 @@ body {
 
 header {
     width: 100%;
-    height: 80%;
+    height: 40%;
     background-color:#002533;
     color: white;
 }
@@ -46,36 +46,41 @@ header {
 }
 
 .intro-text{
-    padding: 50px;
-    font-family: 'Playfair Display', Arial;
-    font-size: 60px;
+
+    padding: 10%;
+    font-family: 'Playfair Display', Serif;
+    font-size: 700%;
     text-align: center;
     color: white;
+    text-shadow: 2px 2px 9px #000000;
 }
 
-#header_text{
+/* #header_text{
     padding-top: 10px;
     font-family: 'Playfair Display', Arial;
     font-size: 20px;
     text-align: center;
-    color: #507583;/*white;*/
-}
+    color: white;
+    color: #507583;/*white;
+}*/
 
-#header_text:hover {
+
+/* #header_text:hover {
     cursor: pointer;
+    color: rgb(200,200,230); 
     color: #90a5b3;
-}
+}*/
 
-h1 {
+/* h1 {
     font-family: 'Playfair Display', Arial;
     font-size: 40px;
     text-align: center;
     color: white;
-}
+} */
 
 h2 {
     font-family: Arial, sans-serif; 
-    font-size: 25px;
+   /* font-size: 25px; */
     text-align: center;
     color:black;
     text-transform: uppercase;
@@ -88,12 +93,13 @@ h3{
     text-transform: uppercase;
     color: white;
     text-align: center;
+    font-size: 170%;
 }
 
 h4 {
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
-    font-size: 20px;
+    font-size: 90%;
     text-align: center;
     color: white;
 }
@@ -101,32 +107,31 @@ h4 {
 h5 {
     font-family: 'Roboto', sans-serif;
     font-weight: 70;
-    font-size: 30px;
+    font-size: 200%;
     text-align: center;
     color: gray;
 
 }
 
-
-/*används ej?*/
+/*
 hr {
-    color: #C9FF8F;     /* #cccccc */
+    color: #C9FF8F;    
     background-color: #496A6F;
     height: 0px;
     margin: 0px;
     padding: 0px;
-}
+} */
 
 p {
-    margin: 0px;
+    margin: 0%;
 }
 
-p#searchdescription{
+/* p#searchdescription{
     font-weight: 100;
     font-size: 18px;
     float: left;
     margin-left: 5%;
-}
+}*/
 
 p#footertxt
 {
@@ -146,10 +151,12 @@ p#relations
 
 section#search
 {
-    padding-top:50px;
+    padding-top:3%;
     height:90%;
     width: 100%;
-    background-color: #E0E2FF;
+    /*background-color: #E0E2FF;
+    background-image: url('../img/cat-background.jpg');*/
+    background-image: url('../img/vatten.jpg');
     color: black;
     text-align: center;
 }
@@ -159,21 +166,21 @@ button {
     background-color: gray; 
     border: none;
     color: white;
-    padding: 10px 10px;
+    /*padding: 2% 2%;*/
     text-align: center;
-    text-decoration: none;
+    text-decoration none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 120%;
     /*border-radius: 8px;*/
 }
 
 button#searchbutton
 {
-    width: 37px;
-    height: 37px;
+    width: 9%;
+    height: 100%;
     background-repeat: no-repeat;
     background-color: #F99C08;
-    padding: 10px;
+    /*padding: 10%;*/
     border: 0;
     color:white;
     font-weight: bold;
@@ -185,43 +192,43 @@ button#searchbutton
 
 button#searchbutton2
 {
-    width: 37px;
-    height: 37px;
+   /* width: 9%;*/
     background-repeat: no-repeat;
     background-color: #F99C08;
     border: 0;
     color:white;
     font-weight: bold;
-    margin: 10px;
-    margin-left: 0px;
+    margin: 3%;
+    margin-left: 0%;
    /* position:absolute;*/
     left: 38%;
     z-index: 10;
+    padding: 2.5%;
 }
 
 
-input#searchbutton 
+/*input#searchbutton 
 {
-    padding: 7px;
-    /* width: 7%;
-   height: 2.8%;*/
+    padding: 10%;
+    width: 7%;
+   height: 2.8%;
     background:url(../img/magnifier_white.png);
     background-repeat: no-repeat;
     background-color: #F99C08;
     border: 0;
-}
+}*/
 
 
 input#searchtext1 
 {
-    width: 90%;
-    height: 37px;
+    width: 80%;
+    height: 100%;
 }
 
-input#searchtext2
+/*input#searchtext2
 {
     width: 40%;
-}
+}*/
 
 footer{
     height: 10%;
@@ -242,7 +249,8 @@ footer{
 }
 
 #searchtext {
-    height: 37px;
+
+    padding: 1.5%;
 }
 
 #searchtext2 {
@@ -286,17 +294,18 @@ footer{
 #loading_gif {
     position: absolute;
     color: green;
-    left: 12%;
-    top: 20px;
+    left: 12.3%;
+    top: 37%;
     z-index: 10;
 }
 
 #loading_done_checkbox {
     position: absolute;
     color: rgba(0, 37, 51, 0.7);;
-    left: 12%;
-    top: 18px;
+    left: 12.2%;
+    top: 35%;
     z-index: 10;
+    font-size: 150%;
     font-size: 20px;
 }*/
 
@@ -311,23 +320,24 @@ footer{
 
 #transbox {
     position: fixed;
-    width: 31%;
-    min-height: 0%;
+    width: 33%;
+    height: 7%;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
-    background: rgba(0, 37, 51, 0.7);
+/*background: rgba(0, 37, 51, 0.7);*/
     z-index: 100;
     font-family: 'Playfair Display';
-/*
     background: #002533;
-    opacity: 0.7;
+    opacity: 0.5;
     z-index: 990;
-*/
+
 }
 
 #middle_row {
+
+    margin-top: 2%;
     color: white;
-    font-size: 24px;
+    font-family: serif;
 }
 
 #right_time_handle {
@@ -340,12 +350,12 @@ footer{
 
 #article_list_container {
     position: fixed;
-    right: 0px;
+    right: 0%;
     width: 13.5%;
-    padding: 0px; /* 6px; */
-    margin-right: 10px;
-    top: 75px;
-    border-radius: 6px;
+    padding: 0.5%;
+    margin-right: 1%;
+    top: 10%;
+    border-radius: 5%;
     background: #002533;
     opacity: 0.85; 
     z-index: 999;
@@ -353,11 +363,11 @@ footer{
 
 #article_list_container_time {
     position: fixed;
-    right: 0px;
+    right: 0%;
     width: 13.5%;
-    padding: 0px; /*6px;*/
-    margin-right: 10px;
-    top: 75px;
+    padding: 0.5%;
+    margin-right: 1%;
+    top: 10%;
     border-radius: 6px;
     background: #002533;
     opacity: 0.85;
@@ -369,7 +379,7 @@ footer{
 #article_list {
     border-radius: 0px; /*6px;*/
     overflow: auto;
-    padding: 6px;
+    padding: 4px;
     color: black;
     background: #ddd;
     opacity: 0.85;
@@ -379,7 +389,7 @@ footer{
 #article_list_time {
     border-radius: 0px; /*6px;*/
     overflow: auto;
-    padding: 6px;
+    padding: 4px;
     color: black;
     background: #ddd;
     opacity: 0.85;
@@ -412,11 +422,11 @@ footer{
     text-align: left; 
 }
 
-#back {
+/*#back {
 	position: absolute;
 	left: 25px;
 	top: 60px;
-}
+}*/
 
 #footer {
     text-align: center;
@@ -431,20 +441,22 @@ footer{
     z-index: 1000;
     background-color:#002533;
     color: white;
-    bottom: 0px;   
+    bottom: 0%;   
 }
 
 #map_footer_text{
-    font-size: 12pt;
+    font-family: sans-serif;
+    font-size: 120%;
 }
 
 
 #map { 
     position:relative; 
     bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
-    width:100%; 
-    height:100%; /* Eller ändra den här...*/
-    padding: 0px;
+    width:0%; 
+    height:0%; /* Eller ändra den här...*/
+    padding: 0%;
+    margin: 0%;
     z-index: 31;
     background-color: #d1d1d1;
 }
@@ -462,7 +474,7 @@ footer{
     text-align: right;
 }
 
-#popup{
+/*#popup{
     position: fixed;
     background: rgba(0,0,0,.8);
     display: none;
@@ -470,13 +482,13 @@ footer{
     left: 50px;
     width: 300px;
     height: 200px;
-    border: 1px solid #000;
+    border: 1% solid #000;
     border-radius: 5px;
     padding: 5px;
     color: #fff;
-} 
+} */
 
-#random {
+/*#random {
     display: block;
     position: relative;
     margin: 0px auto;
@@ -490,7 +502,7 @@ footer{
     text-align: center;
     color: #fff;
     background: #ee8a65;
-}
+}*/
 
 /*--------------------------------------------------------
                         CLASSES
@@ -499,14 +511,14 @@ footer{
 .article_list_header {
     color: white;
     text-align: center;
-    font-size: 20;
-    margin: 10;
 }
 
 .article_list_header:hover {
     color: black;
     transition: all 0.2s ease-out;
     cursor: pointer;
+}
+
 }
 
 .btn-default {
@@ -527,9 +539,9 @@ footer{
     border-color: #002533;
 }
 
-.clock {
-   /* margin: 10px;   */
-}
+/*.clock {
+    margin: 10px;   
+}*/
 
 .clock:hover{
     cursor:pointer;
@@ -538,13 +550,11 @@ footer{
 div.tooltip {   
     position: absolute;         
     text-align: center;         
-    min-width: 60px;                    
-    min-height: 10px;                   
-    padding: 2px;               
-    font: 12px sans-serif;      
-    background: white; 
-    border: 0px;        
-    border-radius: 3px;         
+    min-width: 8%;                    
+    min-height: 5%;                                 
+    font: 80% sans-serif;      
+    background: white;        
+    border-radius: 5%;         
     pointer-events: none;           
 }
 
@@ -568,16 +578,16 @@ div.tooltip {
    cursor: hand; 
 }
 
-.mapboxgl-popup {
+/*.mapboxgl-popup {
     max-width: 400px;
     font: 12px/20px 'Roboto', Arial, Helvetica, sans-serif;
     text-align: left; 
-}
+}*/
 
 .marker-title {
     font-weight: 700;
-    font-size: 24px;
-    max-width: 40px;
+    font-size: 200%;
+    max-width: 100%;
     font-family: 'Playfair Display', serif; 
     text-transform: uppercase;
     text-align: left;
@@ -585,7 +595,7 @@ div.tooltip {
 
 .modal-title{
     font-weight: 700;
-    font-size: 40px;
+    font-size: 350%;
     text-transform: uppercase;
     color: white;
     font-family: 'Playfair Display', serif; 
@@ -593,10 +603,10 @@ div.tooltip {
 }
 
 .modal-header {
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    padding:9px 15px; 
+    border-bottom:0% solid #eee;
     background-color: #002533;
-    -webkit-border-top-left-radius: 5px;
+   -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
@@ -632,19 +642,18 @@ div.tooltip {
     cursor: default;
 }
 
-.wiki_title{
-    font-weight: 500;
-    font-size: 100px;
+/*.wiki_title{
+ 
+    font-size: 10%;
     text-transform: uppercase;
     color: white;
     text-align: center;
     font-family: 'Playfair Display', serif; 
-}
+}*/
 .wiki_title2{
     font-weight: 500;
-    font-size: 35px;
-    text-transform: uppercase;
-    color: black;
+    font-size: 240%;
+    color: #56727C;
     text-align: center;
     font-color: #002533;
     font-family: 'Playfair Display', serif;
@@ -666,24 +675,24 @@ div.tooltip {
 
 #topmargin{
    /* top: 10px;*/
-    margin: 10px;
+  /*  margin: 10px;*/
     padding: 0;
-    height: 37px;
+    height: 7%;
 }
 
 
 
 #header_row{
     background-color: #002533;
-    padding: 10px;
-    margin: 0px;
+    /*padding: 10px;*/
+    /*margin: 0%;*/
     font-color: #ffffff;
-    padding: 0;
-    margin: 0;
+    /*padding: 0;*/
+    margin: 0%;
     z-index: 100;
     position:fixed;
     width: 100%;
-    min-height: 37px;
+    height: 8%;
 
 }
 

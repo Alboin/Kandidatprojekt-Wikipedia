@@ -60,16 +60,11 @@
 			<!-- 1st row, top of the page. -->
 	        <div class="row" id="header_row">
 
-
-
 	        	<!-- The row is divided in 3 columns with the same size, which are empty to get the information in the center of the page. -->
 		        
 		        <!-- First column in row 1, up to the left -->
 		        <!-- Column that contains searchfield and buttons -->
-			
-
-                	
-
+ 	
 		        <div class="col-lg-4" id="topleftmargin">	 
 
 		        	<input type="text", id="searchtext" placeholder ="Sök efter en ny artikel..." autocomplete ="off"></input>
@@ -171,7 +166,6 @@
 					    	$("#globe").attr("src", "img/globe_white_small.png");
 					     }
 					</script>
-
 						
 		        </div>
 
@@ -187,98 +181,49 @@
 
 		        		}
 		        	</script>
-		        	<!--div id = "header_text"><i class="fa fa-wikipedia-w fa-2x" aria-hidden="true" onclick='goToStartPage()'  action="index2_test.html" href="index_test.html"></i>ikinspire</div-->   
-
 
 					<h4 class="wiki_title2"><a href = "index_test.html" id="homepage_header"> Wikinspire </a></h4>
 
 				</div>
 
-
-
-
-	        	<!-- Third/last column in row 1, up to the right-->
-
-			    <!-- <div class="col-lg-4" id="toprightmargin">
-
-					<div class="infoButton">
-						
-						<img id="place_right" class="info_button" data-toggle="modal" data-target="#infoModal" src="img/info.png" style="width:8%;">
-						</img>
-
-
-						<div id="infoModal" class="modal fade">
-
-   							<div class="modal-dialog">
-
-        						<div class="modal-content">
-
-            						<div class="modal-header">
-            							
-               							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                						<h4 class="modal-title">Info</h4>
-           							</div>
-
-									<div class="modal-body">
-			                			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel vehicula erat. Phasellus vestibulum leo eu mi tempor blandit. Suspendisse eget iaculis lectus. Donec vitae tempus enim, quis tristique magna. Donec lobortis, sem ac pretium viverra, leo nisl consequat arcu, sit amet ullamcorper nunc turpis ac erat. In rutrum auctor ligula, quis mattis enim lacinia eu. Aliquam at magna a erat laoreet iaculis quis a justo. Donec porttitor vulputate massa, nec suscipit nisi mollis sed.
-									</div>
-
-								</div>
-
-                    		</div>
-        
-    					</div>
-   		
-					</div>
-
-			    </div> -->
+	        	<div class="col-lg-4">
 	    	
-
-	        	<div class="col-lg-4"></div>
+	        	</div>
 
 			    <div class="col-lg-4">
+			    	
+			    </div>
 
-					<!-- Button triggs modal --> 
-					<!--Can be nice to use if we want to work on the popup window-->
-					<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-					Launch demo modal
-					</button-->
-				</div>
 				<div class="infoButton">
 					<!-- Buttons for the "övrigt" page, to be "info"-page -->
 					<img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" src="img/info.png" style="width:2%;"></img>
 					
 			   	</div>
 
-			   
    				<div id="loadingbar"></div>
 
 	    	<!-- End of 1st row, top of the page. -->
 	    	</div>
 
-
-
 	    	<!--Modal for the information-->
-				<div id="myInfoModal" class="modal fade" >
-   					<div class="modal-dialog">
-        				<div class="modal-content">
-            				<div class="modal-header">
-            					<!--The cross in top right corner of the modal-->
-               					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                				<h4 class="modal-title">Info</h4>
-           					</div>
-							<div class="modal-info-body" style="padding: 10px; margin: 10px;">
-			                	Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. En sökning resulterar i två vyer: Kartvy och Tidsvy. 	
-			                	Det här projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, Hanna Johansson, Johanna Westberg och Sarah Fosse. 
+			<div id="myInfoModal" class="modal fade" >
+					<div class="modal-dialog">
+    				<div class="modal-content">
+        				<div class="modal-header">
+        					<!--The cross in top right corner of the modal-->
+           					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            				<h4 class="modal-title">Info</h4>
+       					</div>
+						<div class="modal-info-body" style="padding: 10px; margin: 10px;">
+		                	Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. En sökning resulterar i två vyer: Kartvy och Tidsvy. 	
 
-			                	<br><h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
-							</div>
+		                	Det här projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, Hanna Johansson, Johanna Westberg och Sarah Fosse. 
+
+		                	<br><h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
 						</div>
-                    </div>
-        
-    			</div>
-
-
+					</div>
+                </div>
+			</div>
 
 		    <!-- Modal, the informationbox that appears when a button is beeing clickes -->
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -306,7 +251,7 @@
 			</div>
 
 
-			<!--The line under the searchbutton2s-->
+			<!--The line under the searchbutton2-->
 
 				<div class="col-lg-4">
 				</div>
@@ -332,8 +277,6 @@
    					$("#search_not_complete_message").css("color", "#F99C08");</script>
 
 
-   					<div 
-
    					<!-- A container containing what is shown in the time view. -->
 			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 
@@ -350,7 +293,6 @@
 							<h3  class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>
 								Visade artiklar
 							<br>
-
 								<i class="fa fa-angle-double-down" id="article_list_arrow_time" aria-hidden="true"></i>
 							</h3>
 							<ul id='article_list_time'></ul>
@@ -362,9 +304,7 @@
 								<img src="img/dot_green.png" alt="Marker" style="width:5%"> Artikeln länkas till och från huvudartikeln.
 							</p>
 
-
 						</div>
-
 
 					</div>
 

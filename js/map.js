@@ -55,11 +55,11 @@ function addArticleToMap(article) {
 	var temp_color;
 
 	if(MARKER_COLOR == "red") {
-		temp_color = '#ff0000';
+		temp_color = '#FF0000';
 	} else if(MARKER_COLOR == "gray") {
-		temp_color = '#777777';
+		temp_color = '#5F8CAB';
 	} else {
-		temp_color = '#000000';
+		temp_color = '#2B5673';
 	}
 
 	if(article.title.length > 16) {
@@ -69,7 +69,7 @@ function addArticleToMap(article) {
 
 	//If the link is both a link and a backlink give it a special color
 	if(article.link_both_ways){
-		temp_color = '#2E8A2F';	//green
+		temp_color = '#f99c08';	//green
 	}
 
 	var popup_content = createPopupContent(article);
