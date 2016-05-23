@@ -42,7 +42,7 @@ function generateMap() {
 
 	//Create map, light version and disable attributes. Set start-position and zoom-level.
 	map = L.mapbox.map('map', 'mapbox.light', {attributionControl: false, /*maxBounds: bounds,*/ minZoom: 1, zoomControl: false})
-    .setView([30,0], 2);
+    .setView([30,0], 2).on("click", selectArticleInList);
 
 	//Layer containing all the markers. 
 	markerLayer = L.mapbox.featureLayer().addTo(map);
@@ -81,10 +81,19 @@ function addArticleToMap(article) {
         	'marker-color': temp_color
       	}),
     	title: article.title
-    }).bindPopup(popup_content).addTo(markerLayer); //Add marker to "markerLayer", a layer wich is cleared with every new search.
+    }).bindPopup(popup_content).addTo(markerLayer).on("click", selectArticleInList); //Add marker to "markerLayer", a layer wich is cleared with every new search.
 
     all_markers.push(marker);
 
+}
+
+function selectArticleInList(e) {
+	for(var i = 0; i < all_markers.length; i++) {
+		$("#map_" + all_markers[i].options.title.replaceAll(" ", "_")).css("background", "rgba(0, 0, 0, 0)");
+	}
+	if(e.target.options.title) 
+		$("#map_" + e.target.options.title.replaceAll(" ", "_")).css("background", "#7095a3");
+	
 }
 
 function chooseNewMainArticle(title) {
@@ -201,6 +210,8 @@ function changeModalContent(title) {
 //function opens the popup for the marker associated with the same article as the list-item.
 function openMarkerPopup(title) {
 
+	$("#map_" + title.replaceAll(" ", "_")).css("background", "#7095a3");
+
 	//Loop through all markers on the map and if one with the same title exist, open that one's popup.
 	for(var i = 0; i < all_markers.length; i++) {
 
@@ -227,12 +238,12 @@ function createMapListObject(title) {
 	var ul = document.getElementById("article_list");
 
 
-    if(!$(ul).find('li:contains("' + title + '")')[0]) {
+    if(!$(ul).find('li:contains("map_' + title.replaceAll(" ", "_") + '")')[0]) {
 
 		//Create new list entry.
 	  	var newLi = document.createElement("li");
 	  	newLi.appendChild(document.createTextNode(title));
-	  	newLi.setAttribute("id", title);
+	  	newLi.setAttribute("id", "map_" + title.replaceAll(" ", "_"));
 	  	newLi.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
 
 	  	//Insert new list entry with help of sorting fuction "sortAlpha".

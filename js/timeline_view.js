@@ -118,7 +118,7 @@ function generateTimeDot(article) {
         .attr("id", "dot" + article.id)
         .classed("time_dot_class", true)
         .attr("start_year", article.time[0][2]) 
-        .attr("article_title", article.title)
+        .attr("article_title", article.title.replaceAll(" ", "_"))
         .attr("dot_not_moved_yet", true)
         .attr("dot_color", dot_color)
         .attr("dot_border_color", dot_border_color)
@@ -165,11 +165,11 @@ function generateTimeDot(article) {
         //Don't start animating when a animation caused by the handles is going on.
         if(DRAGGING_HANDLE) {
             $('#dot' + article.id).tipsy("hide");
-            $("#" + article.title).css("background", "#ddd");
+            $("#" + article.title.replaceAll(" ", "_")).css("background", "#ddd");
         //Close the tipsy only if the mouse is not over the article list.
         } else if(!MOUSE_OVER_LIST) {
             $('#dot' + article.id).tipsy("hide");
-            $("#" + article.title).css("background", "#ddd");
+            $("#" + article.title.replaceAll(" ", "_")).css("background", "#ddd");
             //This is to make sure that all dots are their right size.
             var dot = d3.select("#dot" + article.id);
             if(dot.attr("cx") > 0 && dot.attr("cx") < window.innerWidth) {
@@ -336,7 +336,7 @@ function createTimeListObject(article) {
         //Create new list entry.
         var newLi = document.createElement("li");
         newLi.appendChild(document.createTextNode(article.title));
-        newLi.setAttribute("id", article.title);
+        newLi.setAttribute("id", article.title.replaceAll(" ", "_"));
         newLi.setAttribute("onclick", "ShowHideTipsy('" + article.id + "')");
 
         //Insert new list entry with help of sorting fuction "sortAlpha".
