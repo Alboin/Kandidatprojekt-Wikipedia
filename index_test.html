@@ -43,8 +43,6 @@
     <!--script type="text/javascript" src="js/libs/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"></script-->
 
-    <!-- Import own javascript-files. -->
-    <!--script type="text/javascript" src="js/app_test.js"></script-->
     
     <script type="text/javascript" src="js/press_search_button.js"></script>
     <script type="text/javascript" src="js/get_wiki_data.js"></script>
@@ -87,17 +85,32 @@
 </head>
 
 <body ng-app="wikiSearch">
+    
+    <div class="infoButton">
+        <!-- Buttons for the "övrigt" page, to be "info"-page -->
+        <img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" src="img/info.png"></img>
+        <!--The modal text is outside the body in this file-->
+    </div>
+
+
 
     <!--Uses the controller in app_test.js-->
 
 <section id = "search">
+<<<<<<< HEAD
      <div class = "intro-text"><i aria-hidden="true"></i>Wikinspire</div>
+=======
+     <div class = "intro-text">Wikinspire</div>
+>>>>>>> fd068eaf77fb5a5082247c3e98905773c6306e6f
      <div class="row nomargin" id="lower_row">
 
-        <div class="col-lg-12">
 
-            <div class="col-lg-4">
-            </div>
+            <div class="col-lg-12">
+
+
+
+                <div class="col-lg-4">
+                </div>
 
             <div class="col-lg-4" id="topmargin">
 
@@ -136,62 +149,56 @@
             </div>   
 
             <div class="col-lg-4">
+
             </div>
 
         </div>
 
-    </div>
+    </section>
 
-</section>
-<footer>
+    <footer>
 
-    <div class ="col-lg-12">
-            <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <p id = "footertxt">Copyright &copy; Team Wikinspire 2016</p>
-                </div>
-                <div class="col-md-4">
-                    <div class ="hover_text">
-                        <h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
+        <div class ="col-lg-12">
+                <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p id = "footertxt">Copyright &copy; Team Wikinspire 2016</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class ="hover_text">
+                            <h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <p id = "footertxt">Norrköping, Sweden</p>
                     </div>
                 </div>
-                <div class="col-md-4 text-right">
-                    <p id = "footertxt">Norrköping, Sweden</p>
-                </div>
             </div>
         </div>
-    
-
-    </div>
- </footer>
+     </footer>
 
 
 </body>
-<!--Oklart var scriptet ska ligga för att det ska fungera--> 
-    <!--<script>
-        //Generate the map when the page has loaded.
-      //  $(document).ready(generateMap());
-       // $(document).ready(addTimeHandler());
-        $(document).ready(console.log("Document is ready!"));
 
-        //Set the height of the scroll-list with displayed articles to 65% or the screen height.
-        $('#article_list').css('max-height', window.innerHeight * 0.65 + 'px');
-        $('#article_list_time').css('max-height', window.innerHeight * 0.65 + 'px');
+    <!--Modal for the information-->
+    <div id="myInfoModal" class="modal fade" >
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--The cross in top right corner of the modal-->
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Info</h4>
+                </div>
+                <div class="modal-info-body">
+                    Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. En sökning resulterar i två vyer: Kartvy och Tidsvy.  
 
-        //Prevent the article to become "unmarked" when the user clicks somewhere in the article list.
-        $("#article_list_container_time")
-            .mouseenter(function(){
-                MOUSE_OVER_LIST = true;
-            }).mouseleave(function(){
-                MOUSE_OVER_LIST = false;});
+                    Det här projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, Hanna Johansson, Johanna Westberg och Sarah Fosse. 
 
-        //Hide the article list in time-view by default.
-        $("#article_list_time").slideToggle();
-    </script> -->
-
-
-    <!--div ng-include='"pages/footer.html"'></div-->
+                    <br><h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </html>
 

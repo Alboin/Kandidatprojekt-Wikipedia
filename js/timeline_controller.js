@@ -44,7 +44,7 @@ function addTimeHandler() {
 		.attr("height", window.innerHeight)
 		.attr("x", -10)
 		.attr("y", (TIMELINE_YPOS - (window.innerHeight - TIMELINE_YPOS)/2) + handle_height)
-		.attr("style", "fill:rgb(00,25,33);");//stroke:gray;stroke-width:5;");
+		.attr("style", "fill:rgb(00,37,51);");//stroke:gray;stroke-width:5;");
 
 	//Decides how many labels should be generated below the timeline depending on your screen size.
     var numberOfTimelabels = Math.round(window.innerWidth/150);
@@ -278,21 +278,28 @@ function addTimeHandler() {
 
 //Function to animate handle movement.
 function moveHandles(left_pos, right_pos) {
-	if(left_pos > right_pos) {
+	/*if(left_pos > right_pos) {
 		console.log("Left pos was bigger than right pos.");
 		return;
-	}
-	var temp_left = left_pos*TIMELINE_WIDTH + TIMELINE_START - HANDLE_WIDTH/2
-	var temp_right = right_pos*TIMELINE_WIDTH + TIMELINE_START - HANDLE_WIDTH/2
+	}*/
+	var temp_left = parseInt(HANDLE_LEFT.attr("x"));
+	var temp_right = parseInt(HANDLE_RIGHT.attr("x"));
 
-	HANDLE_LEFT.transition().duration(2000).attr('x', temp_left);
-	HANDLE_RIGHT.transition().duration(2000).attr('x', temp_right);
-	MARKED_TIME.transition().duration(2000).attr('x', temp_left).attr('width', temp_right - temp_left);
+	if(left_pos || left_pos == 0) {
+		temp_left = left_pos*TIMELINE_WIDTH + TIMELINE_START - HANDLE_WIDTH/2;
+		HANDLE_LEFT.transition().duration(1000).attr('x', temp_left);
+	}
+	if(right_pos) {
+		temp_right = right_pos*TIMELINE_WIDTH + TIMELINE_START - HANDLE_WIDTH/2;
+		HANDLE_RIGHT.transition().duration(1000).attr('x', temp_right);
+	}
+
+	MARKED_TIME.transition().duration(1000).attr('x', temp_left + 2).attr('width', temp_right - temp_left - 2);
 
 	BOUNDS_HAS_CHANGED = false;
 
-	HANDLE_TEXTS[0].text("");
-	HANDLE_TEXTS[1].text("");
+	HANDLE_TEXTS[0].text(Math.round(DISPLAYED_MIN_YEAR)).transition().duration(1000).attr("x", temp_left - 10);
+	HANDLE_TEXTS[1].text(Math.round(DISPLAYED_MAX_YEAR)).transition().duration(1000).attr("x", temp_right - 10);
 
 }
 

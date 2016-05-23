@@ -118,6 +118,7 @@ function generateTimeDot(article) {
         .attr("id", "dot" + article.id)
         .classed("time_dot_class", true)
         .attr("start_year", article.time[0][2]) 
+        .attr("article_title", article.title.replaceAll(" ", "_"))
         .attr("dot_not_moved_yet", true)
         .attr("dot_color", dot_color)
         .attr("dot_border_color", dot_border_color)
@@ -164,9 +165,11 @@ function generateTimeDot(article) {
         //Don't start animating when a animation caused by the handles is going on.
         if(DRAGGING_HANDLE) {
             $('#dot' + article.id).tipsy("hide");
+            $("#" + article.title.replaceAll(" ", "_")).css("background", "#ddd");
         //Close the tipsy only if the mouse is not over the article list.
         } else if(!MOUSE_OVER_LIST) {
             $('#dot' + article.id).tipsy("hide");
+            $("#" + article.title.replaceAll(" ", "_")).css("background", "#ddd");
             //This is to make sure that all dots are their right size.
             var dot = d3.select("#dot" + article.id);
             if(dot.attr("cx") > 0 && dot.attr("cx") < window.innerWidth) {
@@ -214,32 +217,65 @@ function ShowHideTipsy(id){
 
     id = "dot" + id;
 
-    //Loop through all time-articles and hide their Tipsy.
-    for(var i = 0; i < TIME_DOTS.length; i++) 
-    {
-        if(id != TIME_DOTS[i].attr("id")) {
-            $("#" + TIME_DOTS[i].attr("id")).tipsy("hide");
-            var dot = d3.select("#" + TIME_DOTS[i].attr("id"));
-            dot.transition().attr("r", DOT_RADIUS).attr("fill", dot.attr("dot_color"));
-        }
+    var article_year = parseInt($("#" + id).attr("start_year"));
+
+    if(article_year < DISPLAYED_MIN_YEAR) {
+        DISPLAYED_MIN_YEAR = Math.round(DISPLAYED_MAX_YEAR - (DISPLAYED_MAX_YEAR - article_year)*2);
+        if(DISPLAYED_MIN_YEAR < MIN_YEAR)
+            DISPLAYED_MIN_YEAR = MIN_YEAR;
+        moveHandles((DISPLAYED_MIN_YEAR-MIN_YEAR)/MIN_YEAR, null);
+        BOUNDS_HAS_CHANGED = true;
+        sortDots();
+        setTimeout(openTipsy, 1500);
     }
-
-
-    //Decide if the tipsy should be hidden or shown.
-    if(TIPSY_IS_SHOWN && LAST_CLICKED_ID && LAST_CLICKED_ID == id) {
-        $('#' + id).tipsy("hide");
-        var dot = d3.select("#" + id);
-        dot.transition().attr("r", DOT_RADIUS).attr("fill", dot.attr("dot_color"));
-        TIPSY_IS_SHOWN = false;
+    else if(article_year > DISPLAYED_MAX_YEAR) {
+        DISPLAYED_MAX_YEAR = Math.round(DISPLAYED_MIN_YEAR + (article_year - DISPLAYED_MIN_YEAR)*2);
+         if(DISPLAYED_MAX_YEAR > MAX_YEAR)
+            DISPLAYED_MAX_YEAR = MAX_YEAR;
+        moveHandles(null, DISPLAYED_MAX_YEAR/MAX_YEAR);
+        BOUNDS_HAS_CHANGED = true;
+        sortDots();
+        setTimeout(openTipsy, 1500);
     } else {
-        $('#' + id).tipsy("show");
-        d3.select("#" + id).attr("fill", MARKED_COLOR ).transition().attr("r", 16);
-        TIPSY_IS_SHOWN = true;
+        openTipsy();
     }
 
-    LAST_CLICKED_ID = id;
-   
-   return false;
+    function openTipsy() {
+
+        var title;
+
+        //Loop through all time-articles and hide their Tipsy.
+        for(var i = 0; i < TIME_DOTS.length; i++) 
+        {
+            if(id != TIME_DOTS[i].attr("id")) {
+                $("#" + TIME_DOTS[i].attr("id")).tipsy("hide");
+                var dot = d3.select("#" + TIME_DOTS[i].attr("id"));
+                dot.transition().attr("r", DOT_RADIUS).attr("fill", dot.attr("dot_color"));
+                $("#" + TIME_DOTS[i].attr("article_title")).css("background", "#ddd");
+            } else {
+                title = TIME_DOTS[i].attr("article_title");
+            }
+        }
+
+
+        //Decide if the tipsy should be hidden or shown.
+        if(TIPSY_IS_SHOWN && LAST_CLICKED_ID && LAST_CLICKED_ID == id) {
+            $('#' + id).tipsy("hide");
+            $("#" + title).css("background", "#ddd");
+            var dot = d3.select("#" + id);
+            dot.transition().attr("r", DOT_RADIUS).attr("fill", dot.attr("dot_color"));
+            TIPSY_IS_SHOWN = false;
+        } else {
+            $('#' + id).tipsy("show");
+            $("#" + title).css("background", "#7095a3");
+            d3.select("#" + id).attr("fill", MARKED_COLOR ).transition().attr("r", 16);
+            TIPSY_IS_SHOWN = true;
+        }
+
+        LAST_CLICKED_ID = id;
+       
+       return false;
+    }
 
 }
 
@@ -300,7 +336,7 @@ function createTimeListObject(article) {
         //Create new list entry.
         var newLi = document.createElement("li");
         newLi.appendChild(document.createTextNode(article.title));
-        newLi.setAttribute("id", article.title);
+        newLi.setAttribute("id", article.title.replaceAll(" ", "_"));
         newLi.setAttribute("onclick", "ShowHideTipsy('" + article.id + "')");
 
         //Insert new list entry with help of sorting fuction "sortAlpha".

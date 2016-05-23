@@ -183,16 +183,16 @@ function loadLinksArticles(data) {
 
 			for(var i = 0; i < TIME_ARTICLES.length; i++) {
 				if(TIME_DOTS[0].id == MAIN_ARTICLE.id) {
-					TIME_DOTS[0].attr("dot_color", "#ff0000").attr("dot_border_color", "#ff8888");
-					d3.select("#dot" + MAIN_ARTICLE.id).attr("dot_color", "#ff0000").attr("dot_border_color", "#ff8888").attr("fill", "#ff0000");
+					TIME_DOTS[0].attr("dot_color", "#fb3a13").attr("dot_border_color", "#fb6142");
+					d3.select("#dot" + MAIN_ARTICLE.id).attr("dot_color", "#fb3a13").attr("dot_border_color", "#fb6142").attr("fill", "#ff0000");
 					var k = i+1;
 				} else {
 					var k = i;
 				}
 				if(TIME_ARTICLES[i].id == temp_article.id) {
 					TIME_ARTICLES[i] = temp_article;
-					TIME_DOTS[k].attr("dot_color", "#2E8A2F").attr("dot_border_color", "#96c496");
-					d3.select("#" + TIME_DOTS[i].id).attr("dot_color", "#2E8A2F").attr("dot_border_color", "#96c496").attr("fill", "#2E8A2F");
+					TIME_DOTS[k].attr("dot_color", "#F99C08").attr("dot_border_color", "#faaf39");
+					d3.select("#" + TIME_DOTS[i].id).attr("dot_color", "#F99C08").attr("dot_border_color", "#faaf39").attr("fill", "#2E8A2F");
 					time_article_exist = true;
 					break;
 				}
