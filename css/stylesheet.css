@@ -52,7 +52,7 @@ header {
     font-size: 700%;
     text-align: center;
     color: white;
-    text-shadow: 2px 2px 9px #000000;
+    text-shadow: 10px 10px 20px #000000;
 }
 
 /* #header_text{
@@ -190,6 +190,8 @@ button#searchbutton
     position:absolute;
     /*left: 67%;*/
     z-index: 10;
+    box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.5);
+
 }
 
 button#searchbutton2
@@ -226,6 +228,7 @@ input#searchtext1
 {
     width: 80%;
     height: 100%;
+    box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 /*input#searchtext2
