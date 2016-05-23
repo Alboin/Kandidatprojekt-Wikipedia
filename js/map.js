@@ -89,10 +89,14 @@ function addArticleToMap(article) {
 
 function selectArticleInList(e) {
 	for(var i = 0; i < all_markers.length; i++) {
-		$("#map_" + all_markers[i].options.title.replaceAll(" ", "_")).css("background", "rgba(0, 0, 0, 0)");
+		if(e.target.options.title != all_markers[i].options.title)
+            //Reset the background color of the list-item connected to the dot, also reset the hover-color.
+			$("#map_" + all_markers[i].options.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_"))
+			.css("background", "rgba(0,0,0,0)").hover(function(){$(this).css("background", "white");}, function(){$(this).css("background", "rgba(0,0,0,0)");});
 	}
 	if(e.target.options.title) 
-		$("#map_" + e.target.options.title.replaceAll(" ", "_")).css("background", "#7095a3");
+        //Change the background color of the list-item connected to the dot, also disable the hover-color.
+		$("#map_" + e.target.options.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_")).css("background", "#7095a3").unbind('mouseenter mouseleave');
 	
 }
 
@@ -213,7 +217,9 @@ function openMarkerPopup(title) {
 	//Loop through all markers on the map and if one with the same title exist, open that one's popup.
 	for(var i = 0; i < all_markers.length; i++) {
 
-		$("#map_" + all_markers[i].options.title.replaceAll(" ", "_")).css("background", "rgba(0,0,0,0)");
+        //Reset the background color of the list-item connected to the dot, also reset the hover-color.
+		$("#map_" + all_markers[i].options.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_"))
+			.css("background", "rgba(0,0,0,0)").hover(function(){$(this).css("background", "white");}, function(){$(this).css("background", "rgba(0,0,0,0)");});
 
 		//Find the starting and ending index of the article title
 		var start_of_title = (all_markers[i]._popup._content).indexOf('>');
@@ -226,7 +232,7 @@ function openMarkerPopup(title) {
 	}
 
 	//Change background color for the list-item that is connected with the selected marker.
-	$("#map_" + title.replaceAll(" ", "_")).css("background", "#7095a3");
+	$("#map_" + title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_")).css("background", "#7095a3").unbind('mouseenter mouseleave');
 }
 
 //Creates a new entry on the list with displayed articles.
@@ -241,12 +247,12 @@ function createMapListObject(title) {
 	var ul = document.getElementById("article_list");
 
 
-    if(!$(ul).find('li:contains("map_' + title.replaceAll(" ", "_") + '")')[0]) {
+    if(!$(ul).find('li:contains("map_' + title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_") + '")')[0]) {
 
 		//Create new list entry.
 	  	var newLi = document.createElement("li");
 	  	newLi.appendChild(document.createTextNode(title));
-	  	newLi.setAttribute("id", "map_" + title.replaceAll(" ", "_"));
+	  	newLi.setAttribute("id", "map_" + title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_"));
 	  	newLi.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
 
 	  	//Insert new list entry with help of sorting fuction "sortAlpha".
@@ -271,7 +277,7 @@ function createPopupContent (article) {
 			var marked_word = article.relation_sentence.substring(index, index + article.title.length);
 			var end = article.relation_sentence.substring(index + article.title.length, article.relation_sentence.length);
 
-			popup_content += '<br><b>' + MAIN_ARTICLE.title + 's relation till ' + article.title + ': </b><br>' 
+			popup_content += '<br><b>' + article.title + ' nämns i ' + MAIN_ARTICLE.title + 's artikel: </b><br>' 
 							+ beginning + '<span id="marked_word">' + marked_word + '</span>' + end + '<br>';
 
 			if(article.second_relation_sentence && article.second_relation_sentence != ""){
@@ -280,7 +286,7 @@ function createPopupContent (article) {
 				var marked_title = article.second_relation_sentence.substring(indx, indx + MAIN_ARTICLE.title.length);
 				var ending = article.second_relation_sentence.substring(indx + MAIN_ARTICLE.title.length, article.second_relation_sentence.length);	
 
-				popup_content += '<br><b>' + article.title + 's relation till ' + MAIN_ARTICLE.title + ': </b><br>' 
+				popup_content += '<br><b>' + MAIN_ARTICLE.title + ' nämns i ' + article.title + 's artikel: </b><br>' 
 						    + begin + '<span id="marked_word">' + marked_title + '</span>' + ending + '<br>';		
 			}						
 		}
