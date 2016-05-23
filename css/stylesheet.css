@@ -149,13 +149,9 @@ p#relations
 
 section#search
 {
-<<<<<<< HEAD
     /*padding-top:3%;*/
     height:93%;
-=======
-    padding-top:3%;
-    height:90%;
->>>>>>> fd068eaf77fb5a5082247c3e98905773c6306e6f
+
     width: 100%;
     /*background-color: #E0E2FF;
     background-image: url('../img/cat-background.jpg');*/
@@ -584,10 +580,10 @@ div.tooltip {
     cursor:pointer;
 }
 
-.info_button{
+/*.info_button{
    cursor: pointer; 
    cursor: hand; 
-}
+}*/
 
 .info{
     width:2%;
@@ -716,7 +712,7 @@ div.tooltip {
     /* margin: 0%; */
     font-color: #ffffff;
     padding: 0;
-    padding-bottom: 5%;
+    padding-bottom: 3%;
     margin: 0%;
     z-index: 100;
     position: fixed;
