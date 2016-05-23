@@ -585,6 +585,18 @@ div.tooltip {
     width:2%;
 }
 
+#random{
+    width:2%; 
+    cursor: pointer; 
+}
+
+.random{
+    width:12%; 
+    cursor: pointer; 
+    color: white;
+}
+
+
 /*.mapboxgl-popup {
     max-width: 400px;
     font: 12px/20px 'Roboto', Arial, Helvetica, sans-serif;

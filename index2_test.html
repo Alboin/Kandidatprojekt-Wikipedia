@@ -74,6 +74,8 @@
 
 					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
 
+					<img id="random2" class="random" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" src="img/dice.png"></img>
+
 
 					<!-- OLD SEARCH -->
  		 			<form name="search">
@@ -106,6 +108,9 @@
 
     						}
 						});
+
+						//Random button
+						document.getElementById("random2").addEventListener("click", pressRandomSearchButton);
 
 					</script>
 

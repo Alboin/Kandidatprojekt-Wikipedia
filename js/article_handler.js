@@ -7,6 +7,8 @@
 
  	The file includes the functions:
  	- getSearchString
+ 	- getRandomSearchString
+ 	- getRandomTitle
  	- loadMainArticle
  	- getPositionBirthplace
  	- getFirstSentence
@@ -61,6 +63,43 @@ function getSearchString(input_title) {
 	}
 }
 
+//When pressing the random button a random article will get generated. 
+function getRandomSearchString() {
+
+	//Uses this link to get a random article. 
+	//https://sv.wikipedia.org/w/api.php?action=query&format=json&list=random&rnnamespace=0&rnlimit=1
+	
+	//The beginning of the query, tells us to do a query and return the result on json format.
+	var start = "/w/api.php?action=query&format=json";
+
+	//var random = "&generator=random&grnnamespace=0";
+	var random = "&list=random&rnnamespace=0&rnlimit=1";
+
+	//Create final query
+	var finalRandomQuery = "http://sv.wikipedia.org" + start + random + "&callback=?";
+	console.log(finalRandomQuery);
+
+    return finalRandomQuery;	
+}
+
+//Gets the title from the random article. 
+function getRandomTitle(data) {
+
+	var random_article = {
+		title: "",
+		id: -1,
+	}
+
+	random_article.id = data.query.random[0].id;
+	random_article.title = data.query.random[0].title;	
+
+	console.log(random_article);
+
+	//Make a new search with the random title. 
+	pressSearchButton(random_article.title); 
+
+	return random_article;
+}
 
 
 //Gets data for an article and saves it in 'temp_article'
