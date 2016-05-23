@@ -95,8 +95,8 @@ function generateTimeDot(article) {
 
     var dot_color, dot_border_color;
     if(article.title == MAIN_ARTICLE.title) {
-        dot_color = '#ff0000';
-        dot_border_color = '#ff3232';
+        dot_color = '#fb3a13';
+        dot_border_color = '#fb6142';
     } else if(article.link_both_ways) {
         dot_color = '#f99c08'; 
         dot_border_color = '#f9a520';
@@ -118,7 +118,7 @@ function generateTimeDot(article) {
         .attr("id", "dot" + article.id)
         .classed("time_dot_class", true)
         .attr("start_year", article.time[0][2]) 
-        .attr("article_title", article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_"))
+        .attr("article_title", article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_").replaceAll("/", "_"))
         .attr("dot_not_moved_yet", true)
         .attr("dot_color", dot_color)
         .attr("dot_border_color", dot_border_color)
@@ -166,13 +166,13 @@ function generateTimeDot(article) {
         if(DRAGGING_HANDLE) {
             $('#dot' + article.id).tipsy("hide");
             //Reset the background color of the list-item connected to the dot, also reset the hover-color.
-            $("#" + article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_")).css("background", "#ddd")
+            $("#" + article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_").replaceAll("/", "_")).css("background", "#ddd")
                 .hover(function(){$(this).css("background", "white");}, function(){$(this).css("background", "#ddd");});
         //Close the tipsy only if the mouse is not over the article list.
         } else if(!MOUSE_OVER_LIST) {
             $('#dot' + article.id).tipsy("hide");
             //Reset the background color of the list-item connected to the dot, also reset the hover-color.
-            $("#" + article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_")).css("background", "#ddd")
+            $("#" + article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_").replaceAll("/", "_")).css("background", "#ddd")
                 .hover(function(){$(this).css("background", "white");}, function(){$(this).css("background", "#ddd");});
             //This is to make sure that all dots are their right size.
             var dot = d3.select("#dot" + article.id);
@@ -359,7 +359,7 @@ function createTimeListObject(article) {
         //Create new list entry.
         var newLi = document.createElement("li");
         newLi.appendChild(document.createTextNode(article.title));
-        newLi.setAttribute("id", article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_"));
+        newLi.setAttribute("id", article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_").replaceAll("/", "_"));
         newLi.setAttribute("onclick", "ShowHideTipsy('" + article.id + "')");
 
         //Insert new list entry with help of sorting fuction "sortAlpha".

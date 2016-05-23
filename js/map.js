@@ -55,7 +55,7 @@ function addArticleToMap(article) {
 	var temp_color;
 
 	if(MARKER_COLOR == "red") {
-		temp_color = '#FF0000';
+		temp_color = '#fb3a13';
 	} else if(MARKER_COLOR == "gray") {
 		temp_color = '#5F8CAB';
 	} else {
@@ -69,7 +69,7 @@ function addArticleToMap(article) {
 
 	//If the link is both a link and a backlink give it a special color
 	if(article.link_both_ways){
-		temp_color = '#f99c08';	//green
+		temp_color = '#f99c08';	//orange
 	}
 
 	var popup_content = createPopupContent(article);
@@ -91,12 +91,12 @@ function selectArticleInList(e) {
 	for(var i = 0; i < all_markers.length; i++) {
 		if(e.target.options.title != all_markers[i].options.title)
             //Reset the background color of the list-item connected to the dot, also reset the hover-color.
-			$("#map_" + all_markers[i].options.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_"))
+			$("#map_" + all_markers[i].options.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_").replaceAll("/", "_"))
 			.css("background", "rgba(0,0,0,0)").hover(function(){$(this).css("background", "white");}, function(){$(this).css("background", "rgba(0,0,0,0)");});
 	}
 	if(e.target.options.title) 
         //Change the background color of the list-item connected to the dot, also disable the hover-color.
-		$("#map_" + e.target.options.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_")).css("background", "#7095a3").unbind('mouseenter mouseleave');
+		$("#map_" + e.target.options.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_").replaceAll("/", "_")).css("background", "#7095a3").unbind('mouseenter mouseleave');
 	
 }
 
@@ -218,7 +218,7 @@ function openMarkerPopup(title) {
 	for(var i = 0; i < all_markers.length; i++) {
 
         //Reset the background color of the list-item connected to the dot, also reset the hover-color.
-		$("#map_" + all_markers[i].options.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_"))
+		$("#map_" + all_markers[i].options.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_").replaceAll("/", "_"))
 			.css("background", "rgba(0,0,0,0)").hover(function(){$(this).css("background", "white");}, function(){$(this).css("background", "rgba(0,0,0,0)");});
 
 		//Find the starting and ending index of the article title
@@ -232,7 +232,7 @@ function openMarkerPopup(title) {
 	}
 
 	//Change background color for the list-item that is connected with the selected marker.
-	$("#map_" + title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_")).css("background", "#7095a3").unbind('mouseenter mouseleave');
+	$("#map_" + title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_").replaceAll("/", "_")).css("background", "#7095a3").unbind('mouseenter mouseleave');
 }
 
 //Creates a new entry on the list with displayed articles.
@@ -247,12 +247,12 @@ function createMapListObject(title) {
 	var ul = document.getElementById("article_list");
 
 
-    if(!$(ul).find('li:contains("map_' + title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_") + '")')[0]) {
+    if(!$(ul).find('li:contains("map_' + title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_").replaceAll("/", "_") + '")')[0]) {
 
 		//Create new list entry.
 	  	var newLi = document.createElement("li");
 	  	newLi.appendChild(document.createTextNode(title));
-	  	newLi.setAttribute("id", "map_" + title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_"));
+	  	newLi.setAttribute("id", "map_" + title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_").replaceAll("/", "_"));
 	  	newLi.setAttribute("onclick", "openMarkerPopup(" + "'" + title + "'" + ")");
 
 	  	//Insert new list entry with help of sorting fuction "sortAlpha".
@@ -263,9 +263,18 @@ function createMapListObject(title) {
 //Function that creates the content for the popup
 function createPopupContent (article) {
 
-	var popup_content = '<div class="marker-title">' + article.title + '</div>' + article.first_sentence +
-		'<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br>';
+	var popup_content = "";
 
+	if(cointainsLongWord(article.title)) {
+		popup_content += '<div class="marker-title" id="'+article.id+'" style="font-size:15px;">' + article.title + '</div>' + article.first_sentence +
+		'<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br>';
+	} else if(article.title.length > 16) {
+		popup_content += '<div class="marker-title" id="'+article.id+'" style="font-size:20px;">' + article.title + '</div>' + article.first_sentence +
+		'<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br>';
+	} else {
+		popup_content = '<div class="marker-title">' + article.title + '</div>' + article.first_sentence +
+		'<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a><br>';
+	}
 
 	//Add article relation to popup (if a relation string exist).
 	if(article.relation_sentence && article.relation_sentence != "") 
@@ -311,6 +320,21 @@ function createPopupContent (article) {
 	popup_content += '<br><a id="newMainArticle" onclick="chooseNewMainArticle(' + "'" + article.title + "'" +')"> Sök på "' + article.title + '" </a>';
 
 	return popup_content;
+}
+
+function cointainsLongWord(title) {
+	var temp = title + " ";
+	var counter = 0;
+	while(temp.indexOf(" ") != -1) {
+		if(temp.substring(0, temp.indexOf(" ")).length > 20){
+			return true;
+		}
+		temp = temp.substring(temp.indexOf(" ") + 1, temp.length);
+		counter++;
+		if(counter > 500)
+			return;
+	}
+	return false;
 }
 
 function hideArticleListMap() {
