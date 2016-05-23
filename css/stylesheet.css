@@ -531,6 +531,9 @@ footer{
     cursor: pointer;
 }
 
+.modal-history-body {
+    padding: 30px;
+    text-align: center;
 }
 
 .btn-default {
@@ -698,6 +701,17 @@ div.tooltip {
     top: 10px;
     margin: 12px;
     float: right;
+}
+
+#history_button {
+    position: absolute;
+    cursor: pointer;
+    right: 5%;
+    top: 0px;
+    margin: 12px;
+    width: 1%;
+    font-size: 30px;
+    color: white;
 }
 
 #topmargin{

@@ -110,6 +110,7 @@ function getWikiData(query, article_color){
 
 		        		MAIN_ARTICLE = loadMainArticle(data);
 		        		OLD_MAIN_ARTICLES.push(MAIN_ARTICLE);
+		        		$(".modal-history-body").append(MAIN_ARTICLE.title + "<br>");
 
 		        		//Empty old links from arrays:
 		        		COORD_ARTICLES = [];

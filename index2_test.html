@@ -198,6 +198,9 @@
 					<img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" src="img/info.png"></img>
 					
 			   	</div>
+				
+				<i id="history_button" class="fa fa-history" aria-hidden="true" data-toggle="modal" data-target="#myHistoryModal"></i>
+					
 
    				<div id="loadingbar"></div>
 
@@ -214,8 +217,8 @@
             				<h4 class="modal-title">Info</h4>
        					</div>
 						<div class="modal-info-body">
-		                	Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. En sökning resulterar i två vyer: Kartvy och Tidsvy. 	
-
+		                	Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. Sökresultat visualiseras i två olika vyer: Kartvyn och Tidsvyn. 	
+		                	<br><br>
 		                	Det här projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, Hanna Johansson, Johanna Westberg och Sarah Fosse. 
 
 		                	<br><h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
@@ -383,6 +386,23 @@
 			 $("#transbox").css("top", $("#header_row").css("height"));
 			
 		</script>
+
+		<!--Modal for the information-->
+	    <div id="myHistoryModal" class="modal fade" >
+	            <div class="modal-dialog">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <!--The cross in top right corner of the modal-->
+	                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                    <h4 class="modal-title" style="font-size: 40px;">Sökhistorik</h4>
+	                </div>
+	                <div class="modal-history-body">
+	            
+
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 
 	</body>
 </html>
