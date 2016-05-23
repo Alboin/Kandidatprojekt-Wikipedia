@@ -27,10 +27,9 @@ body {
     overflow: hidden; /*Disable the scroll-bars since they will mess with the page-layout and are not really needed.*/
 }
 
-
 header {
     width: 100%;
-    height: 40%;
+    /*height: 40%; */
     background-color:#002533;
     color: white;
 }
@@ -135,10 +134,9 @@ p {
 
 p#footertxt
 {
-    padding-top: 20; 
-    font-family: 'Arial';
+    padding-top: 4%; 
+    font-family: 'serif';
     font-size: 100%;
-    font-weight: bold;
 }
 
 p#relations
@@ -151,8 +149,13 @@ p#relations
 
 section#search
 {
+<<<<<<< HEAD
+    /*padding-top:3%;*/
+    height:93%;
+=======
     padding-top:3%;
     height:90%;
+>>>>>>> fd068eaf77fb5a5082247c3e98905773c6306e6f
     width: 100%;
     /*background-color: #E0E2FF;
     background-image: url('../img/cat-background.jpg');*/
@@ -198,7 +201,7 @@ button#searchbutton2
     border: 0;
     color:white;
     font-weight: bold;
-    margin: 3%;
+    margin: 2%;
     margin-left: 0%;
    /* position:absolute;*/
     left: 38%;
@@ -231,10 +234,10 @@ input#searchtext1
 }*/
 
 footer{
-    height: 10%;
-    color: white;
+    height: 7%;
+    color: #5F8CAB;
     background-color:#002533;
-    padding: 10 10 10 10;
+    padding: 0%;
 }
 
 
@@ -348,16 +351,23 @@ footer{
     cursor: pointer;
 }
 
+#svg{
+    width:100%;
+    height:100%;
+    margin:0;
+    margin-top:75px;
+}
+
 #article_list_container {
     position: fixed;
     right: 0%;
     width: 13.5%;
-    padding: 0px;
-    margin-right: 1%;
-    top: 10%;
-    border-radius: 5%;
+    padding: 0.5%;
+    margin-right: 0.5%;
+    top: 11%;
+    border-radius: 5px;
     background: #002533;
-    opacity: 0.85; 
+    opacity: 0.85;
     z-index: 999;
 }
 
@@ -365,14 +375,12 @@ footer{
     position: fixed;
     right: 0%;
     width: 13.5%;
-    padding: 0px;
-    margin-right: 1%;
+    padding: 0.5%;
+    margin: 0.5%;
     top: 10%;
-    border-radius: 6px;
-    background: #002533;
+    border-radius: 5px;
     opacity: 0.85;
-
-    /*background: rgba(0, 37, 51, 0.7);*/
+    background: rgba(0, 37, 51, 0.7);
     z-index: 10;
 }
 
@@ -384,6 +392,7 @@ footer{
     background: #ddd;
     opacity: 0.85;
     overflow-x: hidden;
+    max-height: 400px; /*Sorry fick inte den här att funka utan pixlar...*/
 }
 
 #article_list_time {
@@ -394,6 +403,7 @@ footer{
     background: #ddd;
     opacity: 0.85;
     overflow-x: hidden;
+    max-height: 340px; /*Samma här som ovan!*/
 }
 
 #article_list li {
@@ -542,9 +552,9 @@ footer{
     border-color: #002533;
 }
 
-/*.clock {
-    margin: 10px;   
-}*/
+.clock {
+    width:12%; 
+}
 
 .clock:hover{
     cursor:pointer;
@@ -562,10 +572,7 @@ div.tooltip {
 }
 
 .globe {
-    
-   /* margin: 10px;
-    margin-left: 20px;*/
-
+    width:12%;
 }
 
 .globe:hover{
@@ -581,6 +588,10 @@ div.tooltip {
    cursor: hand; 
 }
 
+.info{
+    width:2%;
+}
+
 /*.mapboxgl-popup {
     max-width: 400px;
     font: 12px/20px 'Roboto', Arial, Helvetica, sans-serif;
@@ -594,6 +605,10 @@ div.tooltip {
     font-family: 'Playfair Display', serif; 
     text-transform: uppercase;
     text-align: left;
+}
+
+.marker{
+    width:5%;
 }
 
 .modal-title{
@@ -615,6 +630,15 @@ div.tooltip {
     -moz-border-radius-topright: 5px;
      border-top-left-radius: 5px;
      border-top-right-radius: 5px;
+}
+
+.modal-info-body{
+    padding: 10px; 
+    margin: 10px;"
+}
+
+.modal-dialog{
+    max-height: 70%;
 }
 
 .modal-body {
@@ -687,13 +711,14 @@ div.tooltip {
 
 #header_row{
     background-color: #002533;
-    /*padding: 10px;*/
-    /*margin: 0%;*/
+    /* padding: 10px; */
+    /* margin: 0%; */
     font-color: #ffffff;
-    /*padding: 0;*/
+    padding: 0;
+    padding-bottom: 5%;
     margin: 0%;
     z-index: 100;
-    position:fixed;
+    position: fixed;
     width: 100%;
     height: 50px;/*8%;*/
 
