@@ -149,7 +149,9 @@ section#search
     padding-top:50px;
     height:90%;
     width: 100%;
-    background-color: #E0E2FF;
+    /*background-color: #E0E2FF;
+    background-image: url('../img/cat-background.jpg');*/
+    background-image: url('../img/vatten.jpg');
     color: black;
     text-align: center;
 }
