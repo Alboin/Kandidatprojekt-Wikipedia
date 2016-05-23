@@ -95,17 +95,17 @@ function generateTimeDot(article) {
 
     var dot_color, dot_border_color;
     if(article.title == MAIN_ARTICLE.title) {
-        dot_color = '#ff0000';
-        dot_border_color = '#ff8888';
+        dot_color = '#fb3a13';
+        dot_border_color = '#fb6142';
     } else if(article.link_both_ways) {
-        dot_color = '#2E8A2F'; 
-        dot_border_color = '#96c496';
+        dot_color = '#f99c08'; 
+        dot_border_color = '#f9a520';
     } else if(article.is_backlink) {
-        dot_color = '#767676';
-        dot_border_color = '#b5b5b5';
+        dot_color = '#5F8CAB';
+        dot_border_color = '#7ea3bb';
     } else {
-        dot_color = '#000000'
-        dot_border_color = '#797979';
+        dot_color = '#2B5673'
+        dot_border_color = '#55778f';
     }
 
     var temp = Math.random() * window.innerHeight;
@@ -118,7 +118,7 @@ function generateTimeDot(article) {
         .attr("id", "dot" + article.id)
         .classed("time_dot_class", true)
         .attr("start_year", article.time[0][2]) 
-        .attr("article_title", article.title.replaceAll(" ", "_"))
+        .attr("article_title", article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_"))
         .attr("dot_not_moved_yet", true)
         .attr("dot_color", dot_color)
         .attr("dot_border_color", dot_border_color)
@@ -150,8 +150,8 @@ function generateTimeDot(article) {
                 .duration(50)      
                 .style("opacity", .9);      
             div .html(article.title + "<br>" + article.time[0][2])  
-                .style("left", (d3.event.pageX + 8) + "px")     
-                .style("top", (d3.event.pageY - 30) + "px");    
+                .style("left", (d3.event.pageX - 45) + "px")     
+                .style("top", (d3.event.pageY - 45) + "px");    
             })                  
         .on("mouseout", function(d) {  
             this.style.fill = TEMP_COLOR;     
@@ -165,11 +165,15 @@ function generateTimeDot(article) {
         //Don't start animating when a animation caused by the handles is going on.
         if(DRAGGING_HANDLE) {
             $('#dot' + article.id).tipsy("hide");
-            $("#" + article.title.replaceAll(" ", "_")).css("background", "#ddd");
+            //Reset the background color of the list-item connected to the dot, also reset the hover-color.
+            $("#" + article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_")).css("background", "#ddd")
+                .hover(function(){$(this).css("background", "white");}, function(){$(this).css("background", "#ddd");});
         //Close the tipsy only if the mouse is not over the article list.
         } else if(!MOUSE_OVER_LIST) {
             $('#dot' + article.id).tipsy("hide");
-            $("#" + article.title.replaceAll(" ", "_")).css("background", "#ddd");
+            //Reset the background color of the list-item connected to the dot, also reset the hover-color.
+            $("#" + article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_")).css("background", "#ddd")
+                .hover(function(){$(this).css("background", "white");}, function(){$(this).css("background", "#ddd");});
             //This is to make sure that all dots are their right size.
             var dot = d3.select("#dot" + article.id);
             if(dot.attr("cx") > 0 && dot.attr("cx") < window.innerWidth) {
@@ -248,10 +252,17 @@ function ShowHideTipsy(id){
         for(var i = 0; i < TIME_DOTS.length; i++) 
         {
             if(id != TIME_DOTS[i].attr("id")) {
+
                 $("#" + TIME_DOTS[i].attr("id")).tipsy("hide");
+                
                 var dot = d3.select("#" + TIME_DOTS[i].attr("id"));
+                
                 dot.transition().attr("r", DOT_RADIUS).attr("fill", dot.attr("dot_color"));
-                $("#" + TIME_DOTS[i].attr("article_title")).css("background", "#ddd");
+               
+                //Reset the background color of the list-item connected to the dot, also reset the hover-color.
+                $("#" + TIME_DOTS[i].attr("article_title")).css("background", "#ddd")
+                    .hover(function(){$(this).css("background", "white");}, function(){$(this).css("background", "#ddd");});
+           
             } else {
                 title = TIME_DOTS[i].attr("article_title");
             }
@@ -260,15 +271,27 @@ function ShowHideTipsy(id){
 
         //Decide if the tipsy should be hidden or shown.
         if(TIPSY_IS_SHOWN && LAST_CLICKED_ID && LAST_CLICKED_ID == id) {
+           
             $('#' + id).tipsy("hide");
-            $("#" + title).css("background", "#ddd");
+            
+            //Reset the background color of the list-item connected to the dot, also reset the hover-color.
+            $("#" + title).css("background", "#ddd")
+                .hover(function(){$(this).css("background", "white");}, function(){$(this).css("background", "#ddd");});
+           
             var dot = d3.select("#" + id);
+            
             dot.transition().attr("r", DOT_RADIUS).attr("fill", dot.attr("dot_color"));
+            
             TIPSY_IS_SHOWN = false;
         } else {
+           
             $('#' + id).tipsy("show");
-            $("#" + title).css("background", "#7095a3");
+            
+            //Change the background color of the list-item connected to the dot, also disable the hover-color.
+            $("#" + title).css("background", "#7095a3").unbind('mouseenter mouseleave');
+           
             d3.select("#" + id).attr("fill", MARKED_COLOR ).transition().attr("r", 16);
+           
             TIPSY_IS_SHOWN = true;
         }
 
@@ -282,7 +305,7 @@ function ShowHideTipsy(id){
 //Sorts the dots in chronological order. Is run every time a new dot is added.
 function sortDots() {
 
-    d3.select("#dot" + MAIN_ARTICLE.id).attr("fill", "#0000ff");
+    //d3.select("#dot" + MAIN_ARTICLE.id).attr("fill", "#ff0000");
 
     //Loop through all the dots and update their position.
     for(var i = 0; i < TIME_DOTS.length; i++) {
@@ -336,7 +359,7 @@ function createTimeListObject(article) {
         //Create new list entry.
         var newLi = document.createElement("li");
         newLi.appendChild(document.createTextNode(article.title));
-        newLi.setAttribute("id", article.title.replaceAll(" ", "_"));
+        newLi.setAttribute("id", article.title.replaceAll(" ", "_").replaceAll("(", "_").replaceAll(")", "_"));
         newLi.setAttribute("onclick", "ShowHideTipsy('" + article.id + "')");
 
         //Insert new list entry with help of sorting fuction "sortAlpha".

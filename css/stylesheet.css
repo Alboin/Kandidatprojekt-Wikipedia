@@ -29,7 +29,7 @@ body {
 
 header {
     width: 100%;
-    height: 40%;
+    /*height: 40%; */
     background-color:#002533;
     color: white;
 }
@@ -134,24 +134,24 @@ p {
 
 p#footertxt
 {
-    padding-top: 20; 
-    font-family: 'Arial';
+    padding-top: 4%; 
+    font-family: 'serif';
     font-size: 100%;
-    font-weight: bold;
 }
 
 p#relations
 {
     font-family: 'Arial';
     color: white;
-    font-size: 80%;
-    padding: 15 15 10 15;
+    font-size: 70%;
+    padding: 2 10 2 10;;
 }
 
 section#search
 {
-    padding-top:3%;
-    height:90%;
+    /*padding-top:3%;*/
+    height:93%;
+
     width: 100%;
     /*background-color: #E0E2FF;
     background-image: url('../img/cat-background.jpg');*/
@@ -197,12 +197,13 @@ button#searchbutton2
     border: 0;
     color:white;
     font-weight: bold;
-    margin: 3%;
+    margin: 2%;
     margin-left: 0%;
    /* position:absolute;*/
     left: 38%;
     z-index: 10;
     padding: 2.5%;
+    border-radius: 3%;
 }
 
 
@@ -230,10 +231,10 @@ input#searchtext1
 }*/
 
 footer{
-    height: 10%;
-    color: white;
+    height: 7%;
+    color: #5F8CAB;
     background-color:#002533;
-    padding: 10 10 10 10;
+    padding: 0%;
 }
 
 
@@ -309,11 +310,11 @@ footer{
 }*/
 
 #homepage_header {
-    color: #204573;
+    color: #2B5673;
 }
 
 #homepage_header:hover {
-    color: #5075a3;
+    color: #5F8CAB;
 }
 
 
@@ -360,9 +361,9 @@ footer{
     width: 13.5%;
     padding: 0.5%;
     margin-right: 0.5%;
-    top: 11%;
+    top: 9%;
     border-radius: 5px;
-    background: #002533;
+    background: rgba(0, 37, 51, 0.7);
     opacity: 0.85;
     z-index: 999;
 }
@@ -373,7 +374,7 @@ footer{
     width: 13.5%;
     padding: 0.5%;
     margin: 0.5%;
-    top: 10%;
+    top: 8%;
     border-radius: 5px;
     opacity: 0.85;
     background: rgba(0, 37, 51, 0.7);
@@ -388,7 +389,7 @@ footer{
     background: #ddd;
     opacity: 0.85;
     overflow-x: hidden;
-    max-height: 400px; /*Sorry fick inte den här att funka utan pixlar...*/
+    max-height: 330px; /*Sorry fick inte den här att funka utan pixlar...*/
 }
 
 #article_list_time {
@@ -399,13 +400,15 @@ footer{
     background: #ddd;
     opacity: 0.85;
     overflow-x: hidden;
-    max-height: 340px; /*Samma här som ovan!*/
+    max-height: 290px; /*Samma här som ovan!*/
 }
 
 #article_list li {
-    border-style: solid;
+    border-top-style: solid;
+    border-bottom-style: solid;
     border-width: 1px;
     border-color: #eeeeee #ffffff;
+    background: rgba(0,0,0,0);
 }
 
 #article_list li:hover {
@@ -414,13 +417,14 @@ footer{
 }
 
 #article_list_time li {
-    border-style: solid;
+    border-top-style: solid;
+    border-bottom-style: solid;
     border-width: 1px;
     border-color: #eeeeee #ffffff;
 }
 
 #article_list_time li:hover {
-    background:#fff;
+    background: white;
     cursor: pointer;
 }
 
@@ -576,10 +580,10 @@ div.tooltip {
     cursor:pointer;
 }
 
-.info_button{
+/*.info_button{
    cursor: pointer; 
    cursor: hand; 
-}
+}*/
 
 .info{
     width:2%;
@@ -613,7 +617,7 @@ div.tooltip {
 }
 
 .marker{
-    width:5%;
+    width:7%;
 }
 
 .modal-title{
@@ -685,10 +689,11 @@ div.tooltip {
 .wiki_title2{
     font-weight: 500;
     font-size: 240%;
-    color: #56727C;
+    color: #56727C; 
     text-align: center;
     font-color: #002533;
     font-family: 'Playfair Display', serif;
+        margin: 2%;
     /* margin-top: 3%; */
 }
 .wiki_title2 :hover{
@@ -720,12 +725,12 @@ div.tooltip {
     /* margin: 0%; */
     font-color: #ffffff;
     padding: 0;
-    padding-bottom: 5%;
+    padding-bottom: 4%;
     margin: 0%;
     z-index: 100;
     position: fixed;
     width: 100%;
-    height: 8%;
+    height: 50px;/*8%;*/
 
 }
 
