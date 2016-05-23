@@ -175,6 +175,9 @@ function changeModalContent(title) {
 	 	document.getElementById("artikel_bild").innerHTML = "";
 	 }
 
+	 var wiki_link = "https://sv.wikipedia.org/wiki/" + temp_article.title.replaceAll(" ", "_");
+	 $("#wikipedia_link").attr("href", wiki_link);
+
 }
 
 //TO BE IMPLEMENTED SOON
@@ -299,3 +302,7 @@ function hideArticleListMap() {
        $("#article_list_arrow_map").css({"transform": "rotate(0deg)"});
     }
 }
+
+String.prototype.replaceAll = function(target, replacement) {
+  return this.split(target).join(replacement);
+};
