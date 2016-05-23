@@ -156,6 +156,8 @@ section#search
     /*background-color: #E0E2FF;
     background-image: url('../img/cat-background.jpg');*/
     background-image: url('../img/vatten.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     color: black;
     text-align: center;
 }
@@ -358,11 +360,11 @@ footer{
     position: fixed;
     right: 0%;
     width: 13.5%;
-    padding: 0.5%;
+    padding: 0px;
     margin-right: 0.5%;
     top: 11%;
     border-radius: 5px;
-    background: #002533;
+    background:  rgba(0, 37, 51, 0.7);/*#002533;*/
     opacity: 0.85;
     z-index: 999;
 }
@@ -371,7 +373,7 @@ footer{
     position: fixed;
     right: 0%;
     width: 13.5%;
-    padding: 0.5%;
+    padding: 0px;
     margin: 0.5%;
     top: 10%;
     border-radius: 5px;
@@ -388,7 +390,7 @@ footer{
     background: #ddd;
     opacity: 0.85;
     overflow-x: hidden;
-    max-height: 400px; /*Sorry fick inte den här att funka utan pixlar...*/
+    max-height: 300px; /*Sorry fick inte den här att funka utan pixlar...*/
 }
 
 #article_list_time {
@@ -399,7 +401,7 @@ footer{
     background: #ddd;
     opacity: 0.85;
     overflow-x: hidden;
-    max-height: 340px; /*Samma här som ovan!*/
+    max-height: 300px; /*Samma här som ovan!*/
 }
 
 #article_list li {
@@ -461,7 +463,7 @@ footer{
 
 #map { 
     position:fixed;
-    top: 65px; 
+    top: 50px; 
     bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
     width:0%; 
     height:0%; /* Eller ändra den här...*/
@@ -639,8 +641,8 @@ div.tooltip {
 }
 
 .modal-body {
-    max-height: calc(100vh - 210px);
-    overflow-y: auto;
+    /*max-height: calc(100vh - 210px);
+    overflow-y: auto;*/
     color: black;
 }
 

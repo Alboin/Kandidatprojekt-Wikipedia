@@ -23,6 +23,7 @@
 var MAIN_ARTICLE;  //Contains the main article
 var COORD_ARTICLES = []; //Contains all articles with coordinates.
 var TIME_ARTICLES = []; //Contains all articles with a time.
+var OLD_MAIN_ARTICLES = [];
 //var save;  - is this even used?
 var MAIN_SEARCH = false; //A boolean used to separate main search and link search.
 		

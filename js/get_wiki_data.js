@@ -109,6 +109,7 @@ function getWikiData(query, article_color){
 		        		$('#article_list_time').empty();
 
 		        		MAIN_ARTICLE = loadMainArticle(data);
+		        		OLD_MAIN_ARTICLES.push(MAIN_ARTICLE);
 
 		        		//Empty old links from arrays:
 		        		COORD_ARTICLES = [];
