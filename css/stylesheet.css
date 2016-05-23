@@ -310,11 +310,11 @@ footer{
 }*/
 
 #homepage_header {
-    color: #204573;
+    color: #2B5673;
 }
 
 #homepage_header:hover {
-    color: #5075a3;
+    color: #5F8CAB;
 }
 
 
@@ -677,7 +677,7 @@ div.tooltip {
 .wiki_title2{
     font-weight: 500;
     font-size: 240%;
-    color: #56727C;
+    color: #56727C; 
     text-align: center;
     font-color: #002533;
     font-family: 'Playfair Display', serif;

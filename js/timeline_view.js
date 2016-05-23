@@ -150,8 +150,8 @@ function generateTimeDot(article) {
                 .duration(50)      
                 .style("opacity", .9);      
             div .html(article.title + "<br>" + article.time[0][2])  
-                .style("left", (d3.event.pageX + 8) + "px")     
-                .style("top", (d3.event.pageY - 30) + "px");    
+                .style("left", (d3.event.pageX - 45) + "px")     
+                .style("top", (d3.event.pageY - 45) + "px");    
             })                  
         .on("mouseout", function(d) {  
             this.style.fill = TEMP_COLOR;     
