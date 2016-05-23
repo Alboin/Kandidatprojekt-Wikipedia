@@ -19,6 +19,7 @@
 ********************************************************************************************************/
 
 var LAST_LINK_TITLE = "";
+var LINK_RESULTS_RECIEVED = 0;
 
 //This function works similar to the function 'getSearchString'. Used for the related links in the 
 //first search of an article. The functions defines which properties to get from the article.	*/
@@ -93,8 +94,9 @@ function loadLinksArticles(data) {
 	//When the search is somewhat done replace the loading gif with a checkbox icon.
 	//The search may not be completed since it is not entirely sure that the result for the last link searched for arrive last.
 	if(MAIN_ARTICLE.backlinks[MAIN_ARTICLE.backlinks.length -1].toLowerCase() == temp_article.title.toLowerCase()) {
-		$("#loading_gif").remove();
-		$("#header_row").append("<i class='fa fa-check-circle' aria-hidden='true' id='loading_done_checkbox'></i>");
+		//$("#loading_gif").remove();
+		//$("#header_row").append("<i class='fa fa-check-circle' aria-hidden='true' id='loading_done_checkbox'></i>");
+		SEARCH_IS_ACTIVE = false;
 		console.log("Search completed.")
 	}
 

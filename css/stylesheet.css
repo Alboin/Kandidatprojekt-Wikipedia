@@ -35,6 +35,16 @@ header {
     color: white;
 }
 
+.hover_text
+{
+    color: #E0E2FF;
+}
+
+.hover_text:hover
+{
+    color: #90a5b3;
+}
+
 .intro-text{
 
     padding: 10%;
@@ -50,12 +60,15 @@ header {
     font-size: 20px;
     text-align: center;
     color: white;
+    color: #507583;/*white;
 }*/
+
 
 /* #header_text:hover {
     cursor: pointer;
-    color: rgb(200,200,230); */
-}
+    color: rgb(200,200,230); 
+    color: #90a5b3;
+}*/
 
 /* h1 {
     font-family: 'Playfair Display', Arial;
@@ -118,6 +131,22 @@ p {
     float: left;
     margin-left: 5%;
 }*/
+
+p#footertxt
+{
+    padding-top: 20; 
+    font-family: 'Arial';
+    font-size: 100%;
+    font-weight: bold;
+}
+
+p#relations
+{
+    font-family: 'Arial';
+    color: white;
+    font-size: 80%;
+    padding: 15 15 10 15;
+}
 
 section#search
 {
@@ -199,10 +228,12 @@ input#searchtext1
 }*/
 
 footer{
-    height: 15%;
-    background-color: black;
+    height: 10%;
     color: white;
+    background-color:#002533;
+    padding: 10 10 10 10;
 }
+
 
 
 
@@ -222,6 +253,24 @@ footer{
 #searchtext2 {
     height: 37px;
 }
+
+#search_not_complete_message {
+    position: absolute;
+    z-index: 100;
+    top:60px;
+    left:50px;
+    color: white;
+}
+
+#loadingbar {
+    position: relative;
+    left: 0px;
+    height: 5px;
+    width: 0px;
+    z-index: 500000;
+    background-color: #F99C08;
+    border-radius: 0px;
+}
 /*
 #globe{
     position: absolute;
@@ -238,6 +287,7 @@ footer{
     left: 62%;
 }*/
 
+/*
 #loading_gif {
     position: absolute;
     color: green;
@@ -253,6 +303,15 @@ footer{
     top: 35%;
     z-index: 10;
     font-size: 150%;
+    font-size: 20px;
+}*/
+
+#homepage_header {
+    color: #204573;
+}
+
+#homepage_header:hover {
+    color: #5075a3;
 }
 
 
@@ -263,10 +322,12 @@ footer{
     margin-top: 3.5%;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
+/*background: rgba(0, 37, 51, 0.7);*/
+    z-index: 100;
+    font-family: 'Playfair Display';
     background: #002533;
     opacity: 0.5;
     z-index: 990;
-
 
 }
 
@@ -275,7 +336,6 @@ footer{
     margin-top: 4%;
     color: white;
     font-family: serif;
-
 }
 
 #right_time_handle {
@@ -295,7 +355,7 @@ footer{
     top: 10%;
     border-radius: 5%;
     background: #002533;
-    opacity: 0.7; 
+    opacity: 0.85; 
     z-index: 999;
 }
 
@@ -312,21 +372,23 @@ footer{
 }
 
 #article_list {
-    border-radius: 6px;
+    border-radius: 0px; /*6px;*/
+    overflow: auto;
+    padding: 4px;
+    color: black;
+    background: #fff;
+    opacity: 0.85;
+    overflow-x: hidden;
+}
+
+#article_list_time {
+    border-radius: 0px; /*6px;*/
     overflow: auto;
     padding: 4px;
     color: black;
     background: #fff;
     opacity: 0.7;
-}
-
-#article_list_time {
-    border-radius: 6px;
-    overflow: auto;
-    padding: 4%;
-    color: black;
-    background: #fff;
-    opacity: 0.7;
+    overflow-x: hidden;
 }
 
 #article_list li {
@@ -336,7 +398,7 @@ footer{
 }
 
 #article_list li:hover {
-    background:#bbb;
+    background:#fff;
     cursor: pointer;
 }
 
@@ -347,7 +409,7 @@ footer{
 }
 
 #article_list_time li:hover {
-    background:#bbb;
+    background:#fff;
     cursor: pointer;
 }
 
@@ -384,14 +446,14 @@ footer{
 
 
 #map { 
-    position:absolute; 
-    top:0; 
+    position:relative; 
     bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
     width:0%; 
     height:0%; /* Eller ändra den här...*/
     padding: 0%;
     margin: 0%;
     z-index: 31;
+    background-color: #d1d1d1;
 }
 
 #marked_word {
@@ -444,12 +506,11 @@ footer{
 .article_list_header {
     color: white;
     text-align: center;
-
-
 }
 
 .article_list_header:hover {
     color: black;
+    transition: all 0.2s ease-out;
     cursor: pointer;
 }
 
@@ -589,8 +650,13 @@ div.tooltip {
     font-size: 240%;
     color: #56727C;
     text-align: center;
+    font-color: #002533;
     font-family: 'Playfair Display', serif;
     /* margin-top: 3%; */
+}
+.wiki_title2 :hover{
+    color: white;
+    text-decoration: none;
 }
 
 #place_right{
@@ -625,6 +691,7 @@ div.tooltip {
 
 }
 
+
 #inaccessible_area_left {
     background: linear-gradient(to top, black , white);
     padding: 0;
@@ -650,6 +717,7 @@ div.tooltip {
 
 #article_list_header_time:hover {
     color: black;
+    transition: all 0.2s ease-out;
     cursor: pointer;
 }
 

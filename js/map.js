@@ -33,16 +33,16 @@ function generateMap() {
 	document.getElementById("map").style.width = window.innerWidth + "px";
 	document.getElementById("map").style.height = window.innerHeight + "px";
 
-	var southWest = L.latLng(1000, -200),
-	    northEast = L.latLng(-90, 300),
-	    bounds = L.latLngBounds(southWest, northEast);
+	/*var southWest = L.latLng(-85, -175),
+	    northEast = L.latLng(120, 175),
+	    bounds = L.latLngBounds(southWest, northEast);*/
 
 	//Needed to get access to mapbox.
 	L.mapbox.accessToken ='pk.eyJ1Ijoic2FyYWh5ZWFoaCIsImEiOiJjaWx4dGw5M2gwMGc0dW9tNGk1M3JnbWI1In0.Zo28bpcbm5VxdSkJ0qXC8A';
 
 	//Create map, light version and disable attributes. Set start-position and zoom-level.
-	map = L.mapbox.map('map', 'mapbox.light', {attributionControl: false, maxBounds: bounds, minZoom: 2})
-    .setView([0,0], 2);
+	map = L.mapbox.map('map', 'mapbox.light', {attributionControl: false, /*maxBounds: bounds,*/ minZoom: 1, zoomControl: false})
+    .setView([30,0], 2);
 
 	//Layer containing all the markers. 
 	markerLayer = L.mapbox.featureLayer().addTo(map);
@@ -89,15 +89,26 @@ function addArticleToMap(article) {
 
 function chooseNewMainArticle(title) {
 
-	//Create query from user input.
-	var query = getSearchString(title);
+	if(!SEARCH_IS_ACTIVE) {
 
-	document.getElementById("searchtext").value = title;
+		//Create query from user input.
+		var query = getSearchString(title);
 
-	//This function is run asynchronously.
-	MAIN_SEARCH = true;
-	HAS_RUN_EXTRA_SEARCH = false;
-	getWikiData(query, "red");
+		document.getElementById("searchtext").value = title;
+
+		//This function is run asynchronously.
+		MAIN_SEARCH = true;
+		HAS_RUN_EXTRA_SEARCH = false;
+
+		getWikiData(query, "red");
+
+	} else {
+		console.log("Search is still active...");
+		//Show the message below the search-box for a brief moment.
+		$("#search_not_complete_message").fadeIn( 500, function() {
+			$("#search_not_complete_message").fadeOut(3000);
+  		});
+	}
 
 }
 
@@ -142,10 +153,10 @@ function changeModalContent(title) {
 	//Change Modal title
 	document.getElementById("artikel_titel").innerHTML = title;
 	//Change title size depending on its length.
-	if(article.title.length > 18){
+	if(temp_article.title.length > 18){
 		$("#artikel_titel").css("font-size","30px");
 	}
-	else if (article.title.length < 10){
+	else if (temp_article.title.length < 10){
 		$("#artikel_titel").css("font-size","50px");
 	}
 	else {

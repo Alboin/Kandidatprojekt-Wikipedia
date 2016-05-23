@@ -60,6 +60,8 @@
 			<!-- 1st row, top of the page. -->
 	        <div class="row" id="header_row">
 
+
+
 	        	<!-- The row is divided in 3 columns with the same size, which are empty to get the information in the center of the page. -->
 		        
 		        <!-- First column in row 1, up to the left -->
@@ -69,7 +71,8 @@
                 	
 
 		        <div class="col-lg-4" id="topleftmargin">	 
-		        	<input type="text", id="searchtext"></input>
+
+		        	<input type="text", id="searchtext" placeholder ="Sök efter en ny artikel..." autocomplete ="off"></input>
 
  		 			<button id="searchbutton2"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button>
  		 			
@@ -77,9 +80,11 @@
 
 					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" style="width:12%;" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
 
+
+					<!-- OLD SEARCH -->
  		 			<form style="height: 0px; padding: 0px; margin: 0px; width: 0px;" name="search">
 						<input type="hidden" name="textresult">
-					</form>			
+					</form>	
 
 					<script language="javascript">
 
@@ -87,21 +92,24 @@
 						document.search.textresult.value = locate
 						var text = document.search.textresult.value
 
+
 						function delineate(str)
 						{
-						point = str.lastIndexOf("=");
-						return(str.substring(point+1,str.length));
+							point = str.lastIndexOf("=");
+							return(str.substring(point+1,str.length));
 						}
-						document.getElementById("searchtext").value = delineate(text);
+						//document.getElementById("searchtext").value = delineate(text);
 						previousSearch(delineate(text));
 
 						// If the button "search" is clicked, the search is activated.
+
 						document.getElementById("searchbutton2").addEventListener("click", pressSearchButton);
 
 						//Trigger searchbutton2 by clicking the enter key
 						$("#searchtext").keyup(function(event){
 	    					if(event.keyCode == 13){
 	        					pressSearchButton();
+
     						}
 						});
 
@@ -142,6 +150,10 @@
 
 					    	if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
 					    		$("#globe").attr("src", "img/globe_orange_strong_small.png");
+					    		
+					    		for(var i = 0; i < TIME_ARTICLES.length; i++)
+					    			$('#dot' + TIME_ARTICLES[i].id).tipsy("hide");
+
 					    	}
 					    	$("#clock").attr("src", "img/clock_white_small.png");
 
@@ -178,7 +190,7 @@
 		        	<!--div id = "header_text"><i class="fa fa-wikipedia-w fa-2x" aria-hidden="true" onclick='goToStartPage()'  action="index2_test.html" href="index_test.html"></i>ikinspire</div-->   
 
 
-					<h4 class="wiki_title2" href="index_test.html">Wikinspire</h4>
+					<h4 class="wiki_title2"><a href = "index_test.html" id="homepage_header"> Wikinspire </a></h4>
 
 				</div>
 
@@ -239,8 +251,11 @@
 			   	</div>
 
 			   
+   				<div id="loadingbar"></div>
+
 	    	<!-- End of 1st row, top of the page. -->
 	    	</div>
+
 
 
 	    	<!--Modal for the information-->
@@ -253,7 +268,10 @@
                 				<h4 class="modal-title">Info</h4>
            					</div>
 							<div class="modal-info-body" style="padding: 10px; margin: 10px;">
-			                	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel vehicula erat. Phasellus vestibulum leo eu mi tempor blandit. Suspendisse eget iaculis lectus. Donec vitae tempus enim, quis tristique magna. Donec lobortis, sem ac pretium viverra, leo nisl consequat arcu, sit amet ullamcorper nunc turpis ac erat. In rutrum auctor ligula, quis mattis enim lacinia eu. Aliquam at magna a erat laoreet iaculis quis a justo. Donec porttitor vulputate massa, nec suscipit nisi mollis sed.
+			                	Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. En sökning resulterar i två vyer: Kartvy och Tidsvy. 	
+			                	Det här projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, Hanna Johansson, Johanna Westberg och Sarah Fosse. 
+
+			                	<br><h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
 							</div>
 						</div>
                     </div>
@@ -271,7 +289,7 @@
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
 				        	<h4 class="modal-title" id="myModalLabel"><p id="artikel_titel"></p></h4>
-				        	<p id="artikel_bild"></p>
+				        	<p class ="text-center" id="artikel_bild"></p>
 				      	</div>
 
 					    <div class="modal-body">
@@ -306,6 +324,14 @@
    				<!-- The row contains only one column that fills the entire screen width. -->
    				<div class="col-lg-12">
 
+   					<!-- This message is displayed to the user when the user tries to search while another search is still ongoing. -->
+   					<div id="search_not_complete_message"><p> Sökningen pågår fortfarande... </p></div>
+   					<script>$("#search_not_complete_message").hide();
+   					$("#search_not_complete_message").css("color", "#F99C08");</script>
+
+
+   					<div 
+
    					<!-- A container containing what is shown in the time view. -->
 			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
 
@@ -320,13 +346,21 @@
 						<div id='article_list_container_time'>
 
 							<h3  class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>
-								Relaterade artiklar
+								Visade artiklar
+							<br>
 
 								<i class="fa fa-angle-double-down" id="article_list_arrow_time" aria-hidden="true"></i>
 							</h3>
-							
-
 							<ul id='article_list_time'></ul>
+
+							<p id ="relations">	
+								<img src="img/dot_red.png" alt="Marker" style="width:5%"> Huvudartikel.	 <br>  
+								<img src="img/dot_black.png" alt="Marker" style="width:5%"> Länkas från huvudartikeln.	<br>
+								<img src="img/dot_gray.png" alt="Marker" style="width:5%"> Länkar till huvudartikeln.	<br>
+								<img src="img/dot_green.png" alt="Marker" style="width:5%"> Artikeln länkas till och från huvudartikeln.
+							</p>
+
+
 						</div>
 
 
@@ -341,24 +375,25 @@
 						<!-- The list with all articles displayed on the map. -->
 						<div id='article_list_container'>
 							<h3 class='article_list_header' id="article_list_header_map" onclick='hideArticleListMap()'>
-								Relaterade artiklar
+								Visade artiklar
 								<i class="fa fa-angle-double-down" id="article_list_arrow_map" aria-hidden="true"></i>
 							</h3>
 
 							<ul id='article_list'></ul>
+							<p id="relations"> 
+								<img src="img/pin_red.png" alt="Marker" style="width:5%"> Huvudartikel.	  <br> 
+								<img src="img/pin_black.png" alt="Marker" style="width:5%"> Länkas från huvudartikeln.	<br>
+								<img src="img/pin_gray.png" alt="Marker" style="width:5%"> Länkar till huvudartikeln.		<br>
+								<img src="img/pin_green.png" alt="Marker" style="width:5%"> Artikeln länkas till och från huvudartikeln.</p>
 
 						</div>
 
 						<div id="map_footer"> 
-							<h4 id="map_footer_text"> 
-								<img src="img/pin_red.png" alt="Marker" style="width:2%"> Huvudartikel.	   
-								<img src="img/pin_black.png" alt="Marker" style="width:2%"> Länkas från huvudartikeln.	
-								<img src="img/pin_gray.png" alt="Marker" style="width:2%"> Länkar till huvudartikeln.		
-								<img src="img/pin_green.png" alt="Marker" style="width:2%"> Stark relation, artikeln länkas till och från huvudartikeln.</h4>
+							
 						</div>
 
-						<!--Button to go back to start page-->
-						<button ng-click="pageCtrl.setPage(4)" id='back' onclick="hideStartpage()"><i class="fa fa-arrow-left" id=back""></i></button>
+						<!--Button to go back to start page-
+						<button ng-click="pageCtrl.setPage(4)" id='back' onclick="hideStartpage()"><i class="fa fa-arrow-left" id=back""></i></button>-->
 						
 					</div>
 
@@ -400,6 +435,9 @@
 
 			//Hide the article list in time-view by default.
 			 $("#article_list_time").slideToggle();
+
+			 $("#loadingbar").css("top", $("#header_row").css("height")).css("top", "-=5");
+			 $("#transbox").css("top", $("#header_row").css("height"));
 			
 		</script>
 

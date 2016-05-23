@@ -44,8 +44,7 @@ function addTimeHandler() {
 		.attr("height", window.innerHeight)
 		.attr("x", -10)
 		.attr("y", (TIMELINE_YPOS - (window.innerHeight - TIMELINE_YPOS)/2) + handle_height)
-		.attr("style", "fill:rgb(0, 37, 51);stroke:rgb(0, 37, 51);stroke-width:5;");
-
+		.attr("style", "fill:rgb(00,25,33);");//stroke:gray;stroke-width:5;");
 
 	//Decides how many labels should be generated below the timeline depending on your screen size.
     var numberOfTimelabels = Math.round(window.innerWidth/150);
@@ -54,7 +53,7 @@ function addTimeHandler() {
     for(var i = 0; i <= numberOfTimelabels; i++) {
         TIMELINE_TEXTS[i] = svg.append("text")
             .attr("x", i/numberOfTimelabels*TIMELINE_WIDTH + TIMELINE_START - 16)
-            .attr("y", TIMELINE_YPOS + 0.06*window.innerHeight)
+            .attr("y", TIMELINE_YPOS + 0.05*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
             .attr("fill", "rgb(255, 255, 255)")//"rgb(70,70,70)")
             .classed("unselectable", true)
@@ -83,7 +82,7 @@ function addTimeHandler() {
     //This is the left handle's time-label.
     HANDLE_TEXTS[0] = svg.append("text")
             .attr("x", TIMELINE_START - 16)
-            .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
+            .attr("y", TIMELINE_YPOS - 0.025*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
             .attr("font-weight", "bold")
             .attr("fill", "rgb(255,255,255)")
@@ -93,7 +92,7 @@ function addTimeHandler() {
     //This is the right handle's time-label.
     HANDLE_TEXTS[1] = svg.append("text")
             .attr("x", TIMELINE_WIDTH + TIMELINE_START - 16)
-            .attr("y", TIMELINE_YPOS - 0.02*window.innerHeight)
+            .attr("y", TIMELINE_YPOS - 0.025*window.innerHeight)
             .attr("font-family", '"Roboto", sans-serif')
             .attr("font-weight", "bold")
             .attr("fill", "rgb(255,255,255)")
@@ -122,6 +121,7 @@ function addTimeHandler() {
 
 		})
 		.on('dragend', function() {
+			BOUNDS_HAS_CHANGED = true;
 			//Update the timeline.
 			sortDots();
 			updateSecondTimeTexts();
@@ -146,6 +146,7 @@ function addTimeHandler() {
 
 		})
 		.on('dragend', function() {
+			BOUNDS_HAS_CHANGED = true;
 			//Update the timeline.
 			sortDots();
 			updateSecondTimeTexts();
@@ -287,6 +288,8 @@ function moveHandles(left_pos, right_pos) {
 	HANDLE_LEFT.transition().duration(2000).attr('x', temp_left);
 	HANDLE_RIGHT.transition().duration(2000).attr('x', temp_right);
 	MARKED_TIME.transition().duration(2000).attr('x', temp_left).attr('width', temp_right - temp_left);
+
+	BOUNDS_HAS_CHANGED = false;
 
 	HANDLE_TEXTS[0].text("");
 	HANDLE_TEXTS[1].text("");

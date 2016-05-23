@@ -18,12 +18,12 @@ var TIME_DOTS = [];
 var TIPSY_IS_SHOWN = false;
 var LAST_CLICKED_ID;
 var DEFAULT_COLOR = "black", MARKED_COLOR = "white", BORDER_COLOR = "black";
-var DOT_RADIUS = 7;
+var DOT_RADIUS = 8;
 var SECOND_TIMELINE_YPOS = 0.6*window.innerHeight;
 var LEFT_BOUND = 0.15*window.innerWidth, RIGHT_BOUND = 0.70*window.innerWidth;
 var MIN_YEAR = null, MAX_YEAR = null;
 var DISPLAYED_MIN_YEAR = null, DISPLAYED_MAX_YEAR = null;
-var PREV_DISPLAYED_MIN_YEAR = null, PREV_DISPLAYED_MAX_YEAR = null;
+var BOUNDS_HAS_CHANGED = false;
 var MOUSE_OVER_LIST = false;
 var DRAGGING_HANDLE = false;
 var TEMP_COLOR;
@@ -47,6 +47,7 @@ function generateTimeDot(article) {
         MAX_YEAR = MIN_YEAR + 1;
         DISPLAYED_MIN_YEAR = MIN_YEAR;
         DISPLAYED_MAX_YEAR = MIN_YEAR + 1;
+        BOUNDS_HAS_CHANGED = true;
     }
     if(MIN_YEAR == MAX_YEAR - 1)
         MIN_YEAR = MIN_YEAR - 1;
@@ -55,9 +56,11 @@ function generateTimeDot(article) {
     if(article.time[0][2] < MIN_YEAR) {
         MIN_YEAR = article.time[0][2];
         DISPLAYED_MIN_YEAR = MIN_YEAR;
+        BOUNDS_HAS_CHANGED = true;
     } else if (article.time[0][2] > MAX_YEAR) {
         MAX_YEAR = article.time[0][2];
         DISPLAYED_MAX_YEAR = MAX_YEAR;
+        BOUNDS_HAS_CHANGED = true;
     }
 
     //Variable to log how many articles with the same years exist.
@@ -74,7 +77,7 @@ function generateTimeDot(article) {
     for(var i = 0; i < YEAR_COUNTER.length; i++) {
         //If it exist, increment the counter and update the y_pos_shift.
         if(YEAR_COUNTER[i].year == article.time[0][2]) {
-            y_pos_shift = YEAR_COUNTER[i].count * 30;
+            y_pos_shift = YEAR_COUNTER[i].count * 25;
             YEAR_COUNTER[i].count++;
             exist = true;
             break;
@@ -88,7 +91,7 @@ function generateTimeDot(article) {
     //Where the content in the pop ups are set.
     var popup_content = createPopupContent(article);
 
-    var dot_position = (article.time[0][2] - MIN_YEAR) / (MAX_YEAR - MIN_YEAR) * RIGHT_BOUND + LEFT_BOUND;
+    var dot_position = Math.random()*window.innerWidth;//(article.time[0][2] - MIN_YEAR) / (MAX_YEAR - MIN_YEAR) * RIGHT_BOUND + LEFT_BOUND;
 
     var dot_color, dot_border_color;
     if(article.title == MAIN_ARTICLE.title) {
@@ -105,15 +108,17 @@ function generateTimeDot(article) {
         dot_border_color = '#797979';
     }
 
-
+    var temp = Math.random() * window.innerHeight;
 	//Creates all the dots with their own id. 
     var dot = svg.append("circle")
         .attr("cx", dot_position)
-        .attr("cy", SECOND_TIMELINE_YPOS - y_pos_shift)
+        .attr("cy", temp)
+        .attr("final_y", SECOND_TIMELINE_YPOS - y_pos_shift)
         .attr("r", 0)
         .attr("id", "dot" + article.id)
         .classed("time_dot_class", true)
         .attr("start_year", article.time[0][2]) 
+        .attr("dot_not_moved_yet", true)
         .attr("dot_color", dot_color)
         .attr("dot_border_color", dot_border_color)
         .attr("fill", dot_color)
@@ -156,7 +161,7 @@ function generateTimeDot(article) {
 
     //If the user clicks anywhere else on the screen the tipsy will dissapear and the dot get unmarked.
     $("#lower_row").click(function(){
-        //Do start animating when a animation caused by the handles is going in.
+        //Don't start animating when a animation caused by the handles is going on.
         if(DRAGGING_HANDLE) {
             $('#dot' + article.id).tipsy("hide");
         //Close the tipsy only if the mouse is not over the article list.
@@ -248,46 +253,26 @@ function sortDots() {
 
         var temp_dot = d3.select("#" + TIME_DOTS[i].attr("id"));
 
-        var dot_position = ((temp_dot.attr("start_year") - DISPLAYED_MIN_YEAR) / (DISPLAYED_MAX_YEAR - DISPLAYED_MIN_YEAR)) * RIGHT_BOUND + LEFT_BOUND;
-            
+        if(BOUNDS_HAS_CHANGED || temp_dot.attr("dot_not_moved_yet") == "true") {
 
-        if(dot_position < 0) {
-            //If the dot is outside of the window, do a ´different animation.
-            temp_dot
+            var dot_position = ((temp_dot.attr("start_year") - DISPLAYED_MIN_YEAR) / (DISPLAYED_MAX_YEAR - DISPLAYED_MIN_YEAR)) * RIGHT_BOUND + LEFT_BOUND;
+
+            //Moves the dot, also animates it upon creation.
+            temp_dot.transition()
+                .attr("r", DOT_RADIUS)
+                .attr("stroke", temp_dot.attr("dot_border_color"))
+                .attr("stroke-width", "2")
                 .transition().duration(1000)
-                .attr("cx", 0)
-                .transition()
-                .attr("r", 0);
+                .attr("cx", dot_position)
+                .attr("cy", temp_dot.attr("final_y"))
+                .attr("fill", temp_dot.attr("dot_color")  );
 
-        } else if(dot_position > window.innerWidth) {
-
-            //If the dot is outside of the window, do a different animation.
-            temp_dot
-                .transition().duration(1000)
-                .attr("cx", window.innerWidth)
-                .transition()
-                .attr("r", 0);
-
-        } else {
-            //if(temp_dot.attr("id") != ("dot" + MAIN_ARTICLE.id)) {
-                //Moves the dot, also animates it upon creation.
-                temp_dot.transition()
-                    .attr("r", DOT_RADIUS)
-                    .attr("stroke", temp_dot.attr("dot_border_color"))
-                    .attr("stroke-width", "2")
-                    .transition().duration(1000)
-                    .attr("cx", dot_position)
-                    .attr("fill", temp_dot.attr("dot_color")  );
-              /*  } else {
-                    temp_dot.attr("r", 14)
-            .attr("fill", "#ff0000" )
-            .attr("stroke", "#ff8888")
-            .attr("stroke-width", 2)
-            .transition().duration(1000).attr("cx", dot_position);
-                }*/
+            temp_dot.attr("fill", temp_dot.attr("dot_color"));
+            temp_dot.attr("dot_not_moved_yet", false);
         }
-        temp_dot.attr("fill", temp_dot.attr("dot_color"));
+
     }
+    BOUNDS_HAS_CHANGED = false;
 
     //Reset the variable, but with a delay, to let the loop finish.
     if(DRAGGING_HANDLE)
