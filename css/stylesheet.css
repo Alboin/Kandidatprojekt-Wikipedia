@@ -385,7 +385,7 @@ footer{
     overflow: auto;
     padding: 4px;
     color: black;
-    background: #fff;
+    background: #ddd;
     opacity: 0.85;
     overflow-x: hidden;
     max-height: 400px; /*Sorry fick inte den här att funka utan pixlar...*/
@@ -396,8 +396,8 @@ footer{
     overflow: auto;
     padding: 4px;
     color: black;
-    background: #fff;
-    opacity: 0.7;
+    background: #ddd;
+    opacity: 0.85;
     overflow-x: hidden;
     max-height: 340px; /*Samma här som ovan!*/
 }
