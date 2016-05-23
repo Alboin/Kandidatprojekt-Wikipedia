@@ -464,7 +464,8 @@ footer{
 
 
 #map { 
-    position:relative; 
+    position:fixed;
+    top: 65px; 
     bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
     width:0%; 
     height:0%; /* Eller ändra den här...*/
