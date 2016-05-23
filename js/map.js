@@ -55,7 +55,7 @@ function addArticleToMap(article) {
 	var temp_color;
 
 	if(MARKER_COLOR == "red") {
-		temp_color = '#FF0000';
+		temp_color = '#fb3a13';
 	} else if(MARKER_COLOR == "gray") {
 		temp_color = '#5F8CAB';
 	} else {
@@ -69,7 +69,7 @@ function addArticleToMap(article) {
 
 	//If the link is both a link and a backlink give it a special color
 	if(article.link_both_ways){
-		temp_color = '#f99c08';	//green
+		temp_color = '#f99c08';	//orange
 	}
 
 	var popup_content = createPopupContent(article);

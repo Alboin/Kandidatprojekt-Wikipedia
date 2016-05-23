@@ -95,8 +95,8 @@ function generateTimeDot(article) {
 
     var dot_color, dot_border_color;
     if(article.title == MAIN_ARTICLE.title) {
-        dot_color = '#ff0000';
-        dot_border_color = '#ff3232';
+        dot_color = '#fb3a13';
+        dot_border_color = '#fb6142';
     } else if(article.link_both_ways) {
         dot_color = '#f99c08'; 
         dot_border_color = '#f9a520';
