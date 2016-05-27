@@ -308,7 +308,8 @@ footer{
 }
 
 #loadingbar {
-    position: relative;
+    position: absolute;
+    top: 55px;
     left: 0px;
     height: 5px;
     width: 0px;

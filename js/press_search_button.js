@@ -19,17 +19,13 @@ function pressSearchButton(random) {
 		if(random){
 			//Save user input.
 			var usertext = random;
-			console.log("hej jag är random");
 
-		}
-		else{
+		} else {
 
 			//Save user input.
 			var usertext = document.getElementById("searchtext").value;
-			console.log("hej jag fattar inte att jag är random");
 
 		}
-
 		//Create query from user input.
 		var query = getSearchString(usertext);
 

@@ -57,7 +57,6 @@ function getWikiData(query, article_color){
 	        				//If both lower- and uppercase has been tried.
 	        				} else if(HAS_RUN_EXTRA_SEARCH) {
 	        					window.alert("The entered search-text did not yield any results.");
-								$("#loading_gif").remove();
 								SEARCH_IS_ACTIVE = false;
 	        				//If searchstring is uppercase.
 	        				} else {
@@ -71,7 +70,6 @@ function getWikiData(query, article_color){
 
 	        			} else {
 	        				window.alert("The entered search-text did not yield any results.");
-							$("#loading_gif").remove();
 							SEARCH_IS_ACTIVE = false;
 	        			}
 	        		
@@ -110,9 +108,8 @@ function getWikiData(query, article_color){
 		        		$('#article_list_time').empty();
 
 		        		MAIN_ARTICLE = loadMainArticle(data);
-		        		OLD_MAIN_ARTICLES.push(MAIN_ARTICLE);
 		        		$('#searchtext').val('');
-		        		$(".modal-history-body").append(MAIN_ARTICLE.title + "<br>");
+		        		$(".modal-history-body").append(MAIN_ARTICLE.title + '<br>');  //(sökte på "' + OLD_MAIN_ARTICLES[OLD_MAIN_ARTICLES.length - 1] + '") <- lägg till någon gång
 		        		$("#transbox").click(function(){changeModalContent(MAIN_ARTICLE.title);});
 
 		        		//Empty old links from arrays:
