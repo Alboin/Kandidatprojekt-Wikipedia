@@ -1,418 +1,405 @@
+<!DOCTYPE html svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!--*******************************************************************************************************
     
-    ORIGINALET
-	DET HÄR BLIR ALLTSÅ DEN ANDRA VYN.
+  The second view with the result. 
 
 ********************************************************************************************************-->
-<!-- This code is written with angular.js -->
 
-
-<!DOCTYPE html svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<html ng-app="wikiSearch">
-	<head>
-
-		<meta charset="UTF-8">
-
-		<title>Wikinspire</title>
-
-		<link rel="icon" type="image/png" href="img/favicon.png">
- 		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
- 	
- 		<!-- Import Stylesheets and fonts. -->
- 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
- 		<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
- 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
- 		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
- 		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
- 		<link rel="stylesheet" type="text/css" href="css/tipsy.css">
-
- 		<!-- Import Mapbox, D3 and JQuery. -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
- 		<script type="text/javascript" src="js/libs/jquery.tipsy.js"></script>
- 		<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
- 		<link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
- 		<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
- 		<script type="text/javascript" src="js/libs/angular.min.js"></script>
-
- 		<!-- Import own javascript-files. -->
- 		<script type="text/javascript" src="js/app.js"></script>
- 		<script type="text/javascript" src="js/press_search_button.js"></script>
- 		<script type="text/javascript" src="js/get_wiki_data.js"></script>
- 		<script type="text/javascript" src="js/article_handler.js"></script>
- 		<script type="text/javascript" src="js/links_handler.js"></script>
- 		<script type="text/javascript" src="js/map.js"></script>
- 		<script type="text/javascript" src="js/timeline_view.js"></script>
- 		<script type="text/javascript" src="js/timeline_controller.js"></script>
-
-		<!--Modal popup-->
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-	  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-	</head>
-
-	<body>
-
-		<!-- Section is a container for the whole page. -->
-		<section ng-init="page = 3" class="page" ng-controller="PageController as pageCtrl" >
-		<!-- The page The page consists of three rows that are placed above each other. "Header_row" "upper_row" and "lower_row". -->
-			
-			<!-- 1st row, top of the page. -->
-	        <div class="row" id="header_row">
-
-	        	<!-- The row is divided in 3 columns with the same size, which are empty to get the information in the center of the page. -->
-		        
-		        <!-- First column in row 1, up to the left -->
-		        <!-- Column that contains searchfield and buttons -->
- 	
-		        <div class="col-lg-4" id="topleftmargin">	 
-
-		        	<input type="text", id="searchtext" placeholder ="Sök efter en ny artikel..." autocomplete ="off"></input>
-
- 		 			<button id="searchbutton2"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button>
- 		 			
- 		 			<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)"/>
-
-					<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
-
-					<img id="random2" class="random" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" src="img/dice.png"></img>
-
-
-					<!-- OLD SEARCH -->
- 		 			<form name="search">
-						<input type="hidden" name="textresult">
-					</form>	
-
-					<script language="javascript">
-
-						var locate = window.location
-						document.search.textresult.value = locate
-						var text = document.search.textresult.value
-
-
-						function delineate(str)
-						{
-							point = str.lastIndexOf("=");
-							return(str.substring(point+1,str.length));
-						}
-						document.getElementById("searchtext").value = delineate(text);
-						previousSearch(delineate(text));
-
-						// If the button "search" is clicked, the search is activated.
-
-						document.getElementById("searchbutton2").addEventListener("click", pressSearchButton);
-
-						//Trigger searchbutton2 by clicking the enter key
-						$("#searchtext").keyup(function(event){
-	    					if(event.keyCode == 13){
-	        					pressSearchButton();
-
-    						}
-						});
-
-						//Random button
-						document.getElementById("random2").addEventListener("click", pressRandomSearchButton);
-
-					</script>
-
-					<!-- handle icon when hovered -->
-					<script  type='text/javascript'>
-						$(document).ready(function(){
-
-							$("#globe").mouseenter(function(){
-								if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
-									$("#globe").attr("src" , "img/globe_orange_weak_small.png");
-								}
-							});
-							$("#globe").mouseleave(function(){
-								if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
-									$("#globe").attr("src" , "img/globe_white_small.png");
-								}
-							});
-
-							$("#clock").mouseenter(function(){
-								if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
-									$("#clock").attr("src" , "img/clock_orange_weak_small.png");
-								}
-							});
-							$("#clock").mouseleave(function(){
-								if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
-									$("#clock").attr("src" , "img/clock_white_small.png");
-								}
-							});
-
-						});
-					</script>
-
-					<!-- handle icon when clicked -->
-					<script>
-					    function changeGlobeImage(element) {
-
-					    	if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
-					    		$("#globe").attr("src", "img/globe_orange_strong_small.png");
-					    		
-					    		for(var i = 0; i < TIME_ARTICLES.length; i++)
-					    			$('#dot' + TIME_ARTICLES[i].id).tipsy("hide");
-
-					    	}
-					    	$("#clock").attr("src", "img/clock_white_small.png");
-
-					     }
-					</script>
-
-
-					<!-- handle icon when clicked -->
-					<script>
-					    function changeClockImage(element) {
-
-					    	if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
-					    		$("#clock").attr("src", "img/clock_orange_strong_small.png");
-					    	}
-					    	$("#globe").attr("src", "img/globe_white_small.png");
-					     }
-					</script>
-						
-		        </div>
-
-
-		        <!-- Second column in row 1, in the middle -->
-		        <!-- A column that contains the headlines for the different pages. 
-		        The headline changes depending on which page is the current search. -->
-
-		        <div class="col-lg-4" id="topcentermargin">     
-
-		        	<script> 
-		        		function goToStartPage() {
-
-		        		}
-		        	</script>
-
-					<h4 class="wiki_title2"><a href = "index.html" id="homepage_header"> Wikinspire </a></h4>
-
-				</div>
-
-	        	<div class="col-lg-4">
-	    	
-	        	</div>
-
-			    <div class="col-lg-4">
-			    	
-			    </div>
-
-				<div class="infoButton">
-					<!-- Buttons for the "övrigt" page, to be "info"-page -->
-					<img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" src="img/info.png"></img>
-					
-			   	</div>
-				
-				<i id="history_button" class="fa fa-history" aria-hidden="true" data-toggle="modal" data-target="#myHistoryModal"></i>
-					
-
-   				<div id="loadingbar"></div>
-
-	    	<!-- End of 1st row, top of the page. -->
-	    	</div>
-
-	    	<!--Modal for the information-->
-			<div id="myInfoModal" class="modal fade" >
-					<div class="modal-dialog">
-    				<div class="modal-content">
-        				<div class="modal-header">
-        					<!--The cross in top right corner of the modal-->
-           					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            				<h4 class="modal-title">Info</h4>
-       					</div>
-						<div class="modal-info-body">
-		                	Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. Sökresultat visualiseras i två olika vyer: Kartvyn och Tidsvyn. 	
-		                	<br><br>
-		                	Det här projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, Hanna Johansson, Johanna Westberg och Sarah Fosse. 
-
-		                	<br><h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
-						</div>
-					</div>
-                </div>
-			</div>
-
-		    <!-- Modal, the informationbox that appears when a button is beeing clickes -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			  	<div class="modal-dialog" role="document">
-				    <div class="modal-content">
-				    	<div class="modal-header">
-
-				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-				        	<h4 class="modal-title" id="myModalLabel"><p id="artikel_titel"></p></h4>
-				        	<p class ="text-center" id="artikel_bild"></p>
-				      	</div>
-
-					    <div class="modal-body">
-					        <div id="artikel_text"></div>
-					        <br>
-					        <a id="wikipedia_link" target="_blank">Läs hela artikeln på Wikipedia...</a>
-					    </div>
-
-				      	<div class="modal-footer">
-				        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>				
-				      	</div>
-				    </div>
-			  	</div>
-			</div>
-
-
-			<!--The line under the searchbutton2-->
-
-				<div class="col-lg-4">
-				</div>
-
-				<div class="col-lg-4">
-
-					<div id="transbox" data-toggle="modal" data-target="#myModal">
-						<h5 id="middle_row"></h5> 	
-					</div>
-				</div>
-
-				<div class="col-lg-4">						
-				</div>
-
-
-			<!--3rd row, the row at the bottom.-->		
-   			<div class="row nomargin" id="lower_row">
-   				<!-- The row contains only one column that fills the entire screen width. -->
-   				<div class="col-lg-12">
-
-   					<!-- This message is displayed to the user when the user tries to search while another search is still ongoing. -->
-   					<div id="search_not_complete_message"><p> Sökningen pågår fortfarande... </p></div>
-   					<script>$("#search_not_complete_message").hide();
-   					$("#search_not_complete_message").css("color", "#F99C08");</script>
-
-
-   					<!-- A container containing what is shown in the time view. -->
-			    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
-
-						<p id="tidsinfo"></p>
-
-						<svg id="svg"></svg>
-
-						<div id="inaccessible_area_left"></div>
-						<div id="inaccessible_area_right"></div>
-
-						<!-- The list with all articles displayed on the time-line. -->
-						<div id='article_list_container_time'>
-
-							<h3  class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>
-								Visade artiklar
-								<br>
-								<i class="fa fa-angle-double-down" id="article_list_arrow_time" aria-hidden="true"></i>
-							</h3>
-							<ul id='article_list_time'></ul>
-
-							<p id ="relations">	
-								<img class="marker" src="img/red.png" alt="Marker"> Huvudartikel.	 <br>  
-								<img class="marker" src="img/darkblue.png" alt="Marker"> Länkas från huvudartikeln.	<br>
-								<img class="marker" src="img/blue.png" alt="Marker"> Länkar till huvudartikeln.	<br>
-								<img class="marker" src="img/orange.png" alt="Marker"> Artikeln länkas till och från huvudartikeln.
-							</p>
-
-						</div>
-
-					</div>
-
-					<!-- A container containing what is shown in the map-view. -->
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
-
-
-						<!--Map container-->
-						<div id='map'></div>
-
-						<!-- The list with all articles displayed on the map. -->
-						<div id='article_list_container'>
-							<h3 class='article_list_header' id="article_list_header_map" onclick='hideArticleListMap()'>
-								Visade artiklar 
-								<br>
-								<i class="fa fa-angle-double-down" id="article_list_arrow_map" aria-hidden="true"></i>
-							</h3>
-
-							<ul id='article_list'></ul>
-							<p id="relations"> 
-								<img class="marker" src="img/red.png" alt="Marker"> Huvudartikel<br> 
-								<img class="marker" src="img/darkblue.png" alt="Marker"> Länkas från huvudartikeln<br>
-								<img class="marker" src="img/blue.png" alt="Marker"> Länkar till huvudartikeln<br>
-								<img class="marker" src="img/orange.png" alt="Marker"> Artikeln länkas till och från huvudartikeln</p>
-
-						</div>
-
-						<!--<div id="map_footer"> 
-							
-						</div>-->
-
-						<!--Button to go back to start page-
-						<button ng-click="pageCtrl.setPage(4)" id='back' onclick="hideStartpage()"><i class="fa fa-arrow-left" id=back""></i></button>-->
-						
-					</div>
-
-					<!-- A container containing what is shown in the "övrigt" view.. -->
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
-						<p id="links"> </p>
-					</div>
-
-					<!-- A container containing what is shown right after the search is done. -->
-					<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
-						<p id="sökgenomförd"></p>
-						<p id="artikelinfo"></p>		
-						<p id="artikel_kategori"></p>
-					</div>
-
-				</div>
-
-	   		</div>
-
-		</section>
-
+<html>
+<head>
+
+	<meta charset="utf-8">
+
+	<title>Wikinspire</title>
+
+	<link rel="icon" type="image/png" href="img/favicon.png">
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+	<!-- Import Stylesheets and fonts. -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/tipsy.css">
+
+	<!-- Import Mapbox, D3 and JQuery. -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script type="text/javascript" src="js/libs/jquery.tipsy.js"></script>
+	<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+	<link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/libs/angular.min.js"></script>
+
+	<!-- Import own javascript-files. -->
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/press_search_button.js"></script>
+	<script type="text/javascript" src="js/get_wiki_data.js"></script>
+	<script type="text/javascript" src="js/article_handler.js"></script>
+	<script type="text/javascript" src="js/links_handler.js"></script>
+	<script type="text/javascript" src="js/map.js"></script>
+	<script type="text/javascript" src="js/timeline_view.js"></script>
+	<script type="text/javascript" src="js/timeline_controller.js"></script>
+
+	<!--Modal popup-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+
+<body ng-app="wikiSearch">
+
+	<!-- Section is a container for the whole page. -->
+	<section ng-init="page = 3" class="page" ng-controller="PageController as pageCtrl" >
+	<!-- The page The page consists of three rows that are placed above each other. "Header_row" "upper_row" and "lower_row". -->
+		
+		<!-- 1st row, top of the page. -->
+        <div class="row" id="header_row">
+
+        	<!-- The row is divided in 3 columns with the same size, which are empty to get the information in the center of the page. -->
+	        
+	        <!-- First column in row 1, up to the left -->
+	        <!-- Column that contains searchfield and buttons -->
 	
-		<script>
-			//Generate the map when the page has loaded.
-			$(document).ready(generateMap());
-			$(document).ready(addTimeHandler());
-			$(document).ready(console.log("Document is ready!"));
+	        <div class="col-lg-4" id="topleftmargin">	 
 
-			//Set the height of the scroll-list with displayed articles to 65% or the screen height.
-			// $('#article_list').css('max-height', window.innerHeight * 0.6 + 'px');
-			// $('#article_list_time').css('max-height', window.innerHeight * 0.5 + 'px');
+	        	<input type="text" id="searchtext" placeholder ="Sök efter en ny artikel..." autocomplete ="off"></input>
 
-			//Prevent the article to become "unmarked" when the user clicks somewhere in the article list.
-			$("#article_list_container_time")
-				.mouseenter(function(){
-					MOUSE_OVER_LIST = true;
-				}).mouseleave(function(){
-					MOUSE_OVER_LIST = false;});
+		 		<button id="searchbutton2"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button>
+		 			
+		 		<img class="globe" id="globe" src="img/globe_white_small.png" alt="GlobeIcon" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)"/>
 
-			//Hide the article list in time-view by default.
-			 $("#article_list_time").slideToggle();
+				<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
 
-			 $("#loadingbar").css("top", $("#header_row").css("height")).css("top", "-=5");
-			 $("#transbox").css("top", $("#header_row").css("height"));
-
-			 //<a href onclick="changeModalContent(' + "'" + article.title + "'" +')" data-toggle="modal" data-target="#myModal"> Mer info...</a>
+				<img id="random2" class="random" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" alt="RandomIcon" src="img/dice.png"></img>
 
 
-			
-		</script>
+				
+		 		<form name="search">
+					<input type="hidden" name="textresult">
+				</form>	
 
-		<!--Modal for the information-->
-	    <div id="myHistoryModal" class="modal fade" >
-	            <div class="modal-dialog">
-	            <div class="modal-content">
-	                <div class="modal-header">
-	                    <!--The cross in top right corner of the modal-->
-	                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	                    <h4 class="modal-title" style="font-size: 40px;">Sökhistorik</h4>
-	                </div>
-	                <div class="modal-history-body">
-	            
+				<script>
 
-	                </div>
-	            </div>
+					var locate = window.location
+					document.search.textresult.value = locate
+					var text = document.search.textresult.value
+
+
+					function delineate(str)
+					{
+						point = str.lastIndexOf("=");
+						return(str.substring(point+1,str.length));
+					}
+					document.getElementById("searchtext").value = delineate(text);
+					previousSearch(delineate(text));
+
+					// If the button "search" is clicked, the search is activated.
+
+					document.getElementById("searchbutton2").addEventListener("click", pressSearchButton);
+
+					//Trigger searchbutton2 by clicking the enter key
+					$("#searchtext").keyup(function(event){
+    					if(event.keyCode == 13){
+        					pressSearchButton();
+
+						}
+					});
+
+					//Random button
+					document.getElementById("random2").addEventListener("click", pressRandomSearchButton);
+
+				</script>
+
+				<!-- handle icon when hovered -->
+				<script  type='text/javascript'>
+					$(document).ready(function(){
+
+						$("#globe").mouseenter(function(){
+							if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
+								$("#globe").attr("src" , "img/globe_orange_weak_small.png");
+							}
+						});
+						$("#globe").mouseleave(function(){
+							if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
+								$("#globe").attr("src" , "img/globe_white_small.png");
+							}
+						});
+
+						$("#clock").mouseenter(function(){
+							if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
+								$("#clock").attr("src" , "img/clock_orange_weak_small.png");
+							}
+						});
+						$("#clock").mouseleave(function(){
+							if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
+								$("#clock").attr("src" , "img/clock_white_small.png");
+							}
+						});
+
+					});
+				</script>
+
+				<!-- handle icon when clicked -->
+				<script>
+				    function changeGlobeImage(element) {
+
+				    	if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
+				    		$("#globe").attr("src", "img/globe_orange_strong_small.png");
+				    		
+				    		for(var i = 0; i < TIME_ARTICLES.length; i++)
+				    			$('#dot' + TIME_ARTICLES[i].id).tipsy("hide");
+
+				    	}
+				    	$("#clock").attr("src", "img/clock_white_small.png");
+
+				     }
+
+				</script>
+
+
+				<!-- handle icon when clicked -->
+				<script>
+				    function changeClockImage(element) {
+
+				    	if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
+				    		$("#clock").attr("src", "img/clock_orange_strong_small.png");
+				    	}
+				    	$("#globe").attr("src", "img/globe_white_small.png");
+				     }
+				</script>
+					
 	        </div>
-	    </div>
 
-	</body>
+
+	        <!-- Second column in row 1, in the middle -->
+	        <!-- A column that contains the headlines for the different pages. 
+	        The headline changes depending on which page is the current search. -->
+
+	        <div class="col-lg-4" id="topcentermargin">     
+
+	        	<script> 
+	        		function goToStartPage() {
+
+	        		}
+	        	</script>
+
+				<h4 class="wiki_title2"><a href = "index.html" id="homepage_header"> Wikinspire </a></h4>
+
+			</div>
+
+        	<div class="col-lg-4">
+    	
+        	</div>
+
+		    <div class="col-lg-4">
+		    	
+		    </div>
+
+			<div class="infoButton">
+				<!-- Buttons for the "övrigt" page, to be "info"-page -->
+				<img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" alt="InfoIcon" src="img/info.png"></img>
+				
+		   	</div>
+			
+			<i id="history_button" class="fa fa-history" aria-hidden="true" data-toggle="modal" data-target="#myHistoryModal"></i>
+			
+				<div id="loadingbar"></div>
+
+    	<!-- End of 1st row, top of the page. -->
+    	</div>
+
+    	<!--Modal for the information-->
+		<div id="myInfoModal" class="modal fade" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+    				<div class="modal-header">
+    					<!--The cross in top right corner of the modal-->
+       					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        				<h4 class="modal-title">Info</h4>
+   					</div>
+					<div class="modal-info-body">
+	                	Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. Sökresultat visualiseras i två olika vyer: Kartvyn och Tidsvyn. 	
+	                	<br><br>
+	                	Det här projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, Hanna Johansson, Johanna Westberg och Sarah Fosse. 
+
+	                	<br><p id="git_logo"><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank">
+                		<i class="fa fa-github fa-2x"></i></a></p>
+					</div>
+				</div>
+       		 </div>
+		</div>
+
+	    <!-- Modal, the informationbox that appears when a button is beeing clickes -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			    	<div class="modal-header">
+
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        	<h4 class="modal-title" id="artikel_titel"></h4>
+			        	<p class ="text-center" id="artikel_bild"></p>
+			      	</div>
+
+				    <div class="modal-body">
+				        <div id="artikel_text"></div>
+				        <br>
+				        <a id="wikipedia_link" target="_blank">Läs hela artikeln på Wikipedia...</a>
+				    </div>
+
+			      	<div class="modal-footer">
+			        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>				
+			      	</div>
+			    </div>
+		  	</div>
+		</div>
+
+		<!--The line under the searchbutton2-->
+
+		<div class="col-lg-4">
+		</div>
+
+		<div class="col-lg-4">
+
+			<div id="transbox" data-toggle="modal" data-target="#myModal">
+				<h5 id="middle_row"></h5> 	
+			</div>
+		</div>
+
+		<div class="col-lg-4">						
+		</div>
+
+
+		<!--3rd row, the row at the bottom.-->		
+			<div class="row nomargin" id="lower_row">
+				<!-- The row contains only one column that fills the entire screen width. -->
+				<div class="col-lg-12">
+
+					<!-- This message is displayed to the user when the user tries to search while another search is still ongoing. -->
+					<div id="search_not_complete_message"><p> Sökningen pågår fortfarande... </p></div>
+					<script>$("#search_not_complete_message").hide();
+					$("#search_not_complete_message").css("color", "#F99C08");</script>
+
+
+					<!-- A container containing what is shown in the time view. -->
+		    	<div class="pageCtrl" ng-show="pageCtrl.isSet(1)">
+
+					<p id="tidsinfo"></p>
+
+					<svg id="svg"></svg>
+
+					<div id="inaccessible_area_left"></div>
+					<div id="inaccessible_area_right"></div>
+
+					<!-- The list with all articles displayed on the time-line. -->
+					<div id='article_list_container_time'>
+
+						<h3  class='article_list_header' id="article_list_header_time" onclick='hideArticleList()'>
+							Visade artiklar
+							<br>
+							<i class="fa fa-angle-double-down" id="article_list_arrow_time" aria-hidden="true"></i>
+						</h3>
+						<ul id='article_list_time'></ul>
+
+						<p id ="relations">	
+							<img class="marker" src="img/red.png" alt="Marker"> Huvudartikel.	 <br>  
+							<img class="marker" src="img/darkblue.png" alt="Marker"> Länkas från huvudartikeln.	<br>
+							<img class="marker" src="img/blue.png" alt="Marker"> Länkar till huvudartikeln.	<br>
+							<img class="marker" src="img/orange.png" alt="Marker"> Artikeln länkas till och från huvudartikeln.
+						</p>
+
+					</div>
+
+				</div>
+
+				<!-- A container containing what is shown in the map-view. -->
+				<div class="pageCtrl" ng-show="pageCtrl.isSet(2)">
+
+
+					<!--Map container-->
+					<div id='map'></div>
+
+					<!-- The list with all articles displayed on the map. -->
+					<div id='article_list_container'>
+						<h3 class='article_list_header' id="article_list_header_map" onclick='hideArticleListMap()'>
+							Visade artiklar 
+							<br>
+							<i class="fa fa-angle-double-down" id="article_list_arrow_map" aria-hidden="true"></i>
+						</h3>
+
+						<ul id='article_list'></ul>
+						<p id="relations"> 
+							<img class="marker" src="img/red.png" alt="Marker"> Huvudartikel<br> 
+							<img class="marker" src="img/darkblue.png" alt="Marker"> Länkas från huvudartikeln<br>
+							<img class="marker" src="img/blue.png" alt="Marker"> Länkar till huvudartikeln<br>
+							<img class="marker" src="img/orange.png" alt="Marker"> Artikeln länkas till och från huvudartikeln</p>
+
+					</div>
+
+				</div>
+
+				<!-- A container containing what is shown in the "övrigt" view.. -->
+				<div class="pageCtrl" ng-show="pageCtrl.isSet(3)">
+					<p id="links"> </p>
+				</div>
+
+				<!-- A container containing what is shown right after the search is done. -->
+				<div class="pageCtrl" ng-show="pageCtrl.isSet(4)">
+					<p id="sökgenomförd"></p>
+					<p id="artikelinfo"></p>		
+					<p id="artikel_kategori"></p>
+				</div>
+
+			</div>
+
+   		</div>
+
+	</section>
+
+
+	<script>
+		//Generate the map when the page has loaded.
+		$(document).ready(generateMap());
+		$(document).ready(addTimeHandler());
+		$(document).ready(console.log("Document is ready!"));
+
+		//Set the height of the scroll-list with displayed articles to 65% or the screen height.
+		// $('#article_list').css('max-height', window.innerHeight * 0.6 + 'px');
+		// $('#article_list_time').css('max-height', window.innerHeight * 0.5 + 'px');
+
+		//Prevent the article to become "unmarked" when the user clicks somewhere in the article list.
+		$("#article_list_container_time")
+			.mouseenter(function(){
+				MOUSE_OVER_LIST = true;
+			}).mouseleave(function(){
+				MOUSE_OVER_LIST = false;});
+
+		//Hide the article list in time-view by default.
+		 $("#article_list_time").slideToggle();
+
+		 $("#loadingbar").css("top", $("#header_row").css("height")).css("top", "-=5");
+		 $("#transbox").css("top", $("#header_row").css("height"));
+
+		
+	</script>
+
+	<!--Modal for the information-->
+    <div id="myHistoryModal" class="modal fade" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--The cross in top right corner of the modal-->
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" style="font-size: 40px;">Sökhistorik</h4>
+                </div>
+                <div class="modal-history-body">
+            
+
+                </div>
+            </div>
+    	</div>
+    </div>
+
+</body>
+
 </html>

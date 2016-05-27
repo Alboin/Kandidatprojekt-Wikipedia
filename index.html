@@ -16,18 +16,13 @@
 
 ********************************************************************************************************-->
 
-
 <html class="no-js">
 <head>
 
+    <meta charset="utf-8">
     <title>Wikinspire</title>
 
     <link rel="icon" type="image/png" href="img/favicon.png">
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="description" content="ACME Inc.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Import Stylesheets and fonts. -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
@@ -43,9 +38,6 @@
     <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <!--script type="text/javascript" src="js/libs/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"></script-->
-
     
     <script type="text/javascript" src="js/press_search_button.js"></script>
     <script type="text/javascript" src="js/get_wiki_data.js"></script>
@@ -59,98 +51,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <!--Includes the header in all the different views-->
-    <!--div ng-include='"pages/header.html"'></div-->
-
-    <!-- Modal, the informationbox that appears when a button is being clicked -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-                    <h4 class="modal-title" id="myModalLabel"><p id="artikel_titel"></p></h4>
-                    <p id="artikel_bild"></p>
-                </div>
-
-                <div class="modal-body">
-                    <div id="artikel_text"></div>
-                </div>
-
-                <div class="modal-footer">
-                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>               
-                </div>
-            </div>
-        </div>
-    </div>
-
 </head>
 
-<body ng-app="wikiSearch">
+<body>
     
     <div class="infoButton">
         <!-- Buttons for the "övrigt" page, to be "info"-page -->
-        <img id ="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" src="img/info.png"></img>
+        <img id="place_right" class="info" data-toggle="modal" data-target="#myInfoModal" alt="Info button" src="img/info.png"></img>
         <!--The modal text is outside the body in this file-->
     </div>
 
+    <section id="search">
+
+        <!--Random button-->
+        <form action="resultat.html" autocomplete ="off">
+            <img id="random" alt="Dice" src="img/dice.png"></img>
+        </form>
 
 
-    <!--Uses the controller in app_test.js-->
+        <script>
+            //Eventlistener for the random button
+            document.getElementById("random").addEventListener("click", pressRandomSearchButton);
+        </script>
 
-<section id = "search">
+        <div class = "intro-text">Wikinspire</div>
 
+            <div class="row nomargin" id="lower_row">
 
+                <div class="col-lg-12">
 
-     <div class="row nomargin" id="lower_row">
+                    <div class="col-lg-4">
+                    </div>
 
-    <!--Random button-->
-    <form method="link" href="resultat.html" autocomplete ="off">
-        <img id="random" src="img/dice.png"></img>
-    </form>
+                    <div class="col-lg-4" id="topmargin">
 
+                        <form method="link" action="resultat.html" autocomplete ="off">
+                            <input id = "searchtext1" type="text" name="SearchResult" placeholder ="Sök efter en artikel..." required > 
+                            <!--input type="submit" id = "search" value="Search"-->
+                            <!--input type="submit" id="searchbutton" value=""-->
+                            <button id="searchbutton"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button> 
+                        </form>
 
-    <script>
-        //Eventlistener for the random button
-        document.getElementById("random").addEventListener("click", pressRandomSearchButton);
-    </script>
+                        <p id ="errormessage"></p>
 
-     <div class = "intro-text">Wikinspire</div>
-        <div class="row nomargin" id="lower_row">
-            <div class="col-lg-12">
+                        <script>
+                            // If the button "search" is clicked, the search is activated.
+                            document.getElementById("searchbutton").addEventListener("click", pressSearchButton);
+                            //Trigger searchbutton by clicking the enter key
+                            $("#searchtext1").keyup(function(event){
+                                if(event.keyCode == 13){
+                                    $("#searchbutton").click();
+                                }
+                            });
+                            
+                        </script>
+
+                    </div>    
+
+                </div>   
 
                 <div class="col-lg-4">
                 </div>
-
-                <div class="col-lg-4" id="topmargin">
-
-                    <form method="link" action="resultat.html" autocomplete ="off">
-                        <input id = "searchtext1" type="text" name="SearchResult" placeholder ="Sök efter en artikel..." required > 
-                        <!--input type="submit" id = "search" value="Search"-->
-                        <!--input type="submit" id="searchbutton" value=""-->
-                        <button id="searchbutton"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button> 
-                    </form>
-
-                    <p id ="errormessage"></p>
-
-                    <script>
-                        // If the button "search" is clicked, the search is activated.
-                        document.getElementById("searchbutton").addEventListener("click", pressSearchButton);
-                        //Trigger searchbutton by clicking the enter key
-                        $("#searchtext1").keyup(function(event){
-                            if(event.keyCode == 13){
-                                $("#searchbutton").click();
-                            }
-                        });
-                        
-                    </script>
-
-                </div>    
-
-            </div>   
-
-            <div class="col-lg-4">
 
             </div>
 
@@ -161,7 +122,9 @@
     <footer>
 
         <div class ="col-lg-12">
-                <div class="container">
+
+            <div class="container">
+
                 <div class="row">
 
                     <div class="col-md-4">
@@ -181,16 +144,18 @@
                     </div>
 
                 </div>
-            </div>
-        </div>
-    </footer>
 
+            </div>
+
+        </div>
+
+    </footer>
 
 </body>
 
     <!--Modal for the information-->
     <div id="myInfoModal" class="modal fade" >
-            <div class="modal-dialog">
+        <div class="modal-dialog">
             <div class="modal-history-content">
                 <div class="modal-header">
                     <!--The cross in top right corner of the modal-->
