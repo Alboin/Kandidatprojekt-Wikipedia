@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿<!--*******************************************************************************************************
+=======
+<!DOCTYPE html >
+<!--*******************************************************************************************************
+>>>>>>> c083b7f9a587a19054400c25f4cc284e8d7f88de
     
     This is a test version of index.html. Trying to implement AngularJS. 
     Uses app_test.js instead of app.js
@@ -15,7 +20,7 @@
 
 ********************************************************************************************************-->
 
-<!DOCTYPE html svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
 <html class="no-js">
 <head>
 
@@ -59,7 +64,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <!--Includes the header in all the different views-->
-    <div ng-include='"pages/header.html"'></div>
+    <!--div ng-include='"pages/header.html"'></div-->
 
     <!-- Modal, the informationbox that appears when a button is being clicked -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -78,7 +83,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>               
+                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>               
                 </div>
             </div>
         </div>
@@ -105,9 +110,9 @@
      <div class="row nomargin" id="lower_row">
 
     <!--Random button-->
-    <form method="link" href="index2_test.html" autocomplete ="off">
+    <!--<form method="link" href="index2_test.html" autocomplete ="off">
         <img id="random" src="img/dice.png"></img>
-    </form>
+    </form>-->
 
 
     <script>
@@ -142,6 +147,10 @@
                                 $("#searchbutton").click();
                             }
                         });
+
+                        $(document).ready(function() {
+                            $("#searchtext1").focus();
+                        })
                         
                     </script>
 
@@ -170,7 +179,7 @@
                     <div class="col-md-4">
 
                         <div class ="hover_text">
-                            <h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
+                             <p id="git_logo"><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a><p>
                         </div>
 
                     </div>
@@ -235,7 +244,8 @@
                     	på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, 
 		    	Hanna Johansson, Johanna Westberg och Sarah Fosse. 
 
-                    <br><h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
+                    <br><p id="git_logo"><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank">
+                    <i class="fa fa-github fa-2x"></i></a></p>
                 </div>
             </div>
         </div>

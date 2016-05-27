@@ -122,10 +122,11 @@ hr {
     padding: 0px;
 } */
 
-p {
+/*p {
     margin: 0%;
 }
 
+*/
 /* p#searchdescription{
     font-weight: 100;
     font-size: 18px;
@@ -135,7 +136,7 @@ p {
 
 p#footertxt
 {
-    padding-top: 4%; 
+    margin: 5%;
     font-family: 'serif';
     font-size: 100%;
 }
@@ -178,8 +179,8 @@ button {
 
 button#searchbutton
 {
-    width: 9%;
-    height: 100%;
+    height: 84%;
+    width: 10%;
     background-repeat: no-repeat;
     background-color: #F99C08;
     /*padding: 10%;*/
@@ -197,18 +198,40 @@ button#searchbutton
 button#searchbutton2
 {
    /* width: 9%;*/
+    width: 40px;
+    height: 40px;
     background-repeat: no-repeat;
     background-color: #F99C08;
-    border: 0;
+    border: none;
     color:white;
     font-weight: bold;
     margin: 2%;
     margin-left: 0%;
-   /* position:absolute;*/
-    left: 38%;
+    left: 44%;
     z-index: 10;
     padding: 2.5%;
-    border-radius: 3%;
+    position: absolute;
+}
+
+button#randomsearch
+{
+   /* width: 9%;*/
+    width: 40px;
+    height: 40px;
+    background: #F99C08 url(../img/dice.png) 100px 80px no-repeat;
+    border: none;
+    color:white;
+    font-weight: bold;
+    margin: 2%;
+    margin-left: 0%;
+    left: 55%;
+    z-index: 10;
+    position: absolute;
+}
+
+#random_dice {
+    width: 26px;
+    height: 26px;
 }
 
 
@@ -229,6 +252,10 @@ input#searchtext1
     width: 80%;
     height: 100%;
     box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.5);
+    border: none;
+    padding: 3%;
+    font-size: 20px;
+    font-color: #111111;
 }
 
 /*input#searchtext2
@@ -254,9 +281,18 @@ footer{
     transform: rotate(180deg);
 }
 
+#git_logo{
+
+    text-align: center;
+    margin: 4%;
+}
+
 #searchtext {
 
     padding: 1.5%;
+    position: absolute;
+    margin: 2%;
+    height: 40px;
 }
 
 #searchtext2 {
@@ -280,21 +316,23 @@ footer{
     background-color: #F99C08;
     border-radius: 0px;
 }
-/*
+
 #globe{
     position: absolute;
-    float: right;
-    top: -3px;
-    left: 49%;
-}*/
+    height: 40px;
+    left: 82%;
+    top: 10px;
+    /*margin: 1%;*/
+   
+}
 
-
-/*#clock {
+#clock {
     position: absolute;
-    float: right;
-    top: 0px;
-    left: 62%;
-}*/
+    left: 69%;
+    height: 40px;
+    top: 10px;
+    /*margin: 1.7%;*/
+}
 
 /*
 #loading_gif {
@@ -321,6 +359,7 @@ footer{
 
 #homepage_header:hover {
     color: #5F8CAB;
+    transition: all 0.2s ease-out;
 }
 
 
@@ -333,8 +372,8 @@ footer{
 /*background: rgba(0, 37, 51, 0.7);*/
     z-index: 100;
     font-family: 'Playfair Display';
-    background: #002533;
-    opacity: 0.5;
+    background: rgba(0, 37, 51, 0.5);
+    /*opacity: 0.5;*/
     z-index: 990;
 
 }
@@ -348,6 +387,11 @@ footer{
     margin-top: 2%;
     color: white;
     font-family: serif;
+}
+
+#middle_row:hover {
+    color: black;
+    transition: all 0.2s ease-out;
 }
 
 #right_time_handle {
@@ -371,7 +415,7 @@ footer{
     width: 13.5%;
     padding: 0px;
     margin-right: 0.5%;
-    top: 9%;
+    top: 76px;
     border-radius: 5px;
     background: rgba(0, 37, 51, 0.7);
     opacity: 0.85;
@@ -384,7 +428,7 @@ footer{
     width: 13.5%;
     padding: 0px;
     margin: 0.5%;
-    top: 8%;
+    top: 70px;
     border-radius: 5px;
     opacity: 0.85;
     background: rgba(0, 37, 51, 0.7);
@@ -473,7 +517,7 @@ footer{
 
 #map { 
     position:fixed;
-    top: 50px; 
+    top: 60px; 
     bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
     width:0%; 
     height:0%; /* Eller ändra den här...*/
@@ -583,6 +627,7 @@ div.tooltip {
     pointer-events: none;           
 }
 
+
 .globe {
     width:12%;
 }
@@ -614,9 +659,12 @@ div.tooltip {
 }
 
 .random{
-    width:12%; 
-    cursor: pointer; 
+    width: 10%;
+    cursor: pointer;
     color: white;
+    position: absolute;
+    left: 76%;
+    margin: 0.8%;
 }
 
 
@@ -659,6 +707,7 @@ div.tooltip {
      border-top-left-radius: 5px;
      border-top-right-radius: 5px;
 }
+
 
 .modal-info-body {
     padding: 10px;
@@ -727,18 +776,20 @@ div.tooltip {
     cursor: pointer;
     /* position: absolute; */
     right: 1%;
-    top: 10px;
-    margin: 12px;
+    /* top: 0px; */
+    margin: 1%;
     float: right;
 }
 
 #history_button {
     position: absolute;
     cursor: pointer;
-    right: 5%;
-    top: 0px;
-    margin: 12px;
-    width: 1%;
+    right: 4%;
+    height: 30px;
+    top: 15px;
+    /*top: 5%;
+    margin: 0.8%;
+    width: 1%;*/
     font-size: 30px;
     color: white;
 }
@@ -750,20 +801,17 @@ div.tooltip {
     height: 7%;
 }
 
-
-
 #header_row{
     background-color: #002533;
     /* padding: 10px; */
     /* margin: 0%; */
-    font-color: #ffffff;
     padding: 0;
     padding-bottom: 4%;
     margin: 0%;
     z-index: 100;
     position: fixed;
     width: 100%;
-    height: 50px;/*8%;*/
+    height: 60px;
 
 }
 
