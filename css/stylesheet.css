@@ -604,6 +604,10 @@ div.tooltip {
     width:2%;
 }
 
+.info-icons {
+  text-align: center; 
+}
+
 #random{
     width:2%; 
     cursor: pointer; 

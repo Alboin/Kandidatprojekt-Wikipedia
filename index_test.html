@@ -1,4 +1,4 @@
-<!--*******************************************************************************************************
+﻿<!--*******************************************************************************************************
     
     This is a test version of index.html. Trying to implement AngularJS. 
     Uses app_test.js instead of app.js
@@ -197,9 +197,43 @@
                     <h4 class="modal-title">Info</h4>
                 </div>
                 <div class="modal-info-body">
-                    Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. Sökresultat visualiseras i två olika vyer: Kartvyn och Tidsvyn.   
-                    <br><br>
-                    Det här projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, Hanna Johansson, Johanna Westberg och Sarah Fosse. 
+                    Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. 
+
+		    	Ditt sökresultat visualiseras i två olika vyer: En tidslinjevy och en kartvy. Du kan när du vill växla till 
+		    	den andra vyn med hjälp av ikonerna. 
+		    <br><br>
+		    <div class="info-icons">
+			<img id="info_clock" src="img/clock_orange_strong_small.png" width="10%"></img>
+			Ikon för tidslinjevy. &nbsp &nbsp &nbsp &nbsp &nbsp
+			<img id="info_globe" src="img/globe_orange_strong_small.png" width="10%"></img>
+			Ikon för kartvy.
+                    </div>
+		    <br>
+		    	I båda vyerna kan du läsa kort om det ämne du sökt på samt klicka dig vidare till Wikipedia för att läsa 
+		    	hela artikeln. Detsamma gäller för varje relaterad artikel som kommer upp som sökresultat i den aktuella vyn.
+		    <br><br>
+		    	I de två vyerna visas de artiklar som är relaterade till din sökning. En artikel anses relaterad om din 
+			huvudsökning länkar till den i sin artikel eller om den relaterade artikeln länkar till din sökta artikel. 
+			På vilket sätt artiklarna är relaterade markeras med hjälp av olika färger: ljusblått och mörkblått. 
+			Om en artikel både länkar till och länkas från huvudartikeln anses den starkt relaterad och markeras då 
+			med orange färg.   
+		    <br><br>
+			I båda vyerna kan du också gå tillbaka till startsidan genom att lika på Wikinspire i sidhuvudet. Du kan även
+			när du vill göra en ny sökning i sökfältet. Gör du flera sökningar sparas dessa i en lista som du kan se i din 
+			sökhistorik, vilken presenteras om du klickar ikonen för sökhistorik. Önskar du göra en slumpad sökning kan
+			du välja att klicka på ikonen som ser ut som en tärning och du får då fram sökresultatet för en slumpad artikel 
+			från Wikipedia. 
+ 		    <div class="info-icons">
+			<br>
+			<i id="info_history" class="fa fa-history fa-2x" aria-hidden="true" data-toggle="modal" data-target="#myHistoryModal"></i>
+			&nbsp Ikon för sökhistorik.
+			<img id="info_globe" src="img/globe_orange_strong_small.png" width="10%"></img>
+			Ikon för slumpad sökning.
+                    </div>	
+                    <br>
+                    	Projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, 
+                    	på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, 
+		    	Hanna Johansson, Johanna Westberg och Sarah Fosse. 
 
                     <br><h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
                 </div>
