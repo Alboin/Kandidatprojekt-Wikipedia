@@ -111,6 +111,7 @@ function getWikiData(query, article_color){
 
 		        		MAIN_ARTICLE = loadMainArticle(data);
 		        		OLD_MAIN_ARTICLES.push(MAIN_ARTICLE);
+		        		$('#searchtext').val('');
 		        		$(".modal-history-body").append(MAIN_ARTICLE.title + "<br>");
 		        		$("#transbox").click(function(){changeModalContent(MAIN_ARTICLE.title);});
 
