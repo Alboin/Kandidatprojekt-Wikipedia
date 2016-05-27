@@ -71,15 +71,18 @@
 
 				<img class="clock" id="clock" src="img/clock_white_small.png" alt="ClockIcon" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" onclick="changeClockImage(this)">
 
-				<img id="random2" class="random" ng-class="{ active: pageCtrl.isSet(1) }" ng-click="pageCtrl.setPage(1)" alt="RandomIcon" src="img/dice.png"></img>
+ 		 		<button id="searchbutton2"><i class="fa fa-search fa-1x" aria-hidden="true"></i></button>
 
+ 		 		<button id="randomsearch"><img id="random_dice" alt="RandomIcon" src="img/dice.png"></button>
+ 			
+ 		 		<img class="globe" id="globe"; src="img/globe_white_small.png" alt="GlobeIcon" ng-class="{ active: pageCtrl.isSet(2) }" ng-click="pageCtrl.setPage(2)" onclick="changeGlobeImage(this)"/>
 
-				
 		 		<form name="search">
 					<input type="hidden" name="textresult">
 				</form>	
 
 				<script>
+
 
 					var locate = window.location
 					document.search.textresult.value = locate
@@ -111,9 +114,41 @@
 
 				</script>
 
+
 				<!-- handle icon when hovered -->
 				<script  type='text/javascript'>
 					$(document).ready(function(){
+
+						//Random button
+						document.getElementById("randomsearch").addEventListener("click", pressRandomSearchButton);
+
+					</script>
+
+					<!-- handle icon when hovered -->
+					<script  type='text/javascript'>
+						$(document).ready(function(){
+
+							$("#globe").mouseenter(function(){
+								if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
+									$("#globe").attr("src" , "img/globe_orange_weak_small.png");
+								}
+							});
+							$("#globe").mouseleave(function(){
+								if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
+									$("#globe").attr("src" , "img/globe_white_small.png");
+								}
+							});
+
+							$("#clock").mouseenter(function(){
+								if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
+									$("#clock").attr("src" , "img/clock_orange_weak_small.png");
+								}
+							});
+							$("#clock").mouseleave(function(){
+								if($("#clock").attr("src") != "img/clock_orange_strong_small.png") {
+									$("#clock").attr("src" , "img/clock_white_small.png");
+								}
+							});
 
 						$("#globe").mouseenter(function(){
 							if($("#globe").attr("src") != "img/globe_orange_strong_small.png") {
@@ -138,6 +173,7 @@
 						});
 
 					});
+
 				</script>
 
 				<!-- handle icon when clicked -->
@@ -185,6 +221,62 @@
 	        	</script>
 
 				<h4 class="wiki_title2"><a href = "index.html" id="homepage_header"> Wikinspire </a></h4>
+
+   				<div id="loadingbar"></div>
+
+	    	<!-- End of 1st row, top of the page. -->
+	    	</div>
+
+	    	<!--Modal for the information-->
+			<div id="myInfoModal" class="modal fade" >
+					<div class="modal-dialog">
+    				<div class="modal-content">
+        				<div class="modal-header">
+        					<!--The cross in top right corner of the modal-->
+           					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            				<h4 class="modal-title">Info</h4>
+       					</div>
+						<div class="modal-info-body">
+                    	Wikinspire låter dig allmänbildas och se relationer mellan olika artiklar från Wikipedia. 
+
+		    	Ditt sökresultat, det vill säga de artiklar som är relaterade till din sökning, visualiseras i två olika vyer:
+			En tidslinjevy och en kartvy. Du kan när du vill växla till den andra vyn med hjälp av ikonerna. 
+		    <br><br>
+		    <div class="info-icons">
+			<img id="info_clock" src="img/clock_orange_strong_small.png" width="10%"></img>
+			Ikon för tidslinjevy. &nbsp &nbsp &nbsp &nbsp &nbsp
+			<img id="info_globe" src="img/globe_orange_strong_small.png" width="10%"></img>
+			Ikon för kartvy.
+                    </div>
+		    <br>
+		    	I båda vyerna kan du läsa kort om det ämne du sökt på samt klicka dig vidare till Wikipedia för att läsa 
+		    	hela artikeln. Detsamma gäller för varje relaterad artikel som kommer upp som sökresultat i den aktuella vyn.
+			En artikel anses relaterad om din huvudsökning länkar till den i sin artikel eller om den relaterade artikeln 
+			länkar till din sökta artikel. På vilket sätt artiklarna är relaterade markeras med hjälp av olika färger: 
+			ljusblått och mörkblått. Om en artikel både länkar till och länkas från huvudartikeln anses den starkt 
+			relaterad och markeras då med orange färg.   
+		    <br><br>
+			I båda vyerna kan du också gå tillbaka till startsidan genom att klicka på Wikinspire i sidhuvudet. Du kan även
+			när du vill göra en ny sökning i sökfältet. Gör du flera sökningar sparas dessa i en lista som du kan se i din 
+			sökhistorik, vilken presenteras om du klickar på ikonen för sökhistorik. Önskar du göra en slumpad sökning kan
+			du välja att klicka på knappen med en tärning på och du får då fram sökresultatet för en slumpad artikel 
+			från Wikipedia. 
+ 		    <div class="info-icons">
+			<br>
+			<i id="info_history" class="fa fa-history fa-2x" aria-hidden="true" data-toggle="modal" data-target="#myHistoryModal"></i>
+			&nbsp Ikon för sökhistorik. &nbsp &nbsp &nbsp &nbsp &nbsp
+			<img id="info_globe" src="img/random.png" width="6%"></img>
+			Ikon för slumpad sökning.
+                    </div>	
+                    <br> 
+                    	Projektet har utvecklats i kursen TNM094, Medietekniskt Kandidatprojekt, 
+                    	på Linköpings Universitet. Projektet har utvecklats av Sara Martin, Albin Bergström, 
+		    	Hanna Johansson, Johanna Westberg och Sarah Fosse. 
+
+                    <br><br><h4><a href="https://github.com/Alboin/Kandidatprojekt-Wikipedia" target="_blank"><i class="fa fa-github fa-2x"></i></a></h4>
+                </div>
+					</div>
+                </div>
 
 			</div>
 

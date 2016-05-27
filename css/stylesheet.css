@@ -179,8 +179,8 @@ button {
 
 button#searchbutton
 {
-    width: 9%;
     height: 84%;
+    width: 10%;
     background-repeat: no-repeat;
     background-color: #F99C08;
     /*padding: 10%;*/
@@ -198,6 +198,8 @@ button#searchbutton
 button#searchbutton2
 {
    /* width: 9%;*/
+    width: 40px;
+    height: 40px;
     background-repeat: no-repeat;
     background-color: #F99C08;
     border: none;
@@ -205,10 +207,31 @@ button#searchbutton2
     font-weight: bold;
     margin: 2%;
     margin-left: 0%;
-    left: 40%;
+    left: 44%;
     z-index: 10;
     padding: 2.5%;
     position: absolute;
+}
+
+button#randomsearch
+{
+   /* width: 9%;*/
+    width: 40px;
+    height: 40px;
+    background: #F99C08 url(../img/dice.png) 100px 80px no-repeat;
+    border: none;
+    color:white;
+    font-weight: bold;
+    margin: 2%;
+    margin-left: 0%;
+    left: 55%;
+    z-index: 10;
+    position: absolute;
+}
+
+#random_dice {
+    width: 26px;
+    height: 26px;
 }
 
 
@@ -269,7 +292,7 @@ footer{
     padding: 1.5%;
     position: absolute;
     margin: 2%;
-    height: 41px;
+    height: 40px;
 }
 
 #searchtext2 {
@@ -296,15 +319,19 @@ footer{
 
 #globe{
     position: absolute;
-    left: 63%;
-    margin: 0.8%;
+    height: 40px;
+    left: 82%;
+    top: 10px;
+    /*margin: 1%;*/
    
 }
 
 #clock {
     position: absolute;
-    left: 50%;
-    margin: 1.5%;
+    left: 69%;
+    height: 40px;
+    top: 10px;
+    /*margin: 1.7%;*/
 }
 
 /*
@@ -332,6 +359,7 @@ footer{
 
 #homepage_header:hover {
     color: #5F8CAB;
+    transition: all 0.2s ease-out;
 }
 
 
@@ -344,8 +372,8 @@ footer{
 /*background: rgba(0, 37, 51, 0.7);*/
     z-index: 100;
     font-family: 'Playfair Display';
-    background: #002533;
-    opacity: 0.5;
+    background: rgba(0, 37, 51, 0.5);
+    /*opacity: 0.5;*/
     z-index: 990;
 
 }
@@ -359,6 +387,11 @@ footer{
     margin-top: 2%;
     color: white;
     font-family: serif;
+}
+
+#middle_row:hover {
+    color: black;
+    transition: all 0.2s ease-out;
 }
 
 #right_time_handle {
@@ -382,7 +415,7 @@ footer{
     width: 13.5%;
     padding: 0px;
     margin-right: 0.5%;
-    top: 9%;
+    top: 76px;
     border-radius: 5px;
     background: rgba(0, 37, 51, 0.7);
     opacity: 0.85;
@@ -395,7 +428,7 @@ footer{
     width: 13.5%;
     padding: 0px;
     margin: 0.5%;
-    top: 8%;
+    top: 70px;
     border-radius: 5px;
     opacity: 0.85;
     background: rgba(0, 37, 51, 0.7);
@@ -484,7 +517,7 @@ footer{
 
 #map { 
     position:fixed;
-    top: 50px; 
+    top: 60px; 
     bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
     width:0%; 
     height:0%; /* Eller ändra den här...*/
@@ -616,6 +649,10 @@ div.tooltip {
     width:2%;
 }
 
+.info-icons {
+  text-align: center; 
+}
+
 #random{
     width:2%; 
     cursor: pointer; 
@@ -740,7 +777,7 @@ div.tooltip {
     /* position: absolute; */
     right: 1%;
     /* top: 0px; */
-    margin: 0.8%;
+    margin: 1%;
     float: right;
 }
 
@@ -748,9 +785,11 @@ div.tooltip {
     position: absolute;
     cursor: pointer;
     right: 4%;
-    top: 5%;
+    height: 30px;
+    top: 15px;
+    /*top: 5%;
     margin: 0.8%;
-    width: 1%;
+    width: 1%;*/
     font-size: 30px;
     color: white;
 }
@@ -772,7 +811,7 @@ div.tooltip {
     z-index: 100;
     position: fixed;
     width: 100%;
-    height: 8%;
+    height: 60px;
 
 }
 
