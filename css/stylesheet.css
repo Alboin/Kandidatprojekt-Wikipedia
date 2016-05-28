@@ -321,6 +321,7 @@ footer{
 #globe{
     position: absolute;
     height: 40px;
+    width: 55px;
     left: 82%;
     top: 10px;
     /*margin: 1%;*/
@@ -331,6 +332,7 @@ footer{
     position: absolute;
     left: 69%;
     height: 40px;
+    width: 55px;
     top: 10px;
     /*margin: 1.7%;*/
 }
