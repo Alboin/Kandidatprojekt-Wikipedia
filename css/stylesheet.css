@@ -137,8 +137,8 @@ hr {
 p#footertxt
 {
     margin: 5%;
-    font-family: 'serif';
-    font-size: 100%;
+    font-family: 'Arial';
+    font-size: 80%;
 }
 
 p#relations
@@ -313,7 +313,6 @@ footer{
     left: 0px;
     height: 5px;
     width: 0px;
-    z-index: 500000;
     background-color: #F99C08;
     border-radius: 0px;
 }
