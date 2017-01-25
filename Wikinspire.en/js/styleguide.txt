@@ -1,0 +1,32 @@
+TILLMALL FÖR PROJEKTET WIKINSPIRE, SKAPAD 2016-04-20
+
+
+------------------------------------------------------------------------
+	Såhär namnger vi/ser stilmallen ut för våra 
+	globala variabler, lokala variabler, funktionsnamn och filnamn:
+------------------------------------------------------------------------
+GLOBAL_VARIABLE
+local_variable
+nameOfFuction
+file_name
+
+
+
+------------------------------------------------------------------------
+	Högst upp i varje fil ska det finnas ett "Header Comment Block",
+	det ska innehålla följande:
+------------------------------------------------------------------------
+- Authors
+- Date for when the file was created
+- Short information about the file and what it does
+- List of the names of the functions in the file
++ Could be added: When the code was inspected/checked/tested and by whom
+
+
+
+------------------------------------------------------------------------
+	ATT TÄNKA PÅ/ÖVRIGT:
+------------------------------------------------------------------------
+Använd hellre längre, men TYDLIGA funktionsnamn, 
+detsamma gäller variabelnamn.
+

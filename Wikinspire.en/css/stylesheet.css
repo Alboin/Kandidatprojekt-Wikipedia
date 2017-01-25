@@ -1,0 +1,848 @@
+﻿
+/*--------------------------------------------------------
+                      HOVERS 
+/*------------------------------------------------------*/
+
+a:hover {
+    cursor: pointer;
+}
+
+button:hover{
+    color: black;
+}
+
+
+circle:hover{
+    cursor: pointer;
+}
+
+html,
+body { 
+    margin:0; 
+    padding:0; 
+    background: #ffffff;
+    height: 100%;
+    width: 100%;
+    /*overflow-x: hidden;*/
+    overflow: hidden; /*Disable the scroll-bars since they will mess with the page-layout and are not really needed.*/
+}
+
+header {
+    width: 100%;
+    /*height: 40%; */
+    background-color:#002533;
+    color: white;
+}
+
+.hover_text
+{
+    color: #E0E2FF;
+}
+
+.hover_text:hover
+{
+    color: #90a5b3;
+}
+
+.intro-text{
+
+    padding: 8%;
+    padding-bottom: 4%;
+    font-family: 'Playfair Display', Serif;
+    font-size: 700%;
+    text-align: center;
+    color: white;
+    text-shadow: 10px 10px 20px #000000;
+}
+
+/* #header_text{
+    padding-top: 10px;
+    font-family: 'Playfair Display', Arial;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    color: #507583;/*white;
+}*/
+
+
+/* #header_text:hover {
+    cursor: pointer;
+    color: rgb(200,200,230); 
+    color: #90a5b3;
+}*/
+
+/* h1 {
+    font-family: 'Playfair Display', Arial;
+    font-size: 40px;
+    text-align: center;
+    color: white;
+} */
+
+h2 {
+    font-family: Arial, sans-serif; 
+   /* font-size: 25px; */
+    text-align: center;
+    color:black;
+    text-transform: uppercase;
+    font-weight: bold;
+
+}
+
+h3{
+    font-family: 'Playfair Display';
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    font-size: 170%;
+}
+
+h4 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 90%;
+    text-align: center;
+    color: white;
+}
+
+h5 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 70;
+    font-size: 200%;
+    text-align: center;
+    color: gray;
+
+}
+
+/*
+hr {
+    color: #C9FF8F;    
+    background-color: #496A6F;
+    height: 0px;
+    margin: 0px;
+    padding: 0px;
+} */
+
+/*p {
+    margin: 0%;
+}
+
+*/
+/* p#searchdescription{
+    font-weight: 100;
+    font-size: 18px;
+    float: left;
+    margin-left: 5%;
+}*/
+
+p#footertxt
+{
+    margin: 5%;
+    font-family: 'Arial';
+    font-size: 80%;
+}
+
+p#relations
+{
+    font-family: 'Arial';
+    color: white;
+    font-size: 70%;
+    padding: 2 10 2 10;;
+}
+
+section#search
+{
+    /*padding-top:3%;*/
+    height:93%;
+
+    width: 100%;
+    /*background-color: #E0E2FF;
+    background-image: url('../img/cat-background.jpg');*/
+    background-image: url('../img/vatten.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    color: black;
+    text-align: center;
+}
+
+
+button {
+    background-color: gray; 
+    border: none;
+    color: white;
+    /*padding: 2% 2%;*/
+    text-align: center;
+    text-decoration none;
+    display: inline-block;
+    font-size: 120%;
+    /*border-radius: 8px;*/
+}
+
+button#searchbutton
+{
+    height: 84%;
+    width: 10%;
+    background-repeat: no-repeat;
+    background-color: #F99C08;
+    /*padding: 10%;*/
+    border: 0;
+    color:white;
+    font-weight: bold;
+    margin: 0;
+    position:absolute;
+    /*left: 67%;*/
+    z-index: 10;
+    box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.5);
+
+}
+
+button#searchbutton2
+{
+   /* width: 9%;*/
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-color: #F99C08;
+    border: none;
+    color:white;
+    font-weight: bold;
+    margin: 2%;
+    margin-left: 0%;
+    left: 44%;
+    z-index: 10;
+    padding: 2.5%;
+    position: absolute;
+}
+
+button#randomsearch
+{
+   /* width: 9%;*/
+    width: 40px;
+    height: 40px;
+    background: #F99C08 url(../img/dice.png) 100px 80px no-repeat;
+    border: none;
+    color:white;
+    font-weight: bold;
+    margin: 2%;
+    margin-left: 0%;
+    left: 55%;
+    z-index: 10;
+    position: absolute;
+}
+
+#random_dice {
+    width: 26px;
+    height: 26px;
+}
+
+
+/*input#searchbutton 
+{
+    padding: 10%;
+    width: 7%;
+   height: 2.8%;
+    background:url(../img/magnifier_white.png);
+    background-repeat: no-repeat;
+    background-color: #F99C08;
+    border: 0;
+}*/
+
+
+input#searchtext1 
+{
+    width: 80%;
+    height: 100%;
+    box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.5);
+    border: none;
+    padding: 3%;
+    font-size: 20px;
+    font-color: #111111;
+}
+
+/*input#searchtext2
+{
+    width: 40%;
+}*/
+
+footer{
+    height: 7%;
+    color: #5F8CAB;
+    background-color:#002533;
+    padding: 0%;
+}
+
+
+
+
+/*--------------------------------------------------------
+                            ID
+/*------------------------------------------------------*/
+
+#article_list_arrow_map {
+    transform: rotate(180deg);
+}
+
+#git_logo{
+
+    text-align: center;
+    margin: 4%;
+}
+
+#searchtext {
+
+    padding: 1.5%;
+    position: absolute;
+    margin: 2%;
+    height: 40px;
+}
+
+#searchtext2 {
+    height: 37px;
+}
+
+#search_not_complete_message {
+    position: absolute;
+    z-index: 100;
+    top:60px;
+    left:50px;
+    color: white;
+}
+
+#loadingbar {
+    position: absolute;
+    top: 55px;
+    left: 0px;
+    height: 5px;
+    width: 0px;
+    background-color: #F99C08;
+    border-radius: 0px;
+}
+
+#globe{
+    position: absolute;
+    height: 40px;
+    width: 55px;
+    left: 82%;
+    top: 10px;
+    /*margin: 1%;*/
+   
+}
+
+#clock {
+    position: absolute;
+    left: 69%;
+    height: 40px;
+    width: 55px;
+    top: 10px;
+    /*margin: 1.7%;*/
+}
+
+/*
+#loading_gif {
+    position: absolute;
+    color: green;
+    left: 12.3%;
+    top: 37%;
+    z-index: 10;
+}
+
+#loading_done_checkbox {
+    position: absolute;
+    color: rgba(0, 37, 51, 0.7);;
+    left: 12.2%;
+    top: 35%;
+    z-index: 10;
+    font-size: 150%;
+    font-size: 20px;
+}*/
+
+#homepage_header {
+    color: #2B5673;
+}
+
+#homepage_header:hover {
+    color: #5F8CAB;
+    transition: all 0.2s ease-out;
+}
+
+
+#transbox {
+    position: fixed;
+    width: 33%;
+    min-height: 7%;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+/*background: rgba(0, 37, 51, 0.7);*/
+    z-index: 100;
+    font-family: 'Playfair Display';
+    background: rgba(0, 37, 51, 0.5);
+    /*opacity: 0.5;*/
+    z-index: 990;
+
+}
+
+#transbox:hover {
+    cursor:pointer;
+}
+
+#middle_row {
+
+    margin-top: 2%;
+    color: white;
+    font-family: serif;
+}
+
+#middle_row:hover {
+    color: black;
+    transition: all 0.2s ease-out;
+}
+
+#right_time_handle {
+    cursor: pointer;
+}
+
+#left_time_handle {
+    cursor: pointer;
+}
+
+#svg{
+    width:100%;
+    height:100%;
+    margin:0;
+    margin-top:75px;
+}
+
+#article_list_container {
+    position: fixed;
+    right: 0%;
+    width: 13.5%;
+    padding: 0px;
+    margin-right: 0.5%;
+    top: 76px;
+    border-radius: 5px;
+    background: rgba(0, 37, 51, 0.7);
+    opacity: 0.85;
+    z-index: 999;
+}
+
+#article_list_container_time {
+    position: fixed;
+    right: 0%;
+    width: 13.5%;
+    padding: 0px;
+    margin: 0.5%;
+    top: 70px;
+    border-radius: 5px;
+    opacity: 0.85;
+    background: rgba(0, 37, 51, 0.7);
+    z-index: 10;
+}
+
+#article_list {
+    border-radius: 0px; /*6px;*/
+    overflow: auto;
+    padding: 4px;
+    color: black;
+    background: #ddd;
+    opacity: 0.85;
+    overflow-x: hidden;
+    max-height: 330px; /*Sorry fick inte den här att funka utan pixlar...*/
+}
+
+#article_list_time {
+    border-radius: 0px; /*6px;*/
+    overflow: auto;
+    padding: 4px;
+    color: black;
+    background: #ddd;
+    opacity: 0.85;
+    overflow-x: hidden;
+    max-height: 300px; /*Samma här som ovan!*/
+
+}
+
+#article_list li {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: #eeeeee #ffffff;
+    background: rgba(0,0,0,0);
+}
+
+#article_list li:hover {
+    background:#fff;
+    cursor: pointer;
+}
+
+#article_list_time li {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: #eeeeee #ffffff;
+}
+
+#article_list_time li:hover {
+    background: white;
+    cursor: pointer;
+}
+
+#article_text{
+    text-align: left; 
+}
+
+/*#back {
+	position: absolute;
+	left: 25px;
+	top: 60px;
+}*/
+
+#footer {
+    text-align: center;
+    font-size: 100%;
+    font-family: 'Roboto';
+}
+
+#map_footer {
+    position: fixed;
+    width: 100%;
+    height: 8%;
+    z-index: 1000;
+    background-color:#002533;
+    color: white;
+    bottom: 0%;   
+}
+
+#map_footer_text{
+    font-family: sans-serif;
+    font-size: 120%;
+}
+
+
+#map { 
+    position:fixed;
+    top: 60px; 
+    bottom:0; /*Reglera den här om man vill ha plats för en timeline längst ned.*/
+    width:0%; 
+    height:0%; /* Eller ändra den här...*/
+    padding: 0%;
+    margin: 0%;
+    z-index: 31;
+    background-color: #d1d1d1;
+}
+
+#marked_word {
+    background-color: yellow;
+}
+
+#modalImage {
+    max-width: 300px;
+    max-height: 200px;
+}
+
+#newMainArticle {
+    text-align: right;
+}
+
+/*#popup{
+    position: fixed;
+    background: rgba(0,0,0,.8);
+    display: none;
+    top: 20px;
+    left: 50px;
+    width: 300px;
+    height: 200px;
+    border: 1% solid #000;
+    border-radius: 5px;
+    padding: 5px;
+    color: #fff;
+} */
+
+/*#random {
+    display: block;
+    position: relative;
+    margin: 0px auto;
+    width: 50%;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: #fff;
+    background: #ee8a65;
+}*/
+
+/*--------------------------------------------------------
+                        CLASSES
+/*------------------------------------------------------*/
+
+.article_list_header {
+    color: white;
+    text-align: center;
+}
+
+.article_list_header:hover {
+    color: black;
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+}
+
+.modal-history-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    /* border-color: #ccc; */
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #002533;
+    border-color: #002533;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #002533; 
+    border-color: #002533;
+}
+
+.clock {
+    width:12%; 
+}
+
+.clock:hover{
+    cursor:pointer;
+}
+
+div.tooltip {   
+    position: absolute;         
+    text-align: center;         
+    min-width: 8%;                    
+    min-height: 5%;                                 
+    font: 80% sans-serif;      
+    background: white;        
+    border-radius: 5%;         
+    pointer-events: none;           
+}
+
+
+.globe {
+    width:12%;
+}
+
+.globe:hover{
+    cursor:pointer;
+}
+
+.globe:active{
+    cursor:pointer;
+}
+
+/*.info_button{
+   cursor: pointer; 
+   cursor: hand; 
+}*/
+
+.info{
+    width:2%;
+}
+
+.info-icons {
+  text-align: center; 
+}
+
+#random{
+    width:2%; 
+    cursor: pointer; 
+}
+
+.random{
+    width: 10%;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    left: 76%;
+    margin: 0.8%;
+}
+
+
+/*.mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px 'Roboto', Arial, Helvetica, sans-serif;
+    text-align: left; 
+}*/
+
+.marker-title {
+    font-weight: 700;
+    font-size: 200%;
+    max-width: 100%;
+    font-family: 'Playfair Display', serif; 
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.marker{
+    width:7%;
+}
+
+.modal-title{
+    font-weight: 700;
+    font-size: 350%;
+    text-transform: uppercase;
+    color: white;
+    font-family: 'Playfair Display', serif; 
+    
+}
+
+.modal-header {
+    padding:9px 15px; 
+    border-bottom:0% solid #eee;
+    background-color: #002533;
+   -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
+
+
+.modal-info-body {
+    padding: 10px;
+    /* margin: 10px; */
+    background-color: white;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.modal-dialog{
+    max-height: 70%;
+}
+
+.modal-body {
+    /*max-height: calc(100vh - 210px);
+    overflow-y: auto;*/
+    color: black;
+}
+
+.modal-footer {
+    padding:9px 15px;
+    border-top:1px solid #eee;
+    background-color: #002533;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+     border-bottom-left-radius: 5px;
+     border-bottom-right-radius: 5px;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+/*.wiki_title{
+ 
+    font-size: 10%;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    font-family: 'Playfair Display', serif; 
+}*/
+.wiki_title2{
+    font-weight: 500;
+    font-size: 240%;
+    color: #56727C; 
+    text-align: center;
+    font-color: #002533;
+    font-family: 'Playfair Display', serif;
+        margin: 2%;
+    /* margin-top: 3%; */
+}
+.wiki_title2 :hover{
+    color: white;
+    text-decoration: none;
+}
+
+#place_right{
+    cursor: pointer;
+    /* position: absolute; */
+    right: 1%;
+    /* top: 0px; */
+    margin: 1%;
+    float: right;
+}
+
+#history_button {
+    position: absolute;
+    cursor: pointer;
+    right: 4%;
+    height: 30px;
+    top: 15px;
+    /*top: 5%;
+    margin: 0.8%;
+    width: 1%;*/
+    font-size: 30px;
+    color: white;
+}
+
+#topmargin{
+   /* top: 10px;*/
+  /*  margin: 10px;*/
+    padding: 0;
+    height: 7%;
+}
+
+#header_row{
+    background-color: #002533;
+    /* padding: 10px; */
+    /* margin: 0%; */
+    padding: 0;
+    padding-bottom: 4%;
+    margin: 0%;
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    height: 60px;
+
+}
+
+
+#inaccessible_area_left {
+    background: linear-gradient(to top, black , white);
+    padding: 0;
+    margin: 0;
+    margin-top: 75px;
+    position: absolute;
+    top: -1;
+    opacity: 0.2;
+    z-index: 10;
+}
+
+#inaccessible_area_right {
+    background: linear-gradient(to top, black , white);
+    padding: 0;
+    margin: 0;
+    margin-top: 75px;
+    position: absolute;
+    top: -1;
+    right: 0;
+    opacity: 0.2;
+    z-index: 10;
+}
+
+#article_list_header_time:hover {
+    color: black;
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+}
